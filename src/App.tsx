@@ -1,0 +1,54 @@
+import { Route, Routes, useLocation } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Home from './pages/Home'
+import Catalog from './pages/Catalog'
+import Product from './pages/Product'
+import Admin from './pages/Admin'
+import { About, Account, Cart, Checkout, Compare, Favorites } from './pages/Shop'
+import { ExpandProvider, SmoothScroll } from './lib/motion'
+import { useStore } from './store/Store'
+
+function Toasts() {
+  const { toasts } = useStore()
+  return (
+    <div className="toasts" aria-live="polite">
+      <AnimatePresence>
+        {toasts.map((t) => (
+          <motion.div key={t.id} className="toast" initial={{ opacity: 0, y: 20, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.95 }}>{t.text}</motion.div>
+        ))}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+export default function App() {
+  const loc = useLocation()
+  const isAdmin = loc.pathname.startsWith('/admin')
+  return (
+    <ExpandProvider>
+      <SmoothScroll />
+      {!isAdmin && <Header />}
+      <main id="conteudo">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/iphones" element={<Catalog key="todos" />} />
+          <Route path="/seminovos" element={<Catalog key="semi" mode="seminovos" />} />
+          <Route path="/ofertas" element={<Catalog key="ofertas" mode="ofertas" />} />
+          <Route path="/produto/:id" element={<Product />} />
+          <Route path="/comparar" element={<Compare />} />
+          <Route path="/favoritos" element={<Favorites />} />
+          <Route path="/carrinho" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/conta" element={<Account />} />
+          <Route path="/sobre" element={<About />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </main>
+      {!isAdmin && <Footer />}
+      <Toasts />
+    </ExpandProvider>
+  )
+}
