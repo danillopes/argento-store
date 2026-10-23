@@ -1,18 +1,17 @@
-// Modela com alta fidelidade o iPhone 12 e o iPhone 12 mini seguindo as referências de estúdio
+// Modela com fotorrealismo de estúdio o iPhone 12 e o iPhone 12 mini seguindo as 11 referências
 // e grava public/models/iphone-12.glb, public/models/iphone-12-mini.glb e suas versões em public/models/explodido/.
 // Uso: npm run modelar:iphone12
 //
-// Medidas físicas oficiais em metros:
-//   iPhone 12      146,7 × 71,5 × 7,4 mm      iPhone 12 mini 131,5 × 64,2 × 7,4 mm
-// Detalhes fiéis às imagens de referência:
-//   - Laterais retas de alumínio anodizado com chanfro polido frontal/traseiro e 6 faixas de antena
-//   - Lado esquerdo (+X): chave Silencioso rebaixada com indicador laranja + Volume + / − + gaveta do SIM com furo ejetor
-//   - Lado direito (−X): botão lateral (Power) com friso + janela 5G mmWave em cápsula rente ao chassi
-//   - Base (+Z): porta Lightning com aro metálico e pinos dourados + 2 parafusos pentalobe + furos assimétricos (4+2 no mini, 5+3 no 12) + antena
-//   - Traseira (+Y): vidro brilhante, logotipo 3D centralizado, platô quadrado fosco chanfrado com 2 lentes ópticas multicamadas na esquerda,
-//     microfone no canto superior direito e flash True-Tone Fresnel centralizado na coluna direita
-//   - Frente (−Y): borda preta uniforme, notch largo com ombros curvos, alto-falante de chamada rebaixado, câmera TrueDepth à direita do alto-falante
-//     e tela OLED com textura iOS 14 (esferas concêntricas, cadeado, 9:41, lanterna/câmera e barra Home) embutida no GLB.
+// Melhorias de realismo fotográfico implementadas:
+//   1. Curvatura contínua G2 "Apple Squircle" (superelipse n=4.2) nos cantos do chassi, tela e módulo de câmera
+//   2. Separação entre alumínio acetinado das laterais ('Anodized aluminum') e chanfro polido de 45° ('finish-chamfer')
+//   3. 4 texturas PBR de alta definição geradas via sharp e embutidas no .glb:
+//      - Texture 0: Lock Screen oficial do iOS 14 (1024×2200) com esferas concêntricas, cadeado, 9:41 fino e ícones translúcidos
+//      - Texture 1: Óptica multicamadas das lentes traseiras/frontal (512×512) com anéis antirreflexo e reflexo safira azul/violeta
+//      - Texture 2: Flash True-Tone com anéis concêntricos de Fresnel e duplo LED âmbar/marfim (512×512)
+//      - Texture 3: Malha acústica metálica (honeycomb 256×256) no receptor do Notch, microfone traseiro e furos da base
+//   4. Extensões glTF 2.0 físicas (KHR_materials_clearcoat, KHR_materials_ior, KHR_materials_specular)
+//   5. Sombras de contato (Ambient Occlusion geométrico) ao redor dos botões, chave Mute laranja, gaveta SIM, 5G mmWave e anéis de lente
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import sharp from 'sharp'
@@ -21,24 +20,128 @@ import { mergeGeometries, mergeVertices } from 'three/examples/jsm/utils/BufferG
 
 const MM = 0.001
 
-// ---------- materiais PBR ----------
+// ---------- materiais PBR + extensões físicas glTF 2.0 ----------
 const MATERIALS = {
-  'Anodized aluminum': { c: [0.82, 0.80, 0.78, 1], m: 0.78, r: 0.34 },
+  'Anodized aluminum': {
+    c: [0.82, 0.80, 0.78, 1],
+    m: 0.78,
+    r: 0.34,
+  },
+  'finish-chamfer': {
+    c: [0.88, 0.86, 0.84, 1],
+    m: 0.90,
+    r: 0.14,
+    ext: { KHR_materials_clearcoat: { clearcoatFactor: 0.35, clearcoatRoughnessFactor: 0.08 } },
+  },
   'Plastic antena': { c: [0.92, 0.91, 0.89, 1], m: 0, r: 0.38 },
-  'Plastic port': { c: [0.05, 0.05, 0.06, 1], m: 0, r: 0.45 },
-  'Mute orange': { c: [0.95, 0.42, 0.14, 1], m: 0.05, r: 0.35 },
-  'Camera filter': { c: [0.04, 0.04, 0.06, 1], m: 0.1, r: 0.45 },
-  LED: { c: [0.98, 0.93, 0.76, 1], m: 0, r: 0.35 },
-  'Plastic LED': { c: [0.96, 0.95, 0.92, 0.78], m: 0, r: 0.28, blend: true },
-  'Metal Screw': { c: [0.76, 0.77, 0.80, 1], m: 0.94, r: 0.16 },
-  'Display Frame': { c: [0.02, 0.02, 0.025, 1], m: 0.04, r: 0.08 },
-  'Camera sapphire miror': { c: [0.06, 0.09, 0.16, 0.55], m: 0.1, r: 0.01, blend: true },
-  'Camera Lens': { c: [0.015, 0.02, 0.035, 1], m: 0.25, r: 0.02 },
-  'Glass tint': { c: [0.68, 0.68, 0.70, 1], m: 0.55, r: 0.08 },
-  'Frosted glass': { c: [0.95, 0.94, 0.92, 1], m: 0.02, r: 0.06 },
-  Glass: { c: [0.92, 0.94, 0.96, 0.24], m: 0, r: 0.02, blend: true },
-  'OLED off': { c: [0.03, 0.03, 0.035, 1], m: 0, r: 0.08 },
-  OLED: { c: [1, 1, 1, 1], m: 0, r: 0.05, textured: true },
+  'Plastic port': { c: [0.025, 0.025, 0.032, 1], m: 0, r: 0.55 },
+  'Mute orange': { c: [0.96, 0.38, 0.11, 1], m: 0.04, r: 0.30 },
+  'Camera filter': { c: [0.03, 0.035, 0.055, 1], m: 0.18, r: 0.32 },
+  LED: {
+    c: [1, 1, 1, 1],
+    m: 0.05,
+    r: 0.22,
+    texIndex: 2,
+    emissiveTexIndex: 2,
+    emissiveFactor: [0.18, 0.16, 0.12],
+  },
+  'Plastic LED': {
+    c: [0.98, 0.96, 0.92, 0.42],
+    m: 0,
+    r: 0.12,
+    blend: true,
+    ext: {
+      KHR_materials_clearcoat: { clearcoatFactor: 1.0, clearcoatRoughnessFactor: 0.04 },
+      KHR_materials_ior: { ior: 1.49 },
+    },
+  },
+  'Metal Screw': { c: [0.82, 0.83, 0.86, 1], m: 0.95, r: 0.14 },
+  'Acoustic mesh': {
+    c: [0.75, 0.76, 0.78, 1],
+    m: 0.65,
+    r: 0.48,
+    texIndex: 3,
+  },
+  'Display Frame': { c: [0.015, 0.015, 0.02, 1], m: 0.05, r: 0.06 },
+  'Camera sapphire miror': {
+    c: [0.08, 0.14, 0.26, 0.24],
+    m: 0.1,
+    r: 0.01,
+    blend: true,
+    ext: {
+      KHR_materials_clearcoat: { clearcoatFactor: 1.0, clearcoatRoughnessFactor: 0.01 },
+      KHR_materials_ior: { ior: 1.77 },
+      KHR_materials_specular: { specularFactor: 1.0, specularColorFactor: [0.38, 0.62, 0.98] },
+    },
+  },
+  'Camera Lens': {
+    c: [1, 1, 1, 1],
+    m: 0.18,
+    r: 0.03,
+    texIndex: 1,
+    emissiveTexIndex: 1,
+    emissiveFactor: [0.32, 0.35, 0.42],
+    ext: {
+      KHR_materials_clearcoat: { clearcoatFactor: 1.0, clearcoatRoughnessFactor: 0.015 },
+      KHR_materials_ior: { ior: 1.62 },
+    },
+  },
+  'Camera Lens Bot': {
+    c: [1, 1, 1, 1],
+    m: 0.18,
+    r: 0.03,
+    texIndex: 4,
+    emissiveTexIndex: 4,
+    emissiveFactor: [0.32, 0.35, 0.42],
+    ext: {
+      KHR_materials_clearcoat: { clearcoatFactor: 1.0, clearcoatRoughnessFactor: 0.015 },
+      KHR_materials_ior: { ior: 1.62 },
+    },
+  },
+  'Glass tint': {
+    c: [0.70, 0.70, 0.72, 1],
+    m: 0.68,
+    r: 0.06,
+    ext: { KHR_materials_clearcoat: { clearcoatFactor: 1.0, clearcoatRoughnessFactor: 0.02 } },
+  },
+  'Frosted glass': {
+    c: [0.95, 0.94, 0.92, 1],
+    m: 0.04,
+    r: 0.06,
+    ext: {
+      KHR_materials_clearcoat: { clearcoatFactor: 1.0, clearcoatRoughnessFactor: 0.025 },
+      KHR_materials_ior: { ior: 1.52 },
+    },
+  },
+  'Frosted bump': {
+    c: [0.93, 0.92, 0.90, 1],
+    m: 0.06,
+    r: 0.34,
+    ext: {
+      KHR_materials_clearcoat: { clearcoatFactor: 0.42, clearcoatRoughnessFactor: 0.20 },
+      KHR_materials_ior: { ior: 1.52 },
+    },
+  },
+  Glass: {
+    c: [0.94, 0.96, 0.98, 0.22],
+    m: 0,
+    r: 0.02,
+    blend: true,
+    ext: {
+      KHR_materials_clearcoat: { clearcoatFactor: 1.0, clearcoatRoughnessFactor: 0.015 },
+      KHR_materials_ior: { ior: 1.55 },
+    },
+  },
+  'OLED off': { c: [0.02, 0.02, 0.025, 1], m: 0, r: 0.08 },
+  OLED: {
+    c: [1, 1, 1, 1],
+    m: 0,
+    r: 0.04,
+    texIndex: 0,
+    emissiveTexIndex: 0,
+    emissiveFactor: [0.94, 0.94, 0.94],
+    ext: { KHR_materials_clearcoat: { clearcoatFactor: 0.85, clearcoatRoughnessFactor: 0.03 } },
+  },
   // ---- componentes internos da versão desmontável ----
   Midframe: { c: [0.62, 0.63, 0.65, 1], m: 0.85, r: 0.38 },
   PCB: { c: [0.04, 0.09, 0.07, 1], m: 0.1, r: 0.55 },
@@ -47,10 +150,10 @@ const MATERIALS = {
   Battery: { c: [0.13, 0.13, 0.14, 1], m: 0.15, r: 0.6 },
   'Battery label': { c: [0.85, 0.85, 0.86, 1], m: 0, r: 0.7 },
   Magnet: { c: [0.2, 0.2, 0.22, 1], m: 0.6, r: 0.35 },
-  Coil: { c: [0.76, 0.52, 0.24, 1], m: 0.9, r: 0.25 },
+  Coil: { c: [0.84, 0.62, 0.26, 1], m: 0.94, r: 0.18 },
   'Camera body': { c: [0.08, 0.08, 0.09, 1], m: 0.4, r: 0.4 },
   Sensor: { c: [0.18, 0.2, 0.32, 1], m: 0.7, r: 0.15 },
-  'Lens element': { c: [0.32, 0.52, 0.78, 0.58], m: 0.15, r: 0.02, blend: true },
+  'Lens element': { c: [0.28, 0.52, 0.86, 0.48], m: 0.15, r: 0.02, blend: true },
   Speaker: { c: [0.06, 0.06, 0.07, 1], m: 0.1, r: 0.6 },
 }
 
@@ -79,7 +182,6 @@ async function loadAppleLogoGeometry() {
     for (let i = 0; i < ind.length; i += 3) {
       const i0 = ind[i], i1 = ind[i + 1], i2 = ind[i + 2]
       const x0 = pos[i0 * 3], y0 = pos[i0 * 3 + 1]
-      // Filtra apenas os triângulos do logotipo (Y > 0.0040 e |X| < 0.012)
       if (y0 > 0.0040 && Math.abs(x0) < 0.012) {
         for (const v of [i0, i1, i2]) {
           const lx = pos[v * 3] - cx
@@ -102,92 +204,217 @@ async function loadAppleLogoGeometry() {
 
 const appleLogoBaseGeo = await loadAppleLogoGeometry()
 
-// Gera a textura JPEG da tela de bloqueio iOS 14 idêntica às imagens de referência (esferas concêntricas coral/laranja/dourado)
+// ---------- Geradores das 4 Texturas PBR Fotorrealistas ----------
+
+// 1. Wallpaper Oficial de Estúdio do iPhone 12 (idêntico às fotos reais 1, 2 e 3: esferas concêntricas luminosas sem poluição visual)
 async function renderIos14ScreenJpeg() {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="1100" viewBox="0 0 512 1100">
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="2200" viewBox="0 0 512 1100">
     <defs>
-      <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#ebd7c4"/>
-        <stop offset="45%" stop-color="#d8beaa"/>
-        <stop offset="100%" stop-color="#b47f49"/>
+      <linearGradient id="bg" x1="0.2" y1="0" x2="0.8" y2="1">
+        <stop offset="0%" stop-color="#e5d0b8"/>
+        <stop offset="28%" stop-color="#c9ae92"/>
+        <stop offset="72%" stop-color="#9e6d36"/>
+        <stop offset="100%" stop-color="#693e0e"/>
       </linearGradient>
-      <radialGradient id="cOuter" cx="46%" cy="52%" r="54%">
-        <stop offset="0%" stop-color="#f9d8b6" stop-opacity="0.35"/>
-        <stop offset="72%" stop-color="#f5ece2" stop-opacity="0.65"/>
-        <stop offset="96%" stop-color="#ffffff" stop-opacity="0.82"/>
-        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+      <!-- Grande esfera externa (preenche quase toda a altura da tela com borda superior creme e base âmbar dourada) -->
+      <radialGradient id="sphereOuter" cx="44%" cy="46%" r="54%" fx="32%" fy="36%">
+        <stop offset="0%" stop-color="#f2c58d" stop-opacity="0.45"/>
+        <stop offset="58%" stop-color="#e8b878" stop-opacity="0.62"/>
+        <stop offset="86%" stop-color="#f7e6ce" stop-opacity="0.88"/>
+        <stop offset="97%" stop-color="#fff9f0" stop-opacity="0.96"/>
+        <stop offset="100%" stop-color="#fff9f0" stop-opacity="0"/>
       </radialGradient>
-      <radialGradient id="cMid" cx="38%" cy="48%" r="52%">
-        <stop offset="0%" stop-color="#ff6a4d" stop-opacity="0.92"/>
-        <stop offset="58%" stop-color="#f79654" stop-opacity="0.88"/>
-        <stop offset="92%" stop-color="#f8d29c" stop-opacity="0.92"/>
-        <stop offset="100%" stop-color="#f8d29c" stop-opacity="0"/>
+      <linearGradient id="outerAmberGlow" x1="0.5" y1="0" x2="0.5" y2="1">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+        <stop offset="65%" stop-color="#f5a623" stop-opacity="0.28"/>
+        <stop offset="95%" stop-color="#ffc83b" stop-opacity="0.82"/>
+        <stop offset="100%" stop-color="#b8740f" stop-opacity="0"/>
+      </linearGradient>
+      <!-- Esfera média deslocada para a esquerda (coral alaranjado à esquerda + borda creme luminosa à direita) -->
+      <radialGradient id="sphereMid" cx="30%" cy="52%" r="58%" fx="22%" fy="50%">
+        <stop offset="0%" stop-color="#ff5a2e" stop-opacity="0.96"/>
+        <stop offset="45%" stop-color="#f98c48" stop-opacity="0.94"/>
+        <stop offset="78%" stop-color="#fbd29d" stop-opacity="0.95"/>
+        <stop offset="96%" stop-color="#fff3df" stop-opacity="0.98"/>
+        <stop offset="100%" stop-color="#fff3df" stop-opacity="0"/>
       </radialGradient>
-      <radialGradient id="cInner" cx="35%" cy="46%" r="50%">
-        <stop offset="0%" stop-color="#ff4738" stop-opacity="0.96"/>
-        <stop offset="62%" stop-color="#fb7c4c" stop-opacity="0.92"/>
-        <stop offset="95%" stop-color="#ffd19a" stop-opacity="0.92"/>
-        <stop offset="100%" stop-color="#ffd19a" stop-opacity="0"/>
-      </radialGradient>
-      <radialGradient id="cCore" cx="32%" cy="45%" r="50%">
-        <stop offset="0%" stop-color="#ff3b2f"/>
-        <stop offset="68%" stop-color="#ff7a45"/>
-        <stop offset="100%" stop-color="#ffbe7d"/>
+      <!-- Esfera central (núcleo vermelho-coral vibrante com halo dourado/pêssego na borda direita) -->
+      <radialGradient id="sphereCore" cx="34%" cy="52%" r="56%" fx="26%" fy="52%">
+        <stop offset="0%" stop-color="#ff3818"/>
+        <stop offset="48%" stop-color="#ff6433"/>
+        <stop offset="82%" stop-color="#ffac63"/>
+        <stop offset="97%" stop-color="#ffe4b5"/>
+        <stop offset="100%" stop-color="#ffe4b5" stop-opacity="0"/>
       </radialGradient>
     </defs>
     <rect width="512" height="1100" fill="url(#bg)"/>
     <g transform="translate(512,0) scale(-1,1)">
-      <!-- Esferas concêntricas translúcidas do iOS 14 -->
-      <circle cx="256" cy="545" r="395" fill="url(#cOuter)"/>
-      <circle cx="222" cy="575" r="315" fill="url(#cMid)"/>
-      <circle cx="206" cy="560" r="218" fill="url(#cInner)"/>
-      <circle cx="268" cy="585" r="142" fill="url(#cCore)" opacity="0.94"/>
-      <circle cx="268" cy="585" r="141" fill="none" stroke="rgba(255,240,215,0.55)" stroke-width="2"/>
-
-      <!-- Barra de status no canto superior direito -->
-      <rect x="404" y="42" width="3.5" height="7" rx="1" fill="#fff"/>
-      <rect x="410" y="39" width="3.5" height="10" rx="1" fill="#fff"/>
-      <rect x="416" y="36" width="3.5" height="13" rx="1" fill="#fff"/>
-      <rect x="422" y="33" width="3.5" height="16" rx="1" fill="#fff" opacity="0.45"/>
-      <rect x="448" y="34" width="28" height="14" rx="3.5" fill="none" stroke="#fff" stroke-width="1.6"/>
-      <rect x="450.5" y="36.5" width="21" height="9" rx="2" fill="#fff"/>
-      <rect x="477.5" y="38.5" width="2" height="5" rx="1" fill="#fff"/>
-
-      <!-- Cadeado iOS 14 -->
-      <rect x="242" y="198" width="28" height="22" rx="5" fill="#fff"/>
-      <path d="M248 198 V190 A8 8 0 0 1 264 190 V198" fill="none" stroke="#fff" stroke-width="3.2"/>
-
-      <!-- Relógio fino e data abaixo (layout autêntico do iOS 14 nas imagens de referência) -->
-      <text x="256" y="316" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="112" font-weight="200" letter-spacing="-2">9:41</text>
-      <text x="256" y="362" text-anchor="middle" fill="rgba(255,255,255,0.92)" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="400">Monday, January 20</text>
-
-      <!-- Botões de Lanterna e Câmera -->
-      <circle cx="104" cy="966" r="32" fill="rgba(255,255,255,0.24)"/>
-      <rect x="99" y="951" width="10" height="28" rx="3" fill="#fff"/>
-      <circle cx="408" cy="966" r="32" fill="rgba(255,255,255,0.24)"/>
-      <rect x="394" y="956" width="28" height="20" rx="4" fill="#fff"/>
-      <circle cx="408" cy="966" r="5" fill="#d88b56"/>
-
-      <!-- Texto e barra inferior -->
-      <text x="256" y="1022" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500">Swipe up to unlock</text>
-      <rect x="182" y="1058" width="148" height="6" rx="3" fill="#ffffff"/>
+      <circle cx="262" cy="520" r="435" fill="url(#sphereOuter)"/>
+      <circle cx="262" cy="520" r="435" fill="url(#outerAmberGlow)"/>
+      <circle cx="212" cy="508" r="278" fill="url(#sphereMid)"/>
+      <circle cx="236" cy="516" r="136" fill="url(#sphereCore)"/>
     </g>
   </svg>`
-  return sharp(Buffer.from(svg)).jpeg({ quality: 90 }).toBuffer()
+  return sharp(Buffer.from(svg)).jpeg({ quality: 94 }).toBuffer()
 }
 
-const ios14WallpaperJpeg = await renderIos14ScreenJpeg()
+// Extrai e super-resolve (512×512 bicúbico polar com realce radial) os 4 componentes ópticos reais da foto macro de referência
+const macroRefImg = await sharp('scripts/iphone12-macro-ref.png').ensureAlpha().raw().toBuffer({ resolveWithObject: true })
 
-// ---------- utilitários de geometria ----------
-function roundedRect(w, h, r) {
+function cubicInterp(v0, v1, v2, v3, t) {
+  const a0 = -0.5 * v0 + 1.5 * v1 - 1.5 * v2 + 0.5 * v3
+  const a1 = v0 - 2.5 * v1 + 2.0 * v2 - 0.5 * v3
+  const a2 = -0.5 * v0 + 0.5 * v2
+  const a3 = v1
+  return ((a0 * t + a1) * t + a2) * t + a3
+}
+
+function sampleRefBicubic(fx, fy) {
+  const w = macroRefImg.info.width, h = macroRefImg.info.height, pix = macroRefImg.data
+  const ix = Math.floor(fx), iy = Math.floor(fy)
+  const tx = fx - ix, ty = fy - iy
+  const rgb = [0, 0, 0]
+  for (let c = 0; c < 3; c++) {
+    const row = []
+    for (let dy = -1; dy <= 2; dy++) {
+      const y = Math.max(0, Math.min(h - 1, iy + dy))
+      const p = []
+      for (let dx = -1; dx <= 2; dx++) {
+        const x = Math.max(0, Math.min(w - 1, ix + dx))
+        p.push(pix[(y * w + x) * 4 + c])
+      }
+      row.push(cubicInterp(p[0], p[1], p[2], p[3], tx))
+    }
+    rgb[c] = Math.max(0, Math.min(255, cubicInterp(row[0], row[1], row[2], row[3], ty)))
+  }
+  return rgb
+}
+
+function sampleRefPolarSharpened(cx, cy, dx, dy, ringSmooth = 0.032, radialSharpen = 0.58) {
+  const r = Math.hypot(dx, dy)
+  if (r < 0.4) return sampleRefBicubic(cx + dx, cy + dy)
+  const ang = Math.atan2(dy, dx)
+  const weights = [0.14, 0.22, 0.28, 0.22, 0.14]
+  const center = [0, 0, 0]
+  for (let k = -2; k <= 2; k++) {
+    const a = ang + k * ringSmooth
+    const s = sampleRefBicubic(cx + Math.cos(a) * r, cy + Math.sin(a) * r)
+    const w = weights[k + 2]
+    center[0] += s[0] * w; center[1] += s[1] * w; center[2] += s[2] * w
+  }
+  const sIn = sampleRefBicubic(cx + Math.cos(ang) * Math.max(0, r - 0.52), cy + Math.sin(ang) * Math.max(0, r - 0.52))
+  const sOut = sampleRefBicubic(cx + Math.cos(ang) * (r + 0.52), cy + Math.sin(ang) * (r + 0.52))
+  return [
+    Math.max(0, Math.min(255, center[0] + radialSharpen * (center[0] - 0.5 * (sIn[0] + sOut[0])))),
+    Math.max(0, Math.min(255, center[1] + radialSharpen * (center[1] - 0.5 * (sIn[1] + sOut[1])))),
+    Math.max(0, Math.min(255, center[2] + radialSharpen * (center[2] - 0.5 * (sIn[2] + sOut[2])))),
+  ]
+}
+
+async function buildMacroPatchJpeg(cx, cy, R, smooth, sharpen, isMic = false) {
+  const S = 512
+  const buf = Buffer.alloc(S * S * 3)
+  for (let y = 0; y < S; y++) {
+    for (let x = 0; x < S; x++) {
+      const nx = (x + 0.5 - S / 2) / (S / 2)
+      const ny = (y + 0.5 - S / 2) / (S / 2)
+      let rgb = sampleRefPolarSharpened(cx, cy, nx * R, ny * R, smooth, sharpen)
+      if (isMic) {
+        const mr = Math.hypot(nx, ny)
+        if (mr < 0.84) {
+          const edgeFade = Math.min(1, (0.84 - mr) / 0.06)
+          const u = (nx + ny) * 7.5, v = (nx - ny) * 7.5
+          const wireX = Math.pow(Math.cos(u * Math.PI), 2)
+          const wireY = Math.pow(Math.cos(v * Math.PI), 2)
+          const mesh = Math.max(wireX, wireY) * 0.72 + (wireX * wireY) * 0.28
+          const shade = 0.82 + 0.18 * (-nx * 0.6 - ny * 0.6)
+          const baseL = (26 + 34 * mesh) * shade
+          const k = edgeFade * 0.68
+          rgb = [
+            rgb[0] * (1 - k) + baseL * k,
+            rgb[1] * (1 - k) + baseL * k,
+            rgb[2] * (1 - k) + (baseL + 2) * k,
+          ]
+        }
+      }
+      const idx = (y * S + x) * 3
+      buf[idx] = Math.round(rgb[0])
+      buf[idx + 1] = Math.round(rgb[1])
+      buf[idx + 2] = Math.round(rgb[2])
+    }
+  }
+  return sharp(buf, { raw: { width: S, height: S, channels: 3 } }).jpeg({ quality: 96, chromaSubsampling: '4:4:4' }).toBuffer()
+}
+
+// 2A. Textura Óptica da Lente Superior (Ultra-Wide: extraída em alta definição da referência macro oficial)
+async function renderTopCameraLensTextureJpeg() {
+  return buildMacroPatchJpeg(93.00, 86.00, 49.3, 0.032, 0.60, false)
+}
+
+// 2B. Textura Óptica da Lente Inferior (Wide: extraída em alta definição da referência macro oficial)
+async function renderBotCameraLensTextureJpeg() {
+  return buildMacroPatchJpeg(93.00, 223.75, 49.3, 0.032, 0.60, false)
+}
+
+// 3. Textura do Flash True-Tone Fresnel (extraída em alta definição da referência macro oficial)
+async function renderTrueToneFlashTextureJpeg() {
+  return buildMacroPatchJpeg(214.00, 154.85, 26.8, 0.018, 0.55, false)
+}
+
+// 4. Textura da Malha Acústica Metálica Diagonal 45° + Chanfro Côncavo do Microfone Traseiro
+async function renderAcousticMeshTextureJpeg() {
+  return buildMacroPatchJpeg(213.25, 81.75, 12.2, 0.020, 0.45, true)
+}
+
+const [ios14WallpaperJpeg, topCameraLensJpeg, trueToneFlashJpeg, acousticMeshJpeg, botCameraLensJpeg] = await Promise.all([
+  renderIos14ScreenJpeg(),
+  renderTopCameraLensTextureJpeg(),
+  renderTrueToneFlashTextureJpeg(),
+  renderAcousticMeshTextureJpeg(),
+  renderBotCameraLensTextureJpeg(),
+])
+
+// ---------- utilitários de geometria com curvatura contínua G2 (Apple Squircle) ----------
+function roundedRect(w, h, r, cornerSeg = 20) {
   const s = new THREE.Shape()
-  const x = -w / 2, y = -h / 2
-  r = Math.min(r, w / 2, h / 2)
-  s.moveTo(x + r, y)
-  s.lineTo(x + w - r, y); s.absarc(x + w - r, y + r, r, -Math.PI / 2, 0, false)
-  s.lineTo(x + w, y + h - r); s.absarc(x + w - r, y + h - r, r, 0, Math.PI / 2, false)
-  s.lineTo(x + r, y + h); s.absarc(x + r, y + h - r, r, Math.PI / 2, Math.PI, false)
-  s.lineTo(x, y + r); s.absarc(x + r, y + r, r, Math.PI, Math.PI * 1.5, false)
+  const hw = w / 2, hh = h / 2
+  const cr = Math.min(r, hw - 1e-5, hh - 1e-5)
+  if (cr <= 1e-5) {
+    s.moveTo(-hw, -hh)
+    s.lineTo(hw, -hh)
+    s.lineTo(hw, hh)
+    s.lineTo(-hw, hh)
+    s.closePath()
+    return s
+  }
+  // Superelipse contínua (n = 4.2) calibrada para passar exatamente pelo ponto diagonal do raio r
+  const n = 4.2
+  const exp = 2 / n
+  const diagRatio = (1 - Math.SQRT1_2) / (1 - Math.pow(0.5, 1 / n))
+  const a = Math.min(cr * Math.min(1.38, diagRatio), hw - 1e-5, hh - 1e-5)
+
+  const corners = [
+    { cx: hw - a, cy: -hh + a, sx: 1, sy: -1, t0: 0, t1: Math.PI / 2 },
+    { cx: hw - a, cy: hh - a, sx: 1, sy: 1, t0: 0, t1: Math.PI / 2 },
+    { cx: -hw + a, cy: hh - a, sx: -1, sy: 1, t0: 0, t1: Math.PI / 2 },
+    { cx: -hw + a, cy: -hh + a, sx: -1, sy: -1, t0: 0, t1: Math.PI / 2 },
+  ]
+
+  const pts = []
+  for (let c = 0; c < 4; c++) {
+    const { cx, cy, sx, sy } = corners[c]
+    for (let i = 0; i <= cornerSeg; i++) {
+      const u = i / cornerSeg
+      // Em c=0 e c=2 vamos do eixo Y para o eixo X; em c=1 e c=3 do eixo X para o eixo Y
+      const theta = (c % 2 === 0 ? u : 1 - u) * (Math.PI / 2)
+      const px = cx + sx * a * Math.pow(Math.sin(theta), exp)
+      const py = cy + sy * a * Math.pow(Math.cos(theta), exp)
+      pts.push(new THREE.Vector2(px, py))
+    }
+  }
+  s.moveTo(pts[0].x, pts[0].y)
+  for (let i = 1; i < pts.length; i++) s.lineTo(pts[i].x, pts[i].y)
+  s.closePath()
   return s
 }
 
@@ -195,7 +422,7 @@ function roundedRect(w, h, r) {
 function slab(w, h, r, y0, y1, { cx = 0, cz = 0, bevel = 0, bevelSeg = 4, seg = 36 } = {}) {
   const d = y1 - y0
   const bt = Math.min(bevel, d * 0.46)
-  const shape = roundedRect(w - 2 * bevel, h - 2 * bevel, Math.max(0.0002, r - bevel))
+  const shape = roundedRect(w - 2 * bevel, h - 2 * bevel, Math.max(0.0002, r - bevel), Math.max(12, Math.round(seg / 2)))
   const g = new THREE.ExtrudeGeometry(shape, {
     depth: Math.max(1e-6, d - 2 * bt),
     bevelEnabled: bevel > 0,
@@ -210,10 +437,34 @@ function slab(w, h, r, y0, y1, { cx = 0, cz = 0, bevel = 0, bevelSeg = 4, seg = 
   return g
 }
 
-// Disco voltado para +Y (traseira) ou −Y (frente)
+// Anel perimetral chanfrado a 45° para destacar o chanfro polido do chassi de alumínio
+function chamferRim(W, H, corner, bevel, y0, y1) {
+  const outer = roundedRect(W, H, corner, 22)
+  outer.holes.push(roundedRect(W - 2 * bevel * 1.35, H - 2 * bevel * 1.35, Math.max(0.2 * MM, corner - bevel * 1.35), 22))
+  const g = new THREE.ExtrudeGeometry(outer, {
+    depth: Math.max(1e-5, y1 - y0),
+    bevelEnabled: true,
+    bevelThickness: bevel * 0.65,
+    bevelSize: bevel * 0.55,
+    bevelSegments: 3,
+    curveSegments: 36,
+  })
+  g.rotateX(Math.PI / 2)
+  g.translate(0, y1, 0)
+  return g
+}
+
+// Disco voltado para +Y (traseira) ou −Y (frente) com UVs radiais [0,1] centradas em (0.5, 0.5) e v=0 no topo (-Z)
 function disc(r, y, cx, cz, up = true, seg = 48) {
   const g = new THREE.CircleGeometry(r, seg)
   g.rotateX(up ? -Math.PI / 2 : Math.PI / 2)
+  const pos = g.attributes.position
+  const uv = new Float32Array(pos.count * 2)
+  for (let i = 0; i < pos.count; i++) {
+    uv[i * 2] = 0.5 + pos.getX(i) / (2 * r)
+    uv[i * 2 + 1] = 0.5 + pos.getZ(i) / (2 * r)
+  }
+  g.setAttribute('uv', new THREE.BufferAttribute(uv, 2))
   g.translate(cx, y, cz)
   return g
 }
@@ -226,11 +477,18 @@ function flatRing(rIn, rOut, y, cx, cz, up = true, seg = 48) {
   return g
 }
 
-// Calota esférica (elemento óptico convexo interno da lente)
-function lensDome(r, height, yBase, cx, cz, up = true, seg = 36) {
-  const g = new THREE.SphereGeometry(r, seg, 16, 0, Math.PI * 2, 0, Math.PI * 0.38)
+// Calota esférica (elemento óptico convexo interno da lente) com mapeamento UV planar contínuo com o disco externo (rFull)
+function lensDome(r, height, yBase, cx, cz, up = true, seg = 40, rFull = r) {
+  const g = new THREE.SphereGeometry(r, seg, 18, 0, Math.PI * 2, 0, Math.PI * 0.38)
   g.scale(1, height / (r * 0.4), 1)
   if (!up) g.rotateX(Math.PI)
+  const pos = g.attributes.position
+  const uv = new Float32Array(pos.count * 2)
+  for (let i = 0; i < pos.count; i++) {
+    uv[i * 2] = 0.5 + pos.getX(i) / (2 * rFull)
+    uv[i * 2 + 1] = 0.5 + pos.getZ(i) / (2 * rFull)
+  }
+  g.setAttribute('uv', new THREE.BufferAttribute(uv, 2))
   g.translate(cx, yBase, cz)
   return g
 }
@@ -245,7 +503,7 @@ function cyl(rTop, rBot, y0, y1, cx, cz, openEnded = false, seg = 48) {
 // Cápsula/botão lateral com chanfro suave; eixo longo = Z, extrusão para fora da lateral (±X)
 function sidePill(len, thickY, depthX, xCenter, yCenter, cz, bevel = 0.18 * MM, seg = 20) {
   const b = Math.min(bevel, thickY * 0.35, depthX * 0.4)
-  const s = roundedRect(thickY - 2 * b, len - 2 * b, Math.max(0.05 * MM, (thickY - 2 * b) / 2))
+  const s = roundedRect(thickY - 2 * b, len - 2 * b, Math.max(0.05 * MM, (thickY - 2 * b) / 2), 10)
   const g = new THREE.ExtrudeGeometry(s, {
     depth: Math.max(1e-6, depthX - 2 * b),
     bevelEnabled: b > 0,
@@ -255,7 +513,6 @@ function sidePill(len, thickY, depthX, xCenter, yCenter, cz, bevel = 0.18 * MM, 
     curveSegments: seg,
   })
   g.translate(0, 0, -(depthX - 2 * b) / 2)
-  // Atualmente X = thickY, Y = len, Z = depthX → rotaciona para X = depthX, Y = thickY, Z = len
   g.rotateY(Math.PI / 2)
   g.rotateX(Math.PI / 2)
   g.translate(xCenter, yCenter, cz)
@@ -264,15 +521,15 @@ function sidePill(len, thickY, depthX, xCenter, yCenter, cz, bevel = 0.18 * MM, 
 
 // Cápsula na face inferior (z = +H/2): forma no plano XY, extrusão em Z
 function bottomCapsule(lenX, heightY, x, z0, z1, r = heightY / 2, seg = 20) {
-  const shape = roundedRect(lenX, heightY, Math.min(r, lenX / 2, heightY / 2))
+  const shape = roundedRect(lenX, heightY, Math.min(r, lenX / 2, heightY / 2), 10)
   const g = new THREE.ExtrudeGeometry(shape, { depth: z1 - z0, bevelEnabled: false, curveSegments: seg })
   g.translate(x, 0, z0)
   return g
 }
 
 function bottomCapsuleRing(wOut, hOut, wIn, hIn, x, z0, z1, seg = 24) {
-  const outer = roundedRect(wOut, hOut, hOut / 2)
-  outer.holes.push(roundedRect(wIn, hIn, hIn / 2))
+  const outer = roundedRect(wOut, hOut, hOut / 2, 12)
+  outer.holes.push(roundedRect(wIn, hIn, hIn / 2, 12))
   const g = new THREE.ExtrudeGeometry(outer, { depth: z1 - z0, bevelEnabled: false, curveSegments: seg })
   g.translate(x, 0, z0)
   return g
@@ -285,9 +542,16 @@ function bottomCyl(r, x, z0, z1, seg = 28) {
   return g
 }
 
+// Disco voltado para +Z (base do aparelho, ex: tela acústica nos furos de alto-falante)
+function bottomDisc(r, x, z, seg = 24) {
+  const g = new THREE.CircleGeometry(r, seg)
+  g.translate(x, 0, z)
+  return g
+}
+
 // Tela OLED com UV padrão do visualizador: u = (x + w/2)/w, v = 0 no topo (−Z) e v = 1 na base (+Z)
 function screenPlane(w, h, r, y) {
-  const g = new THREE.ShapeGeometry(roundedRect(w, h, r), 36)
+  const g = new THREE.ShapeGeometry(roundedRect(w, h, r, 22), 36)
   const pos = g.attributes.position
   const uv = new Float32Array(pos.count * 2)
   for (let i = 0; i < pos.count; i++) {
@@ -300,10 +564,10 @@ function screenPlane(w, h, r, y) {
   return g
 }
 
-// Notch do iPhone 12: retângulo com cantos inferiores arredondados e ombros superiores suaves
+// Notch do iPhone 12 fiel às Fotos 1, 2 e 3: ombros superiores curtos e cantos inferiores suaves
 function notch(nw, nh, topZ, y) {
   const s = new THREE.Shape()
-  const rb = nh * 0.44, sh = nh * 0.32
+  const rb = nh * 0.48, sh = nh * 0.18
   const x0 = -nw / 2, x1 = nw / 2
   s.moveTo(x0 - sh, 0)
   s.quadraticCurveTo(x0, 0, x0, sh)
@@ -314,45 +578,45 @@ function notch(nw, nh, topZ, y) {
   s.lineTo(x1, sh)
   s.quadraticCurveTo(x1, 0, x1 + sh, 0)
   s.lineTo(x0 - sh, 0)
-  const g = new THREE.ShapeGeometry(s, 24)
+  const g = new THREE.ShapeGeometry(s, 28)
   g.rotateX(Math.PI / 2)
   g.translate(0, y, topZ)
   return g
 }
 
 function frameRing(W, H, corner, wall, y0, y1) {
-  const outer = roundedRect(W, H, corner)
-  outer.holes.push(roundedRect(W - 2 * wall, H - 2 * wall, corner - wall))
+  const outer = roundedRect(W, H, corner, 22)
+  outer.holes.push(roundedRect(W - 2 * wall, H - 2 * wall, corner - wall, 22))
   const g = new THREE.ExtrudeGeometry(outer, { depth: y1 - y0, bevelEnabled: false, curveSegments: 40 })
   g.rotateX(Math.PI / 2)
   g.translate(0, y1, 0)
   return g
 }
 
-// Constrói uma lente traseira multicamadas idêntica às referências (anel chanfrado + barril escuro + ranhuras + domo óptico + safira)
-function addDetailedRearLens(add, R, yBase, lx, lz) {
-  const hRing = 1.22 * MM
+// Lente traseira 3D fiel às 3 fotos macro: anel anodizado jateado (0,92 mm) + aro interno metálico brilhante + barril recuado + óptica diferenciada (Superior Ultra-Wide vs Inferior Wide)
+function addDetailedRearLens(add, R, yBase, lx, lz, isTopLens = true) {
+  const hRing = 1.05 * MM
   const yTop = yBase + hRing
-  // Colar externo de alumínio anodizado com chanfro no topo
-  add('Anodized aluminum', cyl(R, R + 0.12 * MM, yBase, yTop - 0.14 * MM, lx, lz, true, 48))
-  add('Anodized aluminum', cyl(R - 0.12 * MM, R, yTop - 0.14 * MM, yTop, lx, lz, true, 48))
-  add('Anodized aluminum', flatRing(R - 0.58 * MM, R - 0.10 * MM, yTop + 0.005 * MM, lx, lz, true, 48))
-  add('Anodized aluminum', cyl(R - 0.58 * MM, R - 0.58 * MM, yBase + 0.2 * MM, yTop, lx, lz, true, 48))
+  const lensMat = isTopLens ? 'Camera Lens' : 'Camera Lens Bot'
 
-  // Barril interno preto fosco e ranhuras ópticas concêntricas
-  const rGlass = R - 0.58 * MM
-  add('Display Frame', disc(rGlass, yBase + 0.25 * MM, lx, lz, true, 48))
-  add('Display Frame', flatRing(rGlass * 0.72, rGlass, yTop - 0.12 * MM, lx, lz, true, 48))
-  add('Camera filter', flatRing(rGlass * 0.50, rGlass * 0.73, yTop - 0.18 * MM, lx, lz, true, 48))
-  add('Display Frame', flatRing(rGlass * 0.36, rGlass * 0.51, yTop - 0.22 * MM, lx, lz, true, 48))
+  // 1. Sulco escuro de sombra de contato na base do anel sobre o platô fosco
+  add('Plastic port', flatRing(R - 0.02 * MM, R + 0.18 * MM, yBase + 0.008 * MM, lx, lz, true, 64))
 
-  // Elemento óptico convexo profundo + reflexo azulado de revestimento antirreflexo
-  add('Camera Lens', disc(rGlass * 0.42, yTop - 0.24 * MM, lx, lz, true, 40))
-  add('Camera Lens', lensDome(rGlass * 0.38, 0.32 * MM, yTop - 0.24 * MM, lx, lz, true, 36))
-  add('Lens element', flatRing(rGlass * 0.18, rGlass * 0.31, yTop - 0.10 * MM, lx, lz, true, 36))
+  // 2. Anel externo de alumínio anodizado (R=6.00mm até rInner=5.08mm) + aro interno metálico prateado fino ('Metal Screw')
+  const rInner = R * (49.0 / 57.5)
+  add('Anodized aluminum', cyl(R, R + 0.05 * MM, yBase, yTop - 0.08 * MM, lx, lz, true, 64))
+  add('finish-chamfer', cyl(R - 0.06 * MM, R, yTop - 0.08 * MM, yTop, lx, lz, true, 64))
+  add('Anodized aluminum', flatRing(rInner + 0.11 * MM, R - 0.06 * MM, yTop + 0.004 * MM, lx, lz, true, 64))
+  add('Metal Screw', flatRing(rInner, rInner + 0.11 * MM, yTop + 0.005 * MM, lx, lz, true, 64))
+  add('Display Frame', cyl(rInner, rInner * 0.95, yTop - 0.36 * MM, yTop + 0.004 * MM, lx, lz, true, 64))
 
-  // Cristal de safira frontal
-  add('Camera sapphire miror', disc(rGlass * 0.98, yTop - 0.04 * MM, lx, lz, true, 48))
+  // 3. Interior óptico recuado com UV contínuo entre o disco plano e a calota central 3D (sem duplicar os anéis)
+  const rOptic = rInner * 0.992
+  add(lensMat, disc(rOptic, yTop - 0.34 * MM, lx, lz, true, 64))
+  add(lensMat, lensDome(rOptic * (isTopLens ? 0.34 : 0.28), 0.20 * MM, yTop - 0.33 * MM, lx, lz, true, 48, rOptic))
+
+  // 4. Cristal de safira plano no topo do anel com reflexo especular diagonal
+  add('Camera sapphire miror', disc(rInner * 0.995, yTop - 0.02 * MM, lx, lz, true, 64))
 }
 
 function buildIphone12({ id, W, H, D, corner, cam }, exploded = false) {
@@ -364,185 +628,192 @@ function buildIphone12({ id, W, H, D, corner, cam }, exploded = false) {
   }
   const hy = D / 2
 
-  // 1. Chassi / Moldura de alumínio com laterais retas e chanfro polido de 0,32 mm
+  // 1. Chassi de alumínio acetinado com laterais retas + chanfro perimetral polido ('finish-chamfer')
   if (exploded) {
     add('Anodized aluminum', frameRing(W, H, corner, 1.6 * MM, -hy, hy))
   } else {
-    add('Anodized aluminum', slab(W, H, corner, -hy, hy, { bevel: 0.32 * MM, bevelSeg: 4, seg: 44 }))
+    add('Anodized aluminum', slab(W, H, corner, -hy + 0.18 * MM, hy - 0.18 * MM, { bevel: 0.18 * MM, bevelSeg: 3, seg: 44 }))
+    add('finish-chamfer', chamferRim(W - 0.04 * MM, H - 0.04 * MM, corner - 0.02 * MM, 0.34 * MM, hy - 0.24 * MM, hy - 0.02 * MM))
+    add('finish-chamfer', chamferRim(W - 0.04 * MM, H - 0.04 * MM, corner - 0.02 * MM, 0.34 * MM, -hy + 0.02 * MM, -hy + 0.24 * MM))
   }
 
   // 2. Seis faixas plásticas de antena (laterais, topo à direita e base à esquerda)
-  const bandT = 1.05 * MM
-  const bandH = D - 0.68 * MM
+  const bandT = 1.08 * MM
+  const bandH = D - 0.64 * MM
   for (const sx of [-1, 1]) {
     for (const zPos of [-H / 2 + 13.2 * MM, H / 2 - 13.2 * MM]) {
-      const g = new THREE.BoxGeometry(0.14 * MM, bandH, bandT)
+      const g = new THREE.BoxGeometry(0.16 * MM, bandH, bandT)
       g.translate(sx * (W / 2 + 0.01 * MM), 0, zPos)
       add('Plastic antena', g)
     }
   }
   {
-    // Antena superior (visível nas fotos frontais/traseiras no lado −X)
-    const gTop = new THREE.BoxGeometry(bandT, bandH, 0.14 * MM)
+    const gTop = new THREE.BoxGeometry(bandT, bandH, 0.16 * MM)
     gTop.translate(-W / 2 + 15.2 * MM * cam.k, 0, -H / 2 - 0.01 * MM)
     add('Plastic antena', gTop)
-    // Antena inferior (visível na foto da base ao lado dos 2 furos de microfone, lado +X)
-    const gBot = new THREE.BoxGeometry(bandT, bandH, 0.14 * MM)
+    const gBot = new THREE.BoxGeometry(bandT, bandH, 0.16 * MM)
     gBot.translate(W / 2 - 15.2 * MM * cam.k, 0, H / 2 + 0.01 * MM)
     add('Plastic antena', gBot)
   }
 
-  // 3. Traseira de vidro brilhante + Logotipo 3D + Módulo de câmera quadrado chanfrado
+  // 3. Traseira de vidro polido com Clearcoat + Logotipo 3D + Platô de câmera fosco chanfrado
   current = 'RearPanel'
-  // Aro metálico perimetral sutil + painel de vidro traseiro
-  add('Frosted glass', slab(W - 0.85 * MM, H - 0.85 * MM, corner - 0.42 * MM, hy - 0.35 * MM, hy + 0.03 * MM, { bevel: 0.16 * MM, seg: 44 }))
+  // Friso escuro finíssimo de junção entre o chassi e o vidro traseiro (sombra de contato)
+  add('Plastic port', slab(W - 0.68 * MM, H - 0.68 * MM, corner - 0.34 * MM, hy - 0.12 * MM, hy + 0.005 * MM, { bevel: 0.04 * MM, seg: 40 }))
+  add('Frosted glass', slab(W - 0.86 * MM, H - 0.86 * MM, corner - 0.43 * MM, hy - 0.32 * MM, hy + 0.035 * MM, { bevel: 0.14 * MM, seg: 44 }))
 
-  // Logotipo 3D centralizado na traseira
+  // Logotipo Apple 3D centralizado na traseira
   if (appleLogoBaseGeo) {
     const logoG = appleLogoBaseGeo.clone()
     const logoScale = cam.k * 0.96
     logoG.scale(logoScale, 1, logoScale)
-    logoG.translate(0, hy + 0.055 * MM, 0)
+    logoG.translate(0, hy + 0.06 * MM, 0)
     add('Glass tint', logoG)
   }
 
-  // Platô quadrado de câmera com borda chanfrada translúcida (como nas referências)
+  // Platô de câmera esculpido no vidro com borda de duplo contorno (aro externo + vale côncavo + crista interna fosca)
   const sq = cam.size, sqR = cam.radius
   const sqCx = -W / 2 + cam.margin + sq / 2
   const sqCz = -H / 2 + cam.margin + sq / 2
-  const plateauTop = hy + 0.95 * MM
-  add('Glass', slab(sq + 0.45 * MM, sq + 0.45 * MM, sqR + 0.22 * MM, hy, plateauTop - 0.08 * MM, { cx: sqCx, cz: sqCz, bevel: 0.42 * MM, seg: 32 }))
-  add('Frosted glass', slab(sq, sq, sqR, hy + 0.02 * MM, plateauTop, { cx: sqCx, cz: sqCz, bevel: 0.28 * MM, seg: 32 }))
+  const plateauTop = hy + 0.58 * MM
+  add('Glass', slab(sq + 1.45 * MM, sq + 1.45 * MM, sqR + 0.72 * MM, hy + 0.01 * MM, hy + 0.34 * MM, { cx: sqCx, cz: sqCz, bevel: 0.28 * MM, bevelSeg: 5, seg: 44 }))
+  add('Frosted bump', slab(sq, sq, sqR, hy + 0.02 * MM, plateauTop, { cx: sqCx, cz: sqCz, bevel: 0.22 * MM, bevelSeg: 5, seg: 44 }))
 
-  // Duas lentes ópticas multicamadas na coluna esquerda do módulo
+  // Duas lentes ópticas grandes na coluna esquerda do módulo (Superior Ultra-Wide e Inferior Wide diferenciadas)
   const lensX = sqCx - sq / 2 + cam.lensInset
   const lensZTop = sqCz - sq / 2 + cam.lensInset
   const lensZBot = sqCz + sq / 2 - cam.lensInset
-  addDetailedRearLens(add, cam.ring, plateauTop, lensX, lensZTop)
-  addDetailedRearLens(add, cam.ring, plateauTop, lensX, lensZBot)
+  addDetailedRearLens(add, cam.ring, plateauTop, lensX, lensZTop, true)
+  addDetailedRearLens(add, cam.ring, plateauTop, lensX, lensZBot, false)
 
-  // Coluna direita do módulo: Microfone no topo + Flash True-Tone Fresnel centralizado (exatamente como nas fotos)
-  const rightX = sqCx + sq / 2 - cam.lensInset * 0.78
-  const micZ = lensZTop + 0.6 * MM
-  add('Plastic port', flatRing(0.55 * MM, 0.82 * MM, plateauTop + 0.02 * MM, rightX, micZ, true, 28))
-  add('Plastic port', disc(0.56 * MM, plateauTop + 0.01 * MM, rightX, micZ, true, 28))
-  add('Metal Screw', disc(0.42 * MM, plateauTop + 0.015 * MM, rightX, micZ, true, 24))
+  // Coluna direita do módulo fiel às 3 fotos macro: Microfone alinhado ligeiramente acima do centro da lente superior + Flash True-Tone Fresnel centralizado
+  const rightX = sqCx + sq / 2 - 6.35 * MM * cam.k
+  const micZ = lensZTop - 0.45 * MM * cam.k
+  const rMic = 1.22 * MM * cam.k
+  add('Acoustic mesh', disc(rMic, plateauTop + 0.008 * MM, rightX, micZ, true, 48))
 
-  // Flash True-Tone no centro vertical do módulo
-  const flashZ = sqCz + 0.15 * MM
-  const rFlash = cam.flash
-  add('Metal Screw', cyl(rFlash + 0.18 * MM, rFlash + 0.22 * MM, plateauTop, plateauTop + 0.12 * MM, rightX, flashZ, true, 36))
-  add('Metal Screw', flatRing(rFlash, rFlash + 0.20 * MM, plateauTop + 0.125 * MM, rightX, flashZ, true, 36))
-  add('LED', disc(rFlash * 0.96, plateauTop + 0.06 * MM, rightX, flashZ, true, 36))
-  add('Plastic LED', flatRing(rFlash * 0.35, rFlash * 0.68, plateauTop + 0.09 * MM, rightX, flashZ, true, 36))
-  add('Plastic LED', disc(rFlash, plateauTop + 0.115 * MM, rightX, flashZ, true, 36))
+  // Flash True-Tone Fresnel embutido com chanfro translúcido no vidro e duplo LED interno
+  const flashZ = sqCz - 0.08 * MM * cam.k
+  const rFlash = 2.75 * MM * cam.k
+  add('LED', disc(rFlash * 0.98, plateauTop + 0.008 * MM, rightX, flashZ, true, 56))
+  add('Plastic LED', disc(rFlash, plateauTop + 0.014 * MM, rightX, flashZ, true, 56))
 
-  // 4. Frente: borda preta (Display Frame), tela OLED iOS 14, Notch largo, alto-falante e câmera TrueDepth
+  // 4. Frente fiel às Fotos 1, 2 e 3: filete metálico interno ao redor da borda preta + tela OLED + Notch
   const fy = -hy
   current = 'Display'
-  add('Display Frame', slab(W - 0.8 * MM, H - 0.8 * MM, corner - 0.4 * MM, fy - 0.015 * MM, fy + 0.42 * MM, { bevel: 0.12 * MM, seg: 44 }))
-  const sw = W - 4.3 * MM, sh = H - 4.3 * MM
-  add('OLED', screenPlane(sw, sh, corner - 2.15 * MM, fy - 0.032 * MM))
+  add('Display Frame', slab(W - 0.84 * MM, H - 0.84 * MM, corner - 0.42 * MM, fy - 0.015 * MM, fy + 0.42 * MM, { bevel: 0.10 * MM, seg: 44 }))
+  const sw = W - 4.4 * MM, sh = H - 4.4 * MM
+  add('OLED', screenPlane(sw, sh, corner - 2.2 * MM, fy - 0.032 * MM))
 
   // Notch largo do iPhone 12 com alto-falante central e câmera frontal à direita (na visão frontal = −X local)
   const nw = cam.notchW, nh = cam.notchH
   add('OLED off', notch(nw, nh, -sh / 2 - 0.15 * MM, fy - 0.052 * MM))
   const earZ = -sh / 2 + nh * 0.42
   {
-    const earOuter = new THREE.ShapeGeometry(roundedRect(nw * 0.34, 1.05 * MM, 0.52 * MM), 16)
+    const earW = nw * 0.34, earH = 1.08 * MM
+    const earOuter = new THREE.ShapeGeometry(roundedRect(earW, earH, 0.52 * MM, 10), 16)
     earOuter.rotateX(Math.PI / 2)
     earOuter.translate(0, fy - 0.062 * MM, earZ)
     add('Plastic port', earOuter)
 
-    const earMesh = new THREE.ShapeGeometry(roundedRect(nw * 0.31, 0.72 * MM, 0.36 * MM), 16)
+    const mw = nw * 0.31, mh = 0.76 * MM
+    const earMesh = new THREE.ShapeGeometry(roundedRect(mw, mh, 0.36 * MM, 10), 16)
+    const pos = earMesh.attributes.position
+    const uv = new Float32Array(pos.count * 2)
+    for (let i = 0; i < pos.count; i++) {
+      uv[i * 2] = (pos.getX(i) + mw / 2) / mw
+      uv[i * 2 + 1] = (pos.getY(i) + mh / 2) / mh
+    }
+    earMesh.setAttribute('uv', new THREE.BufferAttribute(uv, 2))
     earMesh.rotateX(Math.PI / 2)
     earMesh.translate(0, fy - 0.068 * MM, earZ)
-    add('Metal Screw', earMesh)
+    add('Acoustic mesh', earMesh)
   }
   // Câmera frontal TrueDepth à direita do alto-falante quando visto de frente (−X no espaço local)
   const fCamX = -nw * 0.22
-  add('Camera filter', disc(1.18 * MM, fy - 0.062 * MM, fCamX, earZ, false, 32))
-  add('Camera Lens', disc(0.82 * MM, fy - 0.068 * MM, fCamX, earZ, false, 32))
-  add('Lens element', flatRing(0.22 * MM, 0.48 * MM, fy - 0.072 * MM, fCamX, earZ, false, 28))
+  add('Camera filter', disc(1.22 * MM, fy - 0.062 * MM, fCamX, earZ, false, 36))
+  add('Camera Lens', disc(0.88 * MM, fy - 0.068 * MM, fCamX, earZ, false, 36))
+  add('Camera sapphire miror', disc(0.92 * MM, fy - 0.072 * MM, fCamX, earZ, false, 36))
 
   // Cobertura Ceramic Shield frontal
-  add('Glass', slab(W - 0.75 * MM, H - 0.75 * MM, corner - 0.38 * MM, fy - 0.32 * MM, fy - 0.02 * MM, { bevel: 0.10 * MM, seg: 44 }), 'FrontGlass')
+  add('Glass', slab(W - 0.75 * MM, H - 0.75 * MM, corner - 0.38 * MM, fy - 0.30 * MM, fy - 0.02 * MM, { bevel: 0.10 * MM, seg: 44 }), 'FrontGlass')
 
-  // 5. Botões laterais, chave Silencioso com indicador laranja, gaveta do SIM e janela 5G mmWave
+  // 5. Botões laterais com colar de sombra AO, chave Silencioso com indicador laranja, gaveta do SIM e janela 5G mmWave
   current = 'DeviceBody'
   const btnT = 1.95 * MM
-  const btnP = 0.52 * MM
+  const btnP = 0.54 * MM
 
   // Lado direito visto de frente (−X): Botão Power + janela 5G mmWave abaixo
   const pwrZ = -H / 2 + 44.5 * MM * cam.k
   const pwrLen = 17.6 * MM * cam.k
-  add('Plastic port', sidePill(pwrLen + 0.5 * MM, btnT + 0.45 * MM, 0.18 * MM, -W / 2, 0, pwrZ, 0.04 * MM))
-  add('Anodized aluminum', sidePill(pwrLen, btnT, btnP * 2, -W / 2 - btnP * 0.45, 0, pwrZ, 0.22 * MM))
+  add('Plastic port', sidePill(pwrLen + 0.56 * MM, btnT + 0.52 * MM, 0.22 * MM, -W / 2, 0, pwrZ, 0.04 * MM))
+  add('finish-chamfer', sidePill(pwrLen + 0.08 * MM, btnT + 0.08 * MM, btnP * 1.4, -W / 2 - btnP * 0.22, 0, pwrZ, 0.18 * MM))
+  add('Anodized aluminum', sidePill(pwrLen, btnT, btnP * 2, -W / 2 - btnP * 0.46, 0, pwrZ, 0.22 * MM))
 
-  // Janela 5G mmWave (cápsula rente à lateral −X, abaixo do botão Power, visível nas referências)
+  // Janela 5G mmWave (cápsula rente à lateral −X, abaixo do botão Power)
   const mmwZ = -H / 2 + 82.5 * MM * cam.k
   const mmwLen = 19.5 * MM * cam.k
-  add('Plastic port', sidePill(mmwLen + 0.4 * MM, 3.3 * MM, 0.14 * MM, -W / 2, 0, mmwZ, 0.03 * MM))
-  add('Plastic antena', sidePill(mmwLen, 2.95 * MM, 0.18 * MM, -W / 2 - 0.01 * MM, 0, mmwZ, 0.06 * MM))
+  add('Plastic port', sidePill(mmwLen + 0.48 * MM, 3.38 * MM, 0.16 * MM, -W / 2, 0, mmwZ, 0.03 * MM))
+  add('Plastic antena', sidePill(mmwLen, 2.96 * MM, 0.20 * MM, -W / 2 - 0.012 * MM, 0, mmwZ, 0.06 * MM))
 
   // Lado esquerdo visto de frente (+X): Chave Silencioso (com faixa laranja) + Volume + / − + Gaveta do SIM com furo
   const muteZ = -H / 2 + 26.2 * MM * cam.k
   const muteLen = 6.8 * MM * cam.k
-  // Cavidade da chave Silencioso + faixa laranja + alavanca metálica deslocada
-  add('Plastic port', sidePill(muteLen, 2.15 * MM, 0.22 * MM, W / 2, 0, muteZ, 0.05 * MM))
-  add('Mute orange', sidePill(muteLen - 0.7 * MM, 0.75 * MM, 0.26 * MM, W / 2 + 0.01 * MM, -0.45 * MM, muteZ, 0.04 * MM))
-  add('Anodized aluminum', sidePill(muteLen - 0.5 * MM, 1.05 * MM, btnP * 1.8, W / 2 + btnP * 0.38, 0.38 * MM, muteZ, 0.16 * MM))
+  add('Plastic port', sidePill(muteLen + 0.18 * MM, 2.25 * MM, 0.28 * MM, W / 2, 0, muteZ, 0.05 * MM))
+  add('Mute orange', sidePill(muteLen - 0.65 * MM, 0.82 * MM, 0.32 * MM, W / 2 + 0.015 * MM, -0.46 * MM, muteZ, 0.04 * MM))
+  add('finish-chamfer', sidePill(muteLen - 0.42 * MM, 1.08 * MM, btnP * 1.85, W / 2 + btnP * 0.40, 0.38 * MM, muteZ, 0.16 * MM))
 
   // Botões de Volume + e Volume −
   for (const vz of [-H / 2 + 39.2 * MM * cam.k, -H / 2 + 52.8 * MM * cam.k]) {
     const vLen = 10.6 * MM * cam.k
-    add('Plastic port', sidePill(vLen + 0.45 * MM, btnT + 0.42 * MM, 0.18 * MM, W / 2, 0, vz, 0.04 * MM))
-    add('Anodized aluminum', sidePill(vLen, btnT, btnP * 2, W / 2 + btnP * 0.45, 0, vz, 0.22 * MM))
+    add('Plastic port', sidePill(vLen + 0.54 * MM, btnT + 0.50 * MM, 0.22 * MM, W / 2, 0, vz, 0.04 * MM))
+    add('finish-chamfer', sidePill(vLen + 0.08 * MM, btnT + 0.08 * MM, btnP * 1.4, W / 2 + btnP * 0.22, 0, vz, 0.18 * MM))
+    add('Anodized aluminum', sidePill(vLen, btnT, btnP * 2, W / 2 + btnP * 0.46, 0, vz, 0.22 * MM))
   }
 
   // Gaveta do SIM + furo circular do ejetor (lado +X, parte inferior)
   const simZ = -H / 2 + 88.5 * MM * cam.k
   const simLen = 15.8 * MM * cam.k
-  add('Plastic port', sidePill(simLen, 2.25 * MM, 0.16 * MM, W / 2, 0, simZ, 0.03 * MM))
-  add('Anodized aluminum', sidePill(simLen - 0.38 * MM, 1.88 * MM, 0.20 * MM, W / 2 + 0.005 * MM, 0, simZ, 0.04 * MM))
-  // Furo do ejetor na parte de baixo da gaveta do SIM
+  add('Plastic port', sidePill(simLen + 0.12 * MM, 2.32 * MM, 0.18 * MM, W / 2, 0, simZ, 0.03 * MM))
+  add('Anodized aluminum', sidePill(simLen - 0.38 * MM, 1.88 * MM, 0.22 * MM, W / 2 + 0.006 * MM, 0, simZ, 0.04 * MM))
   {
-    const pinHole = new THREE.CylinderGeometry(0.48 * MM, 0.48 * MM, 0.28 * MM, 24)
+    const pinHole = new THREE.CylinderGeometry(0.50 * MM, 0.50 * MM, 0.32 * MM, 28)
     pinHole.rotateZ(Math.PI / 2)
     pinHole.translate(W / 2 + 0.02 * MM, 0, simZ + simLen * 0.31)
     add('Plastic port', pinHole)
   }
 
-  // 6. Base (+Z): Porta Lightning com aro metálico e pinos dourados + 2 parafusos pentalobe + furos de som assimétricos
+  // 6. Base (+Z): Porta Lightning com aro metálico e pinos dourados + 2 parafusos pentalobe + furos de som com malha acústica
   const bz = H / 2
+  add('Plastic port', bottomCapsuleRing(9.35 * MM, 3.25 * MM, 8.15 * MM, 2.20 * MM, 0, bz - 0.12 * MM, bz + 0.05 * MM))
   add('Metal Screw', bottomCapsuleRing(9.1 * MM, 3.05 * MM, 8.2 * MM, 2.25 * MM, 0, bz - 0.15 * MM, bz + 0.08 * MM))
   add('Plastic port', bottomCapsule(8.25 * MM, 2.28 * MM, 0, bz - 0.35 * MM, bz + 0.05 * MM))
-  // Pinos de contato dourados no interior da porta Lightning
   for (let p = -3.5; p <= 3.5; p += 1) {
-    const pin = new THREE.BoxGeometry(0.42 * MM, 0.22 * MM, 0.16 * MM)
-    pin.translate(p * 0.82 * MM, 0.65 * MM, bz - 0.02 * MM)
+    const pin = new THREE.BoxGeometry(0.42 * MM, 0.24 * MM, 0.18 * MM)
+    pin.translate(p * 0.82 * MM, 0.65 * MM, bz - 0.01 * MM)
     add('Coil', pin)
   }
 
   // Dois parafusos pentalobe ladeando a porta Lightning
   for (const sx of [-1, 1]) {
     const px = sx * 5.75 * MM
-    add('Metal Screw', bottomCyl(0.68 * MM, px, bz - 0.15 * MM, bz + 0.07 * MM, 28))
-    add('Plastic port', bottomCyl(0.24 * MM, px, bz - 0.10 * MM, bz + 0.08 * MM, 6))
+    add('Plastic port', bottomCyl(0.76 * MM, px, bz - 0.14 * MM, bz + 0.05 * MM, 28))
+    add('Metal Screw', bottomCyl(0.66 * MM, px, bz - 0.15 * MM, bz + 0.07 * MM, 28))
+    add('Plastic port', bottomCyl(0.25 * MM, px, bz - 0.10 * MM, bz + 0.08 * MM, 5))
   }
 
-  // Furos de alto-falante à esquerda (lado −X: 4 no mini, 5 no 12) e microfone à direita (lado +X: 2 no mini, 3 no 12)
+  // Furos de alto-falante à esquerda (4 no mini, 5 no 12) e microfone à direita (2 no mini, 3 no 12) com malha acústica
   const leftHoles = id === 'iphone-12-mini' ? 4 : 5
   const rightHoles = id === 'iphone-12-mini' ? 2 : 3
   for (let i = 0; i < leftHoles; i++) {
     const hx = -(9.2 * MM + i * 2.15 * MM)
-    add('Plastic port', bottomCyl(0.62 * MM, hx, bz - 0.20 * MM, bz + 0.06 * MM, 24))
-    add('Metal Screw', bottomCyl(0.44 * MM, hx, bz - 0.22 * MM, bz + 0.03 * MM, 20))
+    add('Plastic port', bottomCyl(0.64 * MM, hx, bz - 0.20 * MM, bz + 0.06 * MM, 24))
+    add('Acoustic mesh', bottomDisc(0.50 * MM, hx, bz + 0.04 * MM, 24))
   }
   for (let i = 0; i < rightHoles; i++) {
     const hx = 9.2 * MM + i * 2.15 * MM
-    add('Plastic port', bottomCyl(0.62 * MM, hx, bz - 0.20 * MM, bz + 0.06 * MM, 24))
-    add('Metal Screw', bottomCyl(0.44 * MM, hx, bz - 0.22 * MM, bz + 0.03 * MM, 20))
+    add('Plastic port', bottomCyl(0.64 * MM, hx, bz - 0.20 * MM, bz + 0.06 * MM, 24))
+    add('Acoustic mesh', bottomDisc(0.50 * MM, hx, bz + 0.04 * MM, 24))
   }
 
   if (exploded) addInternals({ W, H, D, corner, cam, add, sqCx, sqCz, lensX, sq })
@@ -635,7 +906,7 @@ function addInternals({ W, H, D, corner, cam, add, sqCx, sqCz, lensX, sq }) {
   add('Speaker', slab(16 * MM * cam.k, 8 * MM, 1.5 * MM, -1.4 * MM, 1.8 * MM, { cx: W / 2 - 12.5 * MM, cz: H / 2 - 9 * MM }), 'Speaker')
 }
 
-// ---------- gravação GLB (glTF 2.0 binário com textura iOS 14 embutida) ----------
+// ---------- gravação GLB (glTF 2.0 binário com 4 texturas PBR e extensões físicas) ----------
 function toGLB(name, nodesIn) {
   const chunks = []
   let offset = 0
@@ -660,26 +931,25 @@ function toGLB(name, nodesIn) {
       const def = MATERIALS[matName]
       if (matIndex[matName] === undefined) {
         matIndex[matName] = materials.length
-        if (def.textured) {
-          materials.push({
-            name: matName,
-            pbrMetallicRoughness: {
-              baseColorTexture: { index: 0 },
-              metallicFactor: def.m,
-              roughnessFactor: def.r,
-            },
-            emissiveTexture: { index: 0 },
-            emissiveFactor: [0.92, 0.92, 0.92],
-            doubleSided: true,
-          })
-        } else {
-          materials.push({
-            name: matName,
-            pbrMetallicRoughness: { baseColorFactor: def.c, metallicFactor: def.m, roughnessFactor: def.r },
-            ...(def.blend ? { alphaMode: 'BLEND' } : {}),
-            doubleSided: true,
-          })
+        const matObj = {
+          name: matName,
+          pbrMetallicRoughness: {
+            ...(def.texIndex !== undefined ? { baseColorTexture: { index: def.texIndex } } : {}),
+            ...(def.c ? { baseColorFactor: def.c } : {}),
+            metallicFactor: def.m,
+            roughnessFactor: def.r,
+          },
+          ...(def.emissiveTexIndex !== undefined
+            ? {
+                emissiveTexture: { index: def.emissiveTexIndex },
+                emissiveFactor: def.emissiveFactor ?? [1, 1, 1],
+              }
+            : {}),
+          ...(def.blend ? { alphaMode: 'BLEND' } : {}),
+          ...(def.ext ? { extensions: def.ext } : {}),
+          doubleSided: true,
         }
+        materials.push(matObj)
       }
       const mi = matIndex[matName]
       const pos = g.attributes.position.array, nrm = g.attributes.normal.array, uv = g.attributes.uv.array
@@ -715,23 +985,43 @@ function toGLB(name, nodesIn) {
     children.push(nodeName)
   }
 
-  // Embute a imagem JPEG da tela iOS 14 para o material OLED
+  // Embute as 5 texturas PBR no binário do GLB
   const wallpaperBv = pushBytes(ios14WallpaperJpeg)
+  const topLensBv = pushBytes(topCameraLensJpeg)
+  const flashBv = pushBytes(trueToneFlashJpeg)
+  const meshBv = pushBytes(acousticMeshJpeg)
+  const botLensBv = pushBytes(botCameraLensJpeg)
 
   const single = children.length === 1
   const nodes = single
     ? [{ name, mesh: 0, rotation: [Math.SQRT1_2, 0, 0, Math.SQRT1_2] }]
     : [{ name, rotation: [Math.SQRT1_2, 0, 0, Math.SQRT1_2], children: children.map((_, i) => i + 1) }, ...children.map((n, i) => ({ name: n, mesh: i }))]
   const json = {
-    asset: { version: '2.0', generator: 'Argento modelar-iphone-12.mjs' },
+    asset: { version: '2.0', generator: 'Argento modelar-iphone-12.mjs Photorealistic PBR' },
+    extensionsUsed: ['KHR_materials_clearcoat', 'KHR_materials_ior', 'KHR_materials_specular'],
     scene: 0,
     scenes: [{ nodes: [0] }],
     nodes,
     meshes,
     materials,
-    textures: [{ sampler: 0, source: 0 }],
-    samplers: [{ magFilter: 9729, minFilter: 9987, wrapS: 33071, wrapT: 33071 }],
-    images: [{ name: 'ios14-wallpaper', mimeType: 'image/jpeg', bufferView: wallpaperBv }],
+    textures: [
+      { sampler: 0, source: 0 },
+      { sampler: 0, source: 1 },
+      { sampler: 0, source: 2 },
+      { sampler: 1, source: 3 },
+      { sampler: 0, source: 4 },
+    ],
+    samplers: [
+      { magFilter: 9729, minFilter: 9987, wrapS: 33071, wrapT: 33071 },
+      { magFilter: 9729, minFilter: 9987, wrapS: 10497, wrapT: 10497 },
+    ],
+    images: [
+      { name: 'ios14-wallpaper', mimeType: 'image/jpeg', bufferView: wallpaperBv },
+      { name: 'camera-lens-top-ultrawide', mimeType: 'image/jpeg', bufferView: topLensBv },
+      { name: 'truetone-flash-fresnel', mimeType: 'image/jpeg', bufferView: flashBv },
+      { name: 'acoustic-mesh', mimeType: 'image/jpeg', bufferView: meshBv },
+      { name: 'camera-lens-bot-wide', mimeType: 'image/jpeg', bufferView: botLensBv },
+    ],
     accessors,
     bufferViews,
     buffers: [{ byteLength: offset }],
@@ -753,8 +1043,8 @@ const SPECS = [
     W: 71.5 * MM,
     H: 146.7 * MM,
     D: 7.4 * MM,
-    corner: 10.3 * MM,
-    cam: { k: 1, size: 26.6 * MM, radius: 6.8 * MM, margin: 3.6 * MM, lensInset: 7.2 * MM, ring: 5.75 * MM, flash: 2.35 * MM, notchW: 34.6 * MM, notchH: 5.9 * MM },
+    corner: 10.5 * MM,
+    cam: { k: 1, size: 27.2 * MM, radius: 7.5 * MM, margin: 3.5 * MM, lensInset: 7.1 * MM, ring: 5.95 * MM, flash: 2.45 * MM, notchW: 35.0 * MM, notchH: 5.4 * MM },
   },
   {
     id: 'iphone-12-mini',
@@ -762,8 +1052,8 @@ const SPECS = [
     W: 64.2 * MM,
     H: 131.5 * MM,
     D: 7.4 * MM,
-    corner: 9.3 * MM,
-    cam: { k: 0.9, size: 24.8 * MM, radius: 6.4 * MM, margin: 3.3 * MM, lensInset: 6.7 * MM, ring: 5.35 * MM, flash: 2.15 * MM, notchW: 32.8 * MM, notchH: 5.8 * MM },
+    corner: 9.5 * MM,
+    cam: { k: 0.9, size: 25.2 * MM, radius: 7.0 * MM, margin: 3.2 * MM, lensInset: 6.6 * MM, ring: 5.50 * MM, flash: 2.25 * MM, notchW: 33.2 * MM, notchH: 5.3 * MM },
   },
 ]
 

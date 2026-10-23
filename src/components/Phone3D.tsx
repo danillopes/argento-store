@@ -1,6 +1,8 @@
 import { Component, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
 import { Environment, Lightformer, RoundedBox, ContactShadows, PerformanceMonitor } from '@react-three/drei'
+import { useRenderQuality, qualityDecline, qualityIncline, qualityFallback } from '../lib/render-quality'
+import { makeScreenEmissive } from '../lib/screen-material'
 import * as THREE from 'three'
 import type { CamLayout, PhoneModel } from '../data/models'
 import { CachedModelLoader } from '../lib/model-loader'
@@ -58,6 +60,8 @@ function drawIosScreen(
   const CW = 512, CH = 1100
   const { hex, family, hasIsland, island, time, mirrorX } = opts
   g.save()
+  // desenho em coordenadas 512×1100; o canvas pode ter o dobro (Alta/Ultra) para textos nítidos
+  g.setTransform(g.canvas.width / CW, 0, 0, g.canvas.height / CH, 0, 0)
   g.clearRect(0, 0, CW, CH)
   if (mirrorX) {
     g.translate(CW, 0)
@@ -531,26 +535,30 @@ function GLBPhone({
   model,
   interactive,
   onReady,
+  screenSize,
 }: {
   url: string
   drive: React.MutableRefObject<Drive>
   model?: PhoneModel
   interactive?: boolean
   onReady: (url: string) => void
+  screenSize: [number, number]
 }) {
   const { scene } = useLoader(CachedModelLoader, url)
   useEffect(() => { preparedModels.add(url); onReady(url) }, [url, onReady])
 
+  const [screenW, screenH] = screenSize
   const screenSurface = useMemo(() => {
     const c = document.createElement('canvas')
-    c.width = 512
-    c.height = 1100
+    // resolução da tela conforme o nível de qualidade (1024×2200 em Alta/Ultra, 512×1100 em Otimizada)
+    c.width = screenW
+    c.height = screenH
     const t = new THREE.CanvasTexture(c)
     t.flipY = false
     t.colorSpace = THREE.SRGBColorSpace
     t.anisotropy = 8
     return { canvas: c, tex: t }
-  }, [])
+  }, [screenW, screenH])
 
   const obj = useMemo(() => {
     const c = scene.clone(true)
@@ -570,7 +578,11 @@ function GLBPhone({
       const tint = (original: THREE.Material) => {
         const mat = original.clone()
         if (mat instanceof THREE.MeshStandardMaterial) {
-          if (mat.name === 'Anodized aluminum' || mat.name.startsWith('finish-')) {
+          if (mat.name === 'finish-chamfer') {
+            mat.metalness = 0.9
+            mat.roughness = 0.14
+            frames.push(mat)
+          } else if (mat.name === 'Anodized aluminum' || mat.name.startsWith('finish-')) {
             mat.normalScale.multiplyScalar(0.18)
             if (isSteel) {
               mat.metalness = 0.96
@@ -583,10 +595,14 @@ function GLBPhone({
               mat.roughness = 0.36
             }
             frames.push(mat)
+          } else if (mat.name === 'Frosted bump') {
+            mat.roughness = 0.34
+            mat.metalness = 0.06
+            glasses.push(mat)
           } else if (mat.name === 'Frosted glass') {
             mat.normalScale.multiplyScalar(0.15)
-            mat.roughness = isGlossBack ? 0.07 : 0.32
-            mat.metalness = isGlossBack ? 0.05 : 0.1
+            mat.roughness = isGlossBack ? 0.06 : 0.32
+            mat.metalness = isGlossBack ? 0.04 : 0.1
             glasses.push(mat)
           } else if (mat.name === 'Glass tint') {
             mat.roughness = 0.08
@@ -599,13 +615,8 @@ function GLBPhone({
             mat.opacity = 0.14
             mat.depthWrite = false
           } else if (mat.name === 'OLED') {
-            mat.emissiveIntensity = 0.92
-            mat.toneMapped = false
-            if (interactive || model) {
-              mat.map = screenSurface.tex
-              mat.emissiveMap = screenSurface.tex
-              mat.emissive.set('#ffffff')
-            }
+            // imagem só na emissão: tela desenhada (iOS interativo) ou a imagem do próprio GLB
+            makeScreenEmissive(mat, interactive || model ? screenSurface.tex : null)
             oleds.push(mat)
           }
         }
@@ -633,8 +644,6 @@ function GLBPhone({
   const glassTarget = useMemo(() => new THREE.Color(), [])
   const logoTarget = useMemo(() => new THREE.Color(), [])
   const antTarget = useMemo(() => new THREE.Color(), [])
-  const screenColor = useMemo(() => new THREE.Color('#ffffff'), [])
-  const offColor = useMemo(() => new THREE.Color('#050507'), [])
   const screenLevel = useRef(drive.current.screen)
   const islandLevel = useRef(drive.current.island ?? 0)
   const lastDrawnColor = useRef('')
@@ -657,10 +666,7 @@ function GLBPhone({
 
     // Brilho da tela (Ligar / Desligar)
     screenLevel.current += (d.screen - screenLevel.current) * Math.min(1, dt * 8)
-    for (const mat of obj.oleds) {
-      mat.emissiveIntensity = 0.92 * screenLevel.current
-      mat.color.copy(offColor).lerp(screenColor, screenLevel.current)
-    }
+    for (const mat of obj.oleds) mat.emissiveIntensity = screenLevel.current
 
     // Atualiza o canvas da tela iOS quando a cor ou a Dynamic Island mudam
     if (interactive || model) {
@@ -768,9 +774,9 @@ export default function Phone3D({
     document.addEventListener('visibilitychange', update)
     return () => { io.disconnect(); document.removeEventListener('visibilitychange', update) }
   }, [])
-  // Resolução adaptativa: começa conforme o aparelho e reduz se o FPS cair
-  const lowPower = typeof navigator !== 'undefined' && ((navigator.hardwareConcurrency ?? 8) <= 4 || matchMedia('(max-width: 860px)').matches)
-  const [dpr, setDpr] = useState(lowPower ? 1 : 1.5)
+  // Qualidade adaptativa (Ultra / Alta / Otimizada): nível pela GPU, ajuste fino pelo FPS real
+  const quality = useRenderQuality()
+  const { settings } = quality
   const procedural = <PhoneMesh drive={drive} cam={cam ?? model?.cam} model={model} />
   const handlers = interactive
     ? {
@@ -795,13 +801,13 @@ export default function Phone3D({
     : {}
   return (
     <div ref={wrap} className={className} style={{ position: 'relative', width: '100%', height: '100%', touchAction: interactive ? 'none' : undefined, cursor: interactive ? 'grab' : undefined }} {...handlers}>
-      <Canvas frameloop={visible ? 'always' : 'never'} dpr={dpr} camera={{ position: [0, 0, 7.2], fov }} gl={{ antialias: !lowPower, alpha: true, powerPreference: 'high-performance' }}>
-        <PerformanceMonitor onDecline={() => setDpr((d) => Math.max(1, d - 0.25))} onIncline={() => setDpr((d) => Math.min(lowPower ? 1.25 : 1.75, d + 0.25))} flipflops={3} />
+      <Canvas frameloop={visible ? 'always' : 'never'} dpr={quality.dpr} camera={{ position: [0, 0, 7.2], fov }} gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }} data-quality={quality.tier}>
+        <PerformanceMonitor onDecline={qualityDecline} onIncline={qualityIncline} onFallback={qualityFallback} flipflops={3} />
         <ambientLight intensity={theme === 'dark' ? 0.5 : 0.45} />
         <directionalLight position={[3, 4, 5]} intensity={1.6} />
         <directionalLight position={[0, 1, 5]} intensity={theme === 'dark' ? 0.55 : 0.45} />
         <directionalLight position={[-4, -2, -4]} intensity={0.8} />
-        <Environment resolution={lowPower ? 128 : 256} environmentIntensity={theme === 'dark' ? 0.9 : 0.85}>
+        <Environment resolution={settings.envResolution} environmentIntensity={theme === 'dark' ? 0.9 : 0.85}>
           <Lightformer form="rect" intensity={3} position={[0, 5, -6]} scale={[10, 2, 1]} />
           <Lightformer form="rect" intensity={2.5} position={[-6, 1, 1]} rotation-y={Math.PI / 2} scale={[8, 1.2, 1]} />
           <Lightformer form="rect" intensity={2.5} position={[6, -1, 1]} rotation-y={-Math.PI / 2} scale={[8, 1.2, 1]} />
@@ -811,11 +817,11 @@ export default function Phone3D({
         <Rig drive={drive} drag={drag} interactive={interactive}>
           {url ? (
             <Boundary key={url} fallback={procedural} onError={() => setFailedUrl(url)}>
-              <Suspense fallback={null}><GLBPhone url={url} drive={drive} model={model} interactive={interactive} onReady={setLoadedUrl} /></Suspense>
+              <Suspense fallback={null}><GLBPhone url={url} drive={drive} model={model} interactive={interactive} onReady={setLoadedUrl} screenSize={settings.screen} /></Suspense>
             </Boundary>
           ) : procedural}
         </Rig>
-        {shadow && !lowPower && <ContactShadows position={[0, -1.75, 0]} opacity={0.35} blur={2.6} scale={6} far={3} />}
+        {shadow && settings.shadow && <ContactShadows position={[0, -1.75, 0]} opacity={0.35} blur={2.6} scale={6} far={3} resolution={settings.shadowResolution} />}
       </Canvas>
       {url && loadedUrl !== url && <div className="model-loading-overlay"><span className="model-loading" role={failedUrl === url ? 'alert' : 'status'}>{failedUrl === url ? 'Não foi possível carregar o modelo 3D. Atualize a página para tentar novamente.' : 'Carregando modelo 3D…'}</span></div>}
     </div>
