@@ -219,8 +219,12 @@ function drawIosScreen(
   // Dynamic Island interativa (Live Activity expandida)
   if (hasIsland && island > 0.01) {
     const prog = THREE.MathUtils.smoothstep(island, 0, 1)
-    const iw = 152 + prog * 288 // de 152px até 440px
-    const ih = 46 + prog * 134 // de 46px até 180px
+    // repouso igual à ilha física: 21 × 6 mm (≈152 × 46 px) até o 17; compacta no 18 Pro, 15,3 × 5,7 mm (≈112 × 42 px)
+    const compact = family >= 18
+    const iw0 = compact ? 112 : 152
+    const ih0 = compact ? 42 : 46
+    const iw = iw0 + prog * (440 - iw0) // expande até 440px
+    const ih = ih0 + prog * (180 - ih0) // expande até 180px
     const ix = (CW - iw) / 2
     const iy = 34
     g.save()

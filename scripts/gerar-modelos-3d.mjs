@@ -52,8 +52,8 @@ const SPECS = [
   { id: 'iphone-17-pro-max', w: 0.0776, h: 0.1630, d: 0.00875, cam: 'plateau', front: 'island', frame: 'alu-unibody', back: 'matte', camCtrl: true, hex: '#e0702b', accent: '#2d3a55', family: 17 },
 
   // Geração 18
-  { id: 'iphone-18-pro', w: 0.0720, h: 0.1500, d: 0.00875, cam: 'plateau', front: 'island', frame: 'alu-unibody', back: 'matte', camCtrl: true, hex: '#6b1f2e', accent: '#b9d0e4', family: 18 },
-  { id: 'iphone-18-pro-max', w: 0.0776, h: 0.1630, d: 0.00875, cam: 'plateau', front: 'island', frame: 'alu-unibody', back: 'matte', camCtrl: true, hex: '#6b1f2e', accent: '#e4e4e2', family: 18 },
+  { id: 'iphone-18-pro', w: 0.0720, h: 0.1500, d: 0.00875, cam: 'plateau', front: 'island', frame: 'alu-unibody', back: 'matte', camCtrl: true, hex: '#6b1f2e', accent: '#b9d0e4', family: 18, island: 'compact' },
+  { id: 'iphone-18-pro-max', w: 0.0776, h: 0.1630, d: 0.00875, cam: 'plateau', front: 'island', frame: 'alu-unibody', back: 'matte', camCtrl: true, hex: '#6b1f2e', accent: '#e4e4e2', family: 18, island: 'compact' },
 ]
 
 // Carrega o GLB doador
@@ -260,6 +260,32 @@ const MIC_CENTER = { x: 0.0221, y: 0.00685, z: -0.0512 }
 const LOGO_CENTER = { x: 0.0001, y: 0.0044, z: 0.0204 }
 const FRONTCAM_CENTER = { x: -0.0075, y: -0.0031, z: -0.0670 }
 
+// Dynamic Island compacta (iPhone 18 Pro / 18 Pro Max), medida no modelo de referência do Daniel
+// (dist/apple-iphone-18-pro-max-silver-2026.zip): 15,3 × 5,7 mm, mesma distância do topo.
+// A ilha do doador (17 Pro) mede 21,0 × 6,0 mm: câmera circular num extremo (centro x = -7,5 mm) e pílula até +10,5 mm.
+// O mapeamento mantém a câmera e a ponta arredondada circulares e encurta só o trecho reto.
+// Tamanho final igual no Pro e no Pro Max (a ilha não cresce com a tela), por isso compensa a escala do aparelho.
+const ISLAND_DONOR = { L: -0.0105, camC: -0.0075, a: -0.0045, b: 0.0075, R: 0.0105, zc: -0.0670, r: 0.003 }
+const ISLAND_COMPACT = { width: 0.01532, height: 0.00569, centerFromTop: 0.00785 }
+function islandRemap(x, z, sx, sz, phoneH) {
+  const d = ISLAND_DONOR
+  const rFinal = ISLAND_COMPACT.height / 2
+  const kx = rFinal / (d.r * sx)
+  const kz = rFinal / (d.r * sz)
+  const hw = ISLAND_COMPACT.width / 2 / sx
+  const camC = -hw + d.r * kx
+  const a = camC + d.r * kx
+  const capC = hw - d.r * kx
+  let nx
+  if (x <= d.a) nx = camC + (x - d.camC) * kx
+  else if (x >= d.b) nx = capC + (x - d.b) * kx
+  else nx = a + ((x - d.a) * (capC - a)) / (d.b - d.a)
+  // centro a 7,85 mm da borda superior em qualquer tamanho (como na referência)
+  const zc = (-phoneH / 2 + ISLAND_COMPACT.centerFromTop) / sz
+  return [nx, zc + (z - d.zc) * kz]
+}
+const inIslandZone = (x, z) => Math.abs(x) < 0.0108 && z > -0.0703 && z < -0.0637
+
 const lensAssembly = donorMesh0.map((p) =>
   extractSubMesh(p.pos, p.norm, p.uv, p.byTag.lens1 ?? [], (x, y, z, nx, ny, nz, u, v) => [
     x - LENS1_CENTER.x,
@@ -409,9 +435,11 @@ async function buildModelGlb(spec) {
     for (let pi = 0; pi < donorMesh0.length; pi++) {
       const p = donorMesh0[pi]
       const allComps = Object.values(p.byTag).flat()
-      const sub = extractSubMesh(p.pos, p.norm, p.uv, allComps, (x, y, z, nx, ny, nz, u, v) => [
-        x * sx, y * sy, z * sz, nx, ny, nz, u, v,
-      ])
+      const sub = extractSubMesh(p.pos, p.norm, p.uv, allComps, (x, y, z, nx, ny, nz, u, v) => {
+        // 18 Pro: lente/filtro da câmera frontal (face frontal, y < 0) acompanham a ilha compacta
+        if (spec.island === 'compact' && y < -0.0025 && inIslandZone(x, z)) [x, z] = islandRemap(x, z, sx, sz, spec.h)
+        return [x * sx, y * sy, z * sz, nx, ny, nz, u, v]
+      })
       appendGeometry(mesh0Prims[pi], sub)
     }
   } else {
@@ -632,7 +660,10 @@ async function buildModelGlb(spec) {
       let tx = x
       let tz = z
       const inIsland = Math.abs(x) < 0.012 && z > -0.071 && z < -0.063
-      if (isNotch && inIsland) {
+      if (spec.island === 'compact' && inIslandZone(x, z)) {
+        // ilha compacta: pílula, contorno, vidro e a borda do recorte da tela OLED seguem o mesmo mapeamento
+        ;[tx, tz] = islandRemap(x, z, sx, sz, spec.h)
+      } else if (isNotch && inIsland) {
         if (pi === 2) {
           // Lente da câmera frontal (Prim 2 C1): desloca sem distorcer o círculo
           tx = x + FRONTCAM_CENTER.x * (notchScaleX - 1)
@@ -788,10 +819,14 @@ async function buildModelGlb(spec) {
 let totalKb = 0
 // iPhone 12 e 12 mini têm modelo próprio (scripts/modelar-iphone-12.mjs): não sobrescrever
 const MODELADOS_A_PARTE = new Set(['iphone-12', 'iphone-12-mini'])
+// --only=iphone-18-pro,iphone-18-pro-max gera apenas esses modelos (os demais arquivos ficam intactos)
+const ONLY = new Set((process.argv.find((a) => a.startsWith('--only='))?.slice(7) ?? '').split(',').filter(Boolean))
 for (const spec of SPECS) {
+  if (ONLY.size && !ONLY.has(spec.id)) continue
   if (MODELADOS_A_PARTE.has(spec.id)) { console.log(`• ${spec.id}: mantido (modelo próprio em modelar-iphone-12.mjs)`); continue }
   const res = await buildModelGlb(spec)
   totalKb += res.kb
   console.log(`✓ ${res.id}.glb (${res.kb} KB)`)
 }
-console.log(`✓ ${SPECS.length} modelos 3D gerados (${(totalKb / 1024).toFixed(1)} MB no total) + iphone-17-pro.glb preservado`)
+const gerados = SPECS.filter((s) => (!ONLY.size || ONLY.has(s.id)) && !MODELADOS_A_PARTE.has(s.id)).length
+console.log(`✓ ${gerados} modelo(s) 3D gerado(s) (${(totalKb / 1024).toFixed(1)} MB no total) + iphone-17-pro.glb preservado`)
