@@ -32,3 +32,15 @@ Veja **FOTOS.md**: coloque as fotos em `fotos-originais/`, rode `npm run fotos` 
 - Páginas e o motor 3D são baixados sob demanda; a página inicial mostra uma ilustração enquanto o 3D carrega.
 - O 3D pausa quando sai da tela ou a aba fica oculta e reduz a resolução sozinho se o FPS cair.
 - Imagens com `loading="lazy"`, tamanhos responsivos e dimensões fixas (sem pulos de layout).
+
+O GLB principal começa a baixar e decodificar junto da abertura do site. O binário
+fica no Cache Storage mesmo na primeira visita, e o modelo decodificado é
+compartilhado pelo preload e pelo configurador durante a sessão. O hash no endereço
+faz baixar novamente somente quando o arquivo muda. A primeira visita ainda
+precisa da transferência inicial; uma nova sessão também precisa preparar o modelo
+na GPU. O navegador pode remover caches se faltar espaço.
+
+A apresentação limita a velocidade da sequência independentemente dos saltos do
+mouse e não reinicia ao trocar de tema. No mobile, o 3D só é revelado ao rolar e
+fica numa área própria acima do texto. Teste de regressão:
+`node --test scripts/test-scene-and-cache.mjs`.

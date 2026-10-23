@@ -2,13 +2,11 @@ import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { defaultDrive, type Drive } from '../components/drive'
-import PhoneArt from '../components/PhoneArt'
-import { modelById } from '../data/models'
+import { advanceScene } from '../lib/scene-motion'
 
 const Phone3D = lazy(() => import('../components/Phone3D'))
-import { gsap } from '../lib/motion'
+import { gsap, ScrollTrigger } from '../lib/motion'
 import { MODELS } from '../data/models'
-import { useStore } from '../store/Store'
 
 const mixHex = (a: string, b: string, t: number) => {
   const pa = parseInt(a.slice(1), 16), pb = parseInt(b.slice(1), 16)
@@ -22,7 +20,6 @@ export default function Scrolly() {
   const root = useRef<HTMLElement>(null)
   const stage = useRef<HTMLDivElement>(null)
   const drive = useRef<Drive>({ ...defaultDrive(), color: PALETTE[0] })
-  const { theme } = useStore()
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -32,52 +29,51 @@ export default function Scrolly() {
         (c) => {
           const { desk, reduce } = c.conditions as { desk: boolean; reduce: boolean }
           const d = drive.current
-          const isDark = theme === 'dark'
-          const light1 = isDark ? '#000000' : '#f5f5f7'
-          const ink = isDark ? '#f5f5f7' : '#1d1d1f'
           const dark = stage.current!.querySelector('.scrolly-dark')
-          gsap.set(stage.current, { backgroundColor: light1, color: ink })
+          const canvas = stage.current!.querySelector('.scrolly-canvas')
           gsap.set(dark, { opacity: 0 })
+          gsap.set(canvas, { autoAlpha: desk ? 1 : 0 })
+          gsap.set('.ch', { y: 0, yPercent: desk ? -50 : 0 })
+          if (!desk) gsap.set('.ch-0', { yPercent: -50 })
           const side = desk ? 1.35 : 0
-          const mobY = desk ? 0 : 0.82
-          Object.assign(d, { rotY: -0.35, rotX: 0.08, rotZ: 0, x: desk ? 1.45 : 0, y: mobY, scale: desk ? 1 : 0.48 })
+          Object.assign(d, { rotY: -0.35, rotX: 0.08, rotZ: 0, x: desk ? 1.45 : 0, y: 0, scale: desk ? 1 : 0.9, color: PALETTE[0] })
 
           if (reduce) {
-            gsap.set('.ch', { autoAlpha: 1, position: 'relative', y: 0 })
+            gsap.set('.ch', { autoAlpha: 1, position: 'relative', y: 0, yPercent: 0 })
+            if (!desk) {
+              const reveal = ScrollTrigger.create({ trigger: root.current, start: 'top -40px', onEnter: () => gsap.set(canvas, { autoAlpha: 1 }), onLeaveBack: () => gsap.set(canvas, { autoAlpha: 0 }) })
+              return () => reveal.kill()
+            }
             return
           }
 
           // entrada
-          gsap.from(d, { y: -4, rotY: -1.6, duration: 1.6, ease: 'expo.out' })
           gsap.from('.ch-0 > *', { y: 30, autoAlpha: 0, stagger: 0.08, duration: 1, ease: 'power3.out', delay: 0.2 })
 
           const col = { t: 0 }
           const tl = gsap.timeline({
+            paused: true,
             defaults: { ease: 'power2.inOut' },
-            scrollTrigger: { trigger: root.current, start: 'top top', end: '+=480%', scrub: 0.4, pin: stage.current, anticipatePin: 1 },
           })
 
           // 1 — traseira + aproximação nas câmeras
           tl.to('.ch-0', { autoAlpha: 0, y: -40, duration: 0.6 }, 0.2)
-            .to(d, { rotY: Math.PI, rotX: 0, scale: desk ? 1.6 : 0.68, y: desk ? -0.55 : 0.55, x: desk ? -1 : 0, duration: 1.4 }, 0.2)
+            .to(d, { rotY: Math.PI, rotX: 0, scale: desk ? 1.4 : 1.02, y: desk ? -0.65 : 0, x: desk ? -1 : 0, duration: 1.4 }, 0.2)
             .to(dark, { opacity: 1, duration: 1 }, 0.4)
-            .to(stage.current, { color: '#f5f5f7', duration: 1 }, 0.4)
             .fromTo('.ch-1', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 1.2)
             // 2 — lateral: bordas e acabamento
             .to('.ch-1', { autoAlpha: 0, y: -40, duration: 0.5 }, 2.3)
-            .to(d, { rotY: Math.PI * 1.5, rotZ: 0.12, scale: desk ? 1.15 : 0.56, y: mobY, x: desk ? side * 0.6 : 0, duration: 1.3 }, 2.3)
+            .to(d, { rotY: Math.PI * 1.5, rotZ: 0.08, scale: desk ? 1.05 : 0.93, y: 0, x: desk ? side * 0.6 : 0, duration: 1.3 }, 2.3)
             .fromTo('.ch-2', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 3.1)
             // 3 — frente: tela e bateria, deslocamento lateral
             .to('.ch-2', { autoAlpha: 0, y: -40, duration: 0.5 }, 4.1)
-            .to(d, { rotY: Math.PI * 2 - 0.25, rotZ: 0, x: -side, scale: desk ? 1.05 : 0.48, duration: 1.3 }, 4.1)
+            .to(d, { rotY: Math.PI * 2 - 0.25, rotZ: 0, x: -side, scale: desk ? 1 : 0.9, duration: 1.3 }, 4.1)
             .to(dark, { opacity: 0, duration: 1 }, 4.3)
-            .to(stage.current, { color: ink, duration: 1 }, 4.3)
             .fromTo('.ch-3', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 4.9)
             .fromTo('.batt-fill', { scaleX: 0 }, { scaleX: 0.97, duration: 0.9, ease: 'power1.out' }, 5.0)
-            .fromTo('.batt-num', { innerText: 0 }, { innerText: 97, snap: { innerText: 1 }, duration: 0.9, ease: 'power1.out' }, 5.0)
             // 4 — giro completo e troca de cores
             .to('.ch-3', { autoAlpha: 0, y: -40, duration: 0.5 }, 6.1)
-            .to(d, { rotY: Math.PI * 3, x: desk ? 1.45 : 0, y: desk ? 0 : mobY, scale: desk ? 0.95 : 0.48, duration: 1.6 }, 6.1)
+            .to(d, { rotY: Math.PI * 3, x: desk ? 1.45 : 0, y: 0, scale: desk ? 0.95 : 0.9, duration: 1.6 }, 6.1)
             .to(col, {
               t: PALETTE.length - 1,
               duration: 2,
@@ -90,18 +86,32 @@ export default function Scrolly() {
             .fromTo('.ch-4', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 6.9)
             .to({}, { duration: 0.8 })
           tl.to('.scrolly-progress i', { scaleY: 1, ease: 'none', duration: tl.duration() }, 0)
+          if (!desk) tl.to(canvas, { autoAlpha: 1, duration: 0.5 }, 0.85)
+          const clock = { current: 0, target: 0 }
+          const trigger = ScrollTrigger.create({
+            trigger: root.current, start: 'top top', end: '+=480%', pin: stage.current, anticipatePin: 1,
+            onUpdate: self => { clock.target = self.progress },
+            onRefresh: self => { clock.target = self.progress },
+          })
+          const tick = (_time: number, deltaMs: number) => {
+            if (document.hidden) return
+            clock.current = advanceScene(clock.current, clock.target, deltaMs / 1000)
+            tl.progress(clock.current)
+          }
+          gsap.ticker.add(tick)
+          return () => { gsap.ticker.remove(tick); trigger.kill(); tl.kill() }
         },
       )
     }, root)
     return () => ctx.revert()
-  }, [theme])
+  }, [])
 
   return (
     <section className="scrolly" ref={root} aria-label="Apresentação">
       <div className="scrolly-stage" ref={stage}>
         <div className="scrolly-dark" aria-hidden />
         <div className="scrolly-canvas">
-          <Suspense fallback={<PhoneArt model={modelById('iphone-17-pro')!} hex={PALETTE[0]} view="front" className="scrolly-fallback" />}>
+          <Suspense fallback={null}>
             <Phone3D drive={drive} cam="plateau" glb={['iphone-17-pro']} />
           </Suspense>
         </div>

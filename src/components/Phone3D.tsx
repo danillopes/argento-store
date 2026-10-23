@@ -1,14 +1,17 @@
-import { Component, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { Environment, Lightformer, RoundedBox, ContactShadows, useGLTF, PerformanceMonitor } from '@react-three/drei'
+import { Component, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { Canvas, useFrame, useLoader } from '@react-three/fiber'
+import { Environment, Lightformer, RoundedBox, ContactShadows, PerformanceMonitor } from '@react-three/drei'
 import * as THREE from 'three'
 import type { CamLayout, PhoneModel } from '../data/models'
-import media from '../data/photos.json'
+import { CachedModelLoader } from '../lib/model-loader'
+import { modelAssetUrl } from '../lib/model-assets'
+import { useStore } from '../store/Store'
 
 import type { Drive } from './drive'
 export { defaultDrive, type Drive } from './drive'
 
 const W = 1.42, H = 2.9, D = 0.16, R = 0.2
+const preparedModels = new Set<string>()
 
 function roundedRectShape(w: number, h: number, r: number) {
   const s = new THREE.Shape()
@@ -187,7 +190,14 @@ interface DragState { active: boolean; x: number; y: number; ry: number; rx: num
 // Aplica o "drive" (GSAP/estado) + arraste com inércia (velocidade herdada do gesto)
 function Rig({ drive, drag, interactive, children }: { drive: React.MutableRefObject<Drive>; drag: React.MutableRefObject<DragState>; interactive: boolean; children: ReactNode }) {
   const g = useRef<THREE.Group>(null!)
-  useFrame((state, dt) => {
+  useLayoutEffect(() => {
+    const d = drive.current
+    g.current.position.set(d.x, d.y, 0)
+    g.current.rotation.set(d.rotX, d.rotY, d.rotZ)
+    g.current.scale.setScalar(d.scale)
+  }, [drive])
+  useFrame((state, elapsed) => {
+    const dt = Math.min(elapsed, 0.05)
     const d = drive.current
     const dr = drag.current
     if (!dr.active && Math.abs(dr.v) > 0.0001) {
@@ -211,8 +221,8 @@ function Rig({ drive, drag, interactive, children }: { drive: React.MutableRefOb
 
 // Carrega um .glb (ex.: Sketchfab) centralizado e na mesma escala do modelo procedural
 function GLBPhone({ url, drive, onReady }: { url: string; drive: React.MutableRefObject<Drive>; onReady: (url: string) => void }) {
-  const { scene } = useGLTF(url)
-  useEffect(() => { onReady(url) }, [url, onReady])
+  const { scene } = useLoader(CachedModelLoader, url)
+  useEffect(() => { preparedModels.add(url); onReady(url) }, [url, onReady])
   const obj = useMemo(() => {
     const c = scene.clone(true)
     const finishes: THREE.MeshStandardMaterial[] = []
@@ -220,6 +230,11 @@ function GLBPhone({ url, drive, onReady }: { url: string; drive: React.MutableRe
       if (!(node instanceof THREE.Mesh)) return
       const tint = (original: THREE.Material) => {
         const mat = original.clone()
+        if (mat instanceof THREE.MeshStandardMaterial) {
+          if (mat.name === 'Anodized aluminum') { mat.normalScale.multiplyScalar(0.18); mat.roughness = Math.max(mat.roughness, 0.38) }
+          if (mat.name === 'Glass') { mat.opacity = 0.14; mat.depthWrite = false }
+          if (mat.name === 'OLED') { mat.emissiveIntensity = 0.9; mat.toneMapped = false }
+        }
         if (mat instanceof THREE.MeshStandardMaterial && (mat.name.startsWith('finish-') || mat.name === 'Anodized aluminum' || mat.name === 'Frosted glass')) finishes.push(mat)
         return mat
       }
@@ -253,9 +268,7 @@ class Boundary extends Component<{ fallback: ReactNode; children: ReactNode; onE
   render() { return this.state.err ? this.props.fallback : this.props.children }
 }
 
-const BASE = import.meta.env.BASE_URL
-const AVAILABLE = new Set((media as { modelos3d?: string[] }).modelos3d ?? [])
-const MODEL_VERSIONS = (media as { modelos3dVersoes?: Record<string, string> }).modelos3dVersoes ?? {}
+export function preloadPhoneModel(url: string) { useLoader.preload(CachedModelLoader, url) }
 
 // Procura o arquivo do modelo; Pro Max cai para o Pro, mini/Plus/e para o modelo base da geração
 export function glbCandidates(m: Pick<PhoneModel, 'id' | 'family' | 'tier'>) {
@@ -266,14 +279,14 @@ export function glbCandidates(m: Pick<PhoneModel, 'id' | 'family' | 'tier'>) {
 }
 // Lista vem do manifesto gerado no build: nenhuma requisição de teste no navegador
 export function useGlb(names: string[]) {
-  const hit = names.find((n) => AVAILABLE.has(n))
-  return hit ? `${BASE}models/${hit}.glb${MODEL_VERSIONS[hit] ? `?v=${MODEL_VERSIONS[hit]}` : ''}` : null
+  return modelAssetUrl(names)
 }
 
 export default function Phone3D({ drive, cam, interactive = false, shadow = false, className, fov = 30, glb }: { drive: React.MutableRefObject<Drive>; cam?: CamLayout; interactive?: boolean; shadow?: boolean; className?: string; fov?: number; glb?: string[] }) {
+  const { theme } = useStore()
   const drag = useRef<DragState>({ active: false, x: 0, y: 0, ry: 0, rx: 0, v: 0, t: 0 })
   const url = useGlb(glb ?? [])
-  const [loadedUrl, setLoadedUrl] = useState<string | null>(null)
+  const [loadedUrl, setLoadedUrl] = useState<string | null>(() => url && preparedModels.has(url) ? url : null)
   const [failedUrl, setFailedUrl] = useState<string | null>(null)
   const wrap = useRef<HTMLDivElement>(null)
   // Só renderiza quando a cena está na tela e a aba está visível (economiza bateria/GPU)
@@ -317,10 +330,11 @@ export default function Phone3D({ drive, cam, interactive = false, shadow = fals
     <div ref={wrap} className={className} style={{ position: 'relative', width: '100%', height: '100%', touchAction: interactive ? 'pan-y' : undefined, cursor: interactive ? 'grab' : undefined }} {...handlers}>
       <Canvas frameloop={visible ? 'always' : 'never'} dpr={dpr} camera={{ position: [0, 0, 7.2], fov }} gl={{ antialias: !lowPower, alpha: true, powerPreference: 'high-performance' }}>
         <PerformanceMonitor onDecline={() => setDpr((d) => Math.max(1, d - 0.25))} onIncline={() => setDpr((d) => Math.min(lowPower ? 1.25 : 1.75, d + 0.25))} flipflops={3} />
-        <ambientLight intensity={0.35} />
+        <ambientLight intensity={theme === 'dark' ? 0.5 : 0.45} />
         <directionalLight position={[3, 4, 5]} intensity={1.6} />
+        <directionalLight position={[0, 1, 5]} intensity={theme === 'dark' ? 0.55 : 0.45} />
         <directionalLight position={[-4, -2, -4]} intensity={0.8} />
-        <Environment resolution={lowPower ? 128 : 256}>
+        <Environment resolution={lowPower ? 128 : 256} environmentIntensity={theme === 'dark' ? 0.9 : 0.85}>
           <Lightformer form="rect" intensity={3} position={[0, 5, -6]} scale={[10, 2, 1]} />
           <Lightformer form="rect" intensity={2.5} position={[-6, 1, 1]} rotation-y={Math.PI / 2} scale={[8, 1.2, 1]} />
           <Lightformer form="rect" intensity={2.5} position={[6, -1, 1]} rotation-y={-Math.PI / 2} scale={[8, 1.2, 1]} />
