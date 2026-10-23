@@ -24,7 +24,11 @@ export interface PhoneModel {
   colors: ColorOption[]
   cam: CamLayout
   front: FrontLayout
-  tier: 'base' | 'mini' | 'plus' | 'pro' | 'promax' | 'e' | 'air'
+  tier: 'base' | 'mini' | 'plus' | 'pro' | 'promax' | 'e' | 'air' | 'fold'
+  /** dobrável: animação do GLB (0 s = aberto, closedAt = fechado), largura aberto (m) e arquivos que precisam girar ao abrir */
+  fold?: { closedAt: number; openWidth: number; turnOnOpen?: string[] }
+  /** GLB específico por cor (id da cor → nome do arquivo em public/models) */
+  glbByColor?: Record<string, string>
   features: string[]
   basePrice: number // preço demonstrativo de referência (menor armazenamento, novo)
   verify?: boolean // especificações em verificação
@@ -48,6 +52,7 @@ const C17E = [c('preto', 'Preto', '#2b2b2d'), c('branco', 'Branco', '#f4f4f2'), 
 const CAIR = [c('preto-espacial', 'Preto-espacial', '#2a2a2c'), c('branco-nuvem', 'Branco-nuvem', '#f4f3ef'), c('dourado-claro', 'Dourado-claro', '#ecdcc0'), c('azul-ceu', 'Azul-céu', '#c9dbe9')]
 const C17P = [c('prateado', 'Prateado', '#e4e4e2'), c('laranja-cosmico', 'Laranja-cósmico', '#e0702b'), c('azul-profundo', 'Azul-profundo', '#2d3a55')]
 const C18P = [c('borgonha', 'Borgonha', '#6b1f2e'), c('azul-claro', 'Azul-claro', '#b9d0e4'), c('prateado', 'Prateado', '#e4e4e2'), c('preto', 'Preto', '#2a2a2c')]
+const CDUO = [c('branco-estrela', 'Branco-estrela', '#e8e5de'), c('ceu-noturno', 'Céu noturno', '#262b3a')]
 
 const F_FACE = 'Face ID'
 const F_MAG = 'MagSafe'
@@ -89,6 +94,10 @@ export const MODELS: PhoneModel[] = [
 
   { id: 'iphone-18-pro', name: 'iPhone 18 Pro', family: 18, year: 2026, screen: 6.3, chip: 'A20 Pro', cameras: 'Tripla 48 MP', connector: 'USB-C', weight: null, storages: [256, 512, 1024], colors: C18P, cam: 'plateau', front: 'island', tier: 'pro', features: [F_5G, F_MAG, 'Modem C2', 'iOS 27'], basePrice: 12999, verify: true },
   { id: 'iphone-18-pro-max', name: 'iPhone 18 Pro Max', family: 18, year: 2026, screen: 6.9, chip: 'A20 Pro', cameras: 'Tripla 48 MP', connector: 'USB-C', weight: null, storages: [256, 512, 1024], colors: C18P, cam: 'plateau', front: 'island', tier: 'promax', features: [F_5G, F_MAG, 'Modem C2', 'iOS 27'], basePrice: 13999, verify: true },
+  // iPhone Duo (dobrável) — dados oficiais da Apple Brasil (apple.com/br/iphone-duo/specs): A20 Pro, tela interna de 7,6",
+  // externa de 5,4", 254 g, Branco-estrela e Céu noturno, 256 GB a 2 TB, a partir de R$ 21.999.
+  // 3D: Branco-estrela = modelo Star White; Céu noturno = modelo conceito com a câmera externa no canto (scripts/blender/)
+  { id: 'iphone-duo', name: 'iPhone Duo', family: 18, year: 2026, screen: 7.6, chip: 'A20 Pro', cameras: 'Dupla 48 MP Fusion (principal + ultra-angular, zoom 2x qualidade óptica)', connector: 'USB-C', weight: 254, storages: [256, 512, 1024, 2048], colors: CDUO, cam: 'air', front: 'island', tier: 'fold', fold: { closedAt: 2, openWidth: 0.1646, turnOnOpen: ['iphone-duo-ceu-noturno'] }, glbByColor: { 'ceu-noturno': 'iphone-duo-ceu-noturno' }, features: [F_5G, 'Tela dobrável de 7,6"', 'Tela externa de 5,4"', 'Câmera FaceTime sob a tela', 'Dynamic Island nas duas telas'], basePrice: 21999 },
 ]
 
 export const FAMILIES = [12, 13, 14, 15, 16, 17, 18]

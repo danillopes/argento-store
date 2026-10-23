@@ -6,6 +6,7 @@ import { makeScreenEmissive } from '../lib/screen-material'
 import * as THREE from 'three'
 import type { CamLayout, PhoneModel } from '../data/models'
 import { CachedModelLoader } from '../lib/model-loader'
+import { clone as cloneSkinned } from 'three/addons/utils/SkeletonUtils.js'
 import { modelAssetUrl } from '../lib/model-assets'
 import { useStore } from '../store/Store'
 
@@ -548,7 +549,9 @@ function GLBPhone({
   onReady: (url: string) => void
   screenSize: [number, number]
 }) {
-  const { scene } = useLoader(CachedModelLoader, url)
+  const gltf = useLoader(CachedModelLoader, url)
+  const { scene } = gltf
+  const fold = model?.fold
   useEffect(() => { preparedModels.add(url); onReady(url) }, [url, onReady])
 
   const [screenW, screenH] = screenSize
@@ -565,7 +568,8 @@ function GLBPhone({
   }, [screenW, screenH])
 
   const obj = useMemo(() => {
-    const c = scene.clone(true)
+    // dobráveis têm malhas com esqueleto: o clone precisa religar ossos (SkeletonUtils)
+    const c = fold ? cloneSkinned(scene) : scene.clone(true)
     const frames: THREE.MeshStandardMaterial[] = []
     const glasses: THREE.MeshStandardMaterial[] = []
     const logos: THREE.MeshStandardMaterial[] = []
@@ -631,7 +635,25 @@ function GLBPhone({
 
     // O GLB usa a traseira no eixo +Z; a animação espera a tela em +Z.
     if (frames.length > 0) c.rotateY(Math.PI)
-    const box = new THREE.Box3().setFromObject(c)
+    const baseRotY = c.rotation.y
+
+    // Dobrável: animação do GLB controlada pela página (0 s = aberto, closedAt = fechado). Começa fechado.
+    // Mede o centro nas duas posições para manter o aparelho centrado durante a abertura.
+    let foldRig: null | { mixer: THREE.AnimationMixer; action: THREE.AnimationAction; closedAt: number; open: THREE.Vector3; closed: THREE.Vector3; turn: boolean } = null
+    if (fold && gltf.animations[0]) {
+      const mixer = new THREE.AnimationMixer(c)
+      const action = mixer.clipAction(gltf.animations[0])
+      action.play()
+      action.paused = true
+      const pose = (t: number) => { action.time = t; mixer.update(0); c.updateMatrixWorld(true) }
+      pose(0)
+      const open = new THREE.Box3().setFromObject(c, true).getCenter(new THREE.Vector3())
+      pose(fold.closedAt)
+      const closed = new THREE.Box3().setFromObject(c, true).getCenter(new THREE.Vector3())
+      const turn = !!fold.turnOnOpen?.some((id) => url.includes(`/${id}.glb`))
+      foldRig = { mixer, action, closedAt: fold.closedAt, open, closed, turn }
+    }
+    const box = new THREE.Box3().setFromObject(c, !!foldRig)
     const size = box.getSize(new THREE.Vector3())
     const center = box.getCenter(new THREE.Vector3())
     const maxDim = Math.max(size.x, size.y, size.z)
@@ -641,8 +663,12 @@ function GLBPhone({
     c.scale.setScalar(s)
     const wrap = new THREE.Group()
     wrap.add(c)
-    return { root: wrap, frames, glasses, logos, antennas, oleds }
-  }, [scene, model, interactive, screenSurface])
+    return { root: wrap, inner: c, scale: s, baseRotY, fold: foldRig, frames, glasses, logos, antennas, oleds }
+  }, [scene, model, interactive, screenSurface, fold, gltf.animations, url])
+
+  // progresso da dobra (0 fechado … 1 aberto) com velocidade constante e curva suave (~1,1 s)
+  const foldQ = useRef(-1)
+  const foldTmp = useMemo(() => new THREE.Vector3(), [])
 
   const target = useMemo(() => new THREE.Color(), [])
   const glassTarget = useMemo(() => new THREE.Color(), [])
@@ -655,6 +681,24 @@ function GLBPhone({
   useFrame((state, dt) => {
     const d = drive.current
     const k = 1 - Math.pow(0.0009, dt)
+    const fr = obj.fold
+    if (fr) {
+      const goal = THREE.MathUtils.clamp(d.fold ?? 0, 0, 1)
+      const q0 = foldQ.current < 0 ? goal : foldQ.current
+      const step = Math.min(dt, 0.25) / 1.1 // mantém ~1,1 s mesmo com FPS baixo
+      const q = q0 < goal ? Math.min(goal, q0 + step) : Math.max(goal, q0 - step)
+      if (q !== foldQ.current) {
+        foldQ.current = q
+        const p = q * q * (3 - 2 * q)
+        fr.action.time = (1 - p) * fr.closedAt
+        fr.mixer.update(0)
+        // gira junto ao abrir quando o modelo abre "para trás", para a tela interna ficar de frente
+        const ang = fr.turn ? p * Math.PI : 0
+        obj.inner.rotation.y = obj.baseRotY + ang
+        foldTmp.copy(fr.closed).lerp(fr.open, p).applyAxisAngle(THREE.Object3D.DEFAULT_UP, ang).multiplyScalar(-obj.scale)
+        obj.inner.position.copy(foldTmp)
+      }
+    }
     target.set(d.color)
     const hsl = { h: 0, s: 0, l: 0 }
     target.getHSL(hsl)
@@ -713,8 +757,9 @@ class Boundary extends Component<{ fallback: ReactNode; children: ReactNode; onE
 export function preloadPhoneModel(url: string) { useLoader.preload(CachedModelLoader, url) }
 
 // Procura o arquivo do modelo; Pro Max cai para o Pro, mini/Plus/e para o modelo base da geração
-export function glbCandidates(m: Pick<PhoneModel, 'id' | 'family' | 'tier'>) {
-  const list = [m.id]
+export function glbCandidates(m: Pick<PhoneModel, 'id' | 'family' | 'tier' | 'glbByColor'>, colorId?: string) {
+  const byColor = colorId ? m.glbByColor?.[colorId] : undefined
+  const list = byColor ? [byColor, m.id] : [m.id]
   if (m.tier === 'promax') list.push(`iphone-${m.family}-pro`)
   if (m.tier === 'mini' || m.tier === 'plus' || m.tier === 'e') list.push(`iphone-${m.family}`)
   return list
@@ -726,18 +771,30 @@ export function useGlb(names: string[]) {
 
 // Enquadramento automático: afasta a câmera até o aparelho inteiro caber no quadro,
 // com folga para os botões no topo e a dica embaixo — inclusive em telas estreitas de celular.
-function FitCamera({ fov, tall }: { fov: number; tall: boolean }) {
+function FitCamera({ fov, tall, drive, foldOpenWidth }: { fov: number; tall: boolean; drive?: React.MutableRefObject<Drive>; foldOpenWidth?: number }) {
   const { camera, size } = useThree()
-  useEffect(() => {
+  const dist = useMemo(() => {
     const aspect = size.width / Math.max(1, size.height)
     const t = Math.tan(THREE.MathUtils.degToRad(fov) / 2)
     const h = H * (tall ? 1.1 : 1) // Plus/Pro Max são ~9% mais altos
-    const w = W * (tall ? 1.1 : 1) * 1.15 // folga para o giro e as bordas
     const marginY = size.height < 520 ? 1.42 : 1.3 // espaço para botões e dica sobre o 3D
-    const dist = Math.max(7.2, ((h / 2) * marginY) / t, ((w / 2) * 1.25) / (t * aspect))
-    camera.position.set(0, 0, dist)
+    const fit = (w: number) => Math.max(7.2, ((h / 2) * marginY) / t, ((w / 2) * 1.25) / (t * aspect))
+    const closed = fit(W * (tall ? 1.1 : 1) * 1.15) // folga para o giro e as bordas
+    // dobrável aberto: largura física convertida para a escala da cena (H unidades = 15 cm)
+    const open = foldOpenWidth ? fit(((foldOpenWidth * H) / BASE_METERS) * 1.08) : closed
+    return { closed, open }
+  }, [size.width, size.height, fov, tall, foldOpenWidth])
+  useEffect(() => {
+    camera.position.set(0, 0, dist.closed)
     camera.updateProjectionMatrix()
-  }, [camera, size.width, size.height, fov, tall])
+  }, [camera, dist])
+  // ao abrir um dobrável, a câmera recua suavemente para caber a tela interna
+  useFrame((_, dt) => {
+    if (!foldOpenWidth) return
+    const p = THREE.MathUtils.clamp(drive?.current.fold ?? 0, 0, 1)
+    const goal = dist.closed + (dist.open - dist.closed) * p
+    camera.position.z += (goal - camera.position.z) * (1 - Math.pow(0.02, Math.min(dt, 0.05)))
+  })
   return null
 }
 
@@ -817,7 +874,7 @@ export default function Phone3D({
           <Lightformer form="rect" intensity={2.5} position={[6, -1, 1]} rotation-y={-Math.PI / 2} scale={[8, 1.2, 1]} />
           <Lightformer form="ring" intensity={1.5} position={[0, 0, 8]} scale={4} />
         </Environment>
-        {interactive && <FitCamera fov={fov} tall={model?.tier === 'promax' || model?.tier === 'plus'} />}
+        {interactive && <FitCamera fov={fov} tall={model?.tier === 'promax' || model?.tier === 'plus'} drive={drive} foldOpenWidth={model?.fold?.openWidth} />}
         <Rig drive={drive} drag={drag} interactive={interactive}>
           {url ? (
             <Boundary key={url} fallback={procedural} onError={() => setFailedUrl(url)}>

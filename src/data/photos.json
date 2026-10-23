@@ -1094,7 +1094,9 @@
   "iphone-17e",
   "iphone-18-pro",
   "iphone-18-pro-max",
-  "iphone-air"
+  "iphone-air",
+  "iphone-duo",
+  "iphone-duo-ceu-noturno"
  ],
  "modelos3dVersoes": {
   "iphone-12": "3d88fabd776a",
@@ -1103,12 +1105,12 @@
   "iphone-12-pro-max": "528958d3735f",
   "iphone-13": "eaa536469d0d",
   "iphone-13-mini": "b5931af62995",
-  "iphone-13-pro": "9425853f22e3",
+  "iphone-13-pro": "7c075221c26f",
   "iphone-13-pro-max": "196b57969b70",
   "iphone-14": "5be74024f495",
   "iphone-14-plus": "2e065c27e185",
-  "iphone-14-pro": "482e7cc97dda",
-  "iphone-14-pro-max": "6164147a4543",
+  "iphone-14-pro": "94db7be27589",
+  "iphone-14-pro-max": "41ae30ec144f",
   "iphone-15": "fa6eb6af3f42",
   "iphone-15-plus": "53e8b90e57e9",
   "iphone-15-pro": "8e9a444e43c3",
@@ -1124,6 +1126,8 @@
   "iphone-17e": "c4d640baa24c",
   "iphone-18-pro": "e87620ee666d",
   "iphone-18-pro-max": "37c45beb8123",
-  "iphone-air": "3ffcbf892967"
+  "iphone-air": "3ffcbf892967",
+  "iphone-duo": "825478a2e48a",
+  "iphone-duo-ceu-noturno": "b106e389fbed"
  }
 }

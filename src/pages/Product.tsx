@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Heart, GitCompareArrows, ShoppingBag, Zap, ShieldCheck, Truck, Info, Camera, Rotate3d, Check, Power, Sparkles, Layers } from 'lucide-react'
+import { Heart, GitCompareArrows, ShoppingBag, Zap, ShieldCheck, Truck, Info, Camera, Rotate3d, Check, Power, Sparkles, Layers, BookOpen } from 'lucide-react'
 import Phone3D, { defaultDrive, glbCandidates, type Drive } from '../components/Phone3D'
 import PhoneArt from '../components/PhoneArt'
 import Photo, { modelPhoto, unitPhotos } from '../components/Photo'
@@ -58,6 +58,7 @@ export default function Product() {
   const [inside, setInside] = useState(false)
   const [screenOn, setScreenOn] = useState(true)
   const [islandOn, setIslandOn] = useState(false)
+  const [foldOpen, setFoldOpen] = useState(false) // dobráveis começam fechados
   const [lb, setLb] = useState<number | null>(null)
   const [cep, setCep] = useState('')
   const [ship, setShip] = useState<{ city: string; uf: string; price: number; days: string } | null>(null)
@@ -81,7 +82,7 @@ export default function Product() {
   useEffect(() => { if (cond === 'seminovo' && !byColor.some((u) => bandOf(u.battery).id === band)) setBand(byColor.map((u) => bandOf(u.battery).id).sort().reverse()[0] ?? null) }, [color, byColor.length, cond])
   useEffect(() => { if (cond === 'seminovo' && !byBand.some((u) => u.grade === grade)) setGrade(byBand[0]?.grade ?? null) }, [band, byBand.length, cond])
   useEffect(() => { setUnitId(null) }, [cond, storage, color, band, grade])
-  useEffect(() => { setIslandOn(false); drive.current.island = 0 }, [id])
+  useEffect(() => { setIslandOn(false); drive.current.island = 0; setFoldOpen(false); drive.current.fold = 0 }, [id])
 
   const selectedColor = m?.colors.find((c) => c.id === (color ?? '')) ?? m?.colors[0]
   // cor exibida no 3D: a prévia (se houver) ou a cor escolhida para compra
@@ -97,6 +98,7 @@ export default function Product() {
   }, [view])
   useEffect(() => { drive.current.screen = screenOn ? 1 : 0 }, [screenOn])
   useEffect(() => { drive.current.island = islandOn ? 1 : 0 }, [islandOn])
+  useEffect(() => { drive.current.fold = foldOpen ? 1 : 0 }, [foldOpen])
 
   if (!m) return <div className="page container empty"><h1 className="h2">Modelo não encontrado.</h1><Link className="btn btn-primary" to="/iphones">Ver catálogo</Link></div>
 
@@ -137,8 +139,21 @@ export default function Product() {
               </motion.div>
             ) : (
               <motion.div key="3d" className="pdp-canvas" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Phone3D drive={drive} model={m} cam={m.cam} interactive shadow fov={28} glb={glbCandidates(m)} />
+                <Phone3D drive={drive} model={m} cam={m.cam} interactive shadow fov={28} glb={glbCandidates(m, colorObj?.id)} />
                 <div className="pdp-tools">
+                  {m.fold ? (
+                    <button
+                      type="button"
+                      className={`pdp-tool ${foldOpen ? 'is-on' : ''}`}
+                      onClick={() => {
+                        setFoldOpen((o) => !o)
+                        if (view === 'back' || view === 'side') setView('front')
+                      }}
+                      aria-pressed={foldOpen}
+                    >
+                      <BookOpen size={13} /> {foldOpen ? 'Fechar' : 'Abrir'}
+                    </button>
+                  ) : (<>
                   <button
                     type="button"
                     className={`pdp-tool ${screenOn ? 'is-on' : ''}`}
@@ -164,6 +179,7 @@ export default function Product() {
                       <Sparkles size={13} /> Dynamic Island
                     </button>
                   )}
+                  </>)}
                 </div>
                 <span className="pdp-hint"><Rotate3d size={14} /> Arraste para girar em 360°</span>
               </motion.div>
