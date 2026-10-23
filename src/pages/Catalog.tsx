@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { SlidersHorizontal, X, Search } from 'lucide-react'
 import ProductCard from '../components/ProductCard'
 import { useStore } from '../store/Store'
-import { FAMILIES, MODELS, storageLabel } from '../data/models'
+import { FAMILIES, MODELS, storageLabel, frontLabel, type FrontLayout } from '../data/models'
 import { GRADES, finalPrice, type Unit } from '../data/inventory'
 import { normalize, type ModelSummary } from '../lib/utils'
 
@@ -35,6 +35,7 @@ export default function Catalog({ mode = 'todos' }: { mode?: Mode }) {
   const [pmin, setPmin] = useState('')
   const [pmax, setPmax] = useState('')
   const [model, setModel] = useState('')
+  const [front, setFront] = useState<FrontLayout | ''>('')
   const [onlyStock, setOnlyStock] = useState(true)
   const [promoOnly, setPromoOnly] = useState(mode === 'ofertas')
   const [sort, setSort] = useState(params.get('sort') ?? (mode === 'ofertas' ? 'ofertas' : 'relevancia'))
@@ -63,8 +64,9 @@ export default function Catalog({ mode = 'todos' }: { mode?: Mode }) {
     let list: ModelSummary[] = MODELS.filter((m) => {
       if (fam.length && !fam.includes(m.family)) return false
       if (model && m.id !== model) return false
+      if (front && m.front !== front) return false
       if (terms.length) {
-        const hay = normalize(`${m.name} ${m.chip} ${m.cameras} ${m.features.join(' ')} ${m.colors.map((c) => c.name).join(' ')} ${m.storages.map((s) => storageLabel(s)).join(' ')} ${m.storages.join('gb ')}gb`)
+        const hay = normalize(`${m.name} ${m.chip} ${m.cameras} ${frontLabel(m)} ${m.features.join(' ')} ${m.colors.map((c) => c.name).join(' ')} ${m.storages.map((s) => storageLabel(s)).join(' ')} ${m.storages.join('gb ')}gb`)
         if (!terms.every((t) => hay.includes(t.replace(/^iphone$/, '')))) return false
       }
       return true
@@ -84,10 +86,10 @@ export default function Catalog({ mode = 'todos' }: { mode?: Mode }) {
       ofertas: (a: ModelSummary, b: ModelSummary) => b.maxPromo - a.maxPromo,
     }[sort as 'menor']
     return [...list].sort(by ?? (() => 0))
-  }, [q, fam, model, cond, storages, color, minBat, grades, pmin, pmax, onlyStock, promoOnly, sort, inventory, available])
+  }, [q, fam, model, front, cond, storages, color, minBat, grades, pmin, pmax, onlyStock, promoOnly, sort, inventory, available])
 
   const clear = () => {
-    setFam([]); setCond(mode === 'seminovos' ? 'seminovo' : ''); setStorages([]); setColor(''); setMinBat(80); setGrades([]); setPmin(''); setPmax(''); setModel(''); setPromoOnly(mode === 'ofertas'); setOnlyStock(true)
+    setFam([]); setCond(mode === 'seminovos' ? 'seminovo' : ''); setStorages([]); setColor(''); setMinBat(80); setGrades([]); setPmin(''); setPmax(''); setModel(''); setFront(''); setPromoOnly(mode === 'ofertas'); setOnlyStock(true)
     setParams({})
   }
 
@@ -113,6 +115,12 @@ export default function Catalog({ mode = 'todos' }: { mode?: Mode }) {
           <option value="">Todos</option>
           {MODELS.map((m) => <option key={m.id} value={m.id}>{m.name}</option>)}
         </select>
+      </div>
+      <div className="f-group">
+        <span className="f-label">Frente</span>
+        <div className="seg">
+          {([['', 'Todas'], ['island', 'Dynamic Island'], ['notch', 'Notch']] as const).map(([v, l]) => <button key={v} className={front === v ? 'is-on' : ''} onClick={() => setFront(v)} aria-pressed={front === v}>{l}</button>)}
+        </div>
       </div>
       {mode !== 'seminovos' && (
         <div className="f-group">

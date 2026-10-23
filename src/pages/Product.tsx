@@ -7,7 +7,7 @@ import PhoneArt from '../components/PhoneArt'
 import Photo, { modelPhoto, unitPhotos } from '../components/Photo'
 import Lightbox from '../components/Lightbox'
 import ProductCard from '../components/ProductCard'
-import { modelById, storageLabel } from '../data/models'
+import { modelById, storageLabel, frontLabel } from '../data/models'
 import { BATTERY_BANDS, GRADES, bandOf, breakdown, finalPrice, gradeName, type Unit } from '../data/inventory'
 import { useStore } from '../store/Store'
 import { brl, brl2, summarize } from '../lib/utils'
@@ -399,6 +399,7 @@ export default function Product() {
           <h2 className="h3">Ficha técnica</h2>
           <dl className="dl">
             <dt>Tela</dt><dd>{m.screen} polegadas</dd>
+            <dt>Frente</dt><dd>{frontLabel(m)}</dd>
             <dt>Chip</dt><dd>{m.chip}</dd>
             <dt>Câmeras</dt><dd>{m.cameras}</dd>
             <dt>Conector</dt><dd>{m.connector}</dd>

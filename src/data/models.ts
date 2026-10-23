@@ -95,4 +95,10 @@ export const FAMILIES = [12, 13, 14, 15, 16, 17, 18]
 
 export const modelById = (id: string) => MODELS.find((m) => m.id === id)
 
+// Frente do aparelho, conforme as especificações oficiais da Apple:
+// Dynamic Island no 14 Pro/Pro Max e em toda a linha a partir do 15 (inclui Air e 18 Pro);
+// notch (entalhe) do 12 ao 14/14 Plus e nos modelos de entrada 16e e 17e.
+export const FRONT_LABEL: Record<FrontLayout, string> = { island: 'Dynamic Island', notch: 'Notch (entalhe)' }
+export const frontLabel = (m: Pick<PhoneModel, 'front'>) => FRONT_LABEL[m.front]
+
 export const storageLabel = (gb: number) => (gb >= 1024 ? `${gb / 1024} TB` : `${gb} GB`)

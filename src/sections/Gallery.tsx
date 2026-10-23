@@ -13,7 +13,7 @@ const FAMILY_COPY: Record<number, string> = {
   12: 'Bordas retas e MagSafe estreiam na linha.',
   13: 'Mais bateria e Modo Cinema.',
   14: 'Dynamic Island chega aos Pro.',
-  15: 'USB-C e titânio nos Pro.',
+  15: 'Dynamic Island em toda a linha, USB-C e titânio nos Pro.',
   16: 'Controle da Câmera e Apple Intelligence.',
   17: 'iPhone Air e o novo platô de câmeras.',
   18: 'A20 Pro e modem C2.',
