@@ -6,6 +6,9 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
+// No celular, a barra de endereço aparece/some e muda a altura da tela; sem isto o
+// ScrollTrigger recalcula tudo no meio da rolagem e a página dá um tranco.
+ScrollTrigger.config({ ignoreMobileResize: true })
 
 let lenisInstance: Lenis | null = null
 export const getLenis = () => lenisInstance
@@ -15,7 +18,23 @@ export function SmoothScroll() {
   const loc = useLocation()
   useEffect(() => {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const lenis = new Lenis({ lerp: 0.12, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.1 })
+    const touch = matchMedia('(pointer: coarse)').matches
+    // PC: deslizar mais longo e suave na roda do mouse/touchpad.
+    // Celular: o toque também passa pelo Lenis (syncTouch), então a rolagem e as animações
+    // andam no mesmo quadro — sem "pulos" nas seções fixas — mantendo a inércia do dedo.
+    const lenis = new Lenis({
+      lerp: touch ? 0.1 : 0.075,
+      smoothWheel: true,
+      wheelMultiplier: 0.9,
+      syncTouch: true,
+      syncTouchLerp: 0.085,
+      touchInertiaExponent: 1.6,
+      touchMultiplier: 1,
+      gestureOrientation: 'vertical',
+      allowNestedScroll: true,
+      anchors: true,
+      autoResize: true,
+    })
     lenisInstance = lenis
     lenis.on('scroll', ScrollTrigger.update)
     const raf = (t: number) => lenis.raf(t * 1000)
