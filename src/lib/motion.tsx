@@ -15,7 +15,7 @@ export function SmoothScroll() {
   const loc = useLocation()
   useEffect(() => {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const lenis = new Lenis({ duration: 1.1, smoothWheel: true, touchMultiplier: 1.2 })
+    const lenis = new Lenis({ lerp: 0.12, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.1 })
     lenisInstance = lenis
     lenis.on('scroll', ScrollTrigger.update)
     const raf = (t: number) => lenis.raf(t * 1000)
@@ -38,6 +38,7 @@ export function SmoothScroll() {
 
 // ---------- Animação de seleção: o card se expande até abrir o configurador ----------
 interface Expand { rect: DOMRect; color: string; to: string }
+const inset = (r: DOMRect, rad: number) => `inset(${r.top}px ${window.innerWidth - r.right}px ${window.innerHeight - r.bottom}px ${r.left}px round ${rad}px)`
 const ExpandCtx = createContext<(e: React.MouseEvent<HTMLElement>, to: string, color: string) => void>(() => {})
 export const useExpandNav = () => useContext(ExpandCtx)
 
@@ -71,8 +72,8 @@ export function ExpandProvider({ children }: { children: ReactNode }) {
             key="expand"
             className="expand-layer"
             style={{ background: `radial-gradient(120% 90% at 50% 30%, ${state.color}, var(--bg) 70%)` }}
-            initial={{ top: state.rect.top, left: state.rect.left, width: state.rect.width, height: state.rect.height, borderRadius: 28, opacity: 1 }}
-            animate={phase === 'grow' ? { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight, borderRadius: 0 } : { opacity: 0 }}
+            initial={{ clipPath: inset(state.rect, 28), opacity: 1 }}
+            animate={phase === 'grow' ? { clipPath: 'inset(0px 0px 0px 0px round 0px)' } : { opacity: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: phase === 'grow' ? 0.55 : 0.4, ease: [0.76, 0, 0.24, 1] }}
             onAnimationComplete={() => {

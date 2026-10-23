@@ -112,13 +112,13 @@ function PhoneMesh({ drive, cam = 'tri' }: { drive: React.MutableRefObject<Drive
   return (
     <group ref={group}>
       {/* corpo / moldura */}
-      <RoundedBox args={[W, H, D]} radius={0.075} smoothness={6} bevelSegments={6} creaseAngle={0.4}>
+      <RoundedBox args={[W, H, D]} radius={0.075} smoothness={4} bevelSegments={4} creaseAngle={0.4}>
         <meshStandardMaterial ref={frameMat} color="#b8b2a8" metalness={0.95} roughness={0.28} />
       </RoundedBox>
       {/* vidro frontal */}
       <mesh position={[0, 0, D / 2 + 0.001]}>
         <shapeGeometry args={[faceShape, 24]} />
-        <meshPhysicalMaterial color="#050506" roughness={0.08} metalness={0.2} clearcoat={1} />
+        <meshStandardMaterial color="#050506" roughness={0.1} metalness={0.3} />
       </mesh>
       <mesh position={[0, 0, D / 2 + 0.002]} geometry={screenGeo}>
         <meshBasicMaterial ref={screenMat} map={tex} transparent toneMapped={false} />
@@ -131,12 +131,12 @@ function PhoneMesh({ drive, cam = 'tri' }: { drive: React.MutableRefObject<Drive
       {/* traseira */}
       <mesh position={[0, 0, -D / 2 - 0.001]} rotation={[0, Math.PI, 0]}>
         <shapeGeometry args={[faceShape, 24]} />
-        <meshPhysicalMaterial ref={backMat} color="#c2bcb2" roughness={0.42} metalness={0.15} clearcoat={0.6} clearcoatRoughness={0.4} />
+        <meshStandardMaterial ref={backMat} color="#c2bcb2" roughness={0.38} metalness={0.2} />
       </mesh>
       {/* módulo de câmera */}
       {(isPlateau || isAir) ? (
         <RoundedBox args={[W - 0.08, isAir ? 0.42 : 0.92, 0.07]} radius={0.03} smoothness={4} position={[0, H / 2 - (isAir ? 0.28 : 0.52), -D / 2 - 0.035]}>
-          <meshPhysicalMaterial ref={moduleMat} color="#c2bcb2" metalness={0.6} roughness={0.3} clearcoat={0.8} />
+          <meshStandardMaterial ref={moduleMat} color="#c2bcb2" metalness={0.6} roughness={0.28} />
         </RoundedBox>
       ) : (
         <RoundedBox
@@ -145,21 +145,21 @@ function PhoneMesh({ drive, cam = 'tri' }: { drive: React.MutableRefObject<Drive
           smoothness={4}
           position={cam === 'pill2' ? [W / 2 - 0.3, H / 2 - 0.52, -D / 2 - 0.02] : [W / 2 - 0.5, H / 2 - 0.52, -D / 2 - 0.02]}
         >
-          <meshPhysicalMaterial ref={moduleMat} color="#c2bcb2" roughness={0.25} metalness={0.2} clearcoat={1} />
+          <meshStandardMaterial ref={moduleMat} color="#c2bcb2" roughness={0.22} metalness={0.25} />
         </RoundedBox>
       )}
       {lenses.map((l, i) => (
         <group key={i} position={[l.p[0], l.p[1], -D / 2 - (isPlateau || isAir ? 0.075 : 0.045)]}>
           <mesh rotation={[Math.PI / 2, 0, 0]}>
-            <cylinderGeometry args={[l.r + 0.025, l.r + 0.025, 0.06, 40]} />
+            <cylinderGeometry args={[l.r + 0.025, l.r + 0.025, 0.06, 28]} />
             <meshStandardMaterial color="#9a9ea6" metalness={1} roughness={0.2} />
           </mesh>
           <mesh rotation={[0, Math.PI, 0]} position={[0, 0, -0.031]}>
-            <circleGeometry args={[l.r, 40]} />
-            <meshPhysicalMaterial color="#05060a" roughness={0.05} metalness={0.4} clearcoat={1} />
+            <circleGeometry args={[l.r, 28]} />
+            <meshStandardMaterial color="#05060a" roughness={0.05} metalness={0.5} />
           </mesh>
           <mesh position={[0, 0, -0.032]} rotation={[0, Math.PI, 0]}>
-            <ringGeometry args={[l.r * 0.35, l.r * 0.55, 40]} />
+            <ringGeometry args={[l.r * 0.35, l.r * 0.55, 28]} />
             <meshBasicMaterial color="#1c2440" />
           </mesh>
         </group>
@@ -267,7 +267,7 @@ export default function Phone3D({ drive, cam, interactive = false, shadow = fals
   }, [])
   // Resolução adaptativa: começa conforme o aparelho e reduz se o FPS cair
   const lowPower = typeof navigator !== 'undefined' && ((navigator.hardwareConcurrency ?? 8) <= 4 || matchMedia('(max-width: 860px)').matches)
-  const [dpr, setDpr] = useState(lowPower ? 1.25 : 1.75)
+  const [dpr, setDpr] = useState(lowPower ? 1 : 1.5)
   const procedural = <PhoneMesh drive={drive} cam={cam} />
   const handlers = interactive
     ? {
@@ -293,7 +293,7 @@ export default function Phone3D({ drive, cam, interactive = false, shadow = fals
   return (
     <div ref={wrap} className={className} style={{ width: '100%', height: '100%', touchAction: interactive ? 'pan-y' : undefined, cursor: interactive ? 'grab' : undefined }} {...handlers}>
       <Canvas frameloop={visible ? 'always' : 'never'} dpr={dpr} camera={{ position: [0, 0, 7.2], fov }} gl={{ antialias: !lowPower, alpha: true, powerPreference: 'high-performance' }}>
-        <PerformanceMonitor onDecline={() => setDpr((d) => Math.max(1, d - 0.25))} onIncline={() => setDpr((d) => Math.min(lowPower ? 1.5 : 2, d + 0.25))} flipflops={3} />
+        <PerformanceMonitor onDecline={() => setDpr((d) => Math.max(1, d - 0.25))} onIncline={() => setDpr((d) => Math.min(lowPower ? 1.25 : 1.75, d + 0.25))} flipflops={3} />
         <ambientLight intensity={0.35} />
         <directionalLight position={[3, 4, 5]} intensity={1.6} />
         <directionalLight position={[-4, -2, -4]} intensity={0.8} />

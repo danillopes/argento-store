@@ -32,11 +32,12 @@ export default function Scrolly() {
         (c) => {
           const { desk, reduce } = c.conditions as { desk: boolean; reduce: boolean }
           const d = drive.current
-          const dark = theme === 'dark'
-          const light1 = dark ? '#000000' : '#f5f5f7'
-          const light2 = dark ? '#111214' : '#e9ebee'
-          const ink = dark ? '#f5f5f7' : '#1d1d1f'
+          const isDark = theme === 'dark'
+          const light1 = isDark ? '#000000' : '#f5f5f7'
+          const ink = isDark ? '#f5f5f7' : '#1d1d1f'
+          const dark = stage.current!.querySelector('.scrolly-dark')
           gsap.set(stage.current, { backgroundColor: light1, color: ink })
+          gsap.set(dark, { opacity: 0 })
           const side = desk ? 1.35 : 0
           const mobY = desk ? 0 : 0.85
           Object.assign(d, { rotY: -0.35, rotX: 0.08, rotZ: 0, x: desk ? 1.45 : 0, y: mobY, scale: desk ? 1 : 0.6 })
@@ -53,13 +54,14 @@ export default function Scrolly() {
           const col = { t: 0 }
           const tl = gsap.timeline({
             defaults: { ease: 'power2.inOut' },
-            scrollTrigger: { trigger: root.current, start: 'top top', end: '+=480%', scrub: 1, pin: stage.current, anticipatePin: 1 },
+            scrollTrigger: { trigger: root.current, start: 'top top', end: '+=480%', scrub: 0.4, pin: stage.current, anticipatePin: 1 },
           })
 
           // 1 — traseira + aproximação nas câmeras
           tl.to('.ch-0', { autoAlpha: 0, y: -40, duration: 0.6 }, 0.2)
             .to(d, { rotY: Math.PI, rotX: 0, scale: desk ? 1.6 : 0.85, y: desk ? -0.55 : 0.75, x: desk ? -1 : 0, duration: 1.4 }, 0.2)
-            .to(stage.current, { backgroundColor: '#0a0a0b', color: '#f5f5f7', duration: 1 }, 0.4)
+            .to(dark, { opacity: 1, duration: 1 }, 0.4)
+            .to(stage.current, { color: '#f5f5f7', duration: 1 }, 0.4)
             .fromTo('.ch-1', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 1.2)
             // 2 — lateral: bordas e acabamento
             .to('.ch-1', { autoAlpha: 0, y: -40, duration: 0.5 }, 2.3)
@@ -68,14 +70,14 @@ export default function Scrolly() {
             // 3 — frente: tela e bateria, deslocamento lateral
             .to('.ch-2', { autoAlpha: 0, y: -40, duration: 0.5 }, 4.1)
             .to(d, { rotY: Math.PI * 2 - 0.25, rotZ: 0, x: -side, scale: desk ? 1.05 : 0.6, duration: 1.3 }, 4.1)
-            .to(stage.current, { backgroundColor: light2, color: ink, duration: 1 }, 4.3)
+            .to(dark, { opacity: 0, duration: 1 }, 4.3)
+            .to(stage.current, { color: ink, duration: 1 }, 4.3)
             .fromTo('.ch-3', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 4.9)
             .fromTo('.batt-fill', { scaleX: 0 }, { scaleX: 0.97, duration: 0.9, ease: 'power1.out' }, 5.0)
             .fromTo('.batt-num', { innerText: 0 }, { innerText: 97, snap: { innerText: 1 }, duration: 0.9, ease: 'power1.out' }, 5.0)
             // 4 — giro completo e troca de cores
             .to('.ch-3', { autoAlpha: 0, y: -40, duration: 0.5 }, 6.1)
             .to(d, { rotY: Math.PI * 3, x: desk ? 1.45 : 0, y: desk ? 0 : mobY, scale: desk ? 0.95 : 0.6, duration: 1.6 }, 6.1)
-            .to(stage.current, { backgroundColor: light1, duration: 1 }, 6.2)
             .to(col, {
               t: PALETTE.length - 1,
               duration: 2,
@@ -97,6 +99,7 @@ export default function Scrolly() {
   return (
     <section className="scrolly" ref={root} aria-label="Apresentação">
       <div className="scrolly-stage" ref={stage}>
+        <div className="scrolly-dark" aria-hidden />
         <div className="scrolly-canvas">
           <Suspense fallback={<PhoneArt model={modelById('iphone-17-pro')!} hex="#c2bcb2" view="front" className="scrolly-fallback" />}>
             <Phone3D drive={drive} cam="plateau" glb={['iphone-17-pro', 'iphone-16-pro']} />

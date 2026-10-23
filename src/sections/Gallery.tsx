@@ -64,7 +64,7 @@ export function HorizontalGallery() {
         const tween = gsap.to(el, {
           x: () => -dist(),
           ease: 'none',
-          scrollTrigger: { trigger: root.current, start: 'top top', end: () => `+=${dist()}`, scrub: 0.8, pin: true, invalidateOnRefresh: true, anticipatePin: 1 },
+          scrollTrigger: { trigger: root.current, start: 'top top', end: () => `+=${dist()}`, scrub: 0.4, pin: true, invalidateOnRefresh: true, anticipatePin: 1 },
         })
         // parallax: camadas próximas e distantes
         gsap.utils.toArray<HTMLElement>('.hg-card').forEach((card) => {
@@ -73,7 +73,7 @@ export function HorizontalGallery() {
           if (near) gsap.fromTo(near, { xPercent: 22 }, { xPercent: -22, ease: 'none', scrollTrigger: st })
           if (far) gsap.fromTo(far, { xPercent: -10 }, { xPercent: 10, ease: 'none', scrollTrigger: st })
           if (num) gsap.fromTo(num, { xPercent: 40 }, { xPercent: -40, ease: 'none', scrollTrigger: st })
-          gsap.fromTo(card, { rotateY: -14 }, { rotateY: 14, ease: 'none', scrollTrigger: st })
+          gsap.fromTo(card, { rotateY: -14 }, { rotateY: 14, ease: 'none', force3D: true, scrollTrigger: st })
         })
       })
     }, root)
@@ -216,12 +216,9 @@ export function LayeredGallery() {
         const cards = gsap.utils.toArray<HTMLElement>('.layer')
         cards.forEach((card, i) => {
           if (i === cards.length - 1) return
-          gsap.to(card, {
-            scale: 0.9 - (cards.length - i) * 0.015,
-            filter: 'brightness(0.75)',
-            ease: 'none',
-            scrollTrigger: { trigger: cards[i + 1], start: 'top bottom', end: 'top 90px', scrub: true },
-          })
+          const st = { trigger: cards[i + 1], start: 'top bottom', end: 'top 90px', scrub: true }
+          gsap.to(card, { scale: 0.9 - (cards.length - i) * 0.015, ease: 'none', force3D: true, scrollTrigger: st })
+          gsap.to(card.querySelector('.layer-dim'), { opacity: 0.35, ease: 'none', scrollTrigger: st })
         })
         cards.forEach((card) => {
           const arts = card.querySelectorAll('.layer-art svg')
@@ -237,6 +234,7 @@ export function LayeredGallery() {
         const m = MODELS.find((x) => x.id === l.model)!
         return (
           <article key={i} className={`layer ${l.dark ? 'is-dark' : ''}`} style={{ top: `${84 + i * 14}px`, zIndex: i + 1 }}>
+            <span className="layer-dim" aria-hidden />
             <div className="layer-copy">
               <p className="eyebrow">{m.name}</p>
               <h3 className="display-3">{l.title}</h3>

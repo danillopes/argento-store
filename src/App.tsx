@@ -45,7 +45,7 @@ export default function App() {
     <ExpandProvider>
       <SmoothScroll />
       {!isAdmin && <Header />}
-      <main id="conteudo">
+      <main id="conteudo" className={isAdmin ? undefined : 'has-hdr'}>
         <Suspense fallback={<div className="page-loading" aria-busy="true" />}>
         <Routes>
           <Route path="/" element={<Home />} />
