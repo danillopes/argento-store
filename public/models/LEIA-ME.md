@@ -19,11 +19,16 @@ O site detecta cada arquivo sozinho. Se faltar algum:
 
 A animação da página inicial usa exclusivamente `iphone-17-pro.glb`.
 
-O projeto inclui uma visualização 3D autoral do iPhone 17 Pro, com 47 partes,
-platô arredondado, três lentes, LiDAR, flash, Dynamic Island, botões e USB-C.
-As cores dos materiais acompanham a animação e o configurador. É uma
-representação de catálogo, não uma digitalização de uma unidade física.
-Para regenerar o arquivo: `node scripts/gerar-iphone-17-pro.mjs`.
+O iPhone 17 Pro vem do arquivo `iphone-17-pro.zip` fornecido pelo usuário,
+entrada `source/iPhone 17 Pro.glb`. Ele substitui o modelo simplificado anterior.
+As malhas, os materiais e a resolução das texturas foram preservados; as texturas
+foram reempacotadas em WebP sem perda, com igualdade dos pixels validada.
+O acabamento de alumínio e o vidro traseiro acompanham a cor do configurador.
+
+O original está em `fotos-originais/modelos3d/iphone-17-pro-original.glb`.
+Para reimportar: `node scripts/importar-iphone-17-pro.mjs`.
+Os hashes e os tamanhos ficam em `iphone-17-pro-fonte.json`.
+O manifesto versiona o endereço de cada GLB pelo hash para renovar o cache PWA.
 
 ## Antes de publicar
 - Use só modelos com licença que permita uso comercial (ex.: CC BY) e credite o autor no rodapé.

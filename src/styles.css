@@ -176,6 +176,7 @@ input, select, textarea { font: inherit; color: inherit; }
 .scrolly { position: relative; }
 .scrolly-stage { position: relative; height: 100vh; height: 100svh; overflow: hidden; background: var(--bg); color: var(--ink); margin-top: -70px; }
 .scrolly-canvas { position: absolute; inset: 0; }
+.model-loading { display: block; width: 200px; padding: 14px 18px; border-radius: 18px; background: var(--glass); color: var(--ink); backdrop-filter: blur(18px); text-align: center; font-size: 0.8rem; line-height: 1.5; }
 .ch { position: absolute; z-index: 2; top: 50%; transform: translateY(-50%); left: max(24px, 6vw); max-width: min(560px, 44vw); pointer-events: none; }
 .ch > * { pointer-events: auto; }
 .ch .lead { color: inherit; opacity: 0.72; }

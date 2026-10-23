@@ -1,6 +1,6 @@
 import { Component, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Environment, Lightformer, RoundedBox, ContactShadows, useGLTF, PerformanceMonitor } from '@react-three/drei'
+import { Environment, Lightformer, RoundedBox, ContactShadows, useGLTF, PerformanceMonitor, Html } from '@react-three/drei'
 import * as THREE from 'three'
 import type { CamLayout, PhoneModel } from '../data/models'
 import media from '../data/photos.json'
@@ -219,11 +219,13 @@ function GLBPhone({ url, drive }: { url: string; drive: React.MutableRefObject<D
       if (!(node instanceof THREE.Mesh)) return
       const tint = (original: THREE.Material) => {
         const mat = original.clone()
-        if (mat instanceof THREE.MeshStandardMaterial && mat.name.startsWith('finish-')) finishes.push(mat)
+        if (mat instanceof THREE.MeshStandardMaterial && (mat.name.startsWith('finish-') || mat.name === 'Anodized aluminum' || mat.name === 'Frosted glass')) finishes.push(mat)
         return mat
       }
       node.material = Array.isArray(node.material) ? node.material.map(tint) : tint(node.material)
     })
+    // O GLB enviado usa a traseira no eixo +Z; a animação espera a tela em +Z.
+    if (finishes.some((mat) => mat.name === 'Anodized aluminum')) c.rotateY(Math.PI)
     const box = new THREE.Box3().setFromObject(c)
     const size = box.getSize(new THREE.Vector3())
     const center = box.getCenter(new THREE.Vector3())
@@ -251,6 +253,7 @@ class Boundary extends Component<{ fallback: ReactNode; children: ReactNode }, {
 
 const BASE = import.meta.env.BASE_URL
 const AVAILABLE = new Set((media as { modelos3d?: string[] }).modelos3d ?? [])
+const MODEL_VERSIONS = (media as { modelos3dVersoes?: Record<string, string> }).modelos3dVersoes ?? {}
 
 // Procura o arquivo do modelo; Pro Max cai para o Pro, mini/Plus/e para o modelo base da geração
 export function glbCandidates(m: Pick<PhoneModel, 'id' | 'family' | 'tier'>) {
@@ -262,7 +265,7 @@ export function glbCandidates(m: Pick<PhoneModel, 'id' | 'family' | 'tier'>) {
 // Lista vem do manifesto gerado no build: nenhuma requisição de teste no navegador
 export function useGlb(names: string[]) {
   const hit = names.find((n) => AVAILABLE.has(n))
-  return hit ? `${BASE}models/${hit}.glb` : null
+  return hit ? `${BASE}models/${hit}.glb${MODEL_VERSIONS[hit] ? `?v=${MODEL_VERSIONS[hit]}` : ''}` : null
 }
 
 export default function Phone3D({ drive, cam, interactive = false, shadow = false, className, fov = 30, glb }: { drive: React.MutableRefObject<Drive>; cam?: CamLayout; interactive?: boolean; shadow?: boolean; className?: string; fov?: number; glb?: string[] }) {
@@ -321,8 +324,8 @@ export default function Phone3D({ drive, cam, interactive = false, shadow = fals
         </Environment>
         <Rig drive={drive} drag={drag} interactive={interactive}>
           {url ? (
-            <Boundary fallback={procedural}>
-              <Suspense fallback={procedural}><GLBPhone url={url} drive={drive} /></Suspense>
+            <Boundary fallback={<Html center><span className="model-loading" role="alert">Não foi possível carregar o modelo 3D. Atualize a página para tentar novamente.</span></Html>}>
+              <Suspense fallback={<Html center><span className="model-loading" role="status">Carregando modelo 3D…</span></Html>}><GLBPhone url={url} drive={drive} /></Suspense>
             </Boundary>
           ) : procedural}
         </Rig>

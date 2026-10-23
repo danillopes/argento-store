@@ -6,6 +6,7 @@
 //   unidades/<ID-da-unidade>/<ordem>-<nome>.jpg → fotos reais da unidade (ex.: unidades/ARG-1069/01-frente.jpg)
 import { readdir, readFile, mkdir, writeFile, stat, rm } from 'node:fs/promises'
 import { join, parse } from 'node:path'
+import { createHash } from 'node:crypto'
 import sharp from 'sharp'
 
 const SRC = 'fotos-originais'
@@ -42,7 +43,7 @@ async function convert(input, outDir, base, widths) {
 // e só atualiza a lista de modelos 3D.
 const hasOriginals = await exists(SRC)
 const previous = (await exists(MANIFEST)) ? JSON.parse(await readFile(MANIFEST, 'utf8')) : {}
-const manifest = { modelos: hasOriginals ? {} : previous.modelos ?? {}, unidades: hasOriginals ? {} : previous.unidades ?? {}, modelos3d: [] }
+const manifest = { modelos: hasOriginals ? {} : previous.modelos ?? {}, unidades: hasOriginals ? {} : previous.unidades ?? {}, modelos3d: [], modelos3dVersoes: {} }
 if (hasOriginals) await rm(OUT, { recursive: true, force: true })
 let count = 0
 
@@ -65,6 +66,9 @@ for (const unit of await dirs(join(SRC, 'unidades'))) {
 
 // modelos 3D presentes em public/models (evita requisições de teste no navegador)
 if (await exists('public/models')) manifest.modelos3d = (await readdir('public/models')).filter((f) => f.endsWith('.glb')).map((f) => f.slice(0, -4)).sort()
+for (const name of manifest.modelos3d) {
+  manifest.modelos3dVersoes[name] = createHash('sha256').update(await readFile(join('public/models', `${name}.glb`))).digest('hex').slice(0, 12)
+}
 
 await writeFile(MANIFEST, JSON.stringify(manifest, null, 1) + '\n')
 console.log(hasOriginals ? `✓ ${count} fotos convertidas → ${OUT}/` : '• sem fotos-originais/: fotos existentes mantidas')

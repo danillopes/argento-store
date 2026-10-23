@@ -1068,5 +1068,8 @@
  "unidades": {},
  "modelos3d": [
   "iphone-17-pro"
- ]
+ ],
+ "modelos3dVersoes": {
+  "iphone-17-pro": "8d5dacf3bbf4"
+ }
 }
