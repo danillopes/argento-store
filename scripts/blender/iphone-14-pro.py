@@ -25,7 +25,7 @@ MOLDURA = {'uApvtlLvHnjNKSG', 'yuFXHUhPQDoVApU', 'WeYJTXtSqeWejVb', 'nLgTjJkjjIw
 MAPA = {
     'TrnkWAfGduLgqLM': 'Frosted glass',   # vidro traseiro fosco
     'IfqLTOjymCZMuVu': 'Frosted bump',    # ressalto das câmeras
-    'erHrUfZxAtkfXqO': 'Frosted bump',    # vidro do topo do ressalto (sem a textura dourada, segue a cor escolhida)
+    'qzKHApwituZTUxC': 'Frosted bump',    # topo do platô das câmeras (era bege-dourado fixo do modelo dourado)
     'bliqaGpTvCuZHuk': 'Frosted bump',    # base do ressalto (vidro na cor do aparelho, como no real)
     'loFcbeOTkLALGur': 'Glass tint',      # logotipo
     'qTzpZGPXrrlpDsm': 'Plastic antena',  # faixas de antena
@@ -69,7 +69,32 @@ for m in bpy.data.materials:
             n.inputs['Emission Strength'].default_value = 0.0
 
 print('moldura original (mm):', [round(v * 1000, 2) for v in (ref_mx - ref_mn)])
-comum.normalizar(objs, MEDIDAS[variante], ref_caixa=(ref_mn, ref_mx))
+esc = comum.normalizar(objs, MEDIDAS[variante], ref_caixa=(ref_mn, ref_mx))
+if variante == 'pro':
+    # o módulo de câmeras do 14 Pro tem praticamente o tamanho do Pro Max: desfaz a redução que veio junto com o corpo
+    esc_pm = mathutils.Vector((MEDIDAS['promax'][0] / 1000 / (ref_mx - ref_mn).x, 1, MEDIDAS['promax'][2] / 1000 / (ref_mx - ref_mn).z))
+    fx, fz = esc_pm.x / esc.x, esc_pm.z / esc.z
+    mods = {'Frosted bump', 'finish-chamfer'}
+    pts = [o.matrix_world @ v.co for o in objs for p in o.data.polygons if o.data.materials[p.material_index] and o.data.materials[p.material_index].name == 'Frosted bump' for v in [o.data.vertices[i] for i in p.vertices]]
+    mn = mathutils.Vector((min(p.x for p in pts), 0, min(p.z for p in pts))); mx = mathutils.Vector((max(p.x for p in pts), 0, max(p.z for p in pts)))
+    c = (mn + mx) / 2; hx, hz = (mx.x - mn.x) / 2 + 0.0005, (mx.z - mn.z) / 2 + 0.0005
+    for o in objs:
+        me = o.data
+        nomes = {i: (m.name if m else '') for i, m in enumerate(me.materials)}
+        alvo = set()
+        for p in me.polygons:
+            if nomes.get(p.material_index) in ('Anodized aluminum', 'Plastic antena', 'Frosted glass'):
+                continue
+            for vi in p.vertices:
+                w = me.vertices[vi].co
+                if w.y < -0.0035 and abs(w.x - c.x) <= hx and abs(w.z - c.z) <= hz:
+                    alvo.add(vi)
+        for vi in alvo:
+            w = me.vertices[vi].co
+            w.x = c.x + (w.x - c.x) * fx
+            w.z = c.z + (w.z - c.z) * fz
+        me.update()
+    print('módulo de câmeras ampliado', round(fx, 3), round(fz, 3), 'em torno de', [round(c.x * 1000, 1), round(c.z * 1000, 1)], 'mm')
 # a tela e o painel preto de baixo estavam no mesmo plano (y = 3,9 mm): a GPU alternava entre os dois e a tela
 # "apagava" conforme o ângulo. A tela sobe 0,04 mm; Dynamic Island, câmera frontal e grade do alto-falante, 0,08 mm.
 FRENTE = {'OLED': 0.00004, 'FjQZkOEFcAMgVKb': 0.00008, 'pAavhFVnCAgSnSH': 0.00008, 'fexrCBexEqONlzJ': 0.00008, 'XvdlxyjrKESiFay': 0.00008}
