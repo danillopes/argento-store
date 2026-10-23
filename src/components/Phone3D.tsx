@@ -1,6 +1,6 @@
 import { Component, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Environment, Lightformer, RoundedBox, ContactShadows, useGLTF, PerformanceMonitor, Html } from '@react-three/drei'
+import { Environment, Lightformer, RoundedBox, ContactShadows, useGLTF, PerformanceMonitor } from '@react-three/drei'
 import * as THREE from 'three'
 import type { CamLayout, PhoneModel } from '../data/models'
 import media from '../data/photos.json'
@@ -210,8 +210,9 @@ function Rig({ drive, drag, interactive, children }: { drive: React.MutableRefOb
 }
 
 // Carrega um .glb (ex.: Sketchfab) centralizado e na mesma escala do modelo procedural
-function GLBPhone({ url, drive }: { url: string; drive: React.MutableRefObject<Drive> }) {
+function GLBPhone({ url, drive, onReady }: { url: string; drive: React.MutableRefObject<Drive>; onReady: (url: string) => void }) {
   const { scene } = useGLTF(url)
+  useEffect(() => { onReady(url) }, [url, onReady])
   const obj = useMemo(() => {
     const c = scene.clone(true)
     const finishes: THREE.MeshStandardMaterial[] = []
@@ -245,9 +246,10 @@ function GLBPhone({ url, drive }: { url: string; drive: React.MutableRefObject<D
   return <primitive object={obj.root} />
 }
 
-class Boundary extends Component<{ fallback: ReactNode; children: ReactNode }, { err: boolean }> {
+class Boundary extends Component<{ fallback: ReactNode; children: ReactNode; onError?: () => void }, { err: boolean }> {
   state = { err: false }
   static getDerivedStateFromError() { return { err: true } }
+  componentDidCatch() { this.props.onError?.() }
   render() { return this.state.err ? this.props.fallback : this.props.children }
 }
 
@@ -271,6 +273,8 @@ export function useGlb(names: string[]) {
 export default function Phone3D({ drive, cam, interactive = false, shadow = false, className, fov = 30, glb }: { drive: React.MutableRefObject<Drive>; cam?: CamLayout; interactive?: boolean; shadow?: boolean; className?: string; fov?: number; glb?: string[] }) {
   const drag = useRef<DragState>({ active: false, x: 0, y: 0, ry: 0, rx: 0, v: 0, t: 0 })
   const url = useGlb(glb ?? [])
+  const [loadedUrl, setLoadedUrl] = useState<string | null>(null)
+  const [failedUrl, setFailedUrl] = useState<string | null>(null)
   const wrap = useRef<HTMLDivElement>(null)
   // Só renderiza quando a cena está na tela e a aba está visível (economiza bateria/GPU)
   const [visible, setVisible] = useState(true)
@@ -310,7 +314,7 @@ export default function Phone3D({ drive, cam, interactive = false, shadow = fals
       }
     : {}
   return (
-    <div ref={wrap} className={className} style={{ width: '100%', height: '100%', touchAction: interactive ? 'pan-y' : undefined, cursor: interactive ? 'grab' : undefined }} {...handlers}>
+    <div ref={wrap} className={className} style={{ position: 'relative', width: '100%', height: '100%', touchAction: interactive ? 'pan-y' : undefined, cursor: interactive ? 'grab' : undefined }} {...handlers}>
       <Canvas frameloop={visible ? 'always' : 'never'} dpr={dpr} camera={{ position: [0, 0, 7.2], fov }} gl={{ antialias: !lowPower, alpha: true, powerPreference: 'high-performance' }}>
         <PerformanceMonitor onDecline={() => setDpr((d) => Math.max(1, d - 0.25))} onIncline={() => setDpr((d) => Math.min(lowPower ? 1.25 : 1.75, d + 0.25))} flipflops={3} />
         <ambientLight intensity={0.35} />
@@ -324,13 +328,14 @@ export default function Phone3D({ drive, cam, interactive = false, shadow = fals
         </Environment>
         <Rig drive={drive} drag={drag} interactive={interactive}>
           {url ? (
-            <Boundary fallback={<Html center><span className="model-loading" role="alert">Não foi possível carregar o modelo 3D. Atualize a página para tentar novamente.</span></Html>}>
-              <Suspense fallback={<Html center><span className="model-loading" role="status">Carregando modelo 3D…</span></Html>}><GLBPhone url={url} drive={drive} /></Suspense>
+            <Boundary key={url} fallback={null} onError={() => setFailedUrl(url)}>
+              <Suspense fallback={null}><GLBPhone url={url} drive={drive} onReady={setLoadedUrl} /></Suspense>
             </Boundary>
           ) : procedural}
         </Rig>
         {shadow && !lowPower && <ContactShadows position={[0, -1.75, 0]} opacity={0.35} blur={2.6} scale={6} far={3} />}
       </Canvas>
+      {url && loadedUrl !== url && <div className="model-loading-overlay"><span className="model-loading" role={failedUrl === url ? 'alert' : 'status'}>{failedUrl === url ? 'Não foi possível carregar o modelo 3D. Atualize a página para tentar novamente.' : 'Carregando modelo 3D…'}</span></div>}
     </div>
   )
 }
