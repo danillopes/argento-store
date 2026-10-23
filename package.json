@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "fotos": "node scripts/fotos.mjs",
     "modelos3d": "node scripts/gerar-modelos-3d.mjs",
-    "modelar:iphone12": "node scripts/modelar-iphone-12.mjs"
+    "modelar:iphone12": "node scripts/modelar-iphone-12.mjs",
+    "modelar:17pro": "node scripts/modelar-iphone-17-pro-explodido.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
@@ -25,6 +26,9 @@
     "three": "^0.186.1"
   },
   "devDependencies": {
+    "@gltf-transform/core": "^4.5.1",
+    "@gltf-transform/extensions": "^4.5.1",
+    "@gltf-transform/functions": "^4.5.1",
     "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",

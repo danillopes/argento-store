@@ -755,7 +755,7 @@ export default function Phone3D({
       }
     : {}
   return (
-    <div ref={wrap} className={className} style={{ position: 'relative', width: '100%', height: '100%', touchAction: interactive ? 'pan-y' : undefined, cursor: interactive ? 'grab' : undefined }} {...handlers}>
+    <div ref={wrap} className={className} style={{ position: 'relative', width: '100%', height: '100%', touchAction: interactive ? 'none' : undefined, cursor: interactive ? 'grab' : undefined }} {...handlers}>
       <Canvas frameloop={visible ? 'always' : 'never'} dpr={dpr} camera={{ position: [0, 0, 7.2], fov }} gl={{ antialias: !lowPower, alpha: true, powerPreference: 'high-performance' }}>
         <PerformanceMonitor onDecline={() => setDpr((d) => Math.max(1, d - 0.25))} onIncline={() => setDpr((d) => Math.min(lowPower ? 1.25 : 1.75, d + 0.25))} flipflops={3} />
         <ambientLight intensity={theme === 'dark' ? 0.5 : 0.45} />

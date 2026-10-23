@@ -8,8 +8,8 @@ import { newExplodeState } from '../components/exploded/state'
 
 const ExplodedCanvas = lazy(() => import('../components/exploded/ExplodedPhone'))
 
-const MODEL_ID = 'iphone-12'
-const TINT = '#f2efe9' // iPhone 12 branco: contraste com o fundo preto
+const MODEL_ID = 'iphone-17-pro'
+const TINT = '#d9d9d6' // iPhone 17 Pro prateado: contraste com o fundo preto
 const clamp = (v: number) => Math.min(1, Math.max(0, v))
 const ramp = (p: number, a: number, b: number) => { const t = clamp((p - a) / (b - a)); return t * t * (3 - 2 * t) }
 const band = (p: number, a: number, b: number, c: number, d: number) => ramp(p, a, b) * (1 - ramp(p, c, d))
@@ -89,7 +89,7 @@ export default function InsideTech() {
         </div>
 
         <div className="it-copy it-intro" ref={(el) => { txt.current.intro = el }}>
-          <p className="eyebrow">Por dentro do iPhone 12</p>
+          <p className="eyebrow">Por dentro do iPhone 17 Pro</p>
           <h2 className="display-2">A tecnologia<br />por dentro.</h2>
           <p className="lead">Cada detalhe. Cada componente. Descubra a engenharia por trás do seu próximo iPhone.</p>
         </div>
@@ -97,7 +97,7 @@ export default function InsideTech() {
         <div className="it-copy it-step" ref={(el) => { txt.current.explode = el }}>
           <p className="eyebrow">Desmontagem</p>
           <h3 className="display-3">Camada por camada.</h3>
-          <p className="lead">A tampa traseira se solta, o MagSafe e a bateria aparecem, a placa lógica se afasta e a tela se separa da moldura.</p>
+          <p className="lead">O vidro e a tela se afastam e revelam a placa com o A19 Pro, a bateria, as câmeras e a câmara de vapor. Atrás, o MagSafe e o vidro traseiro.</p>
         </div>
 
         <div className="it-copy it-step it-cams" ref={(el) => { txt.current.cams = el }}>

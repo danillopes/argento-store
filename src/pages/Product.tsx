@@ -50,6 +50,7 @@ export default function Product() {
   const [cond, setCond] = useState<'novo' | 'seminovo'>((params.get('c') as 'novo') ?? conds[0] ?? 'novo')
   const [storage, setStorage] = useState<number | null>(null)
   const [color, setColor] = useState<string | null>(null)
+  const [previewColor, setPreviewColor] = useState<string | null>(null) // cor só para visualizar (sem estoque)
   const [band, setBand] = useState<string | null>(null)
   const [grade, setGrade] = useState<string | null>(null)
   const [unitId, setUnitId] = useState<string | null>(null)
@@ -82,9 +83,12 @@ export default function Product() {
   useEffect(() => { setUnitId(null) }, [cond, storage, color, band, grade])
   useEffect(() => { setIslandOn(false); drive.current.island = 0 }, [id])
 
-  const colorObj = m?.colors.find((c) => c.id === (color ?? '')) ?? m?.colors[0]
+  const selectedColor = m?.colors.find((c) => c.id === (color ?? '')) ?? m?.colors[0]
+  // cor exibida no 3D: a prévia (se houver) ou a cor escolhida para compra
+  const colorObj = m?.colors.find((c) => c.id === previewColor) ?? selectedColor
   const mPhoto = m && colorObj ? modelPhoto(m.id, colorObj.id) : undefined
   useEffect(() => { if (colorObj) drive.current.color = colorObj.hex }, [colorObj?.hex])
+  useEffect(() => { setPreviewColor(null) }, [color, id])
   useEffect(() => { if (view === 'foto' && !mPhoto) setView('3d') }, [view, mPhoto])
   useEffect(() => {
     drive.current.rotY = view === 'back' ? Math.PI : view === 'side' ? Math.PI / 2 : view === '3d' ? -0.34 : 0
@@ -124,7 +128,8 @@ export default function Product() {
   return (
     <div className="pdp">
       <div className="pdp-visual">
-        <div className="pdp-stage" style={{ ['--tint' as string]: colorObj?.hex }}>
+        {/* data-lenis-prevent: tocar/arrastar no 3D não rola a página (celular) */}
+        <div className="pdp-stage" data-lenis-prevent style={{ ['--tint' as string]: colorObj?.hex }}>
           <AnimatePresence mode="wait">
             {view === 'foto' && mPhoto ? (
               <motion.div key={'foto' + colorObj?.id} className="pdp-flat pdp-photo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
@@ -165,6 +170,19 @@ export default function Product() {
             )}
           </AnimatePresence>
         </div>
+        <QuickColors
+          colors={m.colors}
+          selected={selectedColor?.id}
+          preview={previewColor}
+          stock={(cid) => (byStorage.some((u) => u.colorId === cid) ? 'here' : byCond.some((u) => u.colorId === cid) ? 'other' : 'none')}
+          onPick={(cid, where) => {
+            if (where === 'here') { setColor(cid); setPreviewColor(null) }
+            else if (where === 'other') {
+              const st = byCond.filter((u) => u.colorId === cid).map((u) => u.storage).sort((a, b) => a - b)[0]
+              setStorage(st); setColor(cid); setPreviewColor(null)
+            } else setPreviewColor(cid)
+          }}
+        />
         <div className="seg seg-center" role="tablist" aria-label="Visualização">
           {([['3d', '3D'], ['front', 'Frente'], ['back', 'Traseira'], ['side', 'Lateral'], ...(mPhoto ? [['foto', 'Foto']] : [])] as ['3d', string][]).map(([v, l]) => (
             <button
@@ -180,12 +198,12 @@ export default function Product() {
               {l}
             </button>
           ))}
-          {m && explodeFor(m.id) && (
-            <button className="seg-inside" onClick={() => setInside(true)} aria-haspopup="dialog">
-              <Layers size={14} /> Explorar por dentro
-            </button>
-          )}
         </div>
+        {m && explodeFor(m.id) && (
+          <button className="pdp-inside" onClick={() => setInside(true)} aria-haspopup="dialog">
+            <Layers size={15} /> Explorar por dentro
+          </button>
+        )}
         <AnimatePresence>
           {inside && m && explodeFor(m.id) && (
             <Suspense fallback={null}>
@@ -410,5 +428,43 @@ function UnitRow({ u, on, onClick }: { u: Unit; on: boolean; onClick: () => void
       <span className="unit-grade">{u.condition === 'novo' ? 'Lacrado' : `Grau ${u.grade}`}</span>
       <span className="unit-price">{u.promo > 0 && <s>{brl(u.price)}</s>}<strong>{brl(finalPrice(u))}</strong></span>
     </button>
+  )
+}
+
+// Cores logo abaixo do 3D: troca instantânea. Cor com estoque seleciona; cor só em outra capacidade
+// troca a capacidade; cor sem unidades vira apenas prévia visual (não altera a compra).
+function QuickColors({ colors, selected, preview, stock, onPick }: {
+  colors: { id: string; name: string; hex: string }[]
+  selected?: string
+  preview: string | null
+  stock: (id: string) => 'here' | 'other' | 'none'
+  onPick: (id: string, where: 'here' | 'other' | 'none') => void
+}) {
+  const shown = colors.find((c) => c.id === (preview ?? selected))
+  return (
+    <div className="pdp-colors">
+      <div className="pdp-colors-row" role="radiogroup" aria-label="Cor do aparelho">
+        {colors.map((c) => {
+          const where = stock(c.id)
+          const on = (preview ?? selected) === c.id
+          return (
+            <button
+              key={c.id}
+              role="radio"
+              aria-checked={on}
+              aria-label={`${c.name}${where === 'none' ? ' — sem estoque, apenas visualizar' : ''}`}
+              title={c.name}
+              className={`qc ${on ? 'is-on' : ''} ${where === 'none' ? 'is-out' : ''}`}
+              style={{ background: c.hex }}
+              onClick={() => onPick(c.id, where)}
+            />
+          )
+        })}
+      </div>
+      <p className="pdp-colors-name">
+        {shown?.name}
+        {preview && <span className="muted"> · prévia — sem unidades nesta cor agora</span>}
+      </p>
+    </div>
   )
 }

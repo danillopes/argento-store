@@ -35,7 +35,7 @@ function Model({ config, state, onSelect, tint }: { config: ExplodeConfig; state
           // cor escolhida no produto: moldura e traseira (vidro brilhante, como no iPhone 12)
           if (tint && (c.name === 'Anodized aluminum' || c.name === 'Frosted glass')) {
             c.color.set(tint)
-            if (c.name === 'Frosted glass') { c.roughness = 0.1; c.metalness = 0.05 }
+            if (c.name === 'Frosted glass') { c.roughness = config.glossBack ? 0.1 : 0.32; c.metalness = 0.05 }
             else { c.color.offsetHSL(0, -0.04, -0.04); c.metalness = 0.75; c.roughness = 0.36 }
           }
           mats.push({ m: c, opacity: c.opacity, blend: c.transparent })
@@ -66,8 +66,9 @@ function Model({ config, state, onSelect, tint }: { config: ExplodeConfig; state
     for (const part of data.parts) {
       const { cfg } = part
       let y = part.baseY + (cfg.offset - config.center) * e
-      if (cfg.group === 'camera') y += 0.008 * l * e
-      if (cfg.lens !== undefined) y += (cfg.lens + 1) * 0.007 * l * e
+      const dir = Math.sign(cfg.offset) || 1 // câmeras e lentes se afastam no mesmo sentido em que saem
+      if (cfg.group === 'camera') y += dir * 0.008 * l * e
+      if (cfg.lens !== undefined) y += dir * (cfg.lens + 1) * 0.007 * l * e
       part.obj.position.y = y
       // destaque: peça selecionada (ou o conjunto de câmeras no foco) em evidência, demais esmaecem
       let target = 1
@@ -110,7 +111,7 @@ function Presentation({ state, base, children }: { state: MutableRefObject<Explo
 }
 
 // Câmera virtual que aproxima o módulo de câmeras (seção da home)
-function FocusRig({ config, state, far, presentation }: { config: ExplodeConfig; state: MutableRefObject<ExplodeState>; far: [number, number, number]; presentation: [number, number, number] }) {
+function FocusRig({ config, state, far, presentation, narrow }: { config: ExplodeConfig; state: MutableRefObject<ExplodeState>; far: [number, number, number]; presentation: [number, number, number]; narrow: boolean }) {
   const { camera } = useThree()
   const smooth = useRef(0)
   const tmp = useMemo(() => ({ focus: new THREE.Vector3(), euler: new THREE.Euler(), look: new THREE.Vector3(), pos: new THREE.Vector3(), farV: new THREE.Vector3(...far) }), [far])
@@ -120,11 +121,14 @@ function FocusRig({ config, state, far, presentation }: { config: ExplodeConfig;
     const f = ease(Math.min(1, Math.max(0, smooth.current)))
     // ponto do módulo de câmera no mundo (modelo: +90° em X; peças de câmera afastadas para trás)
     const [fx, fz] = config.cameraFocus
-    tmp.focus.set(fx * UNITS, -fz * UNITS, (0.026 + 0.012 - config.center) * UNITS)
+    tmp.focus.set(fx * UNITS, -fz * UNITS, config.cameraDepth * UNITS)
     tmp.euler.set(presentation[0], presentation[1] + state.current.spin, presentation[2])
     tmp.focus.applyEuler(tmp.euler)
-    tmp.look.set(0, 0, 0).lerp(tmp.focus, f)
-    tmp.pos.copy(tmp.focus).add(new THREE.Vector3(0.9, 0.35, 2.1)).sub(tmp.farV).multiplyScalar(f).add(tmp.farV)
+    // no celular o alvo sobe um pouco: as câmeras ficam na metade de baixo, abaixo do texto
+    const target = tmp.focus.clone().add(new THREE.Vector3(0, narrow ? 0.85 : 0, 0))
+    tmp.look.set(0, 0, 0).lerp(target, f)
+    const close = narrow ? new THREE.Vector3(0.7, 0.55, 4.4) : new THREE.Vector3(1.2, 0.45, 3.3)
+    tmp.pos.copy(tmp.focus).add(close).sub(tmp.farV).multiplyScalar(f).add(tmp.farV)
     camera.position.copy(tmp.pos)
     camera.lookAt(tmp.look)
   })
@@ -166,7 +170,9 @@ export function ExplodedCanvas({
   const lowPower = typeof navigator !== 'undefined' && ((navigator.hardwareConcurrency ?? 8) <= 4 || matchMedia('(max-width: 860px)').matches)
   const narrow = typeof window !== 'undefined' && window.innerWidth < 700
   // inclina o aparelho: as camadas ficam visíveis de lado
-  const presentation: [number, number, number] = mode === 'scroll' ? [0.24, -1.02, 0.06] : [0.2, -0.98, 0.04]
+  // vista pela frente (unibody): gira meia volta para a tela ficar voltada para quem olha
+  const flip = config.view === 'front' ? Math.PI : 0
+  const presentation: [number, number, number] = mode === 'scroll' ? [0.24, -1.02 + flip, 0.06] : [0.2, -0.98 + flip, 0.04]
   const far: [number, number, number] = narrow ? [0, 0.2, 11.2] : [0, 0.15, 9.4]
 
   useEffect(() => {
@@ -199,7 +205,7 @@ export function ExplodedCanvas({
         {mode === 'interactive' ? (
           <OrbitControls makeDefault enablePan={false} enableDamping dampingFactor={0.08} minDistance={narrow ? 4.5 : 3.4} maxDistance={narrow ? 14 : 11} rotateSpeed={0.8} zoomSpeed={0.8} />
         ) : (
-          <FocusRig config={config} state={state} far={far} presentation={presentation} />
+          <FocusRig config={config} state={state} far={far} presentation={presentation} narrow={narrow} />
         )}
       </Canvas>
     </div>
