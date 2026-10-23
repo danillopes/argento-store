@@ -5,12 +5,16 @@
 #  - módulo de câmeras mantém o tamanho (não cresce com o corpo); lentes ~16 % menores que as do 13 Pro
 #  - notch ~22 % mais largo (padrão da linha 12)
 #  - acabamento Grafite (traseira fosca, moldura de aço polido escuro)
-# Uso: python3 scripts/blender/iphone-12-pro-max.py -- <iPhone13Pro.blend> <saida.glb>
+#  - calibrado com o vídeo do 12 Pro Max do Daniel: módulo ~32 mm de largura e anéis das lentes ~11 mm
+# Uso: python3 scripts/blender/iphone-12-pro-max.py -- <iPhone13Pro.blend> <saida.glb> [promax|pro]
 import sys, os, bpy, bmesh, mathutils
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import comum
 
-entrada, saida = sys.argv[sys.argv.index('--') + 1:][:2]
+args = sys.argv[sys.argv.index('--') + 1:]
+entrada, saida = args[:2]
+variante = args[2] if len(args) > 2 else 'promax'
+MEDIDAS = {'promax': (78.1, 7.4, 160.8), 'pro': (71.5, 7.4, 146.7)}  # Apple: largura, espessura, altura (mm)
 comum.limpar()
 bpy.ops.wm.open_mainfile(filepath=entrada)
 pasta = os.path.dirname(os.path.abspath(entrada))
@@ -24,7 +28,7 @@ comum.aplicar_transformacoes(objs)
 moldura = [o for o in objs if o.name.startswith('Frame')]
 mn0, mx0 = comum.caixa(moldura)
 tam0 = mx0 - mn0
-esc = comum.normalizar(objs, (78.1, 7.4, 160.8), moldura)
+esc = comum.normalizar(objs, MEDIDAS[variante], moldura)
 comum.renomear_materiais({
     'Frame': 'Anodized aluminum', 'Body': 'Frosted glass', 'Camera Frame': 'Frosted bump',
     'Camera Frame.001': 'finish-chamfer', 'Antenna': 'Plastic antena', 'Logo': 'Glass tint',
@@ -32,7 +36,8 @@ comum.renomear_materiais({
 })
 # escala que o 13 Pro teria nas medidas dele (146,7 × 71,5): o módulo de câmeras volta a esse tamanho
 esc13 = mathutils.Vector((0.0715 / tam0.x, esc.y, 0.1467 / tam0.z))
-fator_modulo = mathutils.Vector((esc13.x / esc.x, 1.0, esc13.z / esc.z))
+# módulo do 12 Pro / Pro Max: ~32 mm de largura no vídeo (o do 13 Pro tem ~33,8 mm) → 0,947
+fator_modulo = mathutils.Vector((esc13.x / esc.x * 0.947, 1.0, esc13.z / esc.z * 0.947))
 
 cams = [o for o in objs if o.name.startswith('Camera')]
 mnc, mxc = comum.caixa(cams)
@@ -73,7 +78,7 @@ for v in bm.verts:
     c = min(centros, key=lambda c: (v.co - c).xz.length)
     if (v.co - c).xz.length < 0.0075:
         d = v.co - c
-        v.co = c + mathutils.Vector((d.x * 0.84, d.y, d.z * 0.84))
+        v.co = c + mathutils.Vector((d.x * 0.70, d.y, d.z * 0.70))  # anéis ~11 mm, como no vídeo (13 Pro: ~15 mm)
 bm.to_mesh(me); bm.free(); me.update()
 
 # notch ~22 % mais largo: peças da frente na faixa do topo (|x| < 22 mm)
@@ -117,6 +122,15 @@ cor('Frosted bump', '#57554f', rug=0.12, met=0.05)       # vidro brilhante do m�
 cor('finish-chamfer', '#4a4845', rug=0.12, met=0.95)
 cor('Plastic antena', '#3d3c3a', rug=0.5, met=0.0)
 cor('Glass tint', '#4f4d4a', rug=0.08, met=0.3)
+cor('Port', '#1c1c1e', rug=0.12, met=0.9)        # anéis das lentes: aço escuro polido (no vídeo, bem escuros)
+# miolo das lentes: vidro escuro com reflexo azulado (o ponto claro do 13 Pro não existe no 12)
+m = bpy.data.materials.get('Lens')
+if m and m.node_tree:
+    b = next((n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
+    if b:
+        for l in list(b.inputs['Base Color'].links): m.node_tree.links.remove(l)
+        b.inputs['Base Color'].default_value = (*srgb('#141822'), 1)
+        b.inputs['Roughness'].default_value = 0.05; b.inputs['Metallic'].default_value = 0.2
 
 comum.uv_tela('OLED')
 comum.reduzir_imagens(1024)
