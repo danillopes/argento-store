@@ -297,7 +297,7 @@ input, select, textarea { font: inherit; color: inherit; }
 /* ============ Cards de produto ============ */
 .rail { padding: 70px 0 30px; }
 .rail-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 28px; }
-.grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 18px; }
+.grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(255px, 100%), 1fr)); gap: 18px; }
 .pcard { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px 18px; display: flex; flex-direction: column; transition: box-shadow 0.35s var(--ease), transform 0.35s var(--ease); height: 100%; }
 .pcard:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
 .pcard-top { display: flex; justify-content: space-between; align-items: flex-start; min-height: 34px; position: relative; z-index: 2; }
@@ -373,7 +373,7 @@ input[type='range'] { width: 100%; accent-color: var(--ink); }
 .seg button { height: 34px; padding: 0 16px; border-radius: 999px; font-size: 0.86rem; font-weight: 500; color: var(--ink-2); transition: all 0.2s; }
 .seg button.is-on { background: var(--surface); color: var(--ink); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12); }
 .seg button:disabled { opacity: 0.35; }
-.seg-center { display: flex; width: fit-content; margin: 16px auto 0; }
+.seg-center { display: flex; width: fit-content; max-width: 100%; margin: 16px auto 0; }
 
 /* Catálogo */
 .cat-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 22px; }
@@ -469,9 +469,9 @@ input[type='range'] { width: 100%; accent-color: var(--ink); }
 .ship .row .input { max-width: 180px; }
 .cta { display: flex; flex-direction: column; gap: 10px; margin: 24px 0 14px; }
 .cta > .row { flex-wrap: wrap; }
-.pdp-similar { grid-column: 1 / -1; width: 100%; }
+.pdp-similar { grid-column: 1 / -1; width: 100%; min-width: 0; }
 @media (max-width: 960px) {
-  .pdp { grid-template-columns: 1fr; width: calc(100% - 32px); padding-top: 12px; }
+  .pdp { grid-template-columns: minmax(0, 1fr); width: calc(100% - 32px); padding-top: 12px; }
   .pdp-visual { position: relative; top: 0; height: 62svh; }
   .photos { grid-template-columns: repeat(2, 1fr); }
 }
@@ -636,7 +636,7 @@ input[type='range'] { width: 100%; accent-color: var(--ink); }
 .scrolly-fallback { position: absolute; height: 72%; width: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 @media (min-width: 861px) { .scrolly-fallback { left: 66%; } }
 /* seções abaixo da dobra: o navegador pula o trabalho de layout/pintura até chegarem perto */
-.rail, .benefits, .ftr { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+.rail, .benefits, .ftr { content-visibility: auto; contain-intrinsic-block-size: auto 900px; }
 
 main.has-hdr { padding-top: 70px; }
 /* elementos animados por rolagem ficam em camadas próprias da GPU */
@@ -664,3 +664,20 @@ main.has-hdr { padding-top: 70px; }
   .scrolly-stage { height: auto; }
   .scrolly-canvas { inset: auto; height: 55svh; }
 }
+
+/* Página do produto: nenhuma parte pode alargar a coluna além da tela (Safari/iOS) */
+.pdp > * { min-width: 0; max-width: 100%; }
+.pdp-visual { width: 100%; }
+/* o quadro 3D não deixa o conteúdo interno (canvas, botões) influenciar o próprio tamanho */
+.pdp-stage { contain: size layout paint; min-height: 0; }
+html, body { overflow-x: clip; }
+@media (max-width: 960px) {
+  .pdp-visual { height: min(62svh, 560px); }
+  .pdp-tools { top: 12px; right: 12px; left: 12px; }
+  .pdp-tool { height: 30px; padding: 0 10px; }
+  .pdp-hint { bottom: 12px; max-width: calc(100% - 24px); }
+  .seg-center { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .seg-center::-webkit-scrollbar { display: none; }
+  .seg-center button { flex: none; padding: 0 13px; }
+}
+.pdp .pdp-similar { width: auto; margin-inline: 0; }

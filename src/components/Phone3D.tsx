@@ -1,5 +1,5 @@
 import { Component, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { Canvas, useFrame, useLoader } from '@react-three/fiber'
+import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
 import { Environment, Lightformer, RoundedBox, ContactShadows, PerformanceMonitor } from '@react-three/drei'
 import * as THREE from 'three'
 import type { CamLayout, PhoneModel } from '../data/models'
@@ -675,6 +675,23 @@ export function useGlb(names: string[]) {
   return modelAssetUrl(names)
 }
 
+// Enquadramento automático: afasta a câmera até o aparelho inteiro caber no quadro,
+// com folga para os botões no topo e a dica embaixo — inclusive em telas estreitas de celular.
+function FitCamera({ fov, tall }: { fov: number; tall: boolean }) {
+  const { camera, size } = useThree()
+  useEffect(() => {
+    const aspect = size.width / Math.max(1, size.height)
+    const t = Math.tan(THREE.MathUtils.degToRad(fov) / 2)
+    const h = H * (tall ? 1.1 : 1) // Plus/Pro Max são ~9% mais altos
+    const w = W * (tall ? 1.1 : 1) * 1.15 // folga para o giro e as bordas
+    const marginY = size.height < 520 ? 1.42 : 1.3 // espaço para botões e dica sobre o 3D
+    const dist = Math.max(7.2, ((h / 2) * marginY) / t, ((w / 2) * 1.25) / (t * aspect))
+    camera.position.set(0, 0, dist)
+    camera.updateProjectionMatrix()
+  }, [camera, size.width, size.height, fov, tall])
+  return null
+}
+
 export default function Phone3D({
   drive,
   cam,
@@ -751,6 +768,7 @@ export default function Phone3D({
           <Lightformer form="rect" intensity={2.5} position={[6, -1, 1]} rotation-y={-Math.PI / 2} scale={[8, 1.2, 1]} />
           <Lightformer form="ring" intensity={1.5} position={[0, 0, 8]} scale={4} />
         </Environment>
+        {interactive && <FitCamera fov={fov} tall={model?.tier === 'promax' || model?.tier === 'plus'} />}
         <Rig drive={drive} drag={drag} interactive={interactive}>
           {url ? (
             <Boundary key={url} fallback={procedural} onError={() => setFailedUrl(url)}>
