@@ -83,18 +83,33 @@ function drawIosScreen(
 
   // Estilo visual do wallpaper por geração do iPhone
   if (family <= 12) {
-    // iOS 14: esferas concêntricas translúcidas
-    for (const [cx, cy, r, col] of [
-      [140, 360, 260, glow],
-      [390, 560, 290, primary],
-      [210, 790, 240, secondary],
+    // iOS 14 oficial (referência iPhone 12 / 12 mini): esferas concêntricas translúcidas
+    const bg14 = g.createLinearGradient(0, 0, CW, CH)
+    bg14.addColorStop(0, '#ebd7c4')
+    bg14.addColorStop(0.45, secondary)
+    bg14.addColorStop(1, primary)
+    g.fillStyle = bg14
+    g.fillRect(0, 0, CW, CH)
+
+    for (const [cx, cy, r, c0, c1, c2, strokeAlpha] of [
+      [256, 545, 385, 'rgba(255,235,215,0.28)', glow, 'rgba(255,255,255,0.85)', 0.55],
+      [224, 575, 305, primary, glow, 'rgba(255,225,185,0.92)', 0.45],
+      [208, 560, 212, deep, primary, glow, 0.5],
+      [268, 585, 138, primary, glow, '#ffe3b8', 0.6],
     ] as const) {
-      const rg = g.createRadialGradient(cx, cy, r * 0.08, cx, cy, r)
-      rg.addColorStop(0, col)
-      rg.addColorStop(0.65, deep)
-      rg.addColorStop(1, 'rgba(0,0,0,0)')
+      g.save()
+      g.beginPath()
+      g.arc(cx, cy, r, 0, Math.PI * 2)
+      const rg = g.createRadialGradient(cx - r * 0.24, cy - r * 0.18, r * 0.05, cx, cy, r)
+      rg.addColorStop(0, c0)
+      rg.addColorStop(0.64, c1)
+      rg.addColorStop(1, c2)
       g.fillStyle = rg
-      g.fillRect(0, 0, CW, CH)
+      g.fill()
+      g.strokeStyle = `rgba(255,255,255,${strokeAlpha})`
+      g.lineWidth = 2
+      g.stroke()
+      g.restore()
     }
   } else if (family === 13 || family === 14) {
     // iOS 15 / 16: feixes e ondas diagonais luminosas
@@ -258,13 +273,37 @@ function drawIosScreen(
 
   // Data e Hora da Tela de Bloqueio iOS
   g.textAlign = 'center'
-  g.fillStyle = 'rgba(255,255,255,0.82)'
-  g.font = '600 22px Inter, system-ui, -apple-system, sans-serif'
-  g.fillText('quinta-feira, 22 de outubro', CW / 2, 168 + clockShift)
+  if (family <= 12) {
+    // Layout clássico iOS 14: cadeado no topo, relógio fino 9:41 e data logo abaixo
+    roundRect2D(g, CW / 2 - 12, 126, 24, 20, 4)
+    g.fillStyle = 'rgba(255,255,255,0.95)'
+    g.fill()
+    g.beginPath()
+    g.arc(CW / 2, 124, 7.5, Math.PI, 0, false)
+    g.strokeStyle = 'rgba(255,255,255,0.95)'
+    g.lineWidth = 2.8
+    g.stroke()
 
-  g.fillStyle = 'rgba(255,255,255,0.95)'
-  g.font = '700 124px Inter, system-ui, -apple-system, sans-serif'
-  g.fillText('9:41', CW / 2, 292 + clockShift)
+    g.fillStyle = 'rgba(255,255,255,0.96)'
+    g.font = '200 112px Inter, system-ui, -apple-system, sans-serif'
+    g.fillText('9:41', CW / 2, 258)
+
+    g.fillStyle = 'rgba(255,255,255,0.92)'
+    g.font = '400 22px Inter, system-ui, -apple-system, sans-serif'
+    g.fillText('Monday, January 20', CW / 2, 298)
+
+    g.fillStyle = 'rgba(255,255,255,0.88)'
+    g.font = '500 16px Inter, system-ui, -apple-system, sans-serif'
+    g.fillText('Swipe up to unlock', CW / 2, 1044)
+  } else {
+    g.fillStyle = 'rgba(255,255,255,0.82)'
+    g.font = '600 22px Inter, system-ui, -apple-system, sans-serif'
+    g.fillText('quinta-feira, 22 de outubro', CW / 2, 168 + clockShift)
+
+    g.fillStyle = 'rgba(255,255,255,0.95)'
+    g.font = '700 124px Inter, system-ui, -apple-system, sans-serif'
+    g.fillText('9:41', CW / 2, 292 + clockShift)
+  }
 
   // Atalhos inferiores (Lanterna e Câmera) + barra Home
   for (const cx of [92, CW - 92]) {
