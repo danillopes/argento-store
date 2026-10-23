@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Heart, GitCompareArrows, ShoppingBag, Zap, ShieldCheck, Truck, Info, Camera, Rotate3d, Check, Power, Sparkles } from 'lucide-react'
+import { Heart, GitCompareArrows, ShoppingBag, Zap, ShieldCheck, Truck, Info, Camera, Rotate3d, Check, Power, Sparkles, Layers } from 'lucide-react'
 import Phone3D, { defaultDrive, glbCandidates, type Drive } from '../components/Phone3D'
 import PhoneArt from '../components/PhoneArt'
 import Photo, { modelPhoto, unitPhotos } from '../components/Photo'
@@ -11,6 +11,9 @@ import { modelById, storageLabel } from '../data/models'
 import { BATTERY_BANDS, GRADES, bandOf, breakdown, finalPrice, gradeName, type Unit } from '../data/inventory'
 import { useStore } from '../store/Store'
 import { brl, brl2, summarize } from '../lib/utils'
+import { explodeFor } from '../data/explode-config'
+
+const ExplodeModal = lazy(() => import('../components/exploded/ExplodeModal'))
 
 const stepAnim = { initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-30px' }, transition: { duration: 0.45 } }
 
@@ -51,6 +54,7 @@ export default function Product() {
   const [grade, setGrade] = useState<string | null>(null)
   const [unitId, setUnitId] = useState<string | null>(null)
   const [view, setView] = useState<'3d' | 'foto' | 'front' | 'back' | 'side'>('3d')
+  const [inside, setInside] = useState(false)
   const [screenOn, setScreenOn] = useState(true)
   const [islandOn, setIslandOn] = useState(false)
   const [lb, setLb] = useState<number | null>(null)
@@ -176,7 +180,19 @@ export default function Product() {
               {l}
             </button>
           ))}
+          {m && explodeFor(m.id) && (
+            <button className="seg-inside" onClick={() => setInside(true)} aria-haspopup="dialog">
+              <Layers size={14} /> Explorar por dentro
+            </button>
+          )}
         </div>
+        <AnimatePresence>
+          {inside && m && explodeFor(m.id) && (
+            <Suspense fallback={null}>
+              <ExplodeModal title={m.name} config={explodeFor(m.id)!} tint={colorObj?.hex} onClose={() => setInside(false)} />
+            </Suspense>
+          )}
+        </AnimatePresence>
       </div>
 
       <div className="pdp-config">

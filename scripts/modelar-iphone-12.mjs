@@ -12,6 +12,7 @@
 //   'Anodized aluminum' moldura/botões (recebe a cor do aparelho) · 'Frosted glass' traseira (cor)
 //   'Glass' vidro frontal · 'Display Frame' borda preta · 'OLED' tela (UV u→x, v=0 no topo) · 'OLED off' notch
 import { writeFile, mkdir } from 'node:fs/promises'
+import { createHash } from 'node:crypto'
 import * as THREE from 'three'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 
@@ -33,6 +34,19 @@ const MATERIALS = {
   Glass: { c: [0, 0, 0, 0.78], m: 0, r: 0.02, blend: true },
   'OLED off': { c: [0.02, 0.02, 0.02, 1], m: 0, r: 0.06 },
   OLED: { c: [0.02, 0.02, 0.025, 1], m: 0, r: 0.057 },
+  // ---- só na versão desmontável (componentes internos ilustrativos) ----
+  'Midframe': { c: [0.62, 0.63, 0.65, 1], m: 0.85, r: 0.38 },
+  'PCB': { c: [0.04, 0.09, 0.07, 1], m: 0.1, r: 0.55 },
+  'Chip': { c: [0.05, 0.05, 0.06, 1], m: 0.2, r: 0.35 },
+  'Shield': { c: [0.72, 0.73, 0.75, 1], m: 0.92, r: 0.22 },
+  'Battery': { c: [0.13, 0.13, 0.14, 1], m: 0.15, r: 0.6 },
+  'Battery label': { c: [0.85, 0.85, 0.86, 1], m: 0, r: 0.7 },
+  'Magnet': { c: [0.2, 0.2, 0.22, 1], m: 0.6, r: 0.35 },
+  'Coil': { c: [0.72, 0.42, 0.22, 1], m: 0.9, r: 0.3 },
+  'Camera body': { c: [0.08, 0.08, 0.09, 1], m: 0.4, r: 0.4 },
+  'Sensor': { c: [0.18, 0.2, 0.32, 1], m: 0.7, r: 0.15 },
+  'Lens element': { c: [0.55, 0.7, 0.85, 0.55], m: 0.1, r: 0.03, blend: true },
+  'Speaker': { c: [0.06, 0.06, 0.07, 1], m: 0.1, r: 0.6 },
 }
 
 // ---------- utilitários de geometria ----------
@@ -140,13 +154,27 @@ function notch(nw, nh, topZ, y) {
 }
 
 // ---------- o aparelho ----------
-function buildIphone12({ W, H, D, corner, cam }) {
-  const parts = Object.fromEntries(Object.keys(MATERIALS).map((k) => [k, []]))
-  const add = (mat, g) => parts[mat].push(g)
+// Anel da moldura (oco), usado na versão desmontável
+function frameRing(W, H, corner, wall, y0, y1) {
+  const outer = roundedRect(W, H, corner)
+  outer.holes.push(roundedRect(W - 2 * wall, H - 2 * wall, corner - wall))
+  const g = new THREE.ExtrudeGeometry(outer, { depth: y1 - y0, bevelEnabled: false, curveSegments: 28 })
+  g.rotateX(Math.PI / 2)
+  g.translate(0, y1, 0)
+  return g
+}
+
+// Peças nomeadas (estrutura sugerida: DeviceBody, FrontGlass, Display, RearPanel, Battery, MainBoard,
+// CameraModule, CameraLenses, CameraSensors) — nomes em inglês nos nós para servir a qualquer modelo
+function buildIphone12({ W, H, D, corner, cam }, exploded = false) {
+  const parts = {} // parte → material → geometrias
+  let current = 'DeviceBody'
+  const add = (mat, g, part = current) => { ((parts[part] ??= {})[mat] ??= []).push(g) }
   const hy = D / 2
 
-  // Moldura de alumínio com laterais retas e chanfro mínimo
-  add('Anodized aluminum', slab(W, H, corner, -hy, hy, { bevel: 0.22 * MM, seg: 28 }))
+  // Moldura de alumínio com laterais retas e chanfro mínimo (maciça no modelo normal, oca no desmontável)
+  if (exploded) add('Anodized aluminum', frameRing(W, H, corner, 1.6 * MM, -hy, hy))
+  else add('Anodized aluminum', slab(W, H, corner, -hy, hy, { bevel: 0.22 * MM, seg: 28 }))
 
   // Linhas de antena (faixas plásticas atravessando a lateral)
   const strip = (x, z, alongX) => {
@@ -163,6 +191,7 @@ function buildIphone12({ W, H, D, corner, cam }) {
   strip(W / 2 - 22 * MM, endZ, true)
 
   // Traseira de vidro (rente à moldura) e módulo de câmera quadrado em vidro
+  current = 'RearPanel'
   add('Frosted glass', slab(W - 0.7 * MM, H - 0.7 * MM, corner - 0.35 * MM, hy - 0.5 * MM, hy + 0.02 * MM, { bevel: 0.15 * MM, seg: 28 }))
   const sq = cam.size, sqR = cam.radius
   const sqCx = -W / 2 + cam.margin + sq / 2
@@ -173,7 +202,7 @@ function buildIphone12({ W, H, D, corner, cam }) {
   // Duas lentes na vertical (coluna esquerda do módulo, vista de trás)
   const lensX = sqCx - sq / 2 + cam.lensInset
   for (const lz of [sqCz - sq / 2 + cam.lensInset, sqCz + sq / 2 - cam.lensInset]) {
-    add('Anodized aluminum', cyl(cam.ring, top, top + 1.15 * MM, lensX, lz)) // anel metálico
+    add('Anodized aluminum', cyl(cam.ring, top, top + 1.15 * MM, lensX, lz, 28)) // anel metálico
     add('Camera Lens', disc(cam.ring - 0.45 * MM, top + 1.16 * MM, lensX, lz)) // vidro de safira
     add('Camera filter', disc(cam.ring * 0.55, top + 1.17 * MM, lensX, lz)) // abertura
     add('Camera sapphire miror', disc(cam.ring * 0.3, top + 1.18 * MM, lensX, lz)) // reflexo interno
@@ -186,6 +215,7 @@ function buildIphone12({ W, H, D, corner, cam }) {
 
   // Frente: vidro, borda preta, tela e notch
   const fy = -hy
+  current = 'Display'
   add('Display Frame', slab(W - 0.6 * MM, H - 0.6 * MM, corner - 0.3 * MM, fy - 0.01 * MM, fy + 0.45 * MM, { seg: 28 }))
   const sw = W - 4.4 * MM, sh = H - 4.4 * MM
   add('OLED', screenPlane(sw, sh, corner - 2.2 * MM, fy - 0.03 * MM))
@@ -198,7 +228,8 @@ function buildIphone12({ W, H, D, corner, cam }) {
     add('Metal Screw', g)
   }
   add('Camera Lens', disc(0.85 * MM, fy - 0.07 * MM, nw * 0.24, -sh / 2 + nh * 0.45, false, 24))
-  add('Glass', slab(W - 0.55 * MM, H - 0.55 * MM, corner - 0.28 * MM, fy - 0.35 * MM, fy - 0.02 * MM, { bevel: 0.12 * MM, seg: 28 }))
+  add('Glass', slab(W - 0.55 * MM, H - 0.55 * MM, corner - 0.28 * MM, fy - 0.35 * MM, fy - 0.02 * MM, { bevel: 0.12 * MM, seg: 28 }), 'FrontGlass')
+  current = 'DeviceBody'
 
   // Botões (vista de frente: liga/desliga à direita = lado −X; volume e chave à esquerda = +X)
   const btnT = D * 0.5, btnP = 0.45 * MM
@@ -220,10 +251,10 @@ function buildIphone12({ W, H, D, corner, cam }) {
     add('Metal Screw', bottomHole(0.62 * MM, sx * 5.9 * MM, H))
   }
 
-  // Une por material (todas as geometrias sem índice, com posição/normal/uv)
-  const out = {}
-  for (const [mat, list] of Object.entries(parts)) {
-    if (!list.length) continue
+  if (exploded) addInternals({ W, H, D, corner, cam, add, sqCx, sqCz, lensX, sq })
+
+  // Une por peça e material (todas as geometrias sem índice, com posição/normal/uv)
+  const merge = (list) => {
     const geos = list.map((g) => {
       let n = g.index ? g.toNonIndexed() : g
       if (!n.attributes.normal) n.computeVertexNormals()
@@ -231,16 +262,97 @@ function buildIphone12({ W, H, D, corner, cam }) {
       for (const k of Object.keys(n.attributes)) if (!['position', 'normal', 'uv'].includes(k)) n.deleteAttribute(k)
       return n
     })
-    out[mat] = mergeGeometries(geos, false)
+    return mergeGeometries(geos, false)
+  }
+  const out = {}
+  if (!exploded) {
+    // modelo normal: um único nó com todas as peças
+    const all = {}
+    for (const byMat of Object.values(parts)) for (const [mat, list] of Object.entries(byMat)) (all[mat] ??= []).push(...list)
+    out.Phone = Object.fromEntries(Object.entries(all).map(([m, l]) => [m, merge(l)]))
+  } else {
+    for (const [part, byMat] of Object.entries(parts)) out[part] = Object.fromEntries(Object.entries(byMat).map(([m, l]) => [m, merge(l)]))
   }
   return out
 }
 
+// ---------- componentes internos (ilustração — posição e forma aproximadas, não é engenharia reversa) ----------
+function addInternals({ W, H, D, corner, cam, add, sqCx, sqCz, lensX, sq }) {
+  const hy = D / 2
+  const inW = W - 3.6 * MM, inH = H - 3.6 * MM
+  // Chassi interno (placa intermediária entre a tela e os componentes)
+  add('Midframe', slab(inW, inH, corner - 1.8 * MM, -2.0 * MM, -1.45 * MM, { seg: 24 }), 'MidFrame')
+
+  // Placa lógica no topo, contornando as câmeras (vista de trás: câmeras à esquerda)
+  const bTop = -H / 2 + 3 * MM, bH = 33 * MM * cam.k
+  const camEdge = sqCx + sq / 2 + 0.8 * MM
+  const boardW = W / 2 - 2.4 * MM - camEdge
+  const bx = camEdge + boardW / 2, bz = bTop + bH / 2
+  add('PCB', slab(boardW, bH, 2 * MM, -1.4 * MM, -0.6 * MM, { cx: bx, cz: bz }), 'MainBoard')
+  add('PCB', slab(W - 6 * MM, 9 * MM * cam.k, 2 * MM, -1.4 * MM, -0.6 * MM, { cx: 0, cz: bTop + bH + 2 * MM }), 'MainBoard')
+  add('Chip', slab(11 * MM * cam.k, 11 * MM * cam.k, 1 * MM, -0.6 * MM, 0.1 * MM, { cx: bx - 1 * MM, cz: bz - 5 * MM }), 'MainBoard') // processador
+  add('Shield', slab(boardW - 2 * MM, 9 * MM * cam.k, 0.8 * MM, -0.6 * MM, 0.05 * MM, { cx: bx, cz: bz + 9 * MM * cam.k }), 'MainBoard')
+  add('Chip', slab(6 * MM, 4 * MM, 0.6 * MM, -0.6 * MM, -0.1 * MM, { cx: -W / 2 + 12 * MM, cz: bTop + bH + 2 * MM }), 'MainBoard')
+
+  // Câmeras traseiras: corpo, sensor e elementos ópticos empilhados (cada câmera separa as lentes)
+  const lensZs = [sqCz - sq / 2 + cam.lensInset, sqCz + sq / 2 - cam.lensInset]
+  lensZs.forEach((lz) => {
+    add('Camera body', slab(cam.ring * 2.1, cam.ring * 2.1, 1.5 * MM, -1.4 * MM, 1.0 * MM, { cx: lensX, cz: lz }), 'CameraModule')
+    add('Camera body', cyl(cam.ring * 0.92, 1.0 * MM, hy + 0.6 * MM, lensX, lz), 'CameraModule')
+    add('Sensor', slab(cam.ring * 1.25, cam.ring * 1.05, 0.4 * MM, -1.45 * MM, -1.38 * MM, { cx: lensX, cz: lz }), 'CameraSensors')
+    for (let i = 0; i < 4; i++) {
+      const y = -0.6 * MM + i * 0.9 * MM
+      add('Lens element', cyl(cam.ring * (0.62 - i * 0.06), y, y + 0.22 * MM, lensX, lz, 36), `CameraLenses${i}`)
+    }
+  })
+  // TrueDepth (câmera frontal) sob o notch
+  add('Camera body', slab(cam.notchW * 0.7, 4.2 * MM, 1.2 * MM, -3.0 * MM, -2.05 * MM, { cx: 0, cz: -H / 2 + 6.5 * MM }), 'TrueDepth')
+  add('Sensor', disc(0.9 * MM, -3.02 * MM, cam.notchW * 0.24, -H / 2 + 6.5 * MM, false, 24), 'TrueDepth')
+
+  // Bateria em L (ocupa o centro e a parte de baixo)
+  {
+    const bw = W - 6.5 * MM, z0 = bTop + bH + 7.5 * MM * cam.k, z1 = H / 2 - 17 * MM * cam.k
+    const s = new THREE.Shape()
+    const x0 = -bw / 2, x1 = bw / 2, cut = 12 * MM * cam.k
+    s.moveTo(x0, z0 + cut); s.lineTo(x0 + bw * 0.45, z0 + cut); s.lineTo(x0 + bw * 0.45, z0); s.lineTo(x1, z0); s.lineTo(x1, z1); s.lineTo(x0, z1); s.lineTo(x0, z0 + cut)
+    const g = new THREE.ExtrudeGeometry(s, { depth: 3.0 * MM, bevelEnabled: true, bevelThickness: 0.25 * MM, bevelSize: 0.6 * MM, bevelSegments: 2 })
+    g.translate(0, 0, 0.25 * MM); g.rotateX(Math.PI / 2); g.translate(0, 2.3 * MM, 0)
+    add('Battery', g, 'Battery')
+    const lab = new THREE.ShapeGeometry(roundedRect(bw * 0.5, (z1 - z0) * 0.35, 1 * MM), 6)
+    lab.rotateX(-Math.PI / 2); lab.translate(bw * 0.12, 2.32 * MM, (z0 + z1) / 2 + 4 * MM)
+    add('Battery label', lab, 'Battery')
+  }
+
+  // MagSafe: anel de ímãs + bobina de carregamento (logo abaixo do vidro traseiro)
+  {
+    const cz = 4 * MM * cam.k, ro = 23 * MM * cam.k, ri = 19.8 * MM * cam.k
+    const ring = new THREE.Shape(); ring.absarc(0, 0, ro, 0, Math.PI * 2, false)
+    const hole = new THREE.Path(); hole.absarc(0, 0, ri, 0, Math.PI * 2, true); ring.holes.push(hole)
+    const g = new THREE.ExtrudeGeometry(ring, { depth: 0.6 * MM, bevelEnabled: false, curveSegments: 64 })
+    g.rotateX(Math.PI / 2); g.translate(0, 3.0 * MM, cz)
+    add('Magnet', g, 'MagSafe')
+    for (let k = 0; k < 6; k++) {
+      const r1 = 15 * MM * cam.k - k * 1.9 * MM * cam.k, r2 = r1 - 1.1 * MM * cam.k
+      if (r2 <= 0) break
+      const c = new THREE.Shape(); c.absarc(0, 0, r1, 0, Math.PI * 2, false)
+      const h = new THREE.Path(); h.absarc(0, 0, r2, 0, Math.PI * 2, true); c.holes.push(h)
+      const cg = new THREE.ExtrudeGeometry(c, { depth: 0.35 * MM, bevelEnabled: false, curveSegments: 48 })
+      cg.rotateX(Math.PI / 2); cg.translate(0, 2.95 * MM, cz)
+      add('Coil', cg, 'MagSafe')
+    }
+  }
+
+  // Taptic Engine e alto-falante na base
+  add('Shield', slab(15 * MM * cam.k, 7 * MM, 1 * MM, -1.4 * MM, 1.6 * MM, { cx: -W / 2 + 12 * MM, cz: H / 2 - 9 * MM }), 'Taptic')
+  add('Speaker', slab(16 * MM * cam.k, 8 * MM, 1.5 * MM, -1.4 * MM, 1.8 * MM, { cx: W / 2 - 12.5 * MM, cz: H / 2 - 9 * MM }), 'Speaker')
+}
+
 // ---------- gravação GLB (glTF 2.0 binário) ----------
-function toGLB(name, groups) {
+function toGLB(name, nodesIn) {
   const chunks = []
   let offset = 0
-  const bufferViews = [], accessors = [], primitives = [], materials = []
+  const bufferViews = [], accessors = [], materials = [], meshes = [], children = []
+  const matIndex = {}
   const push = (arr, target) => {
     const bytes = Buffer.from(arr.buffer, arr.byteOffset, arr.byteLength)
     const pad = (4 - (bytes.length % 4)) % 4
@@ -249,15 +361,20 @@ function toGLB(name, groups) {
     offset += bytes.length + pad
     return bufferViews.length - 1
   }
+  for (const [nodeName, groups] of Object.entries(nodesIn)) {
+  const primitives = []
   for (const [matName, g] of Object.entries(groups)) {
     const def = MATERIALS[matName]
-    const mi = materials.length
-    materials.push({
-      name: matName,
-      pbrMetallicRoughness: { baseColorFactor: def.c, metallicFactor: def.m, roughnessFactor: def.r },
-      ...(def.blend ? { alphaMode: 'BLEND' } : {}),
-      doubleSided: true,
-    })
+    if (matIndex[matName] === undefined) {
+      matIndex[matName] = materials.length
+      materials.push({
+        name: matName,
+        pbrMetallicRoughness: { baseColorFactor: def.c, metallicFactor: def.m, roughnessFactor: def.r },
+        ...(def.blend ? { alphaMode: 'BLEND' } : {}),
+        doubleSided: true,
+      })
+    }
+    const mi = matIndex[matName]
     const pos = g.attributes.position.array, nrm = g.attributes.normal.array, uv = g.attributes.uv.array
     const count = pos.length / 3
     const mn = [Infinity, Infinity, Infinity], mx = [-Infinity, -Infinity, -Infinity]
@@ -271,13 +388,20 @@ function toGLB(name, groups) {
     accessors.push({ bufferView: push(new Float32Array(uv), 34962), componentType: 5126, count, type: 'VEC2' })
     primitives.push({ attributes: { POSITION: a, NORMAL: a + 1, TEXCOORD_0: a + 2 }, material: mi, mode: 4 })
   }
+  meshes.push({ name: nodeName, primitives })
+  children.push(nodeName)
+  }
+  const single = children.length === 1
+  const nodes = single
+    // mesma rotação dos demais modelos do site (+90° em X)
+    ? [{ name, mesh: 0, rotation: [Math.SQRT1_2, 0, 0, Math.SQRT1_2] }]
+    : [{ name, rotation: [Math.SQRT1_2, 0, 0, Math.SQRT1_2], children: children.map((_, i) => i + 1) }, ...children.map((n, i) => ({ name: n, mesh: i }))]
   const json = {
     asset: { version: '2.0', generator: 'Argento modelar-iphone-12.mjs' },
     scene: 0,
     scenes: [{ nodes: [0] }],
-    // mesma rotação dos demais modelos do site (+90° em X)
-    nodes: [{ name, mesh: 0, rotation: [Math.SQRT1_2, 0, 0, Math.SQRT1_2] }],
-    meshes: [{ name, primitives }],
+    nodes,
+    meshes,
     materials,
     accessors,
     bufferViews,
@@ -302,9 +426,16 @@ const SPECS = [
     cam: { k: 0.9, size: 24.6 * MM, radius: 6 * MM, margin: 3.3 * MM, lensInset: 6.6 * MM, ring: 5.25 * MM, flash: 2 * MM, notchW: 33.2 * MM, notchH: 5.8 * MM } },
 ]
 
-await mkdir('public/models', { recursive: true })
+await mkdir('public/models/explodido', { recursive: true })
+const versions = {}
 for (const s of SPECS) {
   const glb = toGLB(s.name, buildIphone12(s))
   await writeFile(`public/models/${s.id}.glb`, glb)
   console.log(`✓ public/models/${s.id}.glb  ${(glb.length / 1024).toFixed(0)} KB`)
+  // versão desmontável: um nó por peça (DeviceBody, FrontGlass, Display, RearPanel, MainBoard, Battery…)
+  const ex = toGLB(s.name, buildIphone12(s, true))
+  await writeFile(`public/models/explodido/${s.id}.glb`, ex)
+  versions[s.id] = createHash('sha256').update(ex).digest('hex').slice(0, 12)
+  console.log(`✓ public/models/explodido/${s.id}.glb  ${(ex.length / 1024).toFixed(0)} KB`)
 }
+await writeFile('src/data/explodidos.json', JSON.stringify(versions, null, 1) + '\n')

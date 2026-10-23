@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ShieldCheck, BatteryFull, Camera, Truck, Receipt, BadgeCheck, ArrowRight } from 'lucide-react'
 import Scrolly from '../sections/Scrolly'
+import InsideTech from '../sections/InsideTech'
 import { HorizontalGallery, InfiniteGallery, LayeredGallery } from '../sections/Gallery'
 import ProductCard from '../components/ProductCard'
 import { useStore } from '../store/Store'
@@ -45,6 +46,7 @@ export default function Home() {
   return (
     <>
       <Scrolly />
+      <InsideTech />
       <HorizontalGallery />
 
       <section className="ig-wrap" aria-label="Galeria infinita">

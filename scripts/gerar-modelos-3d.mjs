@@ -786,7 +786,10 @@ async function buildModelGlb(spec) {
 }
 
 let totalKb = 0
+// iPhone 12 e 12 mini têm modelo próprio (scripts/modelar-iphone-12.mjs): não sobrescrever
+const MODELADOS_A_PARTE = new Set(['iphone-12', 'iphone-12-mini'])
 for (const spec of SPECS) {
+  if (MODELADOS_A_PARTE.has(spec.id)) { console.log(`• ${spec.id}: mantido (modelo próprio em modelar-iphone-12.mjs)`); continue }
   const res = await buildModelGlb(spec)
   totalKb += res.kb
   console.log(`✓ ${res.id}.glb (${res.kb} KB)`)
