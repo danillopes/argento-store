@@ -123,10 +123,10 @@ export function qualityIncline() {
   const i = ORDER.indexOf(s.tier)
   if (i < ORDER.indexOf(s.cap)) set({ tier: ORDER[i + 1] })
 }
-/** oscilação contínua de FPS: fixa no nível Otimizado */
+/** FPS instável mesmo após os ajustes: fixa no mínimo do nível Otimizado (resolução 1x, ainda com MSAA) */
 export function qualityFallback() {
   const o = settingsFor('otimizada')
-  set({ tier: 'otimizada', cap: 'otimizada', dpr: o.dprMax })
+  set({ tier: 'otimizada', cap: 'otimizada', dpr: o.dprMin })
 }
 
 function subscribe(l: () => void) {
