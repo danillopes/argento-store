@@ -1,27 +1,18 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { advanceScene, SCENE_SECONDS } from '../src/lib/scene-motion.ts'
+import { advanceScene, advanceColor, batteryPercent } from '../src/lib/scene-motion.ts'
 
-test('rolagem extrema respeita a velocidade máxima e aceita reversão', () => {
-  let position = 0
-  for (let i = 0; i < 60; i++) {
-    const next = advanceScene(position, 1, 1 / 60)
-    assert.ok(next - position <= 1 / (60 * SCENE_SECONDS) + 1e-12)
-    position = next
-  }
-  assert.ok(position < 0.08, 'um salto do scroll não pula as cenas')
-  assert.ok(advanceScene(position, 0, 1 / 60) < position, 'inverte sem reiniciar')
-  assert.ok(advanceScene(0, 1, 10) <= 0.05 / SCENE_SECONDS, 'voltar de uma aba suspensa não causa salto')
-  for (let i = 0; i < 60 * 20; i++) position = advanceScene(position, 1, 1 / 60)
-  assert.ok(Math.abs(position - 1) < 1e-6)
+test('giro responde em menos de meio segundo e reverte imediatamente', () => {
+  let p = 0
+  for (let i = 0; i < 30; i++) p = advanceScene(p, 1, 1 / 60)
+  assert.ok(p > .99)
+  assert.ok(advanceScene(p, 0, 1 / 60) < p)
 })
-
-test('mais tempo nas cores preserva a velocidade das cenas anteriores', () => {
-  const oldDuration = 9.1
-  const extendedDuration = 14.2
-  const previous = advanceScene(0, 1, 1 / 60) * oldDuration
-  const extended = advanceScene(0, 1, 1 / 60, SCENE_SECONDS * extendedDuration / oldDuration) * extendedDuration
-  assert.ok(Math.abs(previous - extended) < 1e-12)
+test('cores mantem duracao minima e bateria responde nos dois sentidos', () => {
+  assert.ok(advanceColor(0, 1, 1 / 60) <= 1 / (60 * 3.4))
+  assert.equal(batteryPercent(5), 0)
+  assert.equal(batteryPercent(5.9), 97)
+  assert.ok(batteryPercent(5.4) < batteryPercent(5.7))
 })
 
 test('cache deduplica, persiste entre visitas e renova somente pelo hash', async () => {

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { useLayoutEffect, useMemo, useRef } from 'react'
 import { motion, useAnimationFrame, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import PhoneArt from '../components/PhoneArt'
@@ -50,9 +51,9 @@ function TiltCard({ children, className, onClick, label }: { children: React.Rea
 
 // ---------- 1. Rolagem horizontal com parallax ----------
 export function HorizontalGallery() {
+  const navigate = useNavigate()
   const root = useRef<HTMLElement>(null)
   const track = useRef<HTMLDivElement>(null)
-  const expand = useExpandNav()
   const { inventory, available } = useStore()
   const sums = useMemo(() => summarize(inventory, available), [inventory, available])
 
@@ -97,7 +98,7 @@ export function HorizontalGallery() {
           const photo = modelPhoto(m.id, color.id)
           return (
             <div key={f} className="hg-card">
-            <TiltCard className={`hg-card-in${photo ? ' has-photo' : ''}`} label={`Abrir ${m.name}`} onClick={(e) => expand(e, `/produto/${m.id}`, color.hex)}>
+            <TiltCard className={`hg-card-in${photo ? ' has-photo' : ''}`} label={`Abrir ${m.name}`} onClick={() => navigate(`/produto/${m.id}`)}>
               <span className="hg-num" aria-hidden>{f}</span>
               <div className="hg-art">
                 {photo ? <div className="hg-photo par-near"><Photo p={photo} alt={`${m.name} — ${color.name}`} sizes="(max-width: 860px) 65vw, 340px" /></div> : <>
@@ -110,6 +111,7 @@ export function HorizontalGallery() {
                 <span>{FAMILY_COPY[f]}</span>
                 <small>{color.name}</small>
                 <small>Na geração: {fam.map((x) => x.name.replace(`iPhone ${f}`, '').trim() || 'padrão').join(' · ')}</small>
+                <span className="hg-open">Ver modelo</span>
                 <em>{summary?.minPrice != null ? `a partir de ${brl(summary.minPrice)}` : 'Sem estoque'}</em>
               </div>
             </TiltCard>

@@ -204,7 +204,7 @@ function Rig({ drive, drag, interactive, children }: { drive: React.MutableRefOb
       dr.ry += dr.v * dt
       dr.v *= Math.pow(0.135, dt) // ≈ desaceleração 0.998/ms (projeção de momento)
     }
-    const k = 1 - Math.pow(0.0009, dt)
+    const k = interactive ? 1 - Math.pow(0.0009, dt) : 1
     const idle = interactive && !dr.active && Math.abs(dr.v) < 0.05 ? Math.sin(state.clock.elapsedTime * 0.6) * 0.12 : 0
     const ry = d.rotY + dr.ry + idle
     const rx = d.rotX + dr.rx
