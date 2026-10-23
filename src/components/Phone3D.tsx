@@ -1,21 +1,12 @@
 import { Component, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Environment, Lightformer, RoundedBox, ContactShadows, useGLTF } from '@react-three/drei'
+import { Environment, Lightformer, RoundedBox, ContactShadows, useGLTF, PerformanceMonitor } from '@react-three/drei'
 import * as THREE from 'three'
 import type { CamLayout, PhoneModel } from '../data/models'
+import media from '../data/photos.json'
 
-export interface Drive {
-  rotY: number
-  rotX: number
-  rotZ: number
-  x: number
-  y: number
-  scale: number
-  color: string
-  screen: number // brilho da tela 0..1
-}
-
-export const defaultDrive = (): Drive => ({ rotY: 0, rotX: 0, rotZ: 0, x: 0, y: 0, scale: 1, color: '#c2bcb2', screen: 1 })
+import type { Drive } from './drive'
+export { defaultDrive, type Drive } from './drive'
 
 const W = 1.42, H = 2.9, D = 0.16, R = 0.2
 
@@ -243,15 +234,8 @@ class Boundary extends Component<{ fallback: ReactNode; children: ReactNode }, {
 }
 
 const BASE = import.meta.env.BASE_URL
-const glbCache = new Map<string, Promise<string | null>>()
-async function probe(name: string) {
-  const url = `${BASE}models/${name}.glb`
-  try {
-    const r = await fetch(url, { method: 'HEAD' })
-    const type = r.headers.get('content-type') ?? ''
-    return r.ok && !type.includes('text/html') ? url : null
-  } catch { return null }
-}
+const AVAILABLE = new Set((media as { modelos3d?: string[] }).modelos3d ?? [])
+
 // Procura o arquivo do modelo; Pro Max cai para o Pro, mini/Plus/e para o modelo base da geração
 export function glbCandidates(m: Pick<PhoneModel, 'id' | 'family' | 'tier'>) {
   const list = [m.id]
@@ -259,22 +243,31 @@ export function glbCandidates(m: Pick<PhoneModel, 'id' | 'family' | 'tier'>) {
   if (m.tier === 'mini' || m.tier === 'plus' || m.tier === 'e') list.push(`iphone-${m.family}`)
   return list
 }
+// Lista vem do manifesto gerado no build: nenhuma requisição de teste no navegador
 export function useGlb(names: string[]) {
-  const key = names.join('|')
-  const [url, setUrl] = useState<string | null>(null)
-  useEffect(() => {
-    let alive = true
-    setUrl(null)
-    if (!glbCache.has(key)) glbCache.set(key, (async () => { for (const n of names) { const u = await probe(n); if (u) return u } return null })())
-    glbCache.get(key)!.then((u) => alive && setUrl(u))
-    return () => { alive = false }
-  }, [key])
-  return url
+  const hit = names.find((n) => AVAILABLE.has(n))
+  return hit ? `${BASE}models/${hit}.glb` : null
 }
 
 export default function Phone3D({ drive, cam, interactive = false, shadow = false, className, fov = 30, glb }: { drive: React.MutableRefObject<Drive>; cam?: CamLayout; interactive?: boolean; shadow?: boolean; className?: string; fov?: number; glb?: string[] }) {
   const drag = useRef<DragState>({ active: false, x: 0, y: 0, ry: 0, rx: 0, v: 0, t: 0 })
   const url = useGlb(glb ?? [])
+  const wrap = useRef<HTMLDivElement>(null)
+  // Só renderiza quando a cena está na tela e a aba está visível (economiza bateria/GPU)
+  const [visible, setVisible] = useState(true)
+  useEffect(() => {
+    const el = wrap.current
+    if (!el) return
+    let onScreen = true
+    const update = () => setVisible(onScreen && document.visibilityState === 'visible')
+    const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; update() }, { rootMargin: '120px' })
+    io.observe(el)
+    document.addEventListener('visibilitychange', update)
+    return () => { io.disconnect(); document.removeEventListener('visibilitychange', update) }
+  }, [])
+  // Resolução adaptativa: começa conforme o aparelho e reduz se o FPS cair
+  const lowPower = typeof navigator !== 'undefined' && ((navigator.hardwareConcurrency ?? 8) <= 4 || matchMedia('(max-width: 860px)').matches)
+  const [dpr, setDpr] = useState(lowPower ? 1.25 : 1.75)
   const procedural = <PhoneMesh drive={drive} cam={cam} />
   const handlers = interactive
     ? {
@@ -298,12 +291,13 @@ export default function Phone3D({ drive, cam, interactive = false, shadow = fals
       }
     : {}
   return (
-    <div className={className} style={{ width: '100%', height: '100%', touchAction: interactive ? 'pan-y' : undefined, cursor: interactive ? 'grab' : undefined }} {...handlers}>
-      <Canvas dpr={[1, 1.75]} camera={{ position: [0, 0, 7.2], fov }} gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}>
+    <div ref={wrap} className={className} style={{ width: '100%', height: '100%', touchAction: interactive ? 'pan-y' : undefined, cursor: interactive ? 'grab' : undefined }} {...handlers}>
+      <Canvas frameloop={visible ? 'always' : 'never'} dpr={dpr} camera={{ position: [0, 0, 7.2], fov }} gl={{ antialias: !lowPower, alpha: true, powerPreference: 'high-performance' }}>
+        <PerformanceMonitor onDecline={() => setDpr((d) => Math.max(1, d - 0.25))} onIncline={() => setDpr((d) => Math.min(lowPower ? 1.5 : 2, d + 0.25))} flipflops={3} />
         <ambientLight intensity={0.35} />
         <directionalLight position={[3, 4, 5]} intensity={1.6} />
         <directionalLight position={[-4, -2, -4]} intensity={0.8} />
-        <Environment resolution={256}>
+        <Environment resolution={lowPower ? 128 : 256}>
           <Lightformer form="rect" intensity={3} position={[0, 5, -6]} scale={[10, 2, 1]} />
           <Lightformer form="rect" intensity={2.5} position={[-6, 1, 1]} rotation-y={Math.PI / 2} scale={[8, 1.2, 1]} />
           <Lightformer form="rect" intensity={2.5} position={[6, -1, 1]} rotation-y={-Math.PI / 2} scale={[8, 1.2, 1]} />
@@ -316,7 +310,7 @@ export default function Phone3D({ drive, cam, interactive = false, shadow = fals
             </Boundary>
           ) : procedural}
         </Rig>
-        {shadow && <ContactShadows position={[0, -1.75, 0]} opacity={0.35} blur={2.6} scale={6} far={3} />}
+        {shadow && !lowPower && <ContactShadows position={[0, -1.75, 0]} opacity={0.35} blur={2.6} scale={6} far={3} />}
       </Canvas>
     </div>
   )

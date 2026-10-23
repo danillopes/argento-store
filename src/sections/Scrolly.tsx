@@ -1,10 +1,20 @@
 import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import * as THREE from 'three'
-import Phone3D, { defaultDrive, type Drive } from '../components/Phone3D'
+import { lazy, Suspense } from 'react'
+import { defaultDrive, type Drive } from '../components/drive'
+import PhoneArt from '../components/PhoneArt'
+import { modelById } from '../data/models'
+
+const Phone3D = lazy(() => import('../components/Phone3D'))
 import { gsap } from '../lib/motion'
 import { MODELS } from '../data/models'
 import { useStore } from '../store/Store'
+
+const mixHex = (a: string, b: string, t: number) => {
+  const pa = parseInt(a.slice(1), 16), pb = parseInt(b.slice(1), 16)
+  const ch = (sh: number) => Math.round(((pa >> sh) & 255) + (((pb >> sh) & 255) - ((pa >> sh) & 255)) * t)
+  return '#' + ((ch(16) << 16) | (ch(8) << 8) | ch(0)).toString(16).padStart(6, '0')
+}
 
 const PALETTE = ['#c2bcb2', '#2d3a55', '#e0702b', '#6b1f2e', '#b9d0e4', '#e4e4e2']
 
@@ -41,7 +51,6 @@ export default function Scrolly() {
           gsap.from('.ch-0 > *', { y: 30, autoAlpha: 0, stagger: 0.08, duration: 1, ease: 'power3.out', delay: 0.2 })
 
           const col = { t: 0 }
-          const a = new THREE.Color(), b = new THREE.Color(), out = new THREE.Color()
           const tl = gsap.timeline({
             defaults: { ease: 'power2.inOut' },
             scrollTrigger: { trigger: root.current, start: 'top top', end: '+=480%', scrub: 1, pin: stage.current, anticipatePin: 1 },
@@ -73,9 +82,7 @@ export default function Scrolly() {
               ease: 'none',
               onUpdate: () => {
                 const i = Math.min(PALETTE.length - 2, Math.floor(col.t))
-                a.set(PALETTE[i]); b.set(PALETTE[i + 1])
-                out.lerpColors(a, b, col.t - i)
-                d.color = '#' + out.getHexString()
+                d.color = mixHex(PALETTE[i], PALETTE[i + 1], col.t - i)
               },
             }, 6.3)
             .fromTo('.ch-4', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 6.9)
@@ -91,7 +98,9 @@ export default function Scrolly() {
     <section className="scrolly" ref={root} aria-label="Apresentação">
       <div className="scrolly-stage" ref={stage}>
         <div className="scrolly-canvas">
-          <Phone3D drive={drive} cam="plateau" glb={['iphone-17-pro', 'iphone-16-pro']} />
+          <Suspense fallback={<PhoneArt model={modelById('iphone-17-pro')!} hex="#c2bcb2" view="front" className="scrolly-fallback" />}>
+            <Phone3D drive={drive} cam="plateau" glb={['iphone-17-pro', 'iphone-16-pro']} />
+          </Suspense>
         </div>
 
         <div className="ch ch-0">

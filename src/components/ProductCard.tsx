@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Heart, GitCompareArrows } from 'lucide-react'
 import PhoneArt from './PhoneArt'
+import Photo, { modelPhoto } from './Photo'
 import { useStore } from '../store/Store'
 import { useExpandNav } from '../lib/motion'
 import { brl, installment, type ModelSummary } from '../lib/utils'
@@ -15,6 +16,7 @@ export default function ProductCard({ s, condition }: { s: ModelSummary; conditi
   const colorsInStock = m.colors.filter((c) => units.some((u) => u.colorId === c.id))
   const [color, setColor] = useState(colorsInStock[0] ?? m.colors[0])
   const min = units.length ? Math.min(...units.map((u) => (u.promo ? Math.round((u.price * (1 - u.promo / 100)) / 10) * 10 - 1 : u.price))) : null
+  const photo = modelPhoto(m.id, color.id)
   const fav = favorites.includes(m.id)
   const cmp = compare.includes(m.id)
   const promo = Math.max(0, ...units.map((u) => u.promo))
@@ -42,8 +44,14 @@ export default function ProductCard({ s, condition }: { s: ModelSummary; conditi
       </div>
       <button className="pcard-art" onClick={(e) => expand(e, to, color.hex)} aria-label={`Abrir ${m.name}`}>
         <motion.div className="pcard-art-in" whileHover={{ scale: 1.06, rotate: -2 }} transition={{ type: 'spring', stiffness: 260, damping: 20 }}>
-          <PhoneArt model={m} hex={color.hex} view="front" className="pa-front" />
-          <PhoneArt model={m} hex={color.hex} view="back" className="pa-back" />
+          {photo ? (
+            <Photo p={photo} alt={`${m.name} ${color.name}`} className="pa-photo" sizes="(max-width: 600px) 80vw, 280px" />
+          ) : (
+            <>
+              <PhoneArt model={m} hex={color.hex} view="front" className="pa-front" />
+              <PhoneArt model={m} hex={color.hex} view="back" className="pa-back" />
+            </>
+          )}
         </motion.div>
       </button>
       <div className="pcard-swatches" role="radiogroup" aria-label="Cores em estoque">

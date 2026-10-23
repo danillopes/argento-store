@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Heart, GitCompareArrows, ShoppingBag, Zap, ShieldCheck, Truck, Info, Camera, Rotate3d, Check } from 'lucide-react'
 import Phone3D, { defaultDrive, glbCandidates, type Drive } from '../components/Phone3D'
 import PhoneArt from '../components/PhoneArt'
+import Photo, { modelPhoto, unitPhotos } from '../components/Photo'
+import Lightbox from '../components/Lightbox'
 import ProductCard from '../components/ProductCard'
 import { modelById, storageLabel } from '../data/models'
 import { BATTERY_BANDS, GRADES, bandOf, breakdown, finalPrice, gradeName, type Unit } from '../data/inventory'
@@ -48,7 +50,8 @@ export default function Product() {
   const [band, setBand] = useState<string | null>(null)
   const [grade, setGrade] = useState<string | null>(null)
   const [unitId, setUnitId] = useState<string | null>(null)
-  const [view, setView] = useState<'3d' | 'front' | 'back' | 'side'>('3d')
+  const [view, setView] = useState<'3d' | 'foto' | 'front' | 'back' | 'side'>('3d')
+  const [lb, setLb] = useState<number | null>(null)
   const [cep, setCep] = useState('')
   const [ship, setShip] = useState<{ city: string; uf: string; price: number; days: string } | null>(null)
   const [shipErr, setShipErr] = useState('')
@@ -73,7 +76,9 @@ export default function Product() {
   useEffect(() => { setUnitId(null) }, [cond, storage, color, band, grade])
 
   const colorObj = m?.colors.find((c) => c.id === (color ?? '')) ?? m?.colors[0]
+  const mPhoto = m && colorObj ? modelPhoto(m.id, colorObj.id) : undefined
   useEffect(() => { if (colorObj) drive.current.color = colorObj.hex }, [colorObj?.hex])
+  useEffect(() => { if (view === 'foto' && !mPhoto) setView('3d') }, [view, mPhoto])
   useEffect(() => {
     drive.current.rotY = view === 'back' ? Math.PI : view === 'side' ? Math.PI / 2 : 0
   }, [view])
@@ -81,6 +86,7 @@ export default function Product() {
   if (!m) return <div className="page container empty"><h1 className="h2">Modelo não encontrado.</h1><Link className="btn btn-primary" to="/iphones">Ver catálogo</Link></div>
 
   const price = unit ? finalPrice(unit) : null
+  const uPhotos = unit ? unitPhotos(unit.id) : []
   const inCart = unit ? cart.includes(unit.id) : false
   const fav = favorites.includes(m.id)
   const cmp = compare.includes(m.id)
@@ -114,16 +120,20 @@ export default function Product() {
                 <Phone3D drive={drive} cam={m.cam} interactive shadow fov={28} glb={glbCandidates(m)} />
                 <span className="pdp-hint"><Rotate3d size={14} /> Arraste para girar</span>
               </motion.div>
+            ) : view === 'foto' && mPhoto ? (
+              <motion.div key={'foto' + colorObj?.id} className="pdp-flat pdp-photo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                <Photo p={mPhoto} alt={`${m.name} ${colorObj?.name}`} priority sizes="(max-width: 960px) 92vw, 50vw" />
+              </motion.div>
             ) : (
               <motion.div key={view + colorObj?.id} className="pdp-flat" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} transition={{ duration: 0.3 }}>
-                <PhoneArt model={m} hex={colorObj!.hex} view={view} />
+                <PhoneArt model={m} hex={colorObj!.hex} view={view === "foto" ? "back" : view} />
                 <span className="pdp-hint">Ilustração · fotos reais da unidade abaixo</span>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
         <div className="seg seg-center" role="tablist" aria-label="Visualização">
-          {([['3d', '3D'], ['front', 'Frente'], ['back', 'Traseira'], ['side', 'Lateral']] as const).map(([v, l]) => (
+          {([['3d', '3D'], ...(mPhoto ? [['foto', 'Foto']] : []), ['front', 'Frente'], ['back', 'Traseira'], ['side', 'Lateral']] as ['3d', string][]).map(([v, l]) => (
             <button key={v} role="tab" aria-selected={view === v} className={view === v ? 'is-on' : ''} onClick={() => setView(v)}>{l}</button>
           ))}
         </div>
@@ -222,16 +232,33 @@ export default function Product() {
             {unit && (
               <>
                 <Step n={cond === 'seminovo' ? 7 : 5} title="Fotos reais do aparelho">
-                  <div className="photos">
-                    {(['front', 'back', 'side'] as const).map((v) => (
-                      <figure key={v} className="photo">
-                        <PhoneArt model={m} hex={colorObj!.hex} view={v} />
-                        <figcaption>{v === 'front' ? 'Tela' : v === 'back' ? 'Traseira' : 'Laterais'}</figcaption>
-                      </figure>
-                    ))}
-                    <figure className="photo photo-empty"><Camera size={22} strokeWidth={1.4} /><figcaption>Detalhes de marcas</figcaption></figure>
-                  </div>
-                  <p className="note"><Camera size={14} /> Versão de demonstração: as fotos reais de cada unidade são enviadas pelo vendedor no painel. Aqui exibimos ilustrações.</p>
+                  {uPhotos.length ? (
+                    <>
+                      <div className="photos">
+                        {uPhotos.map((p, i) => (
+                          <button key={p.path} className="photo photo-real" onClick={() => setLb(i)} aria-label={`Ampliar: ${p.label}`}>
+                            <Photo p={p} alt={`${m.name} ${unit.id} — ${p.label}`} sizes="(max-width: 960px) 45vw, 12vw" />
+                            <span className="photo-cap">{p.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                      <p className="note"><Camera size={14} /> Fotos desta unidade ({unit.id}), sem retoques. Toque para ampliar.</p>
+                      <Lightbox list={uPhotos} index={lb} onIndex={setLb} onClose={() => setLb(null)} title={`${m.name} ${unit.id}`} />
+                    </>
+                  ) : (
+                    <>
+                      <div className="photos">
+                        {(['front', 'back', 'side'] as const).map((v) => (
+                          <figure key={v} className="photo">
+                            <PhoneArt model={m} hex={colorObj!.hex} view={v} />
+                            <figcaption>{v === 'front' ? 'Tela' : v === 'back' ? 'Traseira' : 'Laterais'}</figcaption>
+                          </figure>
+                        ))}
+                        <figure className="photo photo-empty"><Camera size={22} strokeWidth={1.4} /><figcaption>Detalhes de marcas</figcaption></figure>
+                      </div>
+                      <p className="note"><Camera size={14} /> As fotos reais desta unidade ainda não foram enviadas. Enquanto isso, exibimos ilustrações.</p>
+                    </>
+                  )}
                 </Step>
 
                 <motion.section className="price-box" layout {...stepAnim}>
@@ -239,7 +266,7 @@ export default function Product() {
                     {breakdown(rules, unit).map((r, i) => (
                       <div key={r.label} className="price-row"><span>{r.label}</span><span>{r.value >= 0 && i > 0 ? '+' : ''}{brl(r.value)}</span></div>
                     ))}
-                    {unit.price !== breakdown(rules, unit).reduce((s, r) => s + r.value, 0) && <div className="price-row muted"><span>Ajuste do vendedor para esta unidade</span><span>{brl(unit.price - breakdown(rules, unit).reduce((s, r) => s + r.value, 0))}</span></div>}
+                    {Math.abs(unit.price - breakdown(rules, unit).reduce((s, r) => s + r.value, 0)) >= 20 && <div className="price-row muted"><span>Ajuste do vendedor para esta unidade</span><span>{brl(unit.price - breakdown(rules, unit).reduce((s, r) => s + r.value, 0))}</span></div>}
                     {unit.promo > 0 && <div className="price-row hot"><span>Oferta −{unit.promo}%</span><span>−{brl(unit.price - finalPrice(unit))}</span></div>}
                   </div>
                   <div className="price-total">

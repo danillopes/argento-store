@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# fotos originais (pesadas) ficam só no seu computador; as convertidas vão em public/fotos
+fotos-originais/
+dev-dist/

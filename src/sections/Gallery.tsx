@@ -1,5 +1,5 @@
 import { useLayoutEffect, useMemo, useRef } from 'react'
-import { motion, useAnimationFrame, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useAnimationFrame, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import PhoneArt from '../components/PhoneArt'
 import { FAMILIES, MODELS, type PhoneModel } from '../data/models'
 import { gsap } from '../lib/motion'
@@ -122,17 +122,19 @@ export function InfiniteGallery({ reverse = false, speed = 40 }: { reverse?: boo
   const expand = useExpandNav()
   const items = useMemo(() => {
     const s = summarize(inventory, available)
-    const list = s.flatMap((x) => x.model.colors.slice(0, 2).map((c) => ({ s: x, c })))
+    const list = s.map((x) => ({ s: x, c: x.model.colors[reverse ? Math.min(1, x.model.colors.length - 1) : 0] }))
     return reverse ? list.reverse() : list
   }, [inventory, available, reverse])
   const x = useMotionValue(0)
   const rowRef = useRef<HTMLDivElement>(null)
+  const boxRef = useRef<HTMLDivElement>(null)
+  const inView = useInView(boxRef, { margin: '100px' })
   const st = useRef({ drag: false, last: 0, vel: 0, moved: 0, hover: false })
   const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches
 
   useAnimationFrame((_, dt) => {
     const el = rowRef.current
-    if (!el) return
+    if (!el || !inView) return
     const half = el.scrollWidth / 2
     const s = st.current
     if (!s.drag) {
@@ -148,6 +150,7 @@ export function InfiniteGallery({ reverse = false, speed = 40 }: { reverse?: boo
 
   return (
     <div
+      ref={boxRef}
       className="ig"
       onPointerEnter={() => (st.current.hover = true)}
       onPointerLeave={() => { st.current.hover = false; st.current.drag = false }}
