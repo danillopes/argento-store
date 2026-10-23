@@ -11,6 +11,7 @@ import type { Drive } from './drive'
 export { defaultDrive, type Drive } from './drive'
 
 const W = 1.42, H = 2.9, D = 0.16, R = 0.2
+const BASE_METERS = 0.15
 const preparedModels = new Set<string>()
 
 function roundedRectShape(w: number, h: number, r: number) {
@@ -28,37 +29,272 @@ function roundedRectShape(w: number, h: number, r: number) {
   return s
 }
 
-function useScreenTexture() {
-  return useMemo(() => {
-    const c = document.createElement('canvas')
-    c.width = 512
-    c.height = 1048
-    const g = c.getContext('2d')!
-    const grd = g.createLinearGradient(0, 0, 512, 1048)
-    grd.addColorStop(0, '#2b3a55')
-    grd.addColorStop(0.45, '#0e1220')
-    grd.addColorStop(1, '#030305')
-    g.fillStyle = grd
-    g.fillRect(0, 0, 512, 1048)
-    const rg = g.createRadialGradient(380, 260, 10, 380, 260, 420)
-    rg.addColorStop(0, 'rgba(190,200,220,0.55)')
-    rg.addColorStop(1, 'rgba(190,200,220,0)')
+function roundRect2D(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
+  const rad = Math.min(r, w / 2, h / 2)
+  g.beginPath()
+  g.moveTo(x + rad, y)
+  g.lineTo(x + w - rad, y)
+  g.quadraticCurveTo(x + w, y, x + w, y + rad)
+  g.lineTo(x + w, y + h - rad)
+  g.quadraticCurveTo(x + w, y + h, x + w - rad, y + h)
+  g.lineTo(x + rad, y + h)
+  g.quadraticCurveTo(x, y + h, x, y + h - rad)
+  g.lineTo(x, y + rad)
+  g.quadraticCurveTo(x, y, x + rad, y)
+  g.closePath()
+}
+
+function shiftHex(hex: string, lDelta: number, sDelta = 0) {
+  const c = new THREE.Color(hex || '#c2bcb2')
+  c.offsetHSL(0, sDelta, lDelta)
+  return '#' + c.getHexString()
+}
+
+// Desenha a tela de bloqueio iOS com o wallpaper da geração sincronizado à cor escolhida e Dynamic Island interativa
+function drawIosScreen(
+  g: CanvasRenderingContext2D,
+  opts: { hex: string; family: number; hasIsland: boolean; island: number; time: number; mirrorX: boolean },
+) {
+  const CW = 512, CH = 1100
+  const { hex, family, hasIsland, island, time, mirrorX } = opts
+  g.save()
+  g.clearRect(0, 0, CW, CH)
+  if (mirrorX) {
+    g.translate(CW, 0)
+    g.scale(-1, 1)
+  }
+
+  const base = new THREE.Color(hex || '#c2bcb2')
+  const hsl = { h: 0, s: 0, l: 0 }
+  base.getHSL(hsl)
+  const isLight = hsl.l > 0.62
+  const primary = shiftHex(hex, isLight ? -0.18 : 0.14, 0.12)
+  const secondary = shiftHex(hex, isLight ? -0.38 : -0.12, 0.18)
+  const glow = shiftHex(hex, isLight ? 0.08 : 0.28, 0.15)
+  const deep = shiftHex(hex, -0.48, 0.08)
+
+  // Fundo base
+  const bg = g.createLinearGradient(0, 0, CW, CH)
+  bg.addColorStop(0, primary)
+  bg.addColorStop(0.52, secondary)
+  bg.addColorStop(1, '#05060b')
+  g.fillStyle = bg
+  g.fillRect(0, 0, CW, CH)
+
+  // Estilo visual do wallpaper por geração do iPhone
+  if (family <= 12) {
+    // iOS 14: esferas concêntricas translúcidas
+    for (const [cx, cy, r, col] of [
+      [140, 360, 260, glow],
+      [390, 560, 290, primary],
+      [210, 790, 240, secondary],
+    ] as const) {
+      const rg = g.createRadialGradient(cx, cy, r * 0.08, cx, cy, r)
+      rg.addColorStop(0, col)
+      rg.addColorStop(0.65, deep)
+      rg.addColorStop(1, 'rgba(0,0,0,0)')
+      g.fillStyle = rg
+      g.fillRect(0, 0, CW, CH)
+    }
+  } else if (family === 13 || family === 14) {
+    // iOS 15 / 16: feixes e ondas diagonais luminosas
+    const rg = g.createRadialGradient(380, 240, 20, 320, 380, 480)
+    rg.addColorStop(0, glow)
+    rg.addColorStop(0.5, primary)
+    rg.addColorStop(1, 'rgba(0,0,0,0)')
     g.fillStyle = rg
-    g.fillRect(0, 0, 512, 1048)
-    g.fillStyle = 'rgba(255,255,255,0.92)'
-    g.font = '200 132px Inter, system-ui, sans-serif'
-    g.textAlign = 'center'
-    g.fillText('9:41', 256, 300)
-    g.font = '400 26px Inter, system-ui, sans-serif'
-    g.fillStyle = 'rgba(255,255,255,0.7)'
-    g.fillText('quinta-feira, 22 de outubro', 256, 150)
-    g.fillStyle = 'rgba(255,255,255,0.55)'
-    g.fillRect(186, 1000, 140, 8)
-    const t = new THREE.CanvasTexture(c)
-    t.colorSpace = THREE.SRGBColorSpace
-    t.anisotropy = 8
-    return t
-  }, [])
+    g.fillRect(0, 0, CW, CH)
+
+    g.save()
+    g.beginPath()
+    g.moveTo(-40, 340)
+    g.bezierCurveTo(150, 220, 360, 520, 560, 340)
+    g.lineTo(560, 780)
+    g.bezierCurveTo(360, 620, 140, 880, -40, 720)
+    g.closePath()
+    const wg = g.createLinearGradient(0, 260, CW, 780)
+    wg.addColorStop(0, 'rgba(255,255,255,0.34)')
+    wg.addColorStop(0.5, glow)
+    wg.addColorStop(1, 'rgba(5,6,12,0.1)')
+    g.fillStyle = wg
+    g.fill()
+    g.restore()
+  } else if (family === 15 || family === 16) {
+    // iOS 17 / 18: pétalas e camadas minerais radiantes
+    for (const [cx, cy, rx, ry, rot, alpha] of [
+      [256, 460, 220, 145, -0.35, 0.55],
+      [256, 610, 240, 155, 0.32, 0.42],
+      [256, 740, 190, 120, -0.2, 0.3],
+    ] as const) {
+      g.save()
+      g.translate(cx, cy)
+      g.rotate(rot)
+      g.beginPath()
+      g.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2)
+      const pg = g.createRadialGradient(-rx * 0.2, -ry * 0.2, 10, 0, 0, rx)
+      pg.addColorStop(0, `rgba(255,255,255,${alpha})`)
+      pg.addColorStop(0.45, glow)
+      pg.addColorStop(1, 'rgba(0,0,0,0)')
+      g.fillStyle = pg
+      g.fill()
+      g.restore()
+    }
+  } else {
+    // iOS 19 / 26 (iPhone 17, Air, 18): Liquid Glass escultural
+    const rg1 = g.createRadialGradient(390, 250, 10, 360, 280, 440)
+    rg1.addColorStop(0, 'rgba(255,255,255,0.52)')
+    rg1.addColorStop(0.4, glow)
+    rg1.addColorStop(1, 'rgba(0,0,0,0)')
+    g.fillStyle = rg1
+    g.fillRect(0, 0, CW, CH)
+
+    for (let i = 0; i < 3; i++) {
+      g.save()
+      g.beginPath()
+      const y0 = 370 + i * 135
+      g.moveTo(-30, y0)
+      g.bezierCurveTo(160, y0 - 130, 350, y0 + 130, 542, y0 - 30)
+      g.lineTo(542, y0 + 150)
+      g.bezierCurveTo(350, y0 + 270, 160, y0 + 20, -30, y0 + 140)
+      g.closePath()
+      const lg = g.createLinearGradient(0, y0 - 80, CW, y0 + 180)
+      lg.addColorStop(0, `rgba(255,255,255,${0.32 - i * 0.07})`)
+      lg.addColorStop(0.55, i % 2 === 0 ? glow : primary)
+      lg.addColorStop(1, 'rgba(0,0,0,0.05)')
+      g.fillStyle = lg
+      g.fill()
+      g.restore()
+    }
+  }
+
+  // Vinheta suave nas bordas para destacar a tipografia iOS
+  const vig = g.createLinearGradient(0, 0, 0, CH)
+  vig.addColorStop(0, 'rgba(0,0,0,0.22)')
+  vig.addColorStop(0.3, 'rgba(0,0,0,0.04)')
+  vig.addColorStop(0.8, 'rgba(0,0,0,0.12)')
+  vig.addColorStop(1, 'rgba(0,0,0,0.38)')
+  g.fillStyle = vig
+  g.fillRect(0, 0, CW, CH)
+
+  // Barra de status superior (5G, sinal e bateria)
+  g.fillStyle = 'rgba(255,255,255,0.88)'
+  g.font = '600 18px Inter, system-ui, -apple-system, sans-serif'
+  g.textAlign = 'left'
+  g.fillText('Argento', 48, 62)
+  g.textAlign = 'right'
+  g.font = '600 16px Inter, system-ui, -apple-system, sans-serif'
+  g.fillText('5G', 420, 61)
+  // Ícone de bateria no canto superior direito
+  roundRect2D(g, 430, 46, 36, 17, 4.5)
+  g.strokeStyle = 'rgba(255,255,255,0.85)'
+  g.lineWidth = 1.8
+  g.stroke()
+  roundRect2D(g, 433, 49, 28, 11, 2.5)
+  g.fillStyle = 'rgba(255,255,255,0.92)'
+  g.fill()
+  g.fillRect(468, 51, 2.5, 7)
+
+  // Deslocamento suave do relógio quando a Dynamic Island expande
+  const clockShift = hasIsland ? island * 92 : 0
+
+  // Dynamic Island interativa (Live Activity expandida)
+  if (hasIsland && island > 0.01) {
+    const prog = THREE.MathUtils.smoothstep(island, 0, 1)
+    const iw = 152 + prog * 288 // de 152px até 440px
+    const ih = 46 + prog * 134 // de 46px até 180px
+    const ix = (CW - iw) / 2
+    const iy = 34
+    g.save()
+    roundRect2D(g, ix, iy, iw, ih, 44)
+    g.fillStyle = 'rgba(6, 7, 10, 0.96)'
+    g.fill()
+    g.strokeStyle = 'rgba(255, 255, 255, 0.16)'
+    g.lineWidth = 1.5
+    g.stroke()
+
+    if (prog > 0.35) {
+      const contentAlpha = Math.min(1, (prog - 0.35) / 0.55)
+      g.globalAlpha = contentAlpha
+
+      // Capa do álbum / ícone à esquerda
+      const artGrad = g.createLinearGradient(ix + 22, iy + 84, ix + 82, iy + 144)
+      artGrad.addColorStop(0, glow)
+      artGrad.addColorStop(1, primary)
+      roundRect2D(g, ix + 22, iy + 82, 58, 58, 14)
+      g.fillStyle = artGrad
+      g.fill()
+
+      // Textos da atividade ao vivo
+      g.fillStyle = '#ffffff'
+      g.textAlign = 'left'
+      g.font = '600 20px Inter, system-ui, sans-serif'
+      g.fillText('Showroom Argento', ix + 94, iy + 106)
+      g.fillStyle = 'rgba(255,255,255,0.64)'
+      g.font = '500 15px Inter, system-ui, sans-serif'
+      g.fillText('Áudio Espacial · AirPods Pro', ix + 94, iy + 129)
+
+      // Equalizador animado à direita
+      const bars = 6
+      for (let b = 0; b < bars; b++) {
+        const wave = 0.35 + 0.65 * Math.abs(Math.sin(time * 4.2 + b * 0.85))
+        const bh = 12 + wave * 28
+        const bx = ix + iw - 78 + b * 9
+        const by = iy + 111 - bh / 2
+        roundRect2D(g, bx, by, 5, bh, 2.5)
+        g.fillStyle = glow
+        g.fill()
+      }
+
+      // Barra de progresso inferior
+      roundRect2D(g, ix + 24, iy + 154, iw - 48, 5, 2.5)
+      g.fillStyle = 'rgba(255,255,255,0.18)'
+      g.fill()
+      roundRect2D(g, ix + 24, iy + 154, (iw - 48) * 0.42, 5, 2.5)
+      g.fillStyle = '#ffffff'
+      g.fill()
+    }
+    g.restore()
+  }
+
+  // Data e Hora da Tela de Bloqueio iOS
+  g.textAlign = 'center'
+  g.fillStyle = 'rgba(255,255,255,0.82)'
+  g.font = '600 22px Inter, system-ui, -apple-system, sans-serif'
+  g.fillText('quinta-feira, 22 de outubro', CW / 2, 168 + clockShift)
+
+  g.fillStyle = 'rgba(255,255,255,0.95)'
+  g.font = '700 124px Inter, system-ui, -apple-system, sans-serif'
+  g.fillText('9:41', CW / 2, 292 + clockShift)
+
+  // Atalhos inferiores (Lanterna e Câmera) + barra Home
+  for (const cx of [92, CW - 92]) {
+    g.beginPath()
+    g.arc(cx, 992, 34, 0, Math.PI * 2)
+    g.fillStyle = 'rgba(15, 18, 25, 0.42)'
+    g.fill()
+    g.strokeStyle = 'rgba(255, 255, 255, 0.22)'
+    g.lineWidth = 1.5
+    g.stroke()
+  }
+  // Ícone simplificado de lanterna (esquerda)
+  roundRect2D(g, 86, 976, 12, 32, 4)
+  g.fillStyle = 'rgba(255,255,255,0.9)'
+  g.fill()
+  // Ícone simplificado de câmera (direita)
+  roundRect2D(g, CW - 106, 980, 28, 22, 5)
+  g.fillStyle = 'rgba(255,255,255,0.9)'
+  g.fill()
+  g.beginPath()
+  g.arc(CW - 92, 991, 5.5, 0, Math.PI * 2)
+  g.fillStyle = '#141824'
+  g.fill()
+
+  // Indicador Home
+  roundRect2D(g, (CW - 148) / 2, 1064, 148, 7, 3.5)
+  g.fillStyle = 'rgba(255,255,255,0.78)'
+  g.fill()
+
+  g.restore()
 }
 
 function lensPositions(cam: CamLayout): { p: [number, number]; r: number }[] {
@@ -73,19 +309,30 @@ function lensPositions(cam: CamLayout): { p: [number, number]; r: number }[] {
   }
 }
 
-function PhoneMesh({ drive, cam = 'tri' }: { drive: React.MutableRefObject<Drive>; cam?: CamLayout }) {
+function PhoneMesh({ drive, cam = 'tri', model }: { drive: React.MutableRefObject<Drive>; cam?: CamLayout; model?: PhoneModel }) {
   const group = useRef<THREE.Group>(null!)
-  const backMat = useRef<THREE.MeshPhysicalMaterial>(null!)
+  const backMat = useRef<THREE.MeshStandardMaterial>(null!)
   const frameMat = useRef<THREE.MeshStandardMaterial>(null!)
-  const moduleMat = useRef<THREE.MeshPhysicalMaterial>(null!)
+  const moduleMat = useRef<THREE.MeshStandardMaterial>(null!)
   const screenMat = useRef<THREE.MeshBasicMaterial>(null!)
-  const tex = useScreenTexture()
+
+  const { canvas, tex } = useMemo(() => {
+    const c = document.createElement('canvas')
+    c.width = 512
+    c.height = 1100
+    const t = new THREE.CanvasTexture(c)
+    t.colorSpace = THREE.SRGBColorSpace
+    t.anisotropy = 8
+    return { canvas: c, tex: t }
+  }, [])
+
   const faceShape = useMemo(() => roundedRectShape(W - 0.04, H - 0.04, R - 0.02), [])
   const screenShape = useMemo(() => roundedRectShape(W - 0.12, H - 0.12, R - 0.07), [])
   const target = useMemo(() => new THREE.Color(), [])
   const lenses = lensPositions(cam)
+  const islandVal = useRef(0)
+  const lastHex = useRef('')
 
-  // UV da tela em [0,1]
   const screenGeo = useMemo(() => {
     const g = new THREE.ShapeGeometry(screenShape, 24)
     const pos = g.attributes.position
@@ -98,7 +345,7 @@ function PhoneMesh({ drive, cam = 'tri' }: { drive: React.MutableRefObject<Drive
     return g
   }, [screenShape])
 
-  useFrame((_, dt) => {
+  useFrame((state, dt) => {
     const d = drive.current
     const k = 1 - Math.pow(0.0009, dt)
     target.set(d.color)
@@ -107,6 +354,25 @@ function PhoneMesh({ drive, cam = 'tri' }: { drive: React.MutableRefObject<Drive
     const fr = target.clone().offsetHSL(0, -0.05, target.getHSL({ h: 0, s: 0, l: 0 }).l > 0.6 ? -0.12 : 0.12)
     frameMat.current.color.lerp(fr, k)
     screenMat.current.opacity += (d.screen - screenMat.current.opacity) * k
+
+    const targetIsland = d.island ?? 0
+    const prevIsland = islandVal.current
+    islandVal.current += (targetIsland - prevIsland) * Math.min(1, dt * 10)
+    if (d.color !== lastHex.current || Math.abs(islandVal.current - prevIsland) > 0.004 || islandVal.current > 0.05) {
+      lastHex.current = d.color
+      const ctx = canvas.getContext('2d')
+      if (ctx) {
+        drawIosScreen(ctx, {
+          hex: d.color,
+          family: model?.family ?? 17,
+          hasIsland: (model?.front ?? 'island') === 'island',
+          island: islandVal.current,
+          time: state.clock.elapsedTime,
+          mirrorX: false,
+        })
+        tex.needsUpdate = true
+      }
+    }
   })
 
   const isPlateau = cam === 'plateau'
@@ -114,11 +380,9 @@ function PhoneMesh({ drive, cam = 'tri' }: { drive: React.MutableRefObject<Drive
 
   return (
     <group ref={group}>
-      {/* corpo / moldura */}
       <RoundedBox args={[W, H, D]} radius={0.075} smoothness={4} bevelSegments={4} creaseAngle={0.4}>
         <meshStandardMaterial ref={frameMat} color="#b8b2a8" metalness={0.95} roughness={0.28} />
       </RoundedBox>
-      {/* vidro frontal */}
       <mesh position={[0, 0, D / 2 + 0.001]}>
         <shapeGeometry args={[faceShape, 24]} />
         <meshStandardMaterial color="#050506" roughness={0.1} metalness={0.3} />
@@ -126,17 +390,14 @@ function PhoneMesh({ drive, cam = 'tri' }: { drive: React.MutableRefObject<Drive
       <mesh position={[0, 0, D / 2 + 0.002]} geometry={screenGeo}>
         <meshBasicMaterial ref={screenMat} map={tex} transparent toneMapped={false} />
       </mesh>
-      {/* Dynamic Island */}
-      <mesh position={[0, H / 2 - 0.2, D / 2 + 0.003]}>
-        <shapeGeometry args={[roundedRectShape(0.36, 0.1, 0.05), 12]} />
+      <mesh position={[0, H / 2 - (model?.front === 'notch' ? 0.1 : 0.2), D / 2 + 0.003]}>
+        <shapeGeometry args={[roundedRectShape(model?.front === 'notch' ? 0.52 : 0.36, 0.1, 0.05), 12]} />
         <meshBasicMaterial color="#000" />
       </mesh>
-      {/* traseira */}
       <mesh position={[0, 0, -D / 2 - 0.001]} rotation={[0, Math.PI, 0]}>
         <shapeGeometry args={[faceShape, 24]} />
         <meshStandardMaterial ref={backMat} color="#c2bcb2" roughness={0.38} metalness={0.2} />
       </mesh>
-      {/* módulo de câmera */}
       {(isPlateau || isAir) ? (
         <RoundedBox args={[W - 0.08, isAir ? 0.42 : 0.92, 0.07]} radius={0.03} smoothness={4} position={[0, H / 2 - (isAir ? 0.28 : 0.52), -D / 2 - 0.035]}>
           <meshStandardMaterial ref={moduleMat} color="#c2bcb2" metalness={0.6} roughness={0.28} />
@@ -167,12 +428,10 @@ function PhoneMesh({ drive, cam = 'tri' }: { drive: React.MutableRefObject<Drive
           </mesh>
         </group>
       ))}
-      {/* flash */}
       <mesh position={[W / 2 - (isPlateau || isAir ? 1.05 : 0.86), H / 2 - 0.26, -D / 2 - (isPlateau || isAir ? 0.072 : 0.042)]} rotation={[0, Math.PI, 0]}>
         <circleGeometry args={[0.05, 24]} />
         <meshBasicMaterial color="#f6e9c9" />
       </mesh>
-      {/* botões laterais */}
       {[0.55, 0.2, -0.15].map((y, i) => (
         <RoundedBox key={i} args={[0.03, i === 0 ? 0.14 : 0.24, 0.05]} radius={0.012} position={[-W / 2 - 0.008, y + 0.3, 0]}>
           <meshStandardMaterial color="#9a9ea6" metalness={0.9} roughness={0.3} />
@@ -190,6 +449,7 @@ interface DragState { active: boolean; x: number; y: number; ry: number; rx: num
 // Aplica o "drive" (GSAP/estado) + arraste com inércia (velocidade herdada do gesto)
 function Rig({ drive, drag, interactive, children }: { drive: React.MutableRefObject<Drive>; drag: React.MutableRefObject<DragState>; interactive: boolean; children: ReactNode }) {
   const g = useRef<THREE.Group>(null!)
+  const lastPoseKey = useRef(drive.current.poseKey ?? 0)
   useLayoutEffect(() => {
     const d = drive.current
     g.current.position.set(d.x, d.y, 0)
@@ -200,11 +460,17 @@ function Rig({ drive, drag, interactive, children }: { drive: React.MutableRefOb
     const dt = Math.min(elapsed, 0.05)
     const d = drive.current
     const dr = drag.current
+    if ((d.poseKey ?? 0) !== lastPoseKey.current) {
+      lastPoseKey.current = d.poseKey ?? 0
+      dr.ry = 0
+      dr.rx = 0
+      dr.v = 0
+    }
     if (!dr.active && Math.abs(dr.v) > 0.0001) {
       dr.ry += dr.v * dt
       dr.v *= Math.pow(0.135, dt) // ≈ desaceleração 0.998/ms (projeção de momento)
     }
-    const k = interactive ? 1 - Math.pow(0.0009, dt) : 1
+    const k = 1 - Math.pow(0.0009, dt)
     const idle = interactive && !dr.active && Math.abs(dr.v) < 0.05 ? Math.sin(state.clock.elapsedTime * 0.6) * 0.12 : 0
     const ry = d.rotY + dr.ry + idle
     const rx = d.rotX + dr.rx
@@ -219,45 +485,172 @@ function Rig({ drive, drag, interactive, children }: { drive: React.MutableRefOb
   return <group ref={g}>{children}</group>
 }
 
-// Carrega um .glb (ex.: Sketchfab) centralizado e na mesma escala do modelo procedural
-function GLBPhone({ url, drive, onReady }: { url: string; drive: React.MutableRefObject<Drive>; onReady: (url: string) => void }) {
+// Carrega o .glb do modelo com acabamentos PBR, tela interativa iOS e escala física proporcional
+function GLBPhone({
+  url,
+  drive,
+  model,
+  interactive,
+  onReady,
+}: {
+  url: string
+  drive: React.MutableRefObject<Drive>
+  model?: PhoneModel
+  interactive?: boolean
+  onReady: (url: string) => void
+}) {
   const { scene } = useLoader(CachedModelLoader, url)
   useEffect(() => { preparedModels.add(url); onReady(url) }, [url, onReady])
+
+  const screenSurface = useMemo(() => {
+    const c = document.createElement('canvas')
+    c.width = 512
+    c.height = 1100
+    const t = new THREE.CanvasTexture(c)
+    t.flipY = false
+    t.colorSpace = THREE.SRGBColorSpace
+    t.anisotropy = 8
+    return { canvas: c, tex: t }
+  }, [])
+
   const obj = useMemo(() => {
     const c = scene.clone(true)
-    const finishes: THREE.MeshStandardMaterial[] = []
+    const frames: THREE.MeshStandardMaterial[] = []
+    const glasses: THREE.MeshStandardMaterial[] = []
+    const logos: THREE.MeshStandardMaterial[] = []
+    const antennas: THREE.MeshStandardMaterial[] = []
+    const oleds: THREE.MeshStandardMaterial[] = []
+
+    const isPro = model?.tier === 'pro' || model?.tier === 'promax'
+    const isSteel = isPro && (model?.family ?? 17) <= 14
+    const isTitanium = (isPro && (model?.family === 15 || model?.family === 16)) || model?.tier === 'air'
+    const isGlossBack = !isPro && (model?.family ?? 17) <= 14
+
     c.traverse((node) => {
       if (!(node instanceof THREE.Mesh)) return
       const tint = (original: THREE.Material) => {
         const mat = original.clone()
         if (mat instanceof THREE.MeshStandardMaterial) {
-          if (mat.name === 'Anodized aluminum') { mat.normalScale.multiplyScalar(0.18); mat.roughness = Math.max(mat.roughness, 0.38) }
-          if (mat.name === 'Glass') { mat.opacity = 0.14; mat.depthWrite = false }
-          if (mat.name === 'OLED') { mat.emissiveIntensity = 0.9; mat.toneMapped = false }
+          if (mat.name === 'Anodized aluminum' || mat.name.startsWith('finish-')) {
+            mat.normalScale.multiplyScalar(0.18)
+            if (isSteel) {
+              mat.metalness = 0.96
+              mat.roughness = 0.14
+            } else if (isTitanium) {
+              mat.metalness = 0.88
+              mat.roughness = 0.26
+            } else {
+              mat.metalness = 0.78
+              mat.roughness = 0.36
+            }
+            frames.push(mat)
+          } else if (mat.name === 'Frosted glass') {
+            mat.normalScale.multiplyScalar(0.15)
+            mat.roughness = isGlossBack ? 0.07 : 0.32
+            mat.metalness = isGlossBack ? 0.05 : 0.1
+            glasses.push(mat)
+          } else if (mat.name === 'Glass tint') {
+            mat.roughness = 0.08
+            mat.metalness = 0.65
+            logos.push(mat)
+          } else if (mat.name === 'Plastic antena') {
+            mat.normalScale.multiplyScalar(0.15)
+            antennas.push(mat)
+          } else if (mat.name === 'Glass') {
+            mat.opacity = 0.14
+            mat.depthWrite = false
+          } else if (mat.name === 'OLED') {
+            mat.emissiveIntensity = 0.92
+            mat.toneMapped = false
+            if (interactive || model) {
+              mat.map = screenSurface.tex
+              mat.emissiveMap = screenSurface.tex
+              mat.emissive.set('#ffffff')
+            }
+            oleds.push(mat)
+          }
         }
-        if (mat instanceof THREE.MeshStandardMaterial && (mat.name.startsWith('finish-') || mat.name === 'Anodized aluminum' || mat.name === 'Frosted glass')) finishes.push(mat)
         return mat
       }
       node.material = Array.isArray(node.material) ? node.material.map(tint) : tint(node.material)
     })
-    // O GLB enviado usa a traseira no eixo +Z; a animação espera a tela em +Z.
-    if (finishes.some((mat) => mat.name === 'Anodized aluminum')) c.rotateY(Math.PI)
+
+    // O GLB usa a traseira no eixo +Z; a animação espera a tela em +Z.
+    if (frames.length > 0) c.rotateY(Math.PI)
     const box = new THREE.Box3().setFromObject(c)
     const size = box.getSize(new THREE.Vector3())
     const center = box.getCenter(new THREE.Vector3())
-    const s = H / Math.max(size.x, size.y, size.z)
+    const maxDim = Math.max(size.x, size.y, size.z)
+    // Preserva a proporção física real entre mini (131,5 mm), base/Pro (147–150 mm) e Plus/Pro Max (160–163 mm)
+    const s = maxDim > 0.11 && maxDim < 0.20 ? H / BASE_METERS : H / maxDim
     c.position.sub(center.multiplyScalar(s))
     c.scale.setScalar(s)
     const wrap = new THREE.Group()
     wrap.add(c)
-    return { root: wrap, finishes }
-  }, [scene])
+    return { root: wrap, frames, glasses, logos, antennas, oleds }
+  }, [scene, model, interactive, screenSurface])
+
   const target = useMemo(() => new THREE.Color(), [])
-  useFrame((_, dt) => {
-    target.set(drive.current.color)
+  const glassTarget = useMemo(() => new THREE.Color(), [])
+  const logoTarget = useMemo(() => new THREE.Color(), [])
+  const antTarget = useMemo(() => new THREE.Color(), [])
+  const screenColor = useMemo(() => new THREE.Color('#ffffff'), [])
+  const offColor = useMemo(() => new THREE.Color('#050507'), [])
+  const screenLevel = useRef(drive.current.screen)
+  const islandLevel = useRef(drive.current.island ?? 0)
+  const lastDrawnColor = useRef('')
+
+  useFrame((state, dt) => {
+    const d = drive.current
     const k = 1 - Math.pow(0.0009, dt)
-    for (const mat of obj.finishes) mat.color.lerp(target, k)
+    target.set(d.color)
+    const hsl = { h: 0, s: 0, l: 0 }
+    target.getHSL(hsl)
+
+    glassTarget.copy(target).offsetHSL(0, -0.02, hsl.l > 0.6 ? -0.03 : 0.04)
+    logoTarget.copy(target).offsetHSL(0, 0, hsl.l > 0.55 ? -0.18 : 0.18)
+    antTarget.copy(target).offsetHSL(0, -0.12, hsl.l > 0.5 ? -0.12 : 0.08)
+
+    for (const mat of obj.frames) mat.color.lerp(target, k)
+    for (const mat of obj.glasses) mat.color.lerp(glassTarget, k)
+    for (const mat of obj.logos) mat.color.lerp(logoTarget, k)
+    for (const mat of obj.antennas) mat.color.lerp(antTarget, k)
+
+    // Brilho da tela (Ligar / Desligar)
+    screenLevel.current += (d.screen - screenLevel.current) * Math.min(1, dt * 8)
+    for (const mat of obj.oleds) {
+      mat.emissiveIntensity = 0.92 * screenLevel.current
+      mat.color.copy(offColor).lerp(screenColor, screenLevel.current)
+    }
+
+    // Atualiza o canvas da tela iOS quando a cor ou a Dynamic Island mudam
+    if (interactive || model) {
+      const targetIsland = d.island ?? 0
+      const prevIsland = islandLevel.current
+      islandLevel.current += (targetIsland - prevIsland) * Math.min(1, dt * 10)
+      const needsRedraw =
+        d.color !== lastDrawnColor.current ||
+        Math.abs(islandLevel.current - prevIsland) > 0.003 ||
+        (islandLevel.current > 0.05 && screenLevel.current > 0.1)
+
+      if (needsRedraw) {
+        lastDrawnColor.current = d.color
+        const ctx = screenSurface.canvas.getContext('2d')
+        if (ctx) {
+          drawIosScreen(ctx, {
+            hex: d.color,
+            family: model?.family ?? 17,
+            hasIsland: (model?.front ?? 'island') === 'island',
+            island: islandLevel.current,
+            time: state.clock.elapsedTime,
+            mirrorX: true,
+          })
+          screenSurface.tex.needsUpdate = true
+        }
+      }
+    }
   })
+
   return <primitive object={obj.root} />
 }
 
@@ -282,10 +675,28 @@ export function useGlb(names: string[]) {
   return modelAssetUrl(names)
 }
 
-export default function Phone3D({ drive, cam, interactive = false, shadow = false, className, fov = 30, glb }: { drive: React.MutableRefObject<Drive>; cam?: CamLayout; interactive?: boolean; shadow?: boolean; className?: string; fov?: number; glb?: string[] }) {
+export default function Phone3D({
+  drive,
+  cam,
+  model,
+  interactive = false,
+  shadow = false,
+  className,
+  fov = 30,
+  glb,
+}: {
+  drive: React.MutableRefObject<Drive>
+  cam?: CamLayout
+  model?: PhoneModel
+  interactive?: boolean
+  shadow?: boolean
+  className?: string
+  fov?: number
+  glb?: string[]
+}) {
   const { theme } = useStore()
   const drag = useRef<DragState>({ active: false, x: 0, y: 0, ry: 0, rx: 0, v: 0, t: 0 })
-  const url = useGlb(glb ?? [])
+  const url = useGlb(glb ?? (model ? glbCandidates(model) : []))
   const [loadedUrl, setLoadedUrl] = useState<string | null>(() => url && preparedModels.has(url) ? url : null)
   const [failedUrl, setFailedUrl] = useState<string | null>(null)
   const wrap = useRef<HTMLDivElement>(null)
@@ -304,7 +715,7 @@ export default function Phone3D({ drive, cam, interactive = false, shadow = fals
   // Resolução adaptativa: começa conforme o aparelho e reduz se o FPS cair
   const lowPower = typeof navigator !== 'undefined' && ((navigator.hardwareConcurrency ?? 8) <= 4 || matchMedia('(max-width: 860px)').matches)
   const [dpr, setDpr] = useState(lowPower ? 1 : 1.5)
-  const procedural = <PhoneMesh drive={drive} cam={cam} />
+  const procedural = <PhoneMesh drive={drive} cam={cam ?? model?.cam} model={model} />
   const handlers = interactive
     ? {
         onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => {
@@ -342,8 +753,8 @@ export default function Phone3D({ drive, cam, interactive = false, shadow = fals
         </Environment>
         <Rig drive={drive} drag={drag} interactive={interactive}>
           {url ? (
-            <Boundary key={url} fallback={null} onError={() => setFailedUrl(url)}>
-              <Suspense fallback={null}><GLBPhone url={url} drive={drive} onReady={setLoadedUrl} /></Suspense>
+            <Boundary key={url} fallback={procedural} onError={() => setFailedUrl(url)}>
+              <Suspense fallback={null}><GLBPhone url={url} drive={drive} model={model} interactive={interactive} onReady={setLoadedUrl} /></Suspense>
             </Boundary>
           ) : procedural}
         </Rig>

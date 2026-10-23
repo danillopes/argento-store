@@ -396,7 +396,11 @@ input[type='range'] { width: 100%; accent-color: var(--ink); }
 .pdp-canvas canvas { cursor: grab; touch-action: pan-y; }
 .pdp-flat { display: grid; place-items: center; }
 .pdp-flat svg { height: 82%; width: auto; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.2)); }
-.pdp-hint { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); font-size: 0.75rem; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; background: var(--glass); backdrop-filter: blur(10px); padding: 6px 12px; border-radius: 999px; white-space: nowrap; }
+.pdp-hint { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); font-size: 0.75rem; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; background: var(--glass); backdrop-filter: blur(10px); padding: 6px 12px; border-radius: 999px; white-space: nowrap; pointer-events: none; }
+.pdp-tools { position: absolute; top: 16px; right: 16px; z-index: 4; display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.pdp-tool { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 500; color: var(--ink-2); background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: all 0.2s var(--ease); }
+.pdp-tool:hover { border-color: var(--ink); color: var(--ink); transform: translateY(-1px); }
+.pdp-tool.is-on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .pdp-config { padding-bottom: 40px; min-width: 0; }
 .pdp-head { padding: 20px 0 10px; }
 .pdp-head .muted { margin: 8px 0 0; }

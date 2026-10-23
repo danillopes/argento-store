@@ -1,13 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { advanceScene, advanceColor, batteryPercent } from '../src/lib/scene-motion.ts'
+import { advanceColor, batteryPercent } from '../src/lib/scene-motion.ts'
 
-test('giro responde em menos de meio segundo e reverte imediatamente', () => {
-  let p = 0
-  for (let i = 0; i < 30; i++) p = advanceScene(p, 1, 1 / 60)
-  assert.ok(p > .99)
-  assert.ok(advanceScene(p, 0, 1 / 60) < p)
-})
 test('cores mantem duracao minima e bateria responde nos dois sentidos', () => {
   assert.ok(advanceColor(0, 1, 1 / 60) <= 1 / (60 * 3.4))
   assert.equal(batteryPercent(5), 0)

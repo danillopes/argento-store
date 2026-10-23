@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { defaultDrive, type Drive } from '../components/drive'
-import { advanceScene, advanceColor, batteryPercent } from '../lib/scene-motion'
+import { advanceColor, batteryPercent } from '../lib/scene-motion'
 
 const Phone3D = lazy(() => import('../components/Phone3D'))
 import { gsap, ScrollTrigger } from '../lib/motion'
@@ -65,22 +65,22 @@ export default function Scrolly() {
 
           // 1 — traseira + aproximação nas câmeras
           tl.to('.ch-0', { autoAlpha: 0, y: -40, duration: 0.6 }, 0.2)
-            .to(d, { rotY: Math.PI, rotX: 0, scale: desk ? 1.4 : 1.02, y: desk ? -0.65 : 0, x: desk ? -1 : 0, duration: 1.4 }, 0.2)
+            .to(d, { rotY: Math.PI, rotX: 0, scale: desk ? 1.4 : 1.02, y: desk ? -0.65 : 0, x: desk ? -1 : 0, duration: 1.4, ease: 'none' }, 0.2)
             .to(dark, { opacity: 1, duration: 1 }, 0.4)
             .fromTo('.ch-1', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 1.2)
             // 2 — lateral: bordas e acabamento
             .to('.ch-1', { autoAlpha: 0, y: -40, duration: 0.5 }, 2.3)
-            .to(d, { rotY: Math.PI * 1.5, rotZ: 0.08, scale: desk ? 1.05 : 0.93, y: 0, x: desk ? side * 0.6 : 0, duration: 1.3 }, 2.3)
+            .to(d, { rotY: Math.PI * 1.5, rotZ: 0.08, scale: desk ? 1.05 : 0.93, y: 0, x: desk ? side * 0.6 : 0, duration: 1.3, ease: 'none' }, 2.3)
             .fromTo('.ch-2', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 3.1)
             // 3 — frente: tela e bateria, deslocamento lateral
             .to('.ch-2', { autoAlpha: 0, y: -40, duration: 0.5 }, 4.1)
-            .to(d, { rotY: Math.PI * 2 - 0.25, rotZ: 0, x: -side, scale: desk ? 1 : 0.9, duration: 1.3 }, 4.1)
+            .to(d, { rotY: Math.PI * 2 - 0.25, rotZ: 0, x: -side, scale: desk ? 1 : 0.9, duration: 1.3, ease: 'none' }, 4.1)
             .to(dark, { opacity: 0, duration: 1 }, 4.3)
             .fromTo('.ch-3', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 4.9)
             .fromTo('.batt-fill', { scaleX: 0 }, { scaleX: 0.97, duration: 0.9, ease: 'none' }, 5.0)
             // 4 — giro completo e troca de cores
             .to('.ch-3', { autoAlpha: 0, y: -40, duration: 0.5 }, 6.1)
-            .to(d, { rotY: Math.PI * 3, x: desk ? 1.45 : 0, y: 0, scale: desk ? 0.95 : 0.9, duration: 1.6 }, 6.1)
+            .to(d, { rotY: Math.PI * 3, x: desk ? 1.45 : 0, y: 0, scale: desk ? 0.95 : 0.9, duration: 1.6, ease: 'none' }, 6.1)
             // Mantém cada acabamento à vista e faz cada troca em ~3,4 segundos.
             .to(col, { t: 1, duration: 2.2, ease: 'power1.inOut' }, 8)
             .to(col, { t: 2, duration: 2.2, ease: 'power1.inOut' }, 11.2)
@@ -88,21 +88,23 @@ export default function Scrolly() {
             .to({}, { duration: 0.8 })
           tl.to('.scrolly-progress i', { scaleY: 1, ease: 'none', duration: tl.duration() }, 0)
 
-          // O tempo extra pertence às cores; as cenas anteriores mantêm o ritmo.
-
-          const clock = { current: 0, target: 0 }
+          // Posição e bateria seguem o scroll no mesmo update; só a cor tem atraso.
+          const syncScroll = (progress: number) => {
+            tl.progress(progress)
+            const value = String(batteryPercent(tl.time()))
+            if (battery.current && battery.current.textContent !== value) battery.current.textContent = value
+          }
           const trigger = ScrollTrigger.create({
-            trigger: stage.current, start: 'top top', end: () => `+=${480 * tl.duration() / 9.1}%`, pin: stage.current, anticipatePin: 1,
-            onUpdate: self => { clock.target = self.progress },
-            onRefresh: self => { clock.target = self.progress },
+            trigger: stage.current, start: 'top top', end: () => `+=${(desk ? 4.2 : 3.6) * stage.current!.clientHeight}`, pin: stage.current, anticipatePin: 1,
+            invalidateOnRefresh: true,
+            onUpdate: self => syncScroll(self.progress),
+            onRefresh: self => syncScroll(self.progress),
           })
+          syncScroll(trigger.progress)
           const tick = (_time: number, deltaMs: number) => {
             if (document.hidden) return
-            clock.current = advanceScene(clock.current, clock.target, deltaMs / 1000)
-            tl.progress(clock.current)
             colorPosition = advanceColor(colorPosition, col.t, deltaMs / 1000)
             updateColor()
-            if (battery.current) battery.current.textContent = String(batteryPercent(tl.time()))
           }
           gsap.ticker.add(tick)
           return () => { gsap.ticker.remove(tick); trigger.kill(); tl.kill() }

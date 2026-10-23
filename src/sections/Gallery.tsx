@@ -66,7 +66,7 @@ export function HorizontalGallery() {
         const tween = gsap.to(el, {
           x: () => -dist(),
           ease: 'none',
-          scrollTrigger: { trigger: root.current, start: 'top top', end: () => `+=${dist()}`, scrub: 0.4, pin: true, invalidateOnRefresh: true, anticipatePin: 1 },
+          scrollTrigger: { trigger: root.current, start: 'top top', end: () => `+=${dist()}`, scrub: true, pin: true, invalidateOnRefresh: true, anticipatePin: 1 },
         })
         // parallax: camadas próximas e distantes
         gsap.utils.toArray<HTMLElement>('.hg-card').forEach((card) => {

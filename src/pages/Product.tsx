@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Heart, GitCompareArrows, ShoppingBag, Zap, ShieldCheck, Truck, Info, Camera, Rotate3d, Check } from 'lucide-react'
+import { Heart, GitCompareArrows, ShoppingBag, Zap, ShieldCheck, Truck, Info, Camera, Rotate3d, Check, Power, Sparkles } from 'lucide-react'
 import Phone3D, { defaultDrive, glbCandidates, type Drive } from '../components/Phone3D'
 import PhoneArt from '../components/PhoneArt'
 import Photo, { modelPhoto, unitPhotos } from '../components/Photo'
@@ -51,6 +51,8 @@ export default function Product() {
   const [grade, setGrade] = useState<string | null>(null)
   const [unitId, setUnitId] = useState<string | null>(null)
   const [view, setView] = useState<'3d' | 'foto' | 'front' | 'back' | 'side'>('3d')
+  const [screenOn, setScreenOn] = useState(true)
+  const [islandOn, setIslandOn] = useState(false)
   const [lb, setLb] = useState<number | null>(null)
   const [cep, setCep] = useState('')
   const [ship, setShip] = useState<{ city: string; uf: string; price: number; days: string } | null>(null)
@@ -74,14 +76,19 @@ export default function Product() {
   useEffect(() => { if (cond === 'seminovo' && !byColor.some((u) => bandOf(u.battery).id === band)) setBand(byColor.map((u) => bandOf(u.battery).id).sort().reverse()[0] ?? null) }, [color, byColor.length, cond])
   useEffect(() => { if (cond === 'seminovo' && !byBand.some((u) => u.grade === grade)) setGrade(byBand[0]?.grade ?? null) }, [band, byBand.length, cond])
   useEffect(() => { setUnitId(null) }, [cond, storage, color, band, grade])
+  useEffect(() => { setIslandOn(false); drive.current.island = 0 }, [id])
 
   const colorObj = m?.colors.find((c) => c.id === (color ?? '')) ?? m?.colors[0]
   const mPhoto = m && colorObj ? modelPhoto(m.id, colorObj.id) : undefined
   useEffect(() => { if (colorObj) drive.current.color = colorObj.hex }, [colorObj?.hex])
   useEffect(() => { if (view === 'foto' && !mPhoto) setView('3d') }, [view, mPhoto])
   useEffect(() => {
-    drive.current.rotY = view === 'back' ? Math.PI : view === 'side' ? Math.PI / 2 : 0
+    drive.current.rotY = view === 'back' ? Math.PI : view === 'side' ? Math.PI / 2 : view === '3d' ? -0.34 : 0
+    drive.current.rotX = view === '3d' ? 0.06 : 0
+    drive.current.poseKey = (drive.current.poseKey ?? 0) + 1
   }, [view])
+  useEffect(() => { drive.current.screen = screenOn ? 1 : 0 }, [screenOn])
+  useEffect(() => { drive.current.island = islandOn ? 1 : 0 }, [islandOn])
 
   if (!m) return <div className="page container empty"><h1 className="h2">Modelo não encontrado.</h1><Link className="btn btn-primary" to="/iphones">Ver catálogo</Link></div>
 
@@ -115,26 +122,59 @@ export default function Product() {
       <div className="pdp-visual">
         <div className="pdp-stage" style={{ ['--tint' as string]: colorObj?.hex }}>
           <AnimatePresence mode="wait">
-            {view === '3d' ? (
-              <motion.div key="3d" className="pdp-canvas" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Phone3D drive={drive} cam={m.cam} interactive shadow fov={28} glb={glbCandidates(m)} />
-                <span className="pdp-hint"><Rotate3d size={14} /> Arraste para girar</span>
-              </motion.div>
-            ) : view === 'foto' && mPhoto ? (
+            {view === 'foto' && mPhoto ? (
               <motion.div key={'foto' + colorObj?.id} className="pdp-flat pdp-photo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
                 <Photo p={mPhoto} alt={`${m.name} ${colorObj?.name}`} priority sizes="(max-width: 960px) 92vw, 50vw" />
               </motion.div>
             ) : (
-              <motion.div key={view + colorObj?.id} className="pdp-flat" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} transition={{ duration: 0.3 }}>
-                <PhoneArt model={m} hex={colorObj!.hex} view={view === "foto" ? "back" : view} />
-                <span className="pdp-hint">Ilustração · fotos reais da unidade abaixo</span>
+              <motion.div key="3d" className="pdp-canvas" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Phone3D drive={drive} model={m} cam={m.cam} interactive shadow fov={28} glb={glbCandidates(m)} />
+                <div className="pdp-tools">
+                  <button
+                    type="button"
+                    className={`pdp-tool ${screenOn ? 'is-on' : ''}`}
+                    onClick={() => setScreenOn((s) => !s)}
+                    aria-pressed={screenOn}
+                  >
+                    <Power size={13} /> {screenOn ? 'Tela ligada' : 'Tela apagada'}
+                  </button>
+                  {m.front === 'island' && (
+                    <button
+                      type="button"
+                      className={`pdp-tool ${islandOn ? 'is-on' : ''}`}
+                      onClick={() => {
+                        const next = !islandOn
+                        setIslandOn(next)
+                        if (next) {
+                          setScreenOn(true)
+                          if (view === 'back' || view === 'side') setView('front')
+                        }
+                      }}
+                      aria-pressed={islandOn}
+                    >
+                      <Sparkles size={13} /> Dynamic Island
+                    </button>
+                  )}
+                </div>
+                <span className="pdp-hint"><Rotate3d size={14} /> Arraste para girar em 360°</span>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
         <div className="seg seg-center" role="tablist" aria-label="Visualização">
-          {([['3d', '3D'], ...(mPhoto ? [['foto', 'Foto']] : []), ['front', 'Frente'], ['back', 'Traseira'], ['side', 'Lateral']] as ['3d', string][]).map(([v, l]) => (
-            <button key={v} role="tab" aria-selected={view === v} className={view === v ? 'is-on' : ''} onClick={() => setView(v)}>{l}</button>
+          {([['3d', '3D'], ['front', 'Frente'], ['back', 'Traseira'], ['side', 'Lateral'], ...(mPhoto ? [['foto', 'Foto']] : [])] as ['3d', string][]).map(([v, l]) => (
+            <button
+              key={v}
+              role="tab"
+              aria-selected={view === v}
+              className={view === v ? 'is-on' : ''}
+              onClick={() => {
+                setView(v)
+                drive.current.poseKey = (drive.current.poseKey ?? 0) + 1
+              }}
+            >
+              {l}
+            </button>
           ))}
         </div>
       </div>
