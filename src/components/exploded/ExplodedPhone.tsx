@@ -4,9 +4,11 @@
 // exatamente pelo mesmo caminho. Usado no modal "Explorar por dentro" e na seção da página inicial.
 import { Suspense, useEffect, useMemo, useRef, useState, type MutableRefObject, type ReactNode } from 'react'
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
-import { Environment, Lightformer, OrbitControls } from '@react-three/drei'
+import { Environment, Lightformer, OrbitControls, PerformanceMonitor } from '@react-three/drei'
 import * as THREE from 'three'
 import { CachedModelLoader } from '../../lib/model-loader'
+import { useRenderQuality, qualityDecline, qualityIncline, qualityFallback } from '../../lib/render-quality'
+import { makeScreenEmissive } from '../../lib/screen-material'
 import type { ExplodeConfig, ExplodePart } from '../../data/explode-config'
 
 import type { ExplodeState } from './state'
@@ -38,6 +40,8 @@ function Model({ config, state, onSelect, tint }: { config: ExplodeConfig; state
             if (c.name === 'Frosted glass') { c.roughness = config.glossBack ? 0.1 : 0.32; c.metalness = 0.05 }
             else { c.color.offsetHSL(0, -0.04, -0.04); c.metalness = 0.75; c.roughness = 0.36 }
           }
+          // tela: imagem só como emissão (o GLB traz textura + emissão com força 10, que estourava)
+          if (c.name === 'OLED') makeScreenEmissive(c)
           mats.push({ m: c, opacity: c.opacity, blend: c.transparent })
           return c
         }
@@ -135,7 +139,7 @@ function FocusRig({ config, state, far, presentation, narrow }: { config: Explod
   return null
 }
 
-function Lights() {
+function Lights({ envResolution }: { envResolution: number }) {
   return (
     <>
       <ambientLight intensity={0.85} />
@@ -144,7 +148,7 @@ function Lights() {
       {/* luz de recorte por trás: contorna as peças escuras sobre o fundo preto */}
       <directionalLight position={[-3, 4, -7]} intensity={2.4} color="#dfe6ff" />
       <directionalLight position={[5, -2, -6]} intensity={1.2} color="#ffffff" />
-      <Environment resolution={128} environmentIntensity={1.25}>
+      <Environment resolution={envResolution} environmentIntensity={1.25}>
         <Lightformer form="rect" intensity={3} position={[0, 5, -6]} scale={[10, 2, 1]} />
         <Lightformer form="rect" intensity={2.4} position={[-6, 1, 1]} rotation-y={Math.PI / 2} scale={[8, 1.2, 1]} />
         <Lightformer form="rect" intensity={2.4} position={[6, -1, 1]} rotation-y={-Math.PI / 2} scale={[8, 1.2, 1]} />
@@ -167,7 +171,7 @@ export function ExplodedCanvas({
   const wrap = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(true)
   const [lost, setLost] = useState(false)
-  const lowPower = typeof navigator !== 'undefined' && ((navigator.hardwareConcurrency ?? 8) <= 4 || matchMedia('(max-width: 860px)').matches)
+  const quality = useRenderQuality()
   const narrow = typeof window !== 'undefined' && window.innerWidth < 700
   // inclina o aparelho: as camadas ficam visíveis de lado
   // vista pela frente (unibody): gira meia volta para a tela ficar voltada para quem olha
@@ -189,14 +193,16 @@ export function ExplodedCanvas({
     <div ref={wrap} className={className} style={{ position: 'absolute', inset: 0, touchAction: mode === 'interactive' ? 'none' : 'pan-y' }}>
       <Canvas
         frameloop={visible ? 'always' : 'never'}
-        dpr={lowPower ? [1, 1.25] : [1, 1.75]}
+        dpr={quality.dpr}
         camera={{ position: far, fov: 30 }}
-        gl={{ antialias: !lowPower, alpha: true, powerPreference: 'high-performance' }}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+        data-quality={quality.tier}
         onCreated={({ gl }) => {
           gl.domElement.addEventListener('webglcontextlost', (e) => { e.preventDefault(); setLost(true) }, { once: true })
         }}
       >
-        <Lights />
+        <PerformanceMonitor onDecline={qualityDecline} onIncline={qualityIncline} onFallback={qualityFallback} flipflops={3} />
+        <Lights envResolution={quality.settings.envResolution} />
         <Suspense fallback={null}>
           <Presentation state={state} base={presentation}>
             <Model config={config} state={state} onSelect={onSelect} tint={tint} />

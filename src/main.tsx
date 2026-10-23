@@ -9,7 +9,7 @@ import { modelAssetUrl } from './lib/model-assets'
 import { readModelAsset } from './lib/model-cache'
 
 // Começa a baixar e decodificar o 3D junto da abertura do site, não ao rolar.
-const heroModel = modelAssetUrl(['iphone-17-pro'])
+const heroModel = modelAssetUrl(['iphone-18-pro']) // mesmo modelo da abertura (Scrolly)
 if (heroModel) {
   void readModelAsset(heroModel).catch(() => {})
   void import('./components/Phone3D').then(({ preloadPhoneModel }) => preloadPhoneModel(heroModel)).catch(() => {})

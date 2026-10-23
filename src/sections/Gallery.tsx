@@ -210,7 +210,7 @@ export function InfiniteGallery({ reverse = false, speed = 40 }: { reverse?: boo
 const LAYERS = [
   { title: 'Titânio, alumínio e vidro.', text: 'Do aço inoxidável dos 12 Pro ao alumínio unibody dos 17 Pro — materiais que você sente na mão.', model: 'iphone-16-pro', colors: ['#bfa48f', '#c2bcb2', '#3c3c3d'], dark: false },
   { title: 'Cada cor, uma unidade real.', text: 'Selecione uma cor e veja somente os aparelhos daquela cor que estão no nosso estoque agora.', model: 'iphone-17', colors: ['#9fb6cf', '#b5c4a5', '#d8c9e6'], dark: false },
-  { title: 'Laranja-cósmico, Azul-profundo.', text: 'Os acabamentos mais recentes da linha Pro, novos e lacrados, com nota fiscal emitida pela loja.', model: 'iphone-17-pro-max', colors: ['#e0702b', '#2d3a55', '#e4e4e2'], dark: true },
+  { title: 'Borgonha, Azul-claro.', text: 'Os acabamentos da nova linha Pro, novos e lacrados, com nota fiscal emitida pela loja.', model: 'iphone-18-pro-max', colors: ['#6b1f2e', '#b9d0e4', '#e4e4e2'], dark: true },
 ]
 
 export function LayeredGallery() {

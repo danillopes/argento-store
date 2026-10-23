@@ -14,7 +14,10 @@ const mixHex = (a: string, b: string, t: number) => {
   return '#' + ((ch(16) << 16) | (ch(8) << 8) | ch(0)).toString(16).padStart(6, '0')
 }
 
-const PALETTE = ['#e0702b', '#2d3a55', '#e4e4e2']
+// Destaque da abertura: iPhone 18 Pro, nas cores cadastradas (Borgonha, Azul-claro, Prateado, Preto)
+const HERO_ID = 'iphone-18-pro'
+const HERO = MODELS.find((m) => m.id === HERO_ID)!
+const PALETTE = HERO.colors.map((c) => c.hex)
 
 export default function Scrolly() {
   const root = useRef<HTMLElement>(null)
@@ -84,6 +87,7 @@ export default function Scrolly() {
             // Mantém cada acabamento à vista e faz cada troca em ~3,4 segundos.
             .to(col, { t: 1, duration: 2.2, ease: 'power1.inOut' }, 8)
             .to(col, { t: 2, duration: 2.2, ease: 'power1.inOut' }, 11.2)
+            .to(col, { t: 3, duration: 2.2, ease: 'power1.inOut' }, 14.4)
             .fromTo('.ch-4', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 6.9)
             .to({}, { duration: 0.8 })
           tl.to('.scrolly-progress i', { scaleY: 1, ease: 'none', duration: tl.duration() }, 0)
@@ -95,7 +99,7 @@ export default function Scrolly() {
             if (battery.current && battery.current.textContent !== value) battery.current.textContent = value
           }
           const trigger = ScrollTrigger.create({
-            trigger: stage.current, start: 'top top', end: () => `+=${(desk ? 4.2 : 3.6) * stage.current!.clientHeight}`, pin: stage.current, anticipatePin: 1,
+            trigger: stage.current, start: 'top top', end: () => `+=${(desk ? 5.15 : 4.4) * stage.current!.clientHeight}`, pin: stage.current, anticipatePin: 1,
             invalidateOnRefresh: true,
             onUpdate: self => syncScroll(self.progress),
             onRefresh: self => syncScroll(self.progress),
@@ -117,22 +121,22 @@ export default function Scrolly() {
   return (
     <section className="scrolly" ref={root} aria-label="Apresentação">
       <div className="scrolly-mobile-intro">
-        <p className="eyebrow">Showroom Argento · iPhone 17 Pro</p>
+        <p className="eyebrow">Showroom Argento · {HERO.name}</p>
         <h1 className="display">Seu próximo iPhone,<br />escolhido unidade por unidade.</h1>
         <p className="lead">Novos e seminovos, com saúde de bateria real e fotos de cada aparelho.</p>
         <Link to="/iphones" className="btn btn-primary">Explorar iPhones</Link>
-        <p className="lead">Role para conhecer o iPhone 17 Pro.</p>
+        <p className="lead">Role para conhecer o {HERO.name}.</p>
       </div>
       <div className="scrolly-stage" ref={stage}>
         <div className="scrolly-dark" aria-hidden />
         <div className="scrolly-canvas">
           <Suspense fallback={null}>
-            <Phone3D drive={drive} cam="plateau" glb={['iphone-17-pro']} />
+            <Phone3D drive={drive} cam="plateau" glb={[HERO_ID]} />
           </Suspense>
         </div>
 
         <div className="ch ch-0">
-          <p className="eyebrow">Showroom Argento · iPhone 17 Pro</p>
+          <p className="eyebrow">Showroom Argento · {HERO.name}</p>
           <h1 className="display">Seu próximo iPhone,<br />escolhido unidade<br />por unidade.</h1>
           <p className="lead">Novos e seminovos do 12 ao 18 Pro, com saúde de bateria real, grau de conservação honesto e fotos de cada aparelho.</p>
           <div className="row gap">
@@ -170,7 +174,7 @@ export default function Scrolly() {
           <p className="lead">Do iPhone 12 mini ao iPhone 18 Pro Max. Role para entrar no showroom.</p>
         </div>
 
-        <Link className="scrolly-model-link" to="/produto/iphone-17-pro">Ver iPhone 17 Pro</Link>
+        <Link className="scrolly-model-link" to={`/produto/${HERO_ID}`}>Ver {HERO.name}</Link>
         <div className="scrolly-progress" aria-hidden><i /></div>
       </div>
     </section>
