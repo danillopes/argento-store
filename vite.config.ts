@@ -11,7 +11,7 @@ export default defineConfig({
     // 2ª visita em diante abre instantaneamente (inclusive offline) e só baixa o que mudou.
     VitePWA({
       registerType: 'autoUpdate',
-      injectRegister: 'auto',
+      injectRegister: false, // registrado em src/main.tsx (com recarga automática ao atualizar)
       includeAssets: ['favicon.svg'],
       manifest: {
         name: 'Argento — iPhones novos e seminovos',
@@ -27,14 +27,21 @@ export default defineConfig({
       },
       workbox: {
         // código e estilos: pré-cache (versão nova substitui a antiga automaticamente)
-        globPatterns: ['**/*.{js,css,html,svg,woff2}'],
+        globPatterns: ['**/*.{js,css,svg,woff2}'],
         globIgnores: ['fotos/**', 'models/**'],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
-        navigateFallback: 'index.html',
+        navigateFallback: null,
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         skipWaiting: true,
         runtimeCaching: [
+          {
+            // a página (index.html) vem sempre da rede primeiro: cada publicação aparece na hora;
+            // o cache só entra sem internet ou se a rede demorar mais de 3 s
+            urlPattern: ({ request }) => request.mode === 'navigate',
+            handler: 'NetworkFirst',
+            options: { cacheName: 'argento-paginas', networkTimeoutSeconds: 3, cacheableResponse: { statuses: [200] }, matchOptions: { ignoreSearch: true } },
+          },
           {
             // fotos: baixadas só quando aparecem na tela, depois servidas do cache
             urlPattern: ({ url }) => url.pathname.includes('/fotos/'),
