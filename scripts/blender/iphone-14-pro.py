@@ -70,6 +70,24 @@ for m in bpy.data.materials:
 
 print('moldura original (mm):', [round(v * 1000, 2) for v in (ref_mx - ref_mn)])
 comum.normalizar(objs, MEDIDAS[variante], ref_caixa=(ref_mn, ref_mx))
+# a tela e o painel preto de baixo estavam no mesmo plano (y = 3,9 mm): a GPU alternava entre os dois e a tela
+# "apagava" conforme o ângulo. A tela sobe 0,04 mm; Dynamic Island, câmera frontal e grade do alto-falante, 0,08 mm.
+FRENTE = {'OLED': 0.00004, 'FjQZkOEFcAMgVKb': 0.00008, 'pAavhFVnCAgSnSH': 0.00008, 'fexrCBexEqONlzJ': 0.00008, 'XvdlxyjrKESiFay': 0.00008}
+for o in objs:
+    me = o.data
+    desloc = {i: FRENTE[m.name] for i, m in enumerate(me.materials) if m and m.name in FRENTE}
+    if not desloc:
+        continue
+    feito = set()
+    for poly in me.polygons:
+        dy = desloc.get(poly.material_index)
+        if dy is None:
+            continue
+        for vi in poly.vertices:
+            if vi not in feito:
+                me.vertices[vi].co.y += dy
+                feito.add(vi)
+    me.update()
 comum.uv_tela('OLED')
 comum.exportar(saida)
 print('ok', variante, saida)

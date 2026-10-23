@@ -677,6 +677,8 @@ function GLBPhone({
   const screenLevel = useRef(drive.current.screen)
   const islandLevel = useRef(drive.current.island ?? 0)
   const lastDrawnColor = useRef('')
+  // canvas novo (troca de nível de qualidade muda a resolução da tela): força redesenhar, senão a tela fica preta
+  useEffect(() => { lastDrawnColor.current = '' }, [screenSurface])
 
   useFrame((state, dt) => {
     const d = drive.current
