@@ -17,7 +17,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import sharp from 'sharp'
 import * as THREE from 'three'
-import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
+import { mergeGeometries, mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 
 const MM = 0.001
 
@@ -78,7 +78,7 @@ async function loadAppleLogoGeometry() {
     const cx = 0.0001, cz = 0.0204
     for (let i = 0; i < ind.length; i += 3) {
       const i0 = ind[i], i1 = ind[i + 1], i2 = ind[i + 2]
-      const x0 = pos[i0 * 3], y0 = pos[i0 * 3 + 1], z0 = pos[i0 * 3 + 2]
+      const x0 = pos[i0 * 3], y0 = pos[i0 * 3 + 1]
       // Filtra apenas os triângulos do logotipo (Y > 0.0040 e |X| < 0.012)
       if (y0 > 0.0040 && Math.abs(x0) < 0.012) {
         for (const v of [i0, i1, i2]) {
@@ -126,7 +126,7 @@ async function renderIos14ScreenJpeg() {
       <radialGradient id="cInner" cx="35%" cy="46%" r="50%">
         <stop offset="0%" stop-color="#ff4738" stop-opacity="0.96"/>
         <stop offset="62%" stop-color="#fb7c4c" stop-opacity="0.92"/>
-        <stop offset="95%" stop-color="##ffd19a" stop-opacity="0.92"/>
+        <stop offset="95%" stop-color="#ffd19a" stop-opacity="0.92"/>
         <stop offset="100%" stop-color="#ffd19a" stop-opacity="0"/>
       </radialGradient>
       <radialGradient id="cCore" cx="32%" cy="45%" r="50%">
@@ -205,16 +205,6 @@ function slab(w, h, r, y0, y1, { cx = 0, cz = 0, bevel = 0, bevelSeg = 4, seg = 
     curveSegments: seg,
   })
   g.translate(0, 0, bt)
-  g.rotateX(Math.PI / 2)
-  g.translate(cx, y1, cz)
-  return g
-}
-
-// Moldura oca com chanfro externo (para ilhas, colares de botões e versão desmontável)
-function ringSlab(wOut, hOut, rOut, wIn, hIn, rIn, y0, y1, { cx = 0, cz = 0, seg = 36 } = {}) {
-  const outer = roundedRect(wOut, hOut, rOut)
-  outer.holes.push(roundedRect(wIn, hIn, rIn))
-  const g = new THREE.ExtrudeGeometry(outer, { depth: y1 - y0, bevelEnabled: false, curveSegments: seg })
   g.rotateX(Math.PI / 2)
   g.translate(cx, y1, cz)
   return g
@@ -557,7 +547,7 @@ function buildIphone12({ id, W, H, D, corner, cam }, exploded = false) {
 
   if (exploded) addInternals({ W, H, D, corner, cam, add, sqCx, sqCz, lensX, sq })
 
-  // Une por peça e material
+  // Une por peça e material com indexação compacta de vértices
   const merge = (list) => {
     const geos = list.map((g) => {
       const n = g.index ? g.toNonIndexed() : g.clone()
@@ -566,7 +556,7 @@ function buildIphone12({ id, W, H, D, corner, cam }, exploded = false) {
       for (const k of Object.keys(n.attributes)) if (!['position', 'normal', 'uv'].includes(k)) n.deleteAttribute(k)
       return n
     })
-    return mergeGeometries(geos, false)
+    return mergeVertices(mergeGeometries(geos, false), 1e-6)
   }
 
   const out = {}
@@ -711,7 +701,15 @@ function toGLB(name, nodesIn) {
       accessors.push({ bufferView: pushTyped(new Float32Array(pos), 34962), componentType: 5126, count, type: 'VEC3', min: mn, max: mx })
       accessors.push({ bufferView: pushTyped(n32, 34962), componentType: 5126, count, type: 'VEC3' })
       accessors.push({ bufferView: pushTyped(new Float32Array(uv), 34962), componentType: 5126, count, type: 'VEC2' })
-      primitives.push({ attributes: { POSITION: a, NORMAL: a + 1, TEXCOORD_0: a + 2 }, material: mi, mode: 4 })
+      if (g.index) {
+        const idxArr = count < 65535 ? new Uint16Array(g.index.array) : new Uint32Array(g.index.array)
+        const idxComp = count < 65535 ? 5123 : 5125
+        const idxAcc = accessors.length
+        accessors.push({ bufferView: pushTyped(idxArr, 34963), componentType: idxComp, count: idxArr.length, type: 'SCALAR' })
+        primitives.push({ attributes: { POSITION: a, NORMAL: a + 1, TEXCOORD_0: a + 2 }, indices: idxAcc, material: mi, mode: 4 })
+      } else {
+        primitives.push({ attributes: { POSITION: a, NORMAL: a + 1, TEXCOORD_0: a + 2 }, material: mi, mode: 4 })
+      }
     }
     meshes.push({ name: nodeName, primitives })
     children.push(nodeName)
@@ -770,16 +768,28 @@ const SPECS = [
 ]
 
 await mkdir('public/models/explodido', { recursive: true })
-const versions = {}
+let explodidos = {}
+try {
+  explodidos = JSON.parse(await readFile('src/data/explodidos.json', 'utf8'))
+} catch {}
+let photos = null
+try {
+  photos = JSON.parse(await readFile('src/data/photos.json', 'utf8'))
+} catch {}
+
 for (const s of SPECS) {
   const glb = toGLB(s.name, buildIphone12(s))
   await writeFile(`public/models/${s.id}.glb`, glb)
+  if (photos?.modelos3dVersoes) {
+    photos.modelos3dVersoes[s.id] = createHash('sha256').update(glb).digest('hex').slice(0, 12)
+  }
   console.log(`✓ public/models/${s.id}.glb  ${(glb.length / 1024).toFixed(0)} KB`)
   const ex = toGLB(s.name, buildIphone12(s, true))
   await writeFile(`public/models/explodido/${s.id}.glb`, ex)
-  versions[s.id] = createHash('sha256').update(ex).digest('hex').slice(0, 12)
+  explodidos[s.id] = createHash('sha256').update(ex).digest('hex').slice(0, 12)
   console.log(`✓ public/models/explodido/${s.id}.glb  ${(ex.length / 1024).toFixed(0)} KB`)
 }
-// mescla com as versões já existentes (ex.: iphone-17-pro, gerado por modelar-iphone-17-pro-explodido.mjs)
-const previousVersions = JSON.parse(await readFile('src/data/explodidos.json', 'utf8').catch(() => '{}'))
-await writeFile('src/data/explodidos.json', JSON.stringify({ ...previousVersions, ...versions }, null, 1) + '\n')
+await writeFile('src/data/explodidos.json', JSON.stringify(explodidos, null, 1) + '\n')
+if (photos) {
+  await writeFile('src/data/photos.json', JSON.stringify(photos, null, 1) + '\n')
+}
