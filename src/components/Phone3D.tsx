@@ -210,10 +210,20 @@ function Rig({ drive, drag, interactive, children }: { drive: React.MutableRefOb
 }
 
 // Carrega um .glb (ex.: Sketchfab) centralizado e na mesma escala do modelo procedural
-function GLBPhone({ url }: { url: string }) {
+function GLBPhone({ url, drive }: { url: string; drive: React.MutableRefObject<Drive> }) {
   const { scene } = useGLTF(url)
   const obj = useMemo(() => {
     const c = scene.clone(true)
+    const finishes: THREE.MeshStandardMaterial[] = []
+    c.traverse((node) => {
+      if (!(node instanceof THREE.Mesh)) return
+      const tint = (original: THREE.Material) => {
+        const mat = original.clone()
+        if (mat instanceof THREE.MeshStandardMaterial && mat.name.startsWith('finish-')) finishes.push(mat)
+        return mat
+      }
+      node.material = Array.isArray(node.material) ? node.material.map(tint) : tint(node.material)
+    })
     const box = new THREE.Box3().setFromObject(c)
     const size = box.getSize(new THREE.Vector3())
     const center = box.getCenter(new THREE.Vector3())
@@ -222,9 +232,15 @@ function GLBPhone({ url }: { url: string }) {
     c.scale.setScalar(s)
     const wrap = new THREE.Group()
     wrap.add(c)
-    return wrap
+    return { root: wrap, finishes }
   }, [scene])
-  return <primitive object={obj} />
+  const target = useMemo(() => new THREE.Color(), [])
+  useFrame((_, dt) => {
+    target.set(drive.current.color)
+    const k = 1 - Math.pow(0.0009, dt)
+    for (const mat of obj.finishes) mat.color.lerp(target, k)
+  })
+  return <primitive object={obj.root} />
 }
 
 class Boundary extends Component<{ fallback: ReactNode; children: ReactNode }, { err: boolean }> {
@@ -306,7 +322,7 @@ export default function Phone3D({ drive, cam, interactive = false, shadow = fals
         <Rig drive={drive} drag={drag} interactive={interactive}>
           {url ? (
             <Boundary fallback={procedural}>
-              <Suspense fallback={procedural}><GLBPhone url={url} /></Suspense>
+              <Suspense fallback={procedural}><GLBPhone url={url} drive={drive} /></Suspense>
             </Boundary>
           ) : procedural}
         </Rig>

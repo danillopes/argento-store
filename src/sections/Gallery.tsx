@@ -1,6 +1,7 @@
 import { useLayoutEffect, useMemo, useRef } from 'react'
 import { motion, useAnimationFrame, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import PhoneArt from '../components/PhoneArt'
+import Photo, { modelPhoto } from '../components/Photo'
 import { FAMILIES, MODELS, type PhoneModel } from '../data/models'
 import { gsap } from '../lib/motion'
 import { useExpandNav } from '../lib/motion'
@@ -91,21 +92,25 @@ export function HorizontalGallery() {
         {FAMILIES.map((f) => {
           const m = flagship(f)
           const fam = MODELS.filter((x) => x.family === f)
-          const min = sums.filter((s) => s.model.family === f && s.minPrice != null).map((s) => s.minPrice!)
-          const c1 = m.colors[0].hex, c2 = m.colors[Math.min(1, m.colors.length - 1)].hex
+          const summary = sums.find((s) => s.model.id === m.id)
+          const color = m.colors[0]
+          const photo = modelPhoto(m.id, color.id)
           return (
             <div key={f} className="hg-card">
-            <TiltCard className="hg-card-in" label={`Abrir ${m.name}`} onClick={(e) => expand(e, `/produto/${m.id}`, c2)}>
+            <TiltCard className={`hg-card-in${photo ? ' has-photo' : ''}`} label={`Abrir ${m.name}`} onClick={(e) => expand(e, `/produto/${m.id}`, color.hex)}>
               <span className="hg-num" aria-hidden>{f}</span>
               <div className="hg-art">
-                <PhoneArt model={m} hex={c2} view="front" className="par-far" />
-                <PhoneArt model={m} hex={c1} view="back" className="par-near" />
+                {photo ? <div className="hg-photo par-near"><Photo p={photo} alt={`${m.name} — ${color.name}`} sizes="(max-width: 860px) 65vw, 340px" /></div> : <>
+                  <PhoneArt model={m} hex={color.hex} view="front" className="par-far" />
+                  <PhoneArt model={m} hex={color.hex} view="back" className="par-near" />
+                </>}
               </div>
               <div className="hg-info">
-                <strong>iPhone {f}</strong>
+                <strong>{m.name}</strong>
                 <span>{FAMILY_COPY[f]}</span>
-                <small>{fam.map((x) => x.name.replace(`iPhone ${f}`, '').trim() || 'padrão').join(' · ')}</small>
-                <em>{min.length ? `a partir de ${brl(Math.min(...min))}` : 'Em breve'}</em>
+                <small>{color.name}</small>
+                <small>Na geração: {fam.map((x) => x.name.replace(`iPhone ${f}`, '').trim() || 'padrão').join(' · ')}</small>
+                <em>{summary?.minPrice != null ? `a partir de ${brl(summary.minPrice)}` : 'Sem estoque'}</em>
               </div>
             </TiltCard>
             </div>
@@ -186,7 +191,7 @@ export function InfiniteGallery({ reverse = false, speed = 40 }: { reverse?: boo
                 expand(e, `/produto/${s.model.id}`, c.hex)
               }}
             >
-              <PhoneArt model={s.model} hex={c.hex} view={i % 3 === 0 ? 'front' : 'back'} className="ig-art" />
+              {modelPhoto(s.model.id, c.id) ? <Photo p={modelPhoto(s.model.id, c.id)!} alt={`${s.model.name} — ${c.name}`} className="ig-art ig-photo" sizes="174px" /> : <PhoneArt model={s.model} hex={c.hex} view={i % 3 === 0 ? 'front' : 'back'} className="ig-art" />}
               <span className="ig-label">
                 <strong>{s.model.name}</strong>
                 <small>{c.name}{s.minPrice != null ? ` · ${brl(s.minPrice)}` : ''}</small>

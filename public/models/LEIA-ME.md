@@ -17,7 +17,13 @@ O site detecta cada arquivo sozinho. Se faltar algum:
 - mini, Plus e "e" usam o modelo base da geração;
 - sem nenhum arquivo, aparece o iPhone 3D procedural do próprio site.
 
-A animação da página inicial usa `iphone-17-pro.glb` (ou `iphone-16-pro.glb`).
+A animação da página inicial usa exclusivamente `iphone-17-pro.glb`.
+
+O projeto inclui uma visualização 3D autoral do iPhone 17 Pro, com 47 partes,
+platô arredondado, três lentes, LiDAR, flash, Dynamic Island, botões e USB-C.
+As cores dos materiais acompanham a animação e o configurador. É uma
+representação de catálogo, não uma digitalização de uma unidade física.
+Para regenerar o arquivo: `node scripts/gerar-iphone-17-pro.mjs`.
 
 ## Antes de publicar
 - Use só modelos com licença que permita uso comercial (ex.: CC BY) e credite o autor no rodapé.

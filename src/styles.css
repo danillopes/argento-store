@@ -223,6 +223,13 @@ input, select, textarea { font: inherit; color: inherit; }
 .hg-art::after { content: ''; position: absolute; left: 14%; right: 6%; bottom: 4%; height: 7%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.22), transparent); }
 .hg-art .par-far { left: 8%; transform: rotate(-8deg); height: 74%; top: 13%; opacity: 0.95; }
 .hg-art .par-near { left: 36%; }
+.hg-card-in.has-photo { background: #fff; color: #1d1d1f; }
+.hg-card-in.has-photo .hg-info span { color: #424245; }
+.hg-card-in.has-photo .hg-info small { color: #6e6e73; }
+.hg-card-in.has-photo .hg-info em { background: #1d1d1f; color: #fff; }
+.hg-art .hg-photo { position: absolute; inset: 8% 6%; width: 88%; height: 84%; will-change: transform; }
+.hg-photo .photo-pic { height: 100%; aspect-ratio: auto !important; background-size: contain; background-repeat: no-repeat; }
+.hg-art .hg-photo img { object-fit: contain; }
 .hg-info { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 40px 44px 40px 0; }
 .hg-info strong { font-family: var(--display); font-size: clamp(1.8rem, 3vw, 2.8rem); letter-spacing: -0.04em; line-height: 1; }
 .hg-info span { font-size: 1.05rem; color: var(--ink-2); }
@@ -246,6 +253,10 @@ input, select, textarea { font: inherit; color: inherit; }
 .ig-row { display: flex; gap: 18px; width: max-content; will-change: transform; }
 .ig-item { flex: none; width: 210px; padding: 22px 18px 16px; border-radius: 26px; background: var(--surface); border: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; gap: 14px; }
 .ig-art { height: 190px; width: auto; pointer-events: none; }
+.ig-item:has(.ig-photo) { background: #fff; color: #1d1d1f; }
+.ig-item .ig-photo { width: 100%; height: 190px; aspect-ratio: auto !important; border-radius: 12px; }
+.ig-item .ig-photo img { object-fit: contain; }
+.ig-item:has(.ig-photo) .ig-label small { color: #6e6e73; }
 .ig-label { text-align: center; }
 .ig-label strong { display: block; font-size: 0.9rem; }
 .ig-label small { color: var(--muted); font-size: 0.78rem; }
