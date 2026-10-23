@@ -1,0 +1,1017 @@
+{
+  "sourcePage": "https://www.apple.com/iphone/compare/",
+  "cssUrl": "https://www.apple.com/v/iphone/compare/am/built/styles/overview.built.css",
+  "checkedAt": "2026-10-23T00:26:20.497Z",
+  "note": "Imagens de catálogo da Apple; não são fotos de unidades do estoque. A disponibilidade pública não concede licença de uso comercial.",
+  "models": 28,
+  "photos": [
+    {
+      "model": "iphone-12-mini",
+      "color": "preto",
+      "file": "fotos-originais/modelos/iphone-12-mini/preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_mini_black__f27jirmfeomu_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12-mini",
+      "color": "branco",
+      "file": "fotos-originais/modelos/iphone-12-mini/branco.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_mini_white__fhgs1mo2zgmm_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12-mini",
+      "color": "vermelho",
+      "file": "fotos-originais/modelos/iphone-12-mini/vermelho.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_mini_red__er2imbeznvgy_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12-mini",
+      "color": "verde",
+      "file": "fotos-originais/modelos/iphone-12-mini/verde.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_mini_green__3ndpo9itp42u_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12-mini",
+      "color": "azul",
+      "file": "fotos-originais/modelos/iphone-12-mini/azul.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_mini_blue__iyr1fvvjraai_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12-mini",
+      "color": "roxo",
+      "file": "fotos-originais/modelos/iphone-12-mini/roxo.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_mini_purple__gm5blksev6ai_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12",
+      "color": "preto",
+      "file": "fotos-originais/modelos/iphone-12/preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_black__gj93q2eeofma_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12",
+      "color": "branco",
+      "file": "fotos-originais/modelos/iphone-12/branco.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_white__bkv9u0pios6a_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12",
+      "color": "vermelho",
+      "file": "fotos-originais/modelos/iphone-12/vermelho.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_red__3fpikxvolteu_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12",
+      "color": "verde",
+      "file": "fotos-originais/modelos/iphone-12/verde.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_green__cua80qomesgi_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12",
+      "color": "azul",
+      "file": "fotos-originais/modelos/iphone-12/azul.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_blue__ffk87fz4nuqi_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12",
+      "color": "roxo",
+      "file": "fotos-originais/modelos/iphone-12/roxo.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_purple__dgt75n0isaeu_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12-pro",
+      "color": "grafite",
+      "file": "fotos-originais/modelos/iphone-12-pro/grafite.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_pro_graphite__exopjoz6u2ye_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12-pro",
+      "color": "prateado",
+      "file": "fotos-originais/modelos/iphone-12-pro/prateado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_pro_silver__fdy4rgvkd26a_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12-pro",
+      "color": "dourado",
+      "file": "fotos-originais/modelos/iphone-12-pro/dourado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_pro_gold__b8fkcnuqh8vm_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12-pro",
+      "color": "azul-pacifico",
+      "file": "fotos-originais/modelos/iphone-12-pro/azul-pacifico.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_pro_pacific_blue__gniw0xbrh7ue_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12-pro-max",
+      "color": "grafite",
+      "file": "fotos-originais/modelos/iphone-12-pro-max/grafite.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_pro_max_graphite__b6j4sfia3yaa_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12-pro-max",
+      "color": "prateado",
+      "file": "fotos-originais/modelos/iphone-12-pro-max/prateado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_pro_max_silver__1mkvn3uvleqi_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12-pro-max",
+      "color": "dourado",
+      "file": "fotos-originais/modelos/iphone-12-pro-max/dourado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_pro_max_gold__bknb963nzyqa_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-12-pro-max",
+      "color": "azul-pacifico",
+      "file": "fotos-originais/modelos/iphone-12-pro-max/azul-pacifico.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone12_pro_max_pacific_blue__i251ea884ei6_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-mini",
+      "color": "meia-noite",
+      "file": "fotos-originais/modelos/iphone-13-mini/meia-noite.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_mini_midnight__e8z05098gnma_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-mini",
+      "color": "estelar",
+      "file": "fotos-originais/modelos/iphone-13-mini/estelar.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_mini_starlight__mg21bdoe6f62_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-mini",
+      "color": "vermelho",
+      "file": "fotos-originais/modelos/iphone-13-mini/vermelho.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_mini_product_red__c0x8iraijcmu_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-mini",
+      "color": "azul",
+      "file": "fotos-originais/modelos/iphone-13-mini/azul.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_mini_blue__e1ohuf2klquu_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-mini",
+      "color": "rosa",
+      "file": "fotos-originais/modelos/iphone-13-mini/rosa.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_mini_pink__blln0h9o7f0i_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-mini",
+      "color": "verde",
+      "file": "fotos-originais/modelos/iphone-13-mini/verde.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_mini_green__eaa4pvqtsbiq_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13",
+      "color": "meia-noite",
+      "file": "fotos-originais/modelos/iphone-13/meia-noite.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_midnight__dc2w8cyhc9iu_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13",
+      "color": "estelar",
+      "file": "fotos-originais/modelos/iphone-13/estelar.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_starlight__135hisvufoim_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13",
+      "color": "vermelho",
+      "file": "fotos-originais/modelos/iphone-13/vermelho.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_product_red__gmrn6xy6l4ya_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13",
+      "color": "azul",
+      "file": "fotos-originais/modelos/iphone-13/azul.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_blue__dn52e83eu5yu_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13",
+      "color": "rosa",
+      "file": "fotos-originais/modelos/iphone-13/rosa.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_pink__e3vv1er86eqa_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13",
+      "color": "verde",
+      "file": "fotos-originais/modelos/iphone-13/verde.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_green__e9rhd84kj3yq_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-pro",
+      "color": "grafite",
+      "file": "fotos-originais/modelos/iphone-13-pro/grafite.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_pro_graphite__1v1ipyvu1eae_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-pro",
+      "color": "dourado",
+      "file": "fotos-originais/modelos/iphone-13-pro/dourado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_pro_gold__ea2j8y7hska6_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-pro",
+      "color": "prateado",
+      "file": "fotos-originais/modelos/iphone-13-pro/prateado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_pro_silver__dzq8ol0di7ee_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-pro",
+      "color": "azul-sierra",
+      "file": "fotos-originais/modelos/iphone-13-pro/azul-sierra.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_pro_sierra_blue__q5g805k09uym_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-pro",
+      "color": "verde-alpino",
+      "file": "fotos-originais/modelos/iphone-13-pro/verde-alpino.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_pro_alpine_green__d3ggyu8riw66_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-pro-max",
+      "color": "grafite",
+      "file": "fotos-originais/modelos/iphone-13-pro-max/grafite.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_pro_max_graphite__e0rjnrin6ncm_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-pro-max",
+      "color": "dourado",
+      "file": "fotos-originais/modelos/iphone-13-pro-max/dourado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_pro_max_gold__dpkma79ndo8y_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-pro-max",
+      "color": "prateado",
+      "file": "fotos-originais/modelos/iphone-13-pro-max/prateado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_pro_max_silver__dbfz7im067e6_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-pro-max",
+      "color": "azul-sierra",
+      "file": "fotos-originais/modelos/iphone-13-pro-max/azul-sierra.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_pro_max_sierra_blue__ccdnnwrapdau_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-13-pro-max",
+      "color": "verde-alpino",
+      "file": "fotos-originais/modelos/iphone-13-pro-max/verde-alpino.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone13_pro_max_alpine_green__erdqy93lc18i_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14",
+      "color": "meia-noite",
+      "file": "fotos-originais/modelos/iphone-14/meia-noite.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_midnight__bvwj36frtody_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14",
+      "color": "estelar",
+      "file": "fotos-originais/modelos/iphone-14/estelar.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_starlight__f6rbukewn0mu_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14",
+      "color": "vermelho",
+      "file": "fotos-originais/modelos/iphone-14/vermelho.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_red__bu1vzrxdbf7m_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14",
+      "color": "azul",
+      "file": "fotos-originais/modelos/iphone-14/azul.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_blue__c9pjeddi2qye_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14",
+      "color": "roxo",
+      "file": "fotos-originais/modelos/iphone-14/roxo.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_purple__cjajxy1iclg2_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14",
+      "color": "amarelo",
+      "file": "fotos-originais/modelos/iphone-14/amarelo.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_yellow__fvyq7k2nn4ya_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14-plus",
+      "color": "meia-noite",
+      "file": "fotos-originais/modelos/iphone-14-plus/meia-noite.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_plus_midnight__c9kmil1aq0ae_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14-plus",
+      "color": "estelar",
+      "file": "fotos-originais/modelos/iphone-14-plus/estelar.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_plus_starlight__f49kqx4mhlea_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14-plus",
+      "color": "vermelho",
+      "file": "fotos-originais/modelos/iphone-14-plus/vermelho.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_plus_red__zu2trl902due_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14-plus",
+      "color": "azul",
+      "file": "fotos-originais/modelos/iphone-14-plus/azul.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_plus_blue__ct1alvw58q82_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14-plus",
+      "color": "roxo",
+      "file": "fotos-originais/modelos/iphone-14-plus/roxo.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_plus_purple__ebfjg5vvyu0y_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14-plus",
+      "color": "amarelo",
+      "file": "fotos-originais/modelos/iphone-14-plus/amarelo.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_plus_yellow__cijyg33497rm_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14-pro",
+      "color": "preto-espacial",
+      "file": "fotos-originais/modelos/iphone-14-pro/preto-espacial.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_pro_space_black__dym2kqku7n6u_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14-pro",
+      "color": "prateado",
+      "file": "fotos-originais/modelos/iphone-14-pro/prateado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_pro_silver__knexgp9cr5m6_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14-pro",
+      "color": "dourado",
+      "file": "fotos-originais/modelos/iphone-14-pro/dourado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_pro_gold__cqyq3tm1zuxe_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14-pro",
+      "color": "roxo-profundo",
+      "file": "fotos-originais/modelos/iphone-14-pro/roxo-profundo.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_pro_deep_purple__p5fjz0npooiq_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14-pro-max",
+      "color": "preto-espacial",
+      "file": "fotos-originais/modelos/iphone-14-pro-max/preto-espacial.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_pro_max_space_black__dve23pjslceq_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14-pro-max",
+      "color": "prateado",
+      "file": "fotos-originais/modelos/iphone-14-pro-max/prateado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_pro_max_silver__esuba240yvqu_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14-pro-max",
+      "color": "dourado",
+      "file": "fotos-originais/modelos/iphone-14-pro-max/dourado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_pro_max_gold__ssb2j2q92mi6_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-14-pro-max",
+      "color": "roxo-profundo",
+      "file": "fotos-originais/modelos/iphone-14-pro-max/roxo-profundo.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone14_pro_max_deep_purple__r2k8f3zaymi6_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15",
+      "color": "preto",
+      "file": "fotos-originais/modelos/iphone-15/preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_black__eer8kwdkdjyq_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15",
+      "color": "azul",
+      "file": "fotos-originais/modelos/iphone-15/azul.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_blue__cq4qefddyl8i_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15",
+      "color": "verde",
+      "file": "fotos-originais/modelos/iphone-15/verde.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_green__f6r83449uoyi_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15",
+      "color": "amarelo",
+      "file": "fotos-originais/modelos/iphone-15/amarelo.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_yellow__bqka09cyvqia_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15",
+      "color": "rosa",
+      "file": "fotos-originais/modelos/iphone-15/rosa.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_pink__d2gop48s2aye_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15-plus",
+      "color": "preto",
+      "file": "fotos-originais/modelos/iphone-15-plus/preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_plus_black__chh9za6pd2vm_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15-plus",
+      "color": "azul",
+      "file": "fotos-originais/modelos/iphone-15-plus/azul.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_plus_blue__9fcof0t4lk2i_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15-plus",
+      "color": "verde",
+      "file": "fotos-originais/modelos/iphone-15-plus/verde.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_plus_green__c2dkb4wvkgae_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15-plus",
+      "color": "amarelo",
+      "file": "fotos-originais/modelos/iphone-15-plus/amarelo.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_plus_yellow__bqpclyoi3muu_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15-plus",
+      "color": "rosa",
+      "file": "fotos-originais/modelos/iphone-15-plus/rosa.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_plus_pink__fai0b9il6cq6_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15-pro",
+      "color": "titanio-natural",
+      "file": "fotos-originais/modelos/iphone-15-pro/titanio-natural.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_pro_natural_titanium__scqfo7q20n2i_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15-pro",
+      "color": "titanio-azul",
+      "file": "fotos-originais/modelos/iphone-15-pro/titanio-azul.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_pro_blue_titanium__bima7n6vpb0i_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15-pro",
+      "color": "titanio-branco",
+      "file": "fotos-originais/modelos/iphone-15-pro/titanio-branco.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_pro_white_titanium__gnb53137x2um_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15-pro",
+      "color": "titanio-preto",
+      "file": "fotos-originais/modelos/iphone-15-pro/titanio-preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_pro_black_titanium__etz96gq8ruoi_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15-pro-max",
+      "color": "titanio-natural",
+      "file": "fotos-originais/modelos/iphone-15-pro-max/titanio-natural.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_pro_max_natural_titanium__byvhspupwiuq_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15-pro-max",
+      "color": "titanio-azul",
+      "file": "fotos-originais/modelos/iphone-15-pro-max/titanio-azul.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_pro_max_blue_titanium__c8xeminnbm82_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15-pro-max",
+      "color": "titanio-branco",
+      "file": "fotos-originais/modelos/iphone-15-pro-max/titanio-branco.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_pro_max_white_titanium__citdiqo2e0gi_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-15-pro-max",
+      "color": "titanio-preto",
+      "file": "fotos-originais/modelos/iphone-15-pro-max/titanio-preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone15_pro_max_black_titanium__djidfm1dcmie_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16e",
+      "color": "preto",
+      "file": "fotos-originais/modelos/iphone-16e/preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16e_black__folwa2rvc3ma_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16e",
+      "color": "branco",
+      "file": "fotos-originais/modelos/iphone-16e/branco.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16e_white__qfwztyphaj2u_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16",
+      "color": "preto",
+      "file": "fotos-originais/modelos/iphone-16/preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_black__bedc0hlw316q_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16",
+      "color": "branco",
+      "file": "fotos-originais/modelos/iphone-16/branco.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_white__dcn5vobxo7ki_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16",
+      "color": "rosa",
+      "file": "fotos-originais/modelos/iphone-16/rosa.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_pink__fzr1z22a7m2q_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16",
+      "color": "verde-acinzentado",
+      "file": "fotos-originais/modelos/iphone-16/verde-acinzentado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_teal__fkzqehm57iai_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16",
+      "color": "ultramarino",
+      "file": "fotos-originais/modelos/iphone-16/ultramarino.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_ultramarine__sr260qois4am_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16-plus",
+      "color": "preto",
+      "file": "fotos-originais/modelos/iphone-16-plus/preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_plus_black__fzb15ieuikey_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16-plus",
+      "color": "branco",
+      "file": "fotos-originais/modelos/iphone-16-plus/branco.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_plus_white__rqden70u9uqi_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16-plus",
+      "color": "rosa",
+      "file": "fotos-originais/modelos/iphone-16-plus/rosa.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_plus_pink__egpda1o8qu82_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16-plus",
+      "color": "verde-acinzentado",
+      "file": "fotos-originais/modelos/iphone-16-plus/verde-acinzentado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_plus_teal__fd5m157o5h6y_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16-plus",
+      "color": "ultramarino",
+      "file": "fotos-originais/modelos/iphone-16-plus/ultramarino.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_plus_ultramarine__fedlzqf2pmqi_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16-pro",
+      "color": "titanio-deserto",
+      "file": "fotos-originais/modelos/iphone-16-pro/titanio-deserto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_pro_desert_titanium__ftixjyyve6qi_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16-pro",
+      "color": "titanio-natural",
+      "file": "fotos-originais/modelos/iphone-16-pro/titanio-natural.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_pro_natural_titanium__b58sfb3hvv36_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16-pro",
+      "color": "titanio-branco",
+      "file": "fotos-originais/modelos/iphone-16-pro/titanio-branco.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_pro_white_titanium__mjfjda73w72q_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16-pro",
+      "color": "titanio-preto",
+      "file": "fotos-originais/modelos/iphone-16-pro/titanio-preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_pro_black_titanium__c7t71uah5qky_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16-pro-max",
+      "color": "titanio-deserto",
+      "file": "fotos-originais/modelos/iphone-16-pro-max/titanio-deserto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_pro_max_desert_titanium__f8058hcu01ua_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16-pro-max",
+      "color": "titanio-natural",
+      "file": "fotos-originais/modelos/iphone-16-pro-max/titanio-natural.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_pro_max_natural_titanium__finz5cbww0mm_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16-pro-max",
+      "color": "titanio-branco",
+      "file": "fotos-originais/modelos/iphone-16-pro-max/titanio-branco.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_pro_max_white_titanium__nrwzujp5v762_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-16-pro-max",
+      "color": "titanio-preto",
+      "file": "fotos-originais/modelos/iphone-16-pro-max/titanio-preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone16_pro_max_black_titanium__evlilxt8g2mq_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-17e",
+      "color": "preto",
+      "file": "fotos-originais/modelos/iphone-17e/preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone17e_black__f8ox5biet3au_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-17e",
+      "color": "branco",
+      "file": "fotos-originais/modelos/iphone-17e/branco.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone17e_white__dznzme1jxvki_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-17e",
+      "color": "rosa-suave",
+      "file": "fotos-originais/modelos/iphone-17e/rosa-suave.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone17e_pink__bj426l1s94gi_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-17",
+      "color": "preto",
+      "file": "fotos-originais/modelos/iphone-17/preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone17_black__epmfmcpap0sy_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-17",
+      "color": "branco",
+      "file": "fotos-originais/modelos/iphone-17/branco.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone17_white__cddjqf5mzlaq_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-17",
+      "color": "azul-nevoa",
+      "file": "fotos-originais/modelos/iphone-17/azul-nevoa.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone17_mist_blue__fjf0c9euujee_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-17",
+      "color": "salvia",
+      "file": "fotos-originais/modelos/iphone-17/salvia.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone17_sage__edsxj53vsn0i_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-17",
+      "color": "lavanda",
+      "file": "fotos-originais/modelos/iphone-17/lavanda.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone17_lavender__etuerbkei0ya_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-air",
+      "color": "preto-espacial",
+      "file": "fotos-originais/modelos/iphone-air/preto-espacial.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone_air_space_black__erjeo9fa6oa6_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-air",
+      "color": "branco-nuvem",
+      "file": "fotos-originais/modelos/iphone-air/branco-nuvem.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone_air_cloud_white__fay39sc7sru6_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-air",
+      "color": "dourado-claro",
+      "file": "fotos-originais/modelos/iphone-air/dourado-claro.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone_air_light_gold__c1s3ly3yjuc2_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-air",
+      "color": "azul-ceu",
+      "file": "fotos-originais/modelos/iphone-air/azul-ceu.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone_air_sky_blue__kvm15b10x6qa_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-17-pro",
+      "color": "prateado",
+      "file": "fotos-originais/modelos/iphone-17-pro/prateado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone17_pro_silver__c7bbt5uwieye_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-17-pro",
+      "color": "laranja-cosmico",
+      "file": "fotos-originais/modelos/iphone-17-pro/laranja-cosmico.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone17_pro_cosmic_orange__dm1qripnvq82_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-17-pro",
+      "color": "azul-profundo",
+      "file": "fotos-originais/modelos/iphone-17-pro/azul-profundo.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone17_pro_deep_blue__dz8sfcp4h742_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-17-pro-max",
+      "color": "prateado",
+      "file": "fotos-originais/modelos/iphone-17-pro-max/prateado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone17_pro_max_silver__dtw5i9e8osmu_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-17-pro-max",
+      "color": "laranja-cosmico",
+      "file": "fotos-originais/modelos/iphone-17-pro-max/laranja-cosmico.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone17_pro_max_cosmic_orange__d7yolstz8cmu_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-17-pro-max",
+      "color": "azul-profundo",
+      "file": "fotos-originais/modelos/iphone-17-pro-max/azul-profundo.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone17_pro_max_deep_blue__frgcd836v866_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-18-pro",
+      "color": "borgonha",
+      "file": "fotos-originais/modelos/iphone-18-pro/borgonha.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone_18_pro_burgundy__mdv9ns7r6oa6_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-18-pro",
+      "color": "azul-claro",
+      "file": "fotos-originais/modelos/iphone-18-pro/azul-claro.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone_18_pro_glacier__f830jkql73iy_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-18-pro",
+      "color": "prateado",
+      "file": "fotos-originais/modelos/iphone-18-pro/prateado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone_18_pro_silver__w26x0ab2ln6a_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-18-pro",
+      "color": "preto",
+      "file": "fotos-originais/modelos/iphone-18-pro/preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone_18_pro_black__f7t3q1k8wfiq_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-18-pro-max",
+      "color": "borgonha",
+      "file": "fotos-originais/modelos/iphone-18-pro-max/borgonha.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone_18_pro_max_burgundy__dcz67l4005oy_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-18-pro-max",
+      "color": "azul-claro",
+      "file": "fotos-originais/modelos/iphone-18-pro-max/azul-claro.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone_18_pro_max_glacier__f6f28qwmryuu_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-18-pro-max",
+      "color": "prateado",
+      "file": "fotos-originais/modelos/iphone-18-pro-max/prateado.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone_18_pro_max_silver__bkvexz4dqd36_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    },
+    {
+      "model": "iphone-18-pro-max",
+      "color": "preto",
+      "file": "fotos-originais/modelos/iphone-18-pro-max/preto.jpg",
+      "url": "https://www.apple.com/v/iphone/compare/am/images/overview/compare_iphone_18_pro_max_black__s6eln189sr2u_large_2x.jpg",
+      "sourcePage": "https://www.apple.com/iphone/compare/",
+      "status": "baixado"
+    }
+  ]
+}

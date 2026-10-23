@@ -26,6 +26,23 @@ fotos-originais/
 
 ## 2. Converta
 
+### Catálogo obtido pela internet
+
+As imagens por modelo e cor podem ser baixadas com:
+
+```bash
+node scripts/baixar-fotos-catalogo.mjs
+```
+
+O importador consulta o comparador da Apple, baixa JPGs em resolução 2x e
+registra as URLs de origem em `fontes-fotos.json`. Arquivos existentes são
+preservados. Inclui os modelos cadastrados de 12 a 18: mini, padrão, Plus,
+Pro, Pro Max, e e Air, conforme as variantes existentes de cada geração.
+O código de cor local `azul-claro` do 18 Pro corresponde a `Glacier` na fonte.
+
+Essas imagens são referências de catálogo e não demonstram o estado de uma
+unidade física. `unidades/ARG-1069/` fica aguardando fotos próprias.
+
 ```bash
 npm run fotos
 ```
@@ -47,4 +64,4 @@ A pasta `fotos-originais/` não vai para o GitHub (fica só no seu computador); 
 ## Dicas de foto
 - Fundo neutro (branco ou cinza), luz difusa de janela, sem flash.
 - Fotografe a unidade real: tela acesa e apagada, traseira, as 4 laterais e close de qualquer marca.
-- Não use imagens oficiais da Apple ou de outros sites: são protegidas por direitos autorais.
+- As imagens de catálogo obtidas da Apple continuam pertencendo aos titulares. O download não concede licença comercial; mantenha o registro de origem em `fontes-fotos.json` e utilize material autorizado na publicação da loja.

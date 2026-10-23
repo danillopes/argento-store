@@ -1,5 +1,1070 @@
 {
- "modelos": {},
+ "modelos": {
+  "iphone-12": {
+   "azul": {
+    "path": "fotos/modelos/iphone-12/azul",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAABwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdMoRwIsAA3nTmN8dEcSe8hgD+7j1uYUs0pUenj2sAfum76e56NKBzJidiS9gCcP91DdZ5Eech0slKpfMEcyw+K+p4c5hZw0HsDdQMOo+I38ouezjIfvpIz7yOcv6htj9gKUanmUsJEe0RpXRWP9N6IYxdWda8ID67jFgAAA=="
+   },
+   "branco": {
+    "path": "fotos/modelos/iphone-12/branco",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAAAwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbAC7MoADR5vV8x+YJJ9iCAAA/vHnWc/Pg3XbnSOfT46+98MAynARbTHao4znQgVlozkmVFK5OHRrA1TQppYVwc/tRtE4at7sPSUTAIh80pJc9leXPwWbiyuCtNEPuIE5CgVugqDSp9Kkn5ehcIAA"
+   },
+   "preto": {
+    "path": "fotos/modelos/iphone-12/preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAAAwBACdASoQABQAPu1iqU2ppaQiMAgBMB2JYwDG9CHu1hKXSzc2WLDq86AA/u49bmFLNIdC9rYxxMl8F0pi5xDkDypCbWg2bay554ATNCftEns78fNv7new4dCLKYnMdiP9cZSE7ZLGJi+3ND4UflcApRxpIOZTOGRmgAAA"
+   },
+   "roxo": {
+    "path": "fotos/modelos/iphone-12/roxo",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JaAC/OCG9ONwU3SNr8xwA/vI1V4QXZ0irzn+rrLswyOI2WPxm8WjjvROaQI2+heY7IDAj4oxdEURwUnbaosenfWhBLejd98Sdr1tqJJpur+0gRb5TJDNfLX98v49IJC3655QnQ+5HiwLBevyQlihNc87YCJ6SLAAAAA=="
+   },
+   "verde": {
+    "path": "fotos/modelos/iphone-12/verde",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAABQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JaAC7MoADUCiU82k6+93TmbYAAP7x+nJLPn0hk4cWpVHGAdy4NKt7IlpcI2SgjGkuvXVEkm9JbLMQOck4InxzjBG2XDaSjDJEMFNRfc/+6e6czki/ZcgvvUulR1o+Z99IBklSF1zvAN/ruRAt0HXMC2mAAA=="
+   },
+   "vermelho": {
+    "path": "fotos/modelos/iphone-12/vermelho",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAACwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdMoMYPYABgCPo18fABLUOM8kAAP7wi9s4IiiF19MtHCOZJ7GK+0Hh21PxqUGn8EdFo5eg832O7YAsbYLLwB9V4oxbKqfgVldttL25iSe/ycVftp+3hTnMBvG8JUDwZXyD5KAkScD/6w4PaTAfp4VEHyaFmyN6pn7WOhK/e8WGHAAAAA=="
+   }
+  },
+  "iphone-12-mini": {
+   "azul": {
+    "path": "fotos/modelos/iphone-12-mini/azul",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAACwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JaACdMoMYA0jZvj2+8Jzf1kor5TgAAP7zbJ/pb0WMtLXRFyXA2q6lqPS/MiikrUPfFQUJ2zvvAEOLq5O4eSkS6Q/Q8wE4ZZL4K/VJljhExwR6sVnAE22/jxDABc1HQ3NacaCkyWq/HfZiqB25CiGCAAA="
+   },
+   "branco": {
+    "path": "fotos/modelos/iphone-12-mini/branco",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAADQAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JagBD/wFh4bjiqe4xSRwA/vNwCaWo4Jfe15IZdYFTOTm5ugJUSxz2WbIyNT6jukcAxcSwY5fX3mZfk/64EHde62obTAkOc6UelIblCzH+iyNjNomcunHXeHaDn8X4aJCUCnnQzhMecAwA"
+   },
+   "preto": {
+    "path": "fotos/modelos/iphone-12-mini/preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBACdASoQABQAPu1kqU2ppaOiMAgBMB2JZQAAW8vOOiUDdFmyjSKfAAD+828n9yQ6wZpBOnEUtZSf0DhxrxeKuxVo7qnnJd7pQGjq3Zw499eq6+9zSZSU/d/NIgM8YRUO8c43bqdh36zfY6Gx4Ts0R0yUCAAA"
+   },
+   "roxo": {
+    "path": "fotos/modelos/iphone-12-mini/roxo",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAAAwBACdASoQABQAPu1iqU2ppaQiMAgBMB2JZAC/OYw63u9L11DxbiyzE8AA/vNv4Q4OVYFS4eme46zlUr9M2x3XS6sTbR5G1MVOptUk2W7bMvnjpne1cEV5uNrt30nJfrA+h8WBDEm3lCG+lPuCZQmHh8MVjzoMIWlLsoW2pFZWWpi8AAA="
+   },
+   "verde": {
+    "path": "fotos/modelos/iphone-12-mini/verde",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAADwAwCdASoQABQAPu1kqU2ppaOiMAgBMB2JZAC7AYwS3tX9swmNyX5AAP7zcAoZJ6DwdX3EudZARJrFgF4eFK4l8cK8KU43tCn0SkdF6YJGMkmGeIP+pnBIaTOhe49cX090bq9iSI4R+F6kSB/oOFxikoTCAm8dsC0/uSIBTwdL/b4v9LAAAA=="
+   },
+   "vermelho": {
+    "path": "fotos/modelos/iphone-12-mini/vermelho",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAABQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdIDZDAcEhET6u82hNy8sAAP7zbePwW7Cu40drQQK7CcbX2Nylr1RWt4ZOmkXOs9C+J/2kPMBcQdx6kNO9swiYVu1os54IhY8sz57ts12Cn4GPzlEQL9zKOLElOY5rtl4IRppIMX+eXKlizM+2gAA="
+   }
+  },
+  "iphone-12-pro": {
+   "azul-pacifico": {
+    "path": "fotos/modelos/iphone-12-pro/azul-pacifico",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAABQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JYwC7IJX/+AsbwXKovlv4sNYAAP7wjASEG0yRG+AWRWwlzR/JoL2AJNALDC/UtMyvyMCUnDk7OBZTTgqwbTx0SkvbSBz5Nej46r2HP1nRVIQebcDskE0+qm2tRdGWEhHXmKblwNAAAA=="
+   },
+   "dourado": {
+    "path": "fotos/modelos/iphone-12-pro/dourado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZQBD/wFjeKUZ+BOx+zEAAP7yNVeExJyfISRGRBSlhDbF3nkYBmZUEFuy06F5aZp2DAFsP+GoZVPO8WUKFCHkB+jJXvT+m3yQLdBOpX+PWaIsmeRTO1vVCpmq4P56ryjV0MAAAAA="
+   },
+   "grafite": {
+    "path": "fotos/modelos/iphone-12-pro/grafite",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAACQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JaQAAXBTEH55iJhmAAP7wi9s4Hv3HsF71iTYBad2Uf7SQ2iwi7OJUy2qDeN/SK1+yWWVTu5Fh2qGfYUuxv/dgF0YZG+Cj4lucuJ+fJc0RJw2s3KRQWcOAAAA="
+   },
+   "prateado": {
+    "path": "fotos/modelos/iphone-12-pro/prateado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAACwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwAAXBXkpC2wQU3SgAD+8jVXhMScnyEkRkQUpYQ2xd55GAZmVBBbstNdGg1kZuS1Z/STQtR2/rju0IFzBsMUE7QXitl8XfOXdngWQ4SgPYuT3oU4p98kNP+BaEAA"
+   }
+  },
+  "iphone-12-pro-max": {
+   "azul-pacifico": {
+    "path": "fotos/modelos/iphone-12-pro-max/azul-pacifico",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAACQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JZQCdMoM3kT+cV8eCFOf6DrzKqoAA/puyOC1H330O7XVp3qnyyQIp6P9EV4i7vzO0QlzRLV0K64Ufy4A1MIX25gVuS1Mhp2WPrRVScgI6rL8x/tqeY+aWGRKKtYK4A0Uz0ZASTdfZoO9mfAAAAA=="
+   },
+   "dourado": {
+    "path": "fotos/modelos/iphone-12-pro-max/dourado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZQCdACLJhE/ev8C4HwAA/uiTf3i48IrdM2Fhp69ZfU3AgKZdyjilCAh4qJk1vyhGee197D5kobkm/vGCGpVIlKQBwPYt/kzKFWvYVrfSW8ICfhqBXueXYZkjnhSlQCQsC3oUIQfRnAAA"
+   },
+   "grafite": {
+    "path": "fotos/modelos/iphone-12-pro-max/grafite",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JaQAAXBXXNJbfPFMHa3AA/puyOC1H330OkypT9x1i8xwgqyzHxHil2QlfWtmfAXKuuVCYhEM4eG64vnyWm36FdxIxi5CySL7dam5+0lHEfRlRVmgHHrTs+AZdJ/gA"
+   },
+   "prateado": {
+    "path": "fotos/modelos/iphone-12-pro-max/prateado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwAD4wIcngC7bZg95vYAAP7ok394uCByk/anGDut0fIRIVJLNP+rXoTWeQc7Ku4Ld5yCbkfOxtlF3z1pS2F36AnL6dswFcRL2nyFiaQjW4g4sDYySSXXzD0QPu+iJlAAAA=="
+   }
+  },
+  "iphone-13": {
+   "azul": {
+    "path": "fotos/modelos/iphone-13/azul",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAABQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdMoAlwBh9HHf9vQo221nAAP7wjASSdM+nz+JZ1WMWu1ps7lJWFCCh8LWZBDunLAteQ7Fx2lPuDknn9v46es5MDyHSeSuvIDZo3GZ8YxDgXkQHM1qFaqEqKqSqe0OQpIXONNlyN7Qi3gVDLLtXYfv3u3RM22VBbbpoLbkXIRLVQTnsHYuRwAA="
+   },
+   "estelar": {
+    "path": "fotos/modelos/iphone-13/estelar",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAABwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbACxC8IIAAwADSQjp2hr3R3HAAD+8jVXeDUMw2K48L207GuT65++pTDZuwm7q2+Q5gb/mEz3GLCzvOiTuwVt0EMc+6f+88JLRmyjgqUO8Dc1aMb/7V6lPbGhWqvNTfLmgcyVEEl3eU5+Wgy3QyV7BvT9Pbx5Xiq9LQLRtVAUAAAA"
+   },
+   "meia-noite": {
+    "path": "fotos/modelos/iphone-13/meia-noite",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAABQBACdASoQABQAPu1iqU2ppaQiMAgBMB2JQBahAfhglbiDG5SiPT7CEo4AAP7uPW5hSzRcBWiaHlxYn7Jn6fknEhogJkQVjI6jbwOOfRNkr2s5sEb23wPQaqkvG+pq9B77V0jbgeYWt7Vu5mKk46wCR2U2Qlng4ytH0XQAAAA="
+   },
+   "rosa": {
+    "path": "fotos/modelos/iphone-13/rosa",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JagAAW4BpIR4egUmyKOAA/vI1V3g1DMNiuPC9tOxrklLgZ5KFNWm8sfPYe5fVaX+eA24q+NNhVbY5PUR/TZ/TpluAtxHrOmMrOzEN0juwbihADNfuPvnYR7JvS7cwG7cgkHxOM//Qt9s8eLSY4tJjoPAAAA=="
+   },
+   "verde": {
+    "path": "fotos/modelos/iphone-13/verde",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JbAC7ACG8Qrcpodv85gAA/u49bXWw5QWmWyN7vssObKWQbjuaqVONr5TkwNBnMidW8dosZja1oXrRAtWxCQrx3vbU3aA/I2qbdJUKxJ9hlJpRl5PzBNXPkvP4Z4BbdgMrZeuRhvAFT1MC/zwRVlVYe3peNBHDBLt0S3boaF+s7qua9tw8f4AAAAA="
+   },
+   "vermelho": {
+    "path": "fotos/modelos/iphone-13/vermelho",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4IKgAAACwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdMoR4PoK8AAwStw5oZOyFwjlgAP7uOt7vGdiGdSRq6pUEpUxr88K9VxJk4ehDr+k8BxErSLl3Nz8gNg/RduBpyPDWdLDVpEJwXrQxkB6+mRw3yt0JR52Vm+qx9qgDgYUbG+R370XuElxtZmfMU7LBRIJviOIkNvP81raVev8W09DeyZ2W5kX6M9AAAAA="
+   }
+  },
+  "iphone-13-mini": {
+   "azul": {
+    "path": "fotos/modelos/iphone-13-mini/azul",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAACwBACdASoQABQAPu1iqU2ppaQiMAgBMB2JagCdMoJYAIHYX+FkNfLUTfp2m1zAAP7zbePjaBrBejzWbq0HI6l9FdJCz/N34T2fGw7gEhQes8K25a5Ew7eyb6FD+l2RUfFVAbrQjMt5LkGpLfIemfxRMvBAFKyo/s5dfYAJbXeDdL7ewk3PBIC51PH5jzv5jzpH5uCO4IrpHf6gAAA="
+   },
+   "estelar": {
+    "path": "fotos/modelos/iphone-13-mini/estelar",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAABQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbAC26HADA2k3tAplLQ+Z2trgAP7zb8Igi2Zi7rGVdZUdwXBZWK5rEbFsFH0OKTf43ejNWQxFf2df8oRdxM3a2gwko9AKTgEI8h81TnLVr2rIbCj5a766rnC+e/ySo78QZUNgZSHeoeA9cR/5qn4/oAA="
+   },
+   "meia-noite": {
+    "path": "fotos/modelos/iphone-13-mini/meia-noite",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JQBdkBshgYTI2KvjY4Oem+AD+828n9ui3hVY3E5XQgPK4TJiswQ+IE2LbKe7y1/90D3AGfl/8TTauXk5yOc6rmZk4oQnV/VPU/QbgZmU8aLNSUYk0S1CTZtqnyNbj8AA="
+   },
+   "rosa": {
+    "path": "fotos/modelos/iphone-13-mini/rosa",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAAAwBACdASoQABQAPu1iqU2ppaQiMAgBMB2JZgDCgYww33HAxdf9KqjV6SAA/vNvwiCLOMngfOmjQZ4TPcO8Vvf6XsEdjrdOefjOu3f759hDDVnmL7fCve6yKkYkSIm3JmxBmR7vHUvJA4eZOPUDn39ytYgMmAzvCuMFjE701Hwptk9AgAA="
+   },
+   "verde": {
+    "path": "fotos/modelos/iphone-13-mini/verde",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAABwBACdASoQABQAPu1iqU2ppaQiMAgBMB2JbADE98Agshf4WD5sLqUGJRhILAD+82yf3S+iFTFwTDjliflJbyFAG9Kwdh6zapwXyV7xv+yEaLjKOHp79sXTHEVS78k2Z9JQ2L70MfbKVZgBmJ1Io9q8Db6aWFxvVxbPoTIXcEIYH61u+32GTr2avLY6rxek0tmuAAAA"
+   },
+   "vermelho": {
+    "path": "fotos/modelos/iphone-13-mini/vermelho",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAADwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbAC7MoMYNcAIHgX+Ey2dcuVwzw9plAAA/vNsn90vohU0hBn05fK7lYDCCCorTMD8U1v+RDk+vNeHExOL52IxG/79b02F3e665LyIrj4oGYG88tBKw++mpV9JpelCC82RQ7bvQvHr+TqVyZFzGjf4QsJD6yAsvrYc73eWpk6fkAAA"
+   }
+  },
+  "iphone-13-pro": {
+   "azul-sierra": {
+    "path": "fotos/modelos/iphone-13-pro/azul-sierra",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAACQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdMoR3AdDRB3Gd5XO6ZAp4uEAA/vBKHi2v9wuBcATqwVtjsCT/h/LJM3meCxeUW49aU3v7l0qNHoGNvAEzEwaN03QzNqCtpfD9xzzxYsk/adYda/El6YnMat4QoLe7fxm8CnSRhcU6oqKw4KMoI/zrNPEJoK/DRDQgAAA="
+   },
+   "dourado": {
+    "path": "fotos/modelos/iphone-13-pro/dourado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAABQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdMoLUABNRJKnGylbrOyb4AP7yNVd5Ok9Iy5OaVnUUr2V/Grc/HFGDbJKImsRR6S9ATsttMPZtzb/nhdXqFQQC1od5aSyiDmDKj2uYxpHEm6+kIgG7rhUjjntn9g9xhxpheNMMiGJB8fjkzcUImtCeYrJ0/g1BzijTHNJvAAAA"
+   },
+   "grafite": {
+    "path": "fotos/modelos/iphone-13-pro/grafite",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JagC+SCHuzeTxOJOmHFxjpAD+7j1tbhJ+lo5fHPWrp9DohejNwRCKGyE+jgPMgoRnNIEx9YLq8RYyh3ngZp72VjBW/7QtEj2Tml/c9m4PDs26FACEof0R38buRLH0VYi0W62gRyz7A5kXH/V4AA=="
+   },
+   "prateado": {
+    "path": "fotos/modelos/iphone-13-pro/prateado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JagDCgB7AkGojQ6TwqmSAAP7yNVeJRLXTzgESQBZezk/TjwfM/hHb70CYczHwtjbc7zFrBSGW6Rf9MY4yCPWyxKJ+w4c24zHB8nEiJ/H5n63UvNB/MCTSrDHdr6wmjXdc9A+P/b7Ci91Cjqw3AY3XtNDkap5GfeQCjdmt1TdpYEOqjYAAAA=="
+   },
+   "verde-alpino": {
+    "path": "fotos/modelos/iphone-13-pro/verde-alpino",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAABwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JaAC7MoADUCiZTtQrZp6byOfMQAD+7j1tbhJ+lo5IyAkoNWQoxHr73FPPwoj5oolvHjLMM/hWD7gm2KrSv1y6gVlFbPTBxirOmSHATzrO0rS9Zw8bdVgLZBig3BKQ9HFCg+Ku4NxPf/H+i1f6K/vj/8gAAA=="
+   }
+  },
+  "iphone-13-pro-max": {
+   "azul-sierra": {
+    "path": "fotos/modelos/iphone-13-pro-max/azul-sierra",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAABwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdMoR4GdAc7R2/qq5TMzX9AAD+2CFqYMl4WP+jrwuslXICUa4pLab+rXqU63ubGGjkPM0p2jQyNha/ZxEljcdH/AksBVJqLFVBmO9r3l77NjaKBQaH064yRO7dZLYn251vUf/74b+LIghb+a0NIenbxOJyrh888fqlj2zXOAAA"
+   },
+   "dourado": {
+    "path": "fotos/modelos/iphone-13-pro-max/dourado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4IKQAAACwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdMoR4OsAKLoVrMxJY7s6tDUOAAP7iV5oIA8JJo/YH8S8j4Vn9dB3EHCL+C+YXIGY93qp88z2E5xG1AfjD5GLS4C2OdV+0Nvi4NxT65pgPsZJUZ1G6Fd477MorqPI1AthuzgFHBM7pMfeh4UYi57EvuhHPj48iXcwCsfNY/dYMiwWf2AWuaTeAAA=="
+   },
+   "grafite": {
+    "path": "fotos/modelos/iphone-13-pro-max/grafite",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAAAwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbADFBwAB0bGmbpRSKewQRQAA/puy+JVHHNTAZURVNDQ3fkQei50a6Da80vg9j7jvlf9GWFHJp4CMDQ4xH3AdTnoRkXGQaCJMl6c8tcABCFclOniMBUMtruIvo+UacvvY3dP1YbgOdnM0H7qeJ1H1mE8ggAAA"
+   },
+   "prateado": {
+    "path": "fotos/modelos/iphone-13-pro-max/prateado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JbAC06B6vY+8Rub/HP5AA/uHwaptVq2QB+XKJ3bGRrts9BegHrsdO/9DWiyN5FZf3lPgEefTpL3yAyeeKylZJrbqzQw4ncspFe2iOBvlyJSw3CJr47JI5vTkuX5jTlbilsHfSSkG2U9eJcHbfiWaILJVqKeSxIW7s3T0dQCZW29ahw7T4e+TmBuwN0AAA"
+   },
+   "verde-alpino": {
+    "path": "fotos/modelos/iphone-13-pro-max/verde-alpino",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JaAC7MoADTqzvqnjbByvwAP6bsviVRxzUwFnnZ03L43qX+KQLlpCEFApIZR5GwvWi9r6ipv6HcpWzjluWTAWMsr0huwWSnWtWWa7qwC52EqSyzuAfE7uaa1uny549p5IwWHJjNBQ0LeXfj/Rj8u3EF6f/kAAA"
+   }
+  },
+  "iphone-14": {
+   "amarelo": {
+    "path": "fotos/modelos/iphone-14/amarelo",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRrYAAABXRUJQVlA4IKoAAABQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdGaAEECL8OHJuaw+7/5A4AP7wQePWLLLwkvHIG9V9xOL68oxXgIdUNjbbr2gvAWZuTbf/I8XnD4EUD4y6xNFx5j/GDk6k8IFaTmflegt4/Fl9Z+um8iw3CLaLPAQX0SDQNHuPyDj+gR1ZgOg9dZ/7n9a7p+SAPyFiGkIrwJZypFT43QMqeLJNT2HzEuAAAA=="
+   },
+   "azul": {
+    "path": "fotos/modelos/iphone-14/azul",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAACQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JYgCdMoAlwxh8LFJy4HD/nbmFFAAA/vBKJ9mFvfJvGdRiVRUrTE/6KMzjm8vWGBupyTKJnUbRKRwHOHExAAV3DiIOe05S5i3WNos/qekixV/gX/EeyA/+HGnivSo5dahEWDE4HwGaAxewYfrpcY7zCE4N8/OcBs4WKIGitF9Cs9kIQAA="
+   },
+   "estelar": {
+    "path": "fotos/modelos/iphone-14/estelar",
+    "w": [
+     360
+    ],
+    "ratio": 1.321,
+    "blur": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAAAwBACdASoQABUAPu1iqU2ppaOiMAgBMB2JbAAAUw0yBMhDS9rUM/s/egAA/mfa/POdQz6v8df9/u8i5t7rb+l/MmFWaa/tZ3V+LRgwCp2lRAZ012GI1JN1Rt774C62OSeDLIA30e82fp7whUpR8wO23r4VR/LmCat3xv4gb+8/+nAflp9fB492b6VXDPd+X7aCXt4wCAA="
+   },
+   "meia-noite": {
+    "path": "fotos/modelos/iphone-14/meia-noite",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JQBfJMYdcJngBXSSMtv6WAAD+647W29nGZpO5WI/R+IyI+nbt4hcVuPjPlZG08ttTKnNKmUzLSqjBwVNNCEzabQeVMGuFI6MLIRZue/3gp+VG36RgK+YdaesCLndTCB/ApbqFf3jP/J6844+v30JRQgOfK7YKWAAAAA=="
+   },
+   "roxo": {
+    "path": "fotos/modelos/iphone-14/roxo",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZgAD5OIOlUOPTEpdFJaAAP7wQeJMcYlqKIWPA2Znl0z6C8ibiFgfXs8GzcDoYjCuXiZhjgI1CXh0e89IAuSZazjy3rc5Sx2aaA4N0xlf5huFCfWmWRk+lj6WZARhJBTt8tFNNa5ci0mzyrn8gCdGl81F6x9ecNkAAA=="
+   },
+   "vermelho": {
+    "path": "fotos/modelos/iphone-14/vermelho",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRsIAAABXRUJQVlA4ILYAAABQBQCdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdMoMYNcBfgGswbyqBlQ27P3gyHebBgKgA/u49bXWxj4+C6BmGPRdJSKzxw/UQFKsGPvp1U9slJR8M7/k64mbQZZ/4YNf3MVDxVCEV56iJ3KIIv/mZWTTClWEpTT4u+fNtsBHw1mXMe2affWwbqyPW1FJW7nA00B94R2oMz0QNVlpgSIAkR2BKL/7b0e9UeH0reBIFOxdSzwAAAA=="
+   }
+  },
+  "iphone-14-plus": {
+   "amarelo": {
+    "path": "fotos/modelos/iphone-14-plus/amarelo",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRr4AAABXRUJQVlA4ILIAAAAwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdMoAlsxlucmxofEEG14AA/uJWIhtuVws+fQEC+jokIJ8SHqRlKEJpq/72n8VE6h5pCD+Sb1pgcdHwi0wrA3d7awY1mmft1/WWgOXOQb8v65z4/2xlqjnf9TzdqVX+RJtakBXUcc18b80wwDBFsYmADi+TzIitY2Z6buuCt+lLsqzMebsx+BEeh0bSyGE4Q4IbmRHQAAAA"
+   },
+   "azul": {
+    "path": "fotos/modelos/iphone-14-plus/azul",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4IKQAAAAwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JZACdAYxYudt5TSJ2ANLLqXAA/thSvX3SGdb5ZS5SePR9bfQBd7zY50zyV+LcAsFhUITK1eZMyFpp9uOvEO6B2OerO961Q/2Sp3YZX+UtbP8xhdpGInbHWE4VjeS49Vm7YqT1fNMR4PdI8ptSFFNkbChl27ow4dvJu8X+vD2YTey5TPqkVHSADwAAAA=="
+   },
+   "estelar": {
+    "path": "fotos/modelos/iphone-14-plus/estelar",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAAAwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JbAC/OYvMyT2SF0KN6tq2RoAA/uiTjwx5SalJ8xEXe0gA67D+tUcNIR5rjeXrt99m46tcBVK+2m9zux+K5nwhDrT/hAh2SDaCCnnv3L5ZjzzebhsZg0dfKotKDR2q4jbXsPVn5UyvKnH6xFGEyye/NXZ63Pslh6u8mMJG99Vbexe1veAAAA=="
+   },
+   "meia-noite": {
+    "path": "fotos/modelos/iphone-14-plus/meia-noite",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JYgC2yYuGu6EqNo6wMKf0AP4LVHi1/gwrDwIoyVk1wilYZQT3sHbgU+hYXl/z3mseuKqpp8NNp0bAC9n5qVKjEuzxnBVKafBgguR676odj1TvzF9wzrVKlYeJEx6nyHD9v2JxiILw7+LXtVfao5por4fMOrgAAAA="
+   },
+   "roxo": {
+    "path": "fotos/modelos/iphone-14-plus/roxo",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JagC06YuQ39Sk+6XVKN5lXAD+4lYiAexjv7HygMBZVpO3BpGvfKoQXFux6VA97mih7ICSofuUg7j0VEa856S93WCB6ZQBycJZl/lWqO+SaG9Z89frCpjRRtvS6n5WiR6fC3eZgwV1yL9wRgkzNXL9QZKOSvBxOjKdXWEpARKQjYAA"
+   },
+   "vermelho": {
+    "path": "fotos/modelos/iphone-14-plus/vermelho",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRsoAAABXRUJQVlA4IL4AAAAwBQCdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdMoMYPYCOAB6Hz05ldIAdrhWmbIWZQAD+m/L8K3UGwCy7bLpCzmEcr80nn2S8Mfdl1DttH3TWvdNjKQSNj5cnVUnfzN/DTPaVM5Z4BYmTmj907l4K5UL1ZeNnfYRyTbXwX6he22/5WlK3yME8/KFaB/3xcfeeTO0b+O0c/VB7g+ohu43bGgGMUBC052m0eC8urY9HdN/DgHw4ShlYceYAAAAA"
+   }
+  },
+  "iphone-14-pro": {
+   "dourado": {
+    "path": "fotos/modelos/iphone-14-pro/dourado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JZgCdMoADSuV9T8z3481mOAD+8EHtkKDvYtYJv1b14bewMc66BT0xmYT8xYCW2qiszY6E7wr0r2IFn6P2vhBetR1uV1KjRtiyPEactfxksXKO8x0Yx9p7q4vHPnHpRXSDPAOvzZ+4JcAK6rBI0pW4qWa8J4RmKZtLgAAA"
+   },
+   "prateado": {
+    "path": "fotos/modelos/iphone-14-pro/prateado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JYgDE2CGHg9IVC/wuc4AA/vI1V35rpl4Ojt+revDb1yPuuGpH2WrNAG7gn1jRAvNlOZy0Xw85SfUuDidRIsMbEsVMPn3TYBz+Nb5mDf2iSPPq9tWLv3t1bA4mAPuxZGdyGSsLayB0tKAA"
+   },
+   "preto-espacial": {
+    "path": "fotos/modelos/iphone-14-pro/preto-espacial",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAACwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZQAAXedTLD8pt8t/wAD+65AtXTC2wGtLrbe1BWJShBTzEQX8YW/4IFXyXhRePeo+6znuIOdxMH1zaf6jWrZSzjT3zO905lse49RXT577a1iFaZj5l6r9+mVAzRGO+tUrXKVBFfBVwAAA"
+   },
+   "roxo-profundo": {
+    "path": "fotos/modelos/iphone-14-pro/roxo-profundo",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JQBgbhFIou3CaNxSog00AAP7rjtXYwNY9W2bwQB6SDeORlYB43NPurPI1/n394neD1r5pd09C+HoTeApbZXOEc0/C2CKkHLFuRBqZBXOiMKj73usytkyMgf7QuHIaicwjb8g5YoMv4usQkJmAAA=="
+   }
+  },
+  "iphone-14-pro-max": {
+   "dourado": {
+    "path": "fotos/modelos/iphone-14-pro-max/dourado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JaACdACIe3pnGIGGGuQ+AAP7YIWph8RGfy4qw3jJckOJe8N/tV4OnI/y/fjtQCUmRrzpuTk9vZNdW6R9dGwA5a+tmvTROncMc7XI5ylf5Yt7i8mWiUJVZGEjCNhiS3IzhNZvu3E9NR6tmwAsg1h6MywIpieMwpC5ZQtA1hYAAAA=="
+   },
+   "prateado": {
+    "path": "fotos/modelos/iphone-14-pro-max/prateado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZAC7ACG1bNdAlV3B5CAA/uJXmggD9nUs0eqK6+IsJxqEhpPpaZv3rXL6ld1qHcEsS8UPyzN6of2tuTIOmp59LX1sn3FsHljrI7Vp2uAREibhc2pTe1hMabKhfpwwn00Tpo5082CdC/uYMu6apU7NhLnFbPb5AQAAAA=="
+   },
+   "preto-espacial": {
+    "path": "fotos/modelos/iphone-14-pro-max/preto-espacial",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAAAwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JYwDLLdwA2Qd2n0Hjv9vHGgAA/QDNRkoIG9ISp9bQI1gnjf7RRgK5lWfB2vWe4Xp88Geofag2uZUxJsCK6r784BzDWcPwTUk2qFZecjUfyW87rl2S1e1opfjHQ7xf1xkgY1LjnAbR6N2kAAA="
+   },
+   "roxo-profundo": {
+    "path": "fotos/modelos/iphone-14-pro-max/roxo-profundo",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZAC7ABk+GhuBDB4Jja8AAP5swDd4AHfCfpx1fjAujVJZUqrcUQCmFK0wlGYztUMSfNSOS0cK2V2U3rXSSQFNH/9Y0WxdsYkxB4TlA7wVbjnibmr4IHid5dp3Lqa4O8R71Dpe4szBWjxVwoa/zEHNEY1uwAAA"
+   }
+  },
+  "iphone-15": {
+   "amarelo": {
+    "path": "fotos/modelos/iphone-15/amarelo",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAABwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JaAC7MoAlvBh50l3zv6m/iw1yAAD+8EHjX3YzY4uwQbfV0ncZ81rekdXlATzoNPjXHQk8BmezYQ/WriquT3wvN5z7cMQQRySPAkMnw7qJ5+9DHOFQtWvC4vfQPmQ32HSqeIo7w/PQHwAA"
+   },
+   "azul": {
+    "path": "fotos/modelos/iphone-15/azul",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JQBhQMYJY05Mw9xjtlcfPeAD+8EHibfdicnZtK1U1ZEHrLTm9DZBnUeR4U2EFSR4GhS+Rl5S0B+eLUoPlVrphHSyvVsCN5IjAzM4Lly6dQt7L+A8uCw7z1hd8lvrsMMGnmtFMtaU/lMAA"
+   },
+   "preto": {
+    "path": "fotos/modelos/iphone-15/preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JaQAAXfRxWMYJtI6aXdgA/uuxFztgGMfjkzf32SWTPZs1P8gm7fXn5vqmB93ko3/1s2ESM/UE3TNphZXvsYpFAKShkxuqyVrcyDNlm4fapfdsAxnqb3fzESimmQ7Yg67D79uKAAA="
+   },
+   "rosa": {
+    "path": "fotos/modelos/iphone-15/rosa",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAAAwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JYgDCgYx2xm5jAYMuraEG1YAA/vBB47Y2RLLODasDho+iiQ9yZxghwkKOhuNjR/iA++KuMntKypYzOZc8BW/oCml/5JgoXD26pn94AgwuQUaEOL1P7YmNOv7DEI+npuJRwG8kDmuqgzAZiq8AAA=="
+   },
+   "verde": {
+    "path": "fotos/modelos/iphone-15/verde",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAABQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JYgC7AYwS5DYNoQVy6N6cmhlgAP7wSh2+ZWp4Y2+xHZVTgrFFzcVJAD+KwXTtD/V0/540CXlff0uzBMODz0w6/seM6q7jxe6FtXuZtGgBC1zl3iIomP6nAuKv+75QBimm+uh96QjOJd5kwAA="
+   }
+  },
+  "iphone-15-plus": {
+   "amarelo": {
+    "path": "fotos/modelos/iphone-15-plus/amarelo",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAAAwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JZgCdMoAlsxl9jnto3Op9tAAA/uiTf3i4SdefPpaakn5vbWU2kdRxw3VxQl2SeJY1DOJfmIImLFx3ueIQwd+ExGkAw20z8iWkxgDOjIccVXGQMNAz9BbSJPrYyfYiuoqXypag0/q8KjYdigwaUFVV3WxfkAAA"
+   },
+   "azul": {
+    "path": "fotos/modelos/iphone-15-plus/azul",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JQBAADJw3bPxRuo33ksZ6UAD+4lX5sexbX/5vTgEKtxeKqyYU/pk1AHZgRvtUZOguIeesAvYfiFC8P91hmdZJ4mzcPMHVXiHUuSOqfMtzK/r414XeYoj5NGCaNYsIumBdZMTxIo4vreBEVa0wAA=="
+   },
+   "preto": {
+    "path": "fotos/modelos/iphone-15-plus/preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JaQAD5LH2zWVGe84CH4AA/graXJwjsUCpJkoZinXx/scUp654blTlyRiWtxNeoLPG+k6kVl9ITQrEZHOuhM2VIzfD6OESwIbQC7Pf9pvB1scodmzdTR7b2dl3CvREhx07ADC8txQAAA=="
+   },
+   "rosa": {
+    "path": "fotos/modelos/iphone-15-plus/rosa",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JZAC/OYww7euPY2YUx2UH4AD+4lYiGosuP9Ul4vwnS+2sse434oat0IoB4jArUlkgdP7N2XFL3hoY3/22KrXrXZJ/cQeUzaHKX3R1mH7hIqDGa9ykRNBvTt76pREpzrC/ipyZmeTB04QjwIC4Qt4UIAA="
+   },
+   "verde": {
+    "path": "fotos/modelos/iphone-15-plus/verde",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JQBadMYEdvP+WmBCTlrEX0AD+4lYiGobrG9RrGeoHJ+n/umZ8rAjktj6HOiFEC4i8TrMskk1Bhl5Yk6jyvhVAKcB03aFKyjwPA5pb84P/k8DsIiDU1rh6LeYKpFE1QExVaR55BwVEU3ua6AlIAA=="
+   }
+  },
+  "iphone-15-pro": {
+   "titanio-azul": {
+    "path": "fotos/modelos/iphone-15-pro/titanio-azul",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwAAXBP9QNHvk27c58LAAP7uPW11sKfoEZDnt0OMvlfc+Ap5Ewu6aGULzAnsQpRqBILGZ1VW0vsBzSJWcxxpAjaMbhpnTbhnIhLnU71X0epW20lyENpU17YuiVyV/oKoroyJKi9MIAAA"
+   },
+   "titanio-branco": {
+    "path": "fotos/modelos/iphone-15-pro/titanio-branco",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAACwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JaQAAW/3UbcMgTYnaAAD+8jVXeDU4xUaF0qqgfMI+faGifWWwic9oyic+HALZ9XKBOu1gHvE6aEJS+LCtclyAeO2V2Y7xLVEYPti447Zkw7zI7lPL5Y+VttzJkeiv1VstBLGomICAAA=="
+   },
+   "titanio-natural": {
+    "path": "fotos/modelos/iphone-15-pro/titanio-natural",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwDE2CHc2O11hAuXagtiAP7wQe2leITawYn8rOxBXSKjJOPgjYofD1rDlld1enGhci34tYqPPNcYwHLI3RhYUy1CE9brzgpIZR9kVCQaoFQv8Ozm+c0pCG0rQcAOZBZ3DK/Mxv70CyHKab+0AAAA"
+   },
+   "titanio-preto": {
+    "path": "fotos/modelos/iphone-15-pro/titanio-preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JaQAAW+gDKkCnTWt8l3gA/u49bXWwp+gZlTlUXLWlzUiPgKezeJFxAXLXmBFytZ3aC9iGa06/iouChhffqXMz8iPyf6Vi9pcbzlCYkLG2iz1qckeuVg4BYujquiA56WlEpQAA"
+   }
+  },
+  "iphone-15-pro-max": {
+   "titanio-azul": {
+    "path": "fotos/modelos/iphone-15-pro-max/titanio-azul",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAABQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JZwC/OCHpVT5rrj1cgqFJ2uaMAPz+ESG264/CZTkPnkj83mvURC52Fv7YQr+v+zT0do5z/NLR7q500PWyLW6jnBp5Q0pqiCI8qSA1J+u6qIfL1S+9AzRrFej5TWOiwr2S6px0Gg6L4AAA"
+   },
+   "titanio-branco": {
+    "path": "fotos/modelos/iphone-15-pro-max/titanio-branco",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JaQAAUvyRq6tGFtnfLtdgAP7h8GrR9u42ibW4I6uA8iv3hwUQ9ZKBf8WbZ8OBUs41Ysphy0It7siu74rdrgsfWzZP1t0F1nbb9f9Pdlx++jJ0cmoCw8xJxGYF7T5lc3Y8Ruw16B5sy91UKC23Ycp/gAA="
+   },
+   "titanio-natural": {
+    "path": "fotos/modelos/iphone-15-pro-max/titanio-natural",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JZwDKACPuBR2aToH5FreLwAD+yj0Imtn/iK4OaL57uAd1WhZDQGuYOXnoQ7n2SM22J8++BMURgommFUQzA0gN5REBNFsRhOds8LlmjzKQXNDytssFn7dRnSnJIq0573unrucUZwYvIWJIYAAAAA=="
+   },
+   "titanio-preto": {
+    "path": "fotos/modelos/iphone-15-pro-max/titanio-preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAAAwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JaQAAXAY4KW7sG2XpEH5bOgAA/P4RIbbrj8JlRmugB58JnkmYGH9y06smDVADO3d/tdn5UUfz/rvi7WDtUkD2cG6wOHyQaXNIcgQXh0nJRtyFP/v8GsX9cxJyZyvoVgAAAA=="
+   }
+  },
+  "iphone-16": {
+   "branco": {
+    "path": "fotos/modelos/iphone-16/branco",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAACQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwAAW2yQz/iM0DwAAP7x/ehSkG/iVZfTlxSbJYBP9OSZj0zMKakk63HL6gjJMtHoSMhjOsPi0LNcYYGUsn75qgGJJAv8rnSpJdEb5evSuXi19Mf5CjFa2IXA/et5NzyVUch2Kv8EAtmNQAA="
+   },
+   "preto": {
+    "path": "fotos/modelos/iphone-16/preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwAAW+bZRTKZSnsKXYAA/uuO1b0YXrBimjQir1k+rVXY/T+bk9XkaTk/Hta3n7MtaYHKIzYTYBYSGA8307WWp3nj2MZZxp723ycehvGcSJaVbKrxCV9vGtj29vEPgN05oT/hAAA="
+   },
+   "rosa": {
+    "path": "fotos/modelos/iphone-16/rosa",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAABQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JaACsDiJQKVr3GM6G+75k8+VAAP7wSiOJkccbaeIk8TPnYllII4XgEdaUuBvLcITXGMu+9zpQLo5FaO7saJtG5oNoc617q60+ajFp4c7l85GpPkctkVgQaLMZj05+GML9xTNuHFxCZiGz3Jj2Ry9lAAtWg1SdL44FpyognEiVQBoWK5/KCnN0AAA="
+   },
+   "ultramarino": {
+    "path": "fotos/modelos/iphone-16/ultramarino",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAABQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JagCdMoFWwAUrXkGEtkHZ+PFAAP7wSiOMRYk3EXhV0fz+H7aN+wYll3rhEHovzjB28BVLY/Po8oLGz/vMZKR9WIE5Oz/zF3ZKueB0yvuC0V95uO9QljquaZEV3qjXA5eVjQ3SxdmLETg4mZa2s9hcbr38Q+841pcAgzFFcsMxuEuSA0Id65kDo8A58AAA"
+   },
+   "verde-acinzentado": {
+    "path": "fotos/modelos/iphone-16/verde-acinzentado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAAAwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JagC7MoADUCOdz0+8SxjjTQAA/vBKI4mRxxtp4iTxM+diXO4OhsRqRa+rxVl7DnKSvUqN7J6Dk9K9+f/p1d67ECE1BHRtVufWUCeQ8PUXhpOrWuHsoWb35PLmneN5xOKRk3b2QTsn+cvmfbxbqzLH0TwtAqXKi+gmZI7JJdLVDF1MBMH11AAA"
+   }
+  },
+  "iphone-16-plus": {
+   "branco": {
+    "path": "fotos/modelos/iphone-16-plus/branco",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwAAYXi+1Tdq+XT6NYAA/ugAMx4Bk3x9tUqWXLF1e9Pj71wf9RUOO/LbPxeXKIPyCTbjVXUOn6hC+Y82oy6m6SiUAOKGdDw9utNOqDs9FMr72AicriBXiZ+H5GjqFsBsNnrcBsno9oE+cIAAAA=="
+   },
+   "preto": {
+    "path": "fotos/modelos/iphone-16-plus/preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwAAXAYocXPo1P39jQAA/P4RIdSAO4sEyV9+g6WKJ1wT5LQhGkF2pupQPcuo4Enk2DlAUEoRA1LPd9Tbh0MC4xVjGWr5iKOcZwEIasAFmGi+un0NwST+9zC+SMzjYH8CAA=="
+   },
+   "rosa": {
+    "path": "fotos/modelos/iphone-16-plus/rosa",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JaACdABwxRLTR/+vrCmSQAP7JgibSA792SXNszXfSH0FowcIg8+v7l40rAJLPbtZj4qNxUzcG0yrWao2THpW0UQ9JAPd4WJnB8fiNRHHa45YyOPnjK1Gx95pjOq5kb8dWhGLfvHXpW1sN/xVf2Fl0E4cvWkA61IKf54wkUY3zYSQYAAA="
+   },
+   "ultramarino": {
+    "path": "fotos/modelos/iphone-16-plus/ultramarino",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAABwBACdASoQABQAPu1iqU2ppaOiMAgBMB2JagCdMoAC/yeYomyMi+FZ+A1uAAD+t7b/K9qKFU1j90HpHE89vG+a5ht4J8rVp1smG5uDOxL2LvLStL+N/IROCDSC/i4ON1JC/h9lTLpvLWk841r6O1NMjZREIdMKz8lLj9QIw//6pxZBI64olO6X3rrL8W/lALZK/08lK+bThgUSgVcCfgWAAAA="
+   },
+   "verde-acinzentado": {
+    "path": "fotos/modelos/iphone-16-plus/verde-acinzentado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JbACw7CHpa5uy2m4jFnMAAP7JgibSA791o7kRSRn0CD6MdL449gnykGKk6lVe649EWnT2FDYsjp1bLBEIvWaI7q2b1xltu3MaH8LnI25HqXxgw7Kl43zylktz2ACj2YmSfEUO09ZtMfrFV6B/GAWZlxfBhN9EitMbdvKBbyX+IIRG+YYAAA=="
+   }
+  },
+  "iphone-16-pro": {
+   "titanio-branco": {
+    "path": "fotos/modelos/iphone-16-pro/titanio-branco",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAAAwBACdASoQABQAPu1iqU2ppaQiMAgBMB2JZQDImCHu5SRdV2JZbpSNpQAA/vI1V35rpl63IxHTpgUrM38xiuXc/1Nc/I1D+2B1s6GJsl0RyhS+YtsXMObIC8lOmGgZWVhk25tRMreBP1/RcqtVLunV/tiRxzmj1TWhYGZt3HkWQMAA"
+   },
+   "titanio-deserto": {
+    "path": "fotos/modelos/iphone-16-pro/titanio-deserto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAADwAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JZQAAXBQV0GOYMBeifEPQAP7wQe2HTi1//bosUIE1/EP17N+VNVaMtWrnx/bA1FD2w06TXRcR/EVpTHMwuObjHUb/LZlPmpiNzMNM6y/Pwl5xoFpBAV1NzcHVq1nLaoomGlotyDJjAAAA"
+   },
+   "titanio-natural": {
+    "path": "fotos/modelos/iphone-16-pro/titanio-natural",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwAAXBQV2bywZihxGy4AAP7wQe2HTi1//bosUIE1/EP19O/QMNlZn3zxD+2BqKHtd+q2i5Xn1PgnuBYs7fWh/6ogRj2fD89qKsKsuwnJOHivSc+jpP+Xmrbu+u/y+BsbQVqI4JK8cOkrzQAAAA=="
+   },
+   "titanio-preto": {
+    "path": "fotos/modelos/iphone-16-pro/titanio-preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JZQAAXfRxUh84Bvo7Sd/HAAD+65ApQ2xLgIm0xtPrKVmb+Yxu2J/dm47BwkT87KzXak99uJtsrKIS+P0h+q9S/md5eKTYmGr+/kBpRjO7KDCwAxNECCos9erpr6xTPzZhkmyaOVTkAA=="
+   }
+  },
+  "iphone-16-pro-max": {
+   "titanio-branco": {
+    "path": "fotos/modelos/iphone-16-pro-max/titanio-branco",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZQAD5MmUkpujaJ4bqPu8AP7h8GVGuBZX6xiR78qJoyGJzli0zG0ot2ObfqRQkMfsRwDlKm0Z2AF5t0ptnG5SdLkbrDy/Os2qvoxjlXxtQdNlnkOdsjVo+/JBNiMPmevQJzx5Ib7Z/NGQAAA="
+   },
+   "titanio-deserto": {
+    "path": "fotos/modelos/iphone-16-pro-max/titanio-deserto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAAAQBACdASoQABQAPu1iqU2ppaQiMAgBMB2JZQC7ACLZyc0T0ovnHVSQ9AD+15nMHMCdxHQD1s8PfCDHSzYAIc4DVmGxyBOvq9LNhnsHWslYcjQjZh7THUky4eaVkrOz8ZnBpo2fnFiZsdjxoceCwp9OlKNj4CtSXxfNyegSRneG0vTuYcAAAA=="
+   },
+   "titanio-natural": {
+    "path": "fotos/modelos/iphone-16-pro-max/titanio-natural",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAABQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JZwDE33gAnsalpyi9xgMfFVUAAP7XmcwcwJ3EW99uX6NdONyID41VNoUfx4TEogej+eXaLe624Fhckf1+VzMHoe+jIh8RZPSpjc2vESRA4cuSlpo7Oa28V3qxvuNxev0BHnKkAuZ9D9W3HAAAAA=="
+   },
+   "titanio-preto": {
+    "path": "fotos/modelos/iphone-16-pro-max/titanio-preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZQAAXAW9m+JwrTyFlmAA+WoILTV4eJrd3eawDX5TFajmlB/e+ku6KWaXeGYSrzbAF9gA8AGRSh2Z8hy70GUVYq2bjvDPgm28+ms+7lQY0rt0rpQiWTI0gUWqZpwsh9DnQAAA"
+   }
+  },
+  "iphone-16e": {
+   "branco": {
+    "path": "fotos/modelos/iphone-16e/branco",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZQAAW2yzTMPYJAtrgAAA/vHR1CCcTGPoxCjCOSDoftw2VtM2z3v5dOQJEa+/cu3xXPS9BFmiV/kyDoqzfHqgS3ATRiVG6z3fS9apRXUSrPhgEvBtYCNQhsGOp0zAyDAZ8wAA"
+   },
+   "preto": {
+    "path": "fotos/modelos/iphone-16e/preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZQAAW4dB8a++KDhpvOCAAP7t7jKJi2VuoayvkrzokuIP9mJnAcdMDt3ix6or74WPoMKRDdGmyAshELViyeslxXZqe1fw3JTpFOKnoNi2RpPDWq6z5m9vx9CNh1JdMSAIAA=="
+   }
+  },
+  "iphone-17": {
+   "azul-nevoa": {
+    "path": "fotos/modelos/iphone-17/azul-nevoa",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JYgCdACKPh1HQzqJSrMAA/vBKVj1wQi5d+ZhcGdmDs/Tzgrbo5TE9ojL0qcVKq5U4n9SqbehdIuGxWZDBpopIK/WsByTViUdepZka+Lu5tkHCr1iv82vh20MWkB5ZF+w6IYgdAz8F/SBClIAAAA=="
+   },
+   "branco": {
+    "path": "fotos/modelos/iphone-17/branco",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwAAUYKWnEOvaJzaSyAA/vBB7aikaiJmjbNzL4x0kG8cccmMZ8qjTzv2hcbAlYzDLNVqOzLPoayk58rbYB+4xXLeTLkj5vYQZhg9NmHvs4HS2FIAAA=="
+   },
+   "lavanda": {
+    "path": "fotos/modelos/iphone-17/lavanda",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JYwDCgB4aw29gAn0kgWJ3AAD+8Eojir20jg522S2DXDSQbMfndtx7MzCXylz/9zRqiTqbwy5dIYQWpN4q54RWelPxmm3caCk6+Pxs5dhJlhXSIqqUpcXrsnTkrrAA"
+   },
+   "preto": {
+    "path": "fotos/modelos/iphone-17/preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAADQAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JZwDMHCKUas3oT/Gd9aAA/uuQKUNsZBkxtVQ812F1m7MR7t986WnEBobUGzQfsxqDpEgCqV9YuZow2jY3FTg3AMI2g+nEHwNS4eUf0YG/CoqsXm23nhHl4Tauhw6isovlVNbwgAA="
+   },
+   "salvia": {
+    "path": "fotos/modelos/iphone-17/salvia",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAACwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JQBadBFImYFYiwbdwQAD+7eukohy6gQTLa+Qi7w3A2HrMtVhT+rlsuOJlKWnrqRmJyN3Ikt77AU3QZnOiDb6OoDgEpIH0V1hRiMjdBxLjlBBN1j7uGvTt4A4qLVUS+cv1gI4lhlQHuSBHGBgUsAAA"
+   }
+  },
+  "iphone-17-pro": {
+   "azul-profundo": {
+    "path": "fotos/modelos/iphone-17-pro/azul-profundo",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAACQAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JZQAAXBMdsf6A7SnwAP7rjtW0BBCV5yGeop2itH1MGunKNlMbD3SB8IBusEK9C9jq1dAT6NfRhNqi7nBWT2fp5c1MX9nA/8OP42bxxBSQcNidBrABChW8BAAAAA=="
+   },
+   "laranja-cosmico": {
+    "path": "fotos/modelos/iphone-17-pro/laranja-cosmico",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JagCdMoADTDsEBUPD8YAA/vBKI4kMSa8oYxGO/jOrUQj/i1PV9/F5LQjblkTKuSCitSh6MZraiQ/eQNttDHUyv6BHzIDucuahG+4WkcZXi/aiECMqWO6UahSb+SrOwp2hUppU0H84ZRe9yAQROSd2pEINAAAA"
+   },
+   "prateado": {
+    "path": "fotos/modelos/iphone-17-pro/prateado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwDDNCHu5WxiQFQ8PjQA/vBB7YdOUfttPMR9/BBosgjPJz7WBo/9hK3ZhYwl5Uo7zqXeYuV8kTtRNLRAEuTmrxWlngpNRDUQO5Np9WPY+MDHzf7UZa/R2hUppU0HsaBeffgTrXJwAA=="
+   }
+  },
+  "iphone-17-pro-max": {
+   "azul-profundo": {
+    "path": "fotos/modelos/iphone-17-pro-max/azul-profundo",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAACwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwAAW+kD8T7awOLgAAD+bFVCstA4q+X/V6fCMu+3uN594TopG0xYO/m7f3POmTkMvsJKp6zTfBNnOg0TkMfVbjerfwxB0v/prs+2QlTz/nLvCjOkGaIXAAQgAA=="
+   },
+   "laranja-cosmico": {
+    "path": "fotos/modelos/iphone-17-pro-max/laranja-cosmico",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAAAQBACdASoQABQAPu1iqU2ppaQiMAgBMB2JagCdMoADTs9/+9IOLdKe4AD+yj0IhzAUbPIhfoz2xFSW0Sv2B+lg45zW1YXZvl0ajsAgIZI3ucq4EW9Eoxnv2vrtIpCOlPQ0TpqbZSx15GxPcCBxgngJMY8/8bBtVEbKxc8bBhrPdBtnywZRPEHcBzgAAA=="
+   },
+   "prateado": {
+    "path": "fotos/modelos/iphone-17-pro-max/prateado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwDDNCHpT80/KLtkRHAA/uHwapjxzXj6VYcvHnkbN9JbQZ3JUs3RmMf3uNKQHWtyJ/vIC7Lt6Kfxw2Y0q/sp+M+xB1twl4Oha3TLEJAI4JfgTXjU+tP/YXxb5zO5sNOXr9YezF/oqGgA"
+   }
+  },
+  "iphone-17e": {
+   "branco": {
+    "path": "fotos/modelos/iphone-17e/branco",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAACQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwAAWyZEnFI3TbzgAP7x0dQgnEx9qGFzCOvDf4A8z92mbYbcgQxBr8QXLt69l46BmabZIN12L2ll6pKyuNfjAKqgXZNipPEQNZN+IKFy1wAA"
+   },
+   "preto": {
+    "path": "fotos/modelos/iphone-17e/preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADQAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JYwDKACHe7uCecOdPigAA/u3uMnG40Dd80sV0FjR90UJM9r7/fUnwwLZG26fAV2o82MiIZj0XtGE7t8xMgMr+uBXB05U1VPtcCpEYE/fvDpCwdefQjYb2+KIpdVzS4AA="
+   },
+   "rosa-suave": {
+    "path": "fotos/modelos/iphone-17e/rosa-suave",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZAC7ACGzeUMkvQc4dgAA/vHR1CCcTH1ra0xiVYFtmbPxr1R4UzsE2Bpk2A0D8dIYYrD25bhhGdvkQ8L42AXSfsv0tfNAPLEfS46rjxrCyTe/zK4RY4EUpwpCbeUkxQAAAA=="
+   }
+  },
+  "iphone-18-pro": {
+   "azul-claro": {
+    "path": "fotos/modelos/iphone-18-pro/azul-claro",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwC7BJZgakhFc4DgKYswAP7wQe2oKysk7N3ayGnKNCEwD+64k7NkwDKlfCVfVZDN17PyFuPCJqe2Izk4VBTD7Uoh6QgwXCMah+um2AblCHBiczVFXhJAbU8AAA=="
+   },
+   "borgonha": {
+    "path": "fotos/modelos/iphone-18-pro/borgonha",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JYwDE2CHpUzoxc8hNoSAA/uuO1dixrFrRuVQvV9UzMBTXobHfZQNs+CQC8zi4B/8xlsXsdCFjNS1Sm4TDvF44qyJb4dQ5EPFjBZee9dw+pGlUzFfGIAAA"
+   },
+   "prateado": {
+    "path": "fotos/modelos/iphone-18-pro/prateado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAACQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JaQAAW3MhN6PsJvYAAP7yNVbn3hPbauZZjKvWZPp32nRIam7uddza5YOcSEG3zRG+gm15HhBDgQT2UpUpnyoSggrk6WqWwllLrBHOAAAAAA=="
+   },
+   "preto": {
+    "path": "fotos/modelos/iphone-18-pro/preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAACQAwCdASoQABQAPu1kqU2ppaOiMAgBMB2JaQAAW+xu3fVGUC7AAP7rkC1dMLbZq/ZqcYuflrb2Mw5oC4RtH/SLv4K1NtZV3ysVt1WF9eQnulnDcjWCK/Pjv85b950d9ikQvupg/igAAA=="
+   }
+  },
+  "iphone-18-pro-max": {
+   "azul-claro": {
+    "path": "fotos/modelos/iphone-18-pro-max/azul-claro",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwAAXKdZPlmnajgA/tec7/MImMyxToVw3EbyoAYWtjenEjOxm6dCANp7QvE1q167egtgrhlnsoIoQlaJSQZDOFTLp8xYYSq4z3JdZiC6YnE2xR4ClPgA"
+   },
+   "borgonha": {
+    "path": "fotos/modelos/iphone-18-pro-max/borgonha",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZQC/OB6vCueG5xAokoAA/Pew2TMF57Psa2qi0S8qAZTuD0ytgXxqajMkTuki1dNmrKU2vlqE3YXShJyzuI1jn1yUi+vtr/VzDXbgwi9JeQIAAAA="
+   },
+   "prateado": {
+    "path": "fotos/modelos/iphone-18-pro-max/prateado",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JaQAD5Gouw7ODalIpF0AA/uDZ/wpAGYOWcrHGCYfmm2y4DIiFLgN7KsmM3xWObY3GRL18ifAsg70k++saq86XXxO5QzpxT3J6iWi38YyXSXAgAAA="
+   },
+   "preto": {
+    "path": "fotos/modelos/iphone-18-pro-max/preto",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAACwAwCdASoQABQAPu1kqU2ppaOiMAgBMB2JaQAAW+xWroxHUW3yAADiccGyZgvzzdgzoyY2c3RLuWZAwhGgMjBChP6RKMn4ogtVlZpohb2vt7IyE5nDe+DyG31kxqtKWY4AAA=="
+   }
+  },
+  "iphone-air": {
+   "azul-ceu": {
+    "path": "fotos/modelos/iphone-air/azul-ceu",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAADQAwCdASoQABQAPu1iqk2ppaQiMAgBMB2JZwC7AB4GZBzsWeQM5gAA/u3uIenV47rnVeeS3yFW08S/+fBdXgsUEHqL/zu1txhJqr0QvAD2Qn8Lk6I5fnmsZjeZLgl6Vw6jz7d6xQfU24kYAAA="
+   },
+   "branco-nuvem": {
+    "path": "fotos/modelos/iphone-air/branco-nuvem",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAABwAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JaQAAUSmOwfFmmgAA/u3rbwwmHpEIWqDQfpEvCS84W2r21fxnFVh5WUyihqplVuXZ7F8dqz8mAT3PV/AMPywbiCRHk32jDbxVoz0y4QAAAA=="
+   },
+   "dourado-claro": {
+    "path": "fotos/modelos/iphone-air/dourado-claro",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAABQAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JZwAAT+hdzNJUQAD+7etvDCYekQhaoNB+kS8JLMJ/l7hvQlnIH/+qvEKwxBeoZKBr/sEflP7Hy7qZCrPbKpJ7pIICJOSbc9f0izcgAAA="
+   },
+   "preto-espacial": {
+    "path": "fotos/modelos/iphone-air/preto-espacial",
+    "w": [
+     360
+    ],
+    "ratio": 1.242,
+    "blur": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAACwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JaQAAW+0eCESn/3NQoAD+uA4qWY3TFNmMHpO2SHP6cxqdA/xq4IHPKNEZ3fkeVbW+t6u8QxLLemXgZNDUQuWjcAA="
+   }
+  }
+ },
  "unidades": {},
  "modelos3d": []
 }
