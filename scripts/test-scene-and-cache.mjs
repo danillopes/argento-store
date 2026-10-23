@@ -16,6 +16,14 @@ test('rolagem extrema respeita a velocidade máxima e aceita reversão', () => {
   assert.ok(Math.abs(position - 1) < 1e-6)
 })
 
+test('mais tempo nas cores preserva a velocidade das cenas anteriores', () => {
+  const oldDuration = 9.1
+  const extendedDuration = 14.2
+  const previous = advanceScene(0, 1, 1 / 60) * oldDuration
+  const extended = advanceScene(0, 1, 1 / 60, SCENE_SECONDS * extendedDuration / oldDuration) * extendedDuration
+  assert.ok(Math.abs(previous - extended) < 1e-12)
+})
+
 test('cache deduplica, persiste entre visitas e renova somente pelo hash', async () => {
   const savedFetch = globalThis.fetch
   const savedCaches = globalThis.caches

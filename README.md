@@ -42,5 +42,6 @@ na GPU. O navegador pode remover caches se faltar espaço.
 
 A apresentação limita a velocidade da sequência independentemente dos saltos do
 mouse e não reinicia ao trocar de tema. No mobile, o 3D só é revelado ao rolar e
-fica numa área própria acima do texto. Teste de regressão:
+fica numa área própria abaixo do texto. Os acabamentos têm pausas e transições
+mais longas, preservando o ritmo das outras cenas. Teste de regressão:
 `node --test scripts/test-scene-and-cache.mjs`.

@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { defaultDrive, type Drive } from '../components/drive'
-import { advanceScene } from '../lib/scene-motion'
+import { advanceScene, SCENE_SECONDS } from '../lib/scene-motion'
 
 const Phone3D = lazy(() => import('../components/Phone3D'))
 import { gsap, ScrollTrigger } from '../lib/motion'
@@ -51,6 +51,10 @@ export default function Scrolly() {
           gsap.from('.ch-0 > *', { y: 30, autoAlpha: 0, stagger: 0.08, duration: 1, ease: 'power3.out', delay: 0.2 })
 
           const col = { t: 0 }
+          const updateColor = () => {
+            const i = Math.min(PALETTE.length - 2, Math.floor(col.t))
+            d.color = mixHex(PALETTE[i], PALETTE[i + 1], col.t - i)
+          }
           const tl = gsap.timeline({
             paused: true,
             defaults: { ease: 'power2.inOut' },
@@ -74,28 +78,24 @@ export default function Scrolly() {
             // 4 — giro completo e troca de cores
             .to('.ch-3', { autoAlpha: 0, y: -40, duration: 0.5 }, 6.1)
             .to(d, { rotY: Math.PI * 3, x: desk ? 1.45 : 0, y: 0, scale: desk ? 0.95 : 0.9, duration: 1.6 }, 6.1)
-            .to(col, {
-              t: PALETTE.length - 1,
-              duration: 2,
-              ease: 'none',
-              onUpdate: () => {
-                const i = Math.min(PALETTE.length - 2, Math.floor(col.t))
-                d.color = mixHex(PALETTE[i], PALETTE[i + 1], col.t - i)
-              },
-            }, 6.3)
+            // Mantém cada acabamento à vista e faz cada troca em ~3,4 segundos.
+            .to(col, { t: 1, duration: 2.2, ease: 'power1.inOut', onUpdate: updateColor }, 8)
+            .to(col, { t: 2, duration: 2.2, ease: 'power1.inOut', onUpdate: updateColor }, 11.2)
             .fromTo('.ch-4', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 6.9)
             .to({}, { duration: 0.8 })
           tl.to('.scrolly-progress i', { scaleY: 1, ease: 'none', duration: tl.duration() }, 0)
           if (!desk) tl.to(canvas, { autoAlpha: 1, duration: 0.5 }, 0.85)
+          // O tempo extra pertence às cores; as cenas anteriores mantêm o ritmo.
+          const sequenceSeconds = SCENE_SECONDS * tl.duration() / 9.1
           const clock = { current: 0, target: 0 }
           const trigger = ScrollTrigger.create({
-            trigger: root.current, start: 'top top', end: '+=480%', pin: stage.current, anticipatePin: 1,
+            trigger: root.current, start: 'top top', end: () => `+=${480 * tl.duration() / 9.1}%`, pin: stage.current, anticipatePin: 1,
             onUpdate: self => { clock.target = self.progress },
             onRefresh: self => { clock.target = self.progress },
           })
           const tick = (_time: number, deltaMs: number) => {
             if (document.hidden) return
-            clock.current = advanceScene(clock.current, clock.target, deltaMs / 1000)
+            clock.current = advanceScene(clock.current, clock.target, deltaMs / 1000, sequenceSeconds)
             tl.progress(clock.current)
           }
           gsap.ticker.add(tick)
