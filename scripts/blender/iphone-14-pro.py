@@ -145,7 +145,8 @@ comum.vidro_transparente('Glass')
 
 # acabamento real: aço inoxidável polido, vidro traseiro texturizado fosco e interior das lentes
 TX = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'texturas')
-comum.textura_superficie('Anodized aluminum', rugosidade=f'{TX}/aco-rugosidade.png', normal=f'{TX}/aco-normal.png', forca_normal=0.6)
+# aço polido: só a variação de brilho (o relevo deixava botões e laterais com aspecto amassado no Quick Look)
+comum.textura_superficie('Anodized aluminum', rugosidade=f'{TX}/aco-rugosidade.png')
 comum.textura_superficie('Frosted glass', normal=f'{TX}/vidro-fosco-normal.png', forca_normal=0.35)
 # centros das 3 lentes pelo elemento central (GCTf): a de cima à esquerda é a principal (48 MP, 7 elementos)
 pts = [ob.matrix_world @ p.center for ob in objs for p in ob.data.polygons
@@ -162,6 +163,49 @@ centros.sort(key=lambda c: (-c.z + (0.02 if c.x > -0.012 else 0)))  # principal:
 print('lentes (mm):', [[round(c.x * 1000, 1), round(c.z * 1000, 1)] for c in centros])
 n = comum.interior_lentes(objs, 'VlnkJNnmZmryUEK', centros, [f'{TX}/lente-principal.png', f'{TX}/lente-secundaria.png'], 0.0128)
 print('faces do interior das lentes texturizadas:', n)
+
+# aros das câmeras como no aparelho (fotos da Apple): vidro preto até o aro, e o aro inteiro em aço polido na cor
+# do aparelho. No arquivo de origem a borda de cima do aro (XioMm) era preta e o degrau interno e o anel plano em
+# volta do vidro (pUfGA) ficavam na cor da moldura/creme, o que dava três anéis alternados.
+preto = bpy.data.materials.new('Lens ring black'); preto.use_nodes = True
+bp = next(n for n in preto.node_tree.nodes if n.type == 'BSDF_PRINCIPLED')
+bp.inputs['Base Color'].default_value = (0.004, 0.004, 0.005, 1); bp.inputs['Roughness'].default_value = 0.12; bp.inputs['Metallic'].default_value = 0.2
+aco = bpy.data.materials['Anodized aluminum']
+def raio(c):
+    return min((c - k).xz.length for k in centros)
+# raio interno da borda de cima do aro, por lente
+borda = {}
+for ob in objs:
+    for p in ob.data.polygons:
+        m = ob.data.materials[p.material_index] if p.material_index < len(ob.data.materials) else None
+        if m and m.name == 'XioMmaZGUXvxXPb':
+            c = ob.matrix_world @ p.center
+            k = min(range(3), key=lambda j: (c - centros[j]).xz.length)
+            borda[k] = min(borda.get(k, 1), (c - centros[k]).xz.length)
+print('raio interno do aro (mm):', {k: round(v * 1000, 2) for k, v in borda.items()})
+cont = {'aro': 0, 'preto': 0}
+for ob in objs:
+    me = ob.data
+    def slot(mat):
+        if mat.name not in [x.name for x in me.materials if x]:
+            me.materials.append(mat)
+        return [i for i, x in enumerate(me.materials) if x and x.name == mat.name][0]
+    for p in me.polygons:
+        m = me.materials[p.material_index] if p.material_index < len(me.materials) else None
+        if not m:
+            continue
+        c = ob.matrix_world @ p.center
+        k = min(range(3), key=lambda j: (c - centros[j]).xz.length)
+        r = (c - centros[k]).xz.length
+        if r > 0.0095:
+            continue
+        n = (ob.matrix_world.to_3x3() @ p.normal).normalized()
+        if m.name == 'XioMmaZGUXvxXPb':
+            p.material_index = slot(aco); cont['aro'] += 1
+        elif m.name == 'pUfGAKnCgtMMbbm' or (m.name == 'Anodized aluminum' and r < borda.get(k, 0) - 0.00005) \
+                or (m.name.startswith('Lens interior') and abs(n.y) < 0.7):
+            p.material_index = slot(preto); cont['preto'] += 1
+print('aros:', cont)
 comum.uv_tela('OLED')
 comum.exportar(saida)
 print('ok', variante, saida)
