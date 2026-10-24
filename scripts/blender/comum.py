@@ -214,3 +214,63 @@ def interior_lentes(objs, material_origem, centros, imagens, diametro):
                 uv[li].uv = (0.5 + (w.x - centros[k].x) / diametro, 0.5 + (w.z - centros[k].z) / diametro)
             trocadas += 1
     return trocadas
+
+
+def manter_copia(pai):
+    """Os arquivos do Daniel trazem duas cópias do aparelho lado a lado (traseira e frente). Mantém só a cópia
+    cujo objeto-raiz se chama `pai` (já na convenção do site: tela +Y, traseira -Y, câmeras -X) e apaga o resto."""
+    for o in list(bpy.context.scene.objects):
+        if o.type == 'MESH' and (o.parent is None or o.parent.name != pai):
+            bpy.data.objects.remove(o, do_unlink=True)
+    for o in list(bpy.context.scene.objects):
+        if o.type != 'MESH':
+            bpy.data.objects.remove(o, do_unlink=True)
+
+
+def reatribuir(por_objeto, padrao=None):
+    """Troca materiais pelos nomes que o visualizador entende. `por_objeto`: {(objeto, material_antigo): novo};
+    `padrao`: {material_antigo: novo} para o que não estiver listado. O material novo nasce como cópia do antigo
+    (mantém texturas) e é reaproveitado nos demais usos."""
+    for o in malhas():
+        me = o.data
+        for i, m in enumerate(me.materials):
+            if not m:
+                continue
+            novo = por_objeto.get((o.name, m.name)) or (padrao or {}).get(m.name)
+            if not novo or novo == m.name:
+                continue
+            alvo = bpy.data.materials.get(novo)
+            if alvo is None:
+                alvo = m.copy(); alvo.name = novo
+            me.materials[i] = alvo
+
+
+def pintar(nome, hexa, rugosidade, metalico, emissao=False):
+    """Cor sólida (sem texturas) para um material."""
+    m = bpy.data.materials.get(nome)
+    if not m or not m.node_tree:
+        return
+    b = next((n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
+    if not b:
+        return
+    for k in ('Base Color', 'Roughness', 'Metallic', 'Alpha'):
+        for l in list(b.inputs[k].links):
+            m.node_tree.links.remove(l)
+    srgb = lambda h: tuple(((int(h[i:i + 2], 16) / 255) ** 2.2) for i in (1, 3, 5))
+    b.inputs['Base Color'].default_value = (*srgb(hexa), 1)
+    b.inputs['Roughness'].default_value = rugosidade
+    b.inputs['Metallic'].default_value = metalico
+    b.inputs['Alpha'].default_value = 1.0
+    for k in ('Emission Strength',):
+        if k in b.inputs:
+            b.inputs[k].default_value = 0.0
+
+
+def girar_180_z(objs):
+    """Gira o aparelho 180° em torno do eixo vertical (X e Y trocam de sinal; rotação própria, sem espelhar).
+    Usado quando o doador traz a tela virada para -Y: o visualizador espera tela em +Y e câmeras em -X."""
+    for o in objs:
+        me = o.data
+        for v in me.vertices:
+            v.co.x, v.co.y = -v.co.x, -v.co.y
+        me.update()
