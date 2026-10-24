@@ -776,3 +776,9 @@ html, body { overflow-x: clip; }
 .pdp-inside:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18); }
 /* celular: o quadro 3D tem altura própria; cores, abas e botão ficam embaixo sem encolher o 3D */
 @media (max-width: 960px) { .pdp-visual { height: auto; } .pdp-stage { flex: none; height: min(56svh, 520px); } }
+
+/* Celular: campos de texto com 16px evitam o zoom automático do Safari ao tocar na busca (o zoom de pinça continua livre) */
+@media (pointer: coarse) {
+  input:not([type='checkbox']):not([type='radio']):not([type='range']), select, textarea,
+  .hdr-search input, .input { font-size: 16px; }
+}
