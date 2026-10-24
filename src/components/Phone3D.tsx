@@ -581,6 +581,8 @@ function GLBPhone({
     const isTitanium = (isPro && (model?.family === 15 || model?.family === 16)) || model?.tier === 'air'
     const isGlossBack = !isPro && (model?.family ?? 17) <= 14
 
+    // mapas pequenos (64–128 px, modelos gerados) são atenuados; mapas detalhados (≥ 512 px) valem inteiros
+    const detalhado = (t: THREE.Texture | null) => !!t && ((t.image as { width?: number } | undefined)?.width ?? 0) >= 512
     c.traverse((node) => {
       if (!(node instanceof THREE.Mesh)) return
       const tint = (original: THREE.Material) => {
@@ -591,10 +593,10 @@ function GLBPhone({
             mat.roughness = 0.14
             frames.push(mat)
           } else if (mat.name === 'Anodized aluminum' || mat.name.startsWith('finish-')) {
-            mat.normalScale.multiplyScalar(0.18)
+            if (!detalhado(mat.normalMap)) mat.normalScale.multiplyScalar(0.18)
             if (isSteel) {
               mat.metalness = 0.96
-              mat.roughness = 0.14
+              mat.roughness = mat.roughnessMap ? 1 : 0.14 // com mapa de rugosidade, o mapa define o brilho
             } else if (isTitanium) {
               mat.metalness = 0.88
               mat.roughness = 0.26
@@ -608,7 +610,7 @@ function GLBPhone({
             mat.metalness = 0.06
             glasses.push(mat)
           } else if (mat.name === 'Frosted glass') {
-            mat.normalScale.multiplyScalar(0.15)
+            if (!detalhado(mat.normalMap)) mat.normalScale.multiplyScalar(0.15)
             mat.roughness = isGlossBack ? 0.06 : 0.32
             mat.metalness = isGlossBack ? 0.04 : 0.1
             glasses.push(mat)

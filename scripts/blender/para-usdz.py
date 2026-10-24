@@ -35,6 +35,8 @@ def salvar(img, nome):
     return bpy.data.images.load(path, check_existing=False)
 
 wp = bpy.data.images.load(wallpaper)
+TX = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'texturas')
+ACABAMENTO = {'Anodized aluminum': ('aco-rugosidade.png', 'aco-normal.png', 0.6), 'Frosted glass': (None, 'vidro-fosco-normal.png', 0.35)}
 for m in bpy.data.materials:
     if not m.node_tree: continue
     b = next((n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
@@ -66,6 +68,16 @@ for m in bpy.data.materials:
         nt.links.new(t.outputs['Color'], p.inputs['Base Color'])
     else:
         p.inputs['Base Color'].default_value = cor
+    # acabamento real (mapas originais em alta resolução): aço inoxidável e vidro traseiro fosco
+    mapas = ACABAMENTO.get(m.name)
+    if mapas:
+        rmap, nmap, forca = mapas
+        if rmap:
+            t = nt.nodes.new('ShaderNodeTexImage'); t.image = bpy.data.images.load(f'{TX}/{rmap}'); t.image.colorspace_settings.name = 'Non-Color'
+            nt.links.new(t.outputs['Color'], p.inputs['Roughness'])
+        t = nt.nodes.new('ShaderNodeTexImage'); t.image = bpy.data.images.load(f'{TX}/{nmap}'); t.image.colorspace_settings.name = 'Non-Color'
+        nm = nt.nodes.new('ShaderNodeNormalMap'); nm.inputs['Strength'].default_value = forca
+        nt.links.new(t.outputs['Color'], nm.inputs['Color']); nt.links.new(nm.outputs['Normal'], p.inputs['Normal'])
 # vista de frente a direita da tela é -X: inverte U da tela para a imagem não ficar espelhada
 for o in [o for o in bpy.context.scene.objects if o.type == 'MESH']:
     me = o.data

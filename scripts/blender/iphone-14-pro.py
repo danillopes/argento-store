@@ -142,6 +142,26 @@ if flash is not None and vidro is not None:
                     poly.material_index = gi; trocadas += 1
     print('faces sobre o flash viraram vidro:', trocadas)
 comum.vidro_transparente('Glass')
+
+# acabamento real: aço inoxidável polido, vidro traseiro texturizado fosco e interior das lentes
+TX = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'texturas')
+comum.textura_superficie('Anodized aluminum', rugosidade=f'{TX}/aco-rugosidade.png', normal=f'{TX}/aco-normal.png', forca_normal=0.6)
+comum.textura_superficie('Frosted glass', normal=f'{TX}/vidro-fosco-normal.png', forca_normal=0.35)
+# centros das 3 lentes pelo elemento central (GCTf): a de cima à esquerda é a principal (48 MP, 7 elementos)
+pts = [ob.matrix_world @ p.center for ob in objs for p in ob.data.polygons
+       if p.material_index < len(ob.data.materials) and ob.data.materials[p.material_index] and ob.data.materials[p.material_index].name == 'GCTfChbRIgBmWbe']
+grupos = []
+for c in pts:
+    for g in grupos:
+        if (g[0] - c).xz.length < 0.004:
+            g.append(c); break
+    else:
+        grupos.append([c])
+centros = [sum(g, mathutils.Vector()) / len(g) for g in sorted(grupos, key=len, reverse=True)[:3]]
+centros.sort(key=lambda c: (-c.z + (0.02 if c.x > -0.012 else 0)))  # principal: mais alta da coluna esquerda
+print('lentes (mm):', [[round(c.x * 1000, 1), round(c.z * 1000, 1)] for c in centros])
+n = comum.interior_lentes(objs, 'VlnkJNnmZmryUEK', centros, [f'{TX}/lente-principal.png', f'{TX}/lente-secundaria.png'], 0.0128)
+print('faces do interior das lentes texturizadas:', n)
 comum.uv_tela('OLED')
 comum.exportar(saida)
 print('ok', variante, saida)

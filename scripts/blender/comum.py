@@ -145,3 +145,72 @@ def vidro_transparente(nome='Glass', alfa=0.12):
             m.surface_render_method = 'BLENDED'
         except Exception:
             m.blend_method = 'BLEND'
+
+
+def _img(caminho, cor=True):
+    img = bpy.data.images.load(caminho, check_existing=True)
+    img.colorspace_settings.name = 'sRGB' if cor else 'Non-Color'
+    return img
+
+
+def textura_superficie(nome_material, rugosidade=None, normal=None, forca_normal=1.0):
+    """Liga mapa de rugosidade (valores absolutos) e mapa normal a um material."""
+    m = bpy.data.materials.get(nome_material)
+    if not m or not m.node_tree:
+        return False
+    nt = m.node_tree
+    b = next((n for n in nt.nodes if n.type == 'BSDF_PRINCIPLED'), None)
+    if not b:
+        return False
+    if rugosidade:
+        t = nt.nodes.new('ShaderNodeTexImage'); t.image = _img(rugosidade, False)
+        for l in list(b.inputs['Roughness'].links): nt.links.remove(l)
+        nt.links.new(t.outputs['Color'], b.inputs['Roughness'])
+    if normal:
+        t = nt.nodes.new('ShaderNodeTexImage'); t.image = _img(normal, False)
+        nm = nt.nodes.new('ShaderNodeNormalMap'); nm.inputs['Strength'].default_value = forca_normal
+        nt.links.new(t.outputs['Color'], nm.inputs['Color'])
+        for l in list(b.inputs['Normal'].links): nt.links.remove(l)
+        nt.links.new(nm.outputs['Normal'], b.inputs['Normal'])
+    return True
+
+
+def interior_lentes(objs, material_origem, centros, imagens, diametro):
+    """Cria materiais de interior de lente (textura frontal dos elementos ópticos) e UV radial por lente."""
+    mats = []
+    for i, caminho in enumerate(imagens):
+        nome = 'Lens interior' if i else 'Lens interior main'
+        m = bpy.data.materials.get(nome) or bpy.data.materials.new(nome)
+        m.use_nodes = True; nt = m.node_tree; nt.nodes.clear()
+        o = nt.nodes.new('ShaderNodeOutputMaterial'); b = nt.nodes.new('ShaderNodeBsdfPrincipled')
+        nt.links.new(b.outputs['BSDF'], o.inputs['Surface'])
+        t = nt.nodes.new('ShaderNodeTexImage'); t.image = _img(caminho, True)
+        nt.links.new(t.outputs['Color'], b.inputs['Base Color'])
+        b.inputs['Roughness'].default_value = 0.08; b.inputs['Metallic'].default_value = 0.0
+        mats.append(m)
+    trocadas = 0
+    for ob in objs:
+        me = ob.data
+        idx = [i for i, m in enumerate(me.materials) if m and m.name == material_origem]
+        if not idx:
+            continue
+        slots = []
+        for m in mats:
+            if m.name not in [x.name for x in me.materials if x]:
+                me.materials.append(m)
+            slots.append([i for i, x in enumerate(me.materials) if x and x.name == m.name][0])
+        if not me.uv_layers:
+            me.uv_layers.new()
+        uv = me.uv_layers.active.data
+        for p in me.polygons:
+            if p.material_index not in idx:
+                continue
+            c = ob.matrix_world @ p.center
+            k = min(range(len(centros)), key=lambda j: (c - centros[j]).xz.length)
+            p.material_index = slots[0] if k == 0 else slots[1]
+            for li in p.loop_indices:
+                w = ob.matrix_world @ me.vertices[me.loops[li].vertex_index].co
+                # vista de trás: a direita é +X; v cresce para cima (Z)
+                uv[li].uv = (0.5 + (w.x - centros[k].x) / diametro, 0.5 + (w.z - centros[k].z) / diametro)
+            trocadas += 1
+    return trocadas
