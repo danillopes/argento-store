@@ -54,7 +54,10 @@ comum.pintar('Lens glass', '#0b0d1c', 0.05, 0.3)
 comum.pintar('Island black', '#030304', 0.3, 0.0)
 comum.pintar('Port dark', '#17171a', 0.5, 0.6)
 comum.pintar('Flash', '#f6f2e4', 0.2, 0.0)
-# Sem Dynamic Island: mantém a frente original do doador (a função comum.ilha_dinamica existe se um dia for preciso)
+# Dynamic Island de verdade, copiada do iPhone 17 Pro do site (poço, sensores e câmera frontal); o furo de câmera do doador sai
+for o in [o for o in comum.malhas() if o.name == 'Screen.002']:
+    bpy.data.objects.remove(o, do_unlink=True)
+comum.ilha_do_17_pro(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'public', 'models', 'iphone-17-pro.glb'))
 comum.vidro_transparente('Glass')
 comum.uv_tela('OLED')
 comum.reduzir_imagens(1024)

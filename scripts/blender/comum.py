@@ -276,13 +276,8 @@ def girar_180_z(objs):
         me.update()
 
 
-def ilha_dinamica(x_centro_mm, z_centro_mm, y_superficie_mm, profundidade_mm=1.6, largura_mm=19.6, altura_mm=6.0,
-                  material='Island black', camera_x_mm=None, camera_raio_mm=0.85, camera_material='Lens glass',
-                  material_tela='OLED', segmentos=16):
-    """Dynamic Island com profundidade, como no modelo do iPhone 17 Pro: um recorte em pílula na tela (OLED) com um
-    poço preto por baixo do vidro (paredes + fundo) e, opcionalmente, a lente frontal no fundo, num dos lados.
-    Medidas em mm no espaço do aparelho (tela em +Y, topo em +Z). A tela precisa ter o material `material_tela`."""
-    import bmesh, math
+def _contorno_ilha(x_centro_mm, z_centro_mm, largura_mm, altura_mm, segmentos=24):
+    import math
     r = altura_mm / 2
     cx = largura_mm / 2 - r
     pts = []
@@ -292,16 +287,22 @@ def ilha_dinamica(x_centro_mm, z_centro_mm, y_superficie_mm, profundidade_mm=1.6
     for k in range(segmentos + 1):          # tampa esquerda, de 90° a 270°
         a = math.pi / 2 + math.pi * k / segmentos
         pts.append((x_centro_mm - cx + r * math.cos(a), z_centro_mm + r * math.sin(a)))
+    return pts
+
+
+def recortar_tela(pts, material_tela='OLED'):
+    """Abre na tela (material OLED) um furo com o contorno convexo `pts` (mm, em X,Z): divide as faces da tela pelos planos
+    de cada aresta do contorno e apaga as que ficam dentro."""
+    import bmesh
     n = len(pts)
 
-    def dentro(x, z):                       # polígono convexo anti-horário (em X,Z)
+    def dentro(x, z):
         for k in range(n):
             x0, z0 = pts[k]; x1, z1 = pts[(k + 1) % n]
             if (x1 - x0) * (z - z0) - (z1 - z0) * (x - x0) < -1e-9:
                 return False
         return True
 
-    # 1) recorta o furo na tela: divide as faces da tela pelos planos de cada aresta da pílula e apaga o miolo
     for o in malhas():
         idx = [i for i, m in enumerate(o.data.materials) if m and m.name == material_tela]
         if not idx:
@@ -311,44 +312,58 @@ def ilha_dinamica(x_centro_mm, z_centro_mm, y_superficie_mm, profundidade_mm=1.6
             x0, z0 = pts[k]; x1, z1 = pts[(k + 1) % n]
             tela = [f for f in bm.faces if f.material_index in idx]
             geom = list(tela) + list({e for f in tela for e in f.edges}) + list({v for f in tela for v in f.verts})
-            # plano vertical (contém Y) pela aresta; normal no plano X,Z
-            nx, nz = (z1 - z0), -(x1 - x0)
             bmesh.ops.bisect_plane(bm, geom=geom, dist=1e-7, plane_co=(x0 / 1000, 0, z0 / 1000),
-                                   plane_no=(nx, 0, nz), clear_inner=False, clear_outer=False)
+                                   plane_no=((z1 - z0), 0, -(x1 - x0)), clear_inner=False, clear_outer=False)
         apagar = [f for f in bm.faces if f.material_index in idx and dentro(f.calc_center_median().x * 1000, f.calc_center_median().z * 1000)]
         bmesh.ops.delete(bm, geom=apagar, context='FACES')
         bm.to_mesh(o.data); bm.free(); o.data.update()
 
-    # 2) poço: paredes (viradas para dentro) e fundo
-    y0 = y_superficie_mm / 1000; y1 = (y_superficie_mm - profundidade_mm) / 1000
-    bm = bmesh.new()
-    topo = [bm.verts.new((px / 1000, y0, pz / 1000)) for px, pz in pts]
-    fundo = [bm.verts.new((px / 1000, y1, pz / 1000)) for px, pz in pts]
-    for k in range(n):
-        bm.faces.new((topo[k], fundo[k], fundo[(k + 1) % n], topo[(k + 1) % n]))
-    bm.faces.new(fundo)
-    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
-    # normais do fundo para +Y (voltado para quem olha a tela) e das paredes para o centro
-    for f in bm.faces:
-        c = f.calc_center_median()
-        if len(f.verts) == n:
-            if f.normal.y < 0: f.normal_flip()
-        else:
-            para_centro = (x_centro_mm / 1000 - c.x) * f.normal.x + (z_centro_mm / 1000 - c.z) * f.normal.z
-            if para_centro < 0: f.normal_flip()
-    me = bpy.data.meshes.new('Dynamic Island'); bm.to_mesh(me); bm.free()
-    me.materials.append(bpy.data.materials[material])
-    for p in me.polygons:
-        p.use_smooth = True
-    ob = bpy.data.objects.new('Dynamic Island', me); bpy.context.scene.collection.objects.link(ob)
 
-    # 3) lente frontal opcional, assentada no fundo do poço
-    if camera_x_mm is not None:
-        bm = bmesh.new()
-        base = [bm.verts.new(((camera_x_mm + camera_raio_mm * math.cos(2 * math.pi * k / 32)) / 1000, (y1 + 0.00003),
-                              (z_centro_mm + camera_raio_mm * math.sin(2 * math.pi * k / 32)) / 1000)) for k in range(32)]
-        f = bm.faces.new(base)
-        if f.normal.y < 0: f.normal_flip()
-        me2 = bpy.data.meshes.new('Camera frontal'); bm.to_mesh(me2); bm.free()
-        me2.materials.append(bpy.data.materials[camera_material])
-        ob2 = bpy.data.objects.new('Camera frontal', me2); bpy.context.scene.collection.objects.link(ob2)
+def topo_da_tela(material_tela='OLED'):
+    """(z máximo, y da superfície) da tela, em mm."""
+    pts = [o.matrix_world @ v.co for o in malhas() for i, m in enumerate(o.data.materials) if m and m.name == material_tela
+           for p in o.data.polygons if p.material_index == i for v in (o.data.vertices[k] for k in p.vertices)]
+    return max(p.z for p in pts) * 1000, max(p.y for p in pts) * 1000
+
+
+def ilha_do_17_pro(glb_17_pro, recuo_topo_mm=5.46, material_tela='OLED'):
+    """Dynamic Island de verdade: copia do modelo do iPhone 17 Pro do site a geometria real da ilha (poço de 2 mm sob o
+    vidro, módulo de sensores e câmera frontal com a lente detalhada), com as medidas e os materiais originais, e a
+    assenta na tela deste aparelho. A ilha do 17 Pro fica a 5,46 mm do topo da tela até o centro; como no 17 Pro, 16, 17
+    e Air têm a mesma ilha (21 x 6 mm) à mesma distância do topo da tela. Abre o furo na tela (OLED) antes de assentar."""
+    import bmesh
+    z_topo, y_sup = topo_da_tela(material_tela)
+    zc = z_topo - recuo_topo_mm
+    dy = y_sup - 3.43 + 0.01               # superfície da tela do 17 Pro: y = 3.43 mm
+    dz = zc - 67.0                         # centro da ilha do 17 Pro: z = 67,0 mm
+    recortar_tela(_contorno_ilha(0.0, zc, 20.95, 5.92, 32), material_tela)  # um fio menor que o aro da ilha: a borda da tela fica por baixo do aro, sem frestas
+    antes = set(bpy.data.objects)
+    bpy.ops.import_scene.gltf(filepath=glb_17_pro)
+    novos = [o for o in bpy.data.objects if o not in antes]
+    manter = ('Camera filter', 'Camera Lens', 'Display Frame', 'OLED off')
+    for o in [o for o in novos if o.type == 'MESH']:
+        bm = bmesh.new(); bm.from_mesh(o.data)
+        apagar = []
+        for f in bm.faces:
+            vs = [(o.matrix_world @ v.co) * 1000 for v in f.verts]
+            c = sum((v for v in vs), vs[0] * 0) / len(vs)
+            nome = o.data.materials[f.material_index].name if o.data.materials else ''
+            ok = nome in manter and -11.0 < c.x < 11.0 and 63.7 < c.z < 70.3 and c.y > 1.3 and \
+                all(-11.05 <= v.x <= 11.05 and 63.65 <= v.z <= 70.35 for v in vs)
+            if not ok:
+                apagar.append(f)
+        bmesh.ops.delete(bm, geom=apagar, context='FACES')
+        if not bm.faces:
+            bm.free(); continue
+        for v in bm.verts:
+            w = o.matrix_world @ v.co
+            v.co = mathutils.Vector((w.x, w.y + dy / 1000, w.z + dz / 1000))
+        me = bpy.data.meshes.new('Dynamic Island')
+        bm.to_mesh(me); bm.free()
+        for m in o.data.materials:
+            me.materials.append(m)
+        ob = bpy.data.objects.new('Dynamic Island', me); bpy.context.scene.collection.objects.link(ob)
+        for p in me.polygons:
+            p.use_smooth = True
+    for o in novos:
+        bpy.data.objects.remove(o, do_unlink=True)
