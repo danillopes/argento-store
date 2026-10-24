@@ -17,6 +17,14 @@ PRESETS = {
         'VlnkJNnmZmryUEK': ('#030304', 0.35, 0.0), 'XioMmaZGUXvxXPb': ('#030304', 0.2, 0.0),
     },
 }
+# demais cores oficiais do 14 Pro (fotos da Apple): moldura de aço polido na cor, traseira fosca e módulo no mesmo vidro
+_LENTES = {k: v for k, v in PRESETS['14pro-preto-espacial'].items() if k in ('GCTfChbRIgBmWbe', 'GoEESZWjCZpqeOD', 'VlnkJNnmZmryUEK', 'XioMmaZGUXvxXPb')}
+def _cor14(moldura, traseira, modulo, antena, logo):
+    return {'Anodized aluminum': (moldura, 0.12, 0.95), 'Frosted glass': (traseira, 0.36, 0.05), 'Frosted bump': (modulo, 0.12, 0.05),
+            'finish-chamfer': (moldura, 0.12, 0.95), 'Plastic antena': (antena, 0.5, 0.0), 'Glass tint': (logo, 0.08, 0.3), **_LENTES}
+PRESETS['14pro-prateado'] = _cor14('#d9dadc', '#e8e8e5', '#e4e4e1', '#c4c5c7', '#f4f4f2')
+PRESETS['14pro-dourado'] = _cor14('#e2c896', '#f0e2c4', '#ebdcbb', '#d6c39e', '#f6ead0')
+PRESETS['14pro-roxo-profundo'] = _cor14('#4f4757', '#5a5064', '#5d5367', '#463f4d', '#6a6073')
 args = sys.argv[sys.argv.index('--') + 1:]
 entrada, saida, preset = args[:3]
 fundo = args[3] if len(args) > 3 else None  # imagem da tela (papel de parede da unidade)
