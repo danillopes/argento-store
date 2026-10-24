@@ -161,8 +161,8 @@ for c in pts:
 centros = [sum(g, mathutils.Vector()) / len(g) for g in sorted(grupos, key=len, reverse=True)[:3]]
 centros.sort(key=lambda c: (-c.z + (0.02 if c.x > -0.012 else 0)))  # principal: mais alta da coluna esquerda
 print('lentes (mm):', [[round(c.x * 1000, 1), round(c.z * 1000, 1)] for c in centros])
-n = comum.interior_lentes(objs, 'VlnkJNnmZmryUEK', centros, [f'{TX}/lente-principal.png', f'{TX}/lente-secundaria.png'], 0.0128)
-print('faces do interior das lentes texturizadas:', n)
+# interior das lentes: mantém a lente original do modelo (preta com elemento central azul-violeta), aprovada no site.
+# Para usar os anéis ópticos desenhados: comum.interior_lentes(objs, 'VlnkJNnmZmryUEK', centros, [f'{TX}/lente-principal.png', f'{TX}/lente-secundaria.png'], 0.0128)
 
 # aros das câmeras como no aparelho (fotos da Apple): vidro preto até o aro, e o aro inteiro em aço polido na cor
 # do aparelho. No arquivo de origem a borda de cima do aro (XioMm) era preta e o degrau interno e o anel plano em
