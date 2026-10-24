@@ -4,8 +4,7 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-
 import { Home, Smartphone, RefreshCcw, Tag, Info, Search, Heart, User, ShoppingBag, Menu, X, Moon, Sun } from 'lucide-react'
 import { Logo } from './Logo'
 import { useStore } from '../store/Store'
-import { MODELS } from '../data/models'
-import { normalize } from '../lib/utils'
+import { searchModels } from '../lib/search'
 import PhoneArt from './PhoneArt'
 
 const NAV = [
@@ -24,13 +23,7 @@ function SearchBox({ onDone, autoFocus = false }: { onDone?: () => void; autoFoc
   const [focus, setFocus] = useState(false)
   const nav = useNavigate()
   const results = useMemo(() => {
-    const n = normalize(q.trim())
-    if (!n) return []
-    const terms = n.split(/\s+/)
-    return MODELS.filter((m) => {
-      const hay = normalize(`${m.name} ${m.chip} ${m.colors.map((c) => c.name).join(' ')} ${m.storages.join('gb ')}gb ${m.year}`)
-      return terms.every((t) => hay.includes(t.replace('iphone', '')))
-    }).slice(0, 5)
+    return searchModels(q).slice(0, 6)
   }, [q])
 
   const go = (path: string) => {

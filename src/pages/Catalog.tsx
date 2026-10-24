@@ -4,9 +4,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { SlidersHorizontal, X, Search } from 'lucide-react'
 import ProductCard from '../components/ProductCard'
 import { useStore } from '../store/Store'
-import { FAMILIES, MODELS, storageLabel, frontLabel, type FrontLayout } from '../data/models'
+import { FAMILIES, MODELS, storageLabel, type FrontLayout } from '../data/models'
 import { GRADES, finalPrice, type Unit } from '../data/inventory'
-import { normalize, type ModelSummary } from '../lib/utils'
+import { type ModelSummary } from '../lib/utils'
+import { searchModels } from '../lib/search'
 
 type Mode = 'todos' | 'seminovos' | 'ofertas'
 const SORTS = [
@@ -43,7 +44,8 @@ export default function Catalog({ mode = 'todos' }: { mode?: Mode }) {
   const toggle = <T,>(arr: T[], v: T, set: (a: T[]) => void) => set(arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v])
 
   const results = useMemo(() => {
-    const terms = normalize(q).split(/\s+/).filter(Boolean)
+    // busca: o modelo exato pesquisado ("14 pro" → iPhone 14 Pro); cor, capacidade e recursos refinam
+    const found = q.trim() ? new Set(searchModels(q).map((m) => m.id)) : null
     const unitOk = (u: Unit) => {
       if (!available(u)) return false
       if (cond && u.condition !== cond) return false
@@ -65,17 +67,14 @@ export default function Catalog({ mode = 'todos' }: { mode?: Mode }) {
       if (fam.length && !fam.includes(m.family)) return false
       if (model && m.id !== model) return false
       if (front && m.front !== front) return false
-      if (terms.length) {
-        const hay = normalize(`${m.name} ${m.chip} ${m.cameras} ${frontLabel(m)} ${m.features.join(' ')} ${m.colors.map((c) => c.name).join(' ')} ${m.storages.map((s) => storageLabel(s)).join(' ')} ${m.storages.join('gb ')}gb`)
-        if (!terms.every((t) => hay.includes(t.replace(/^iphone$/, '')))) return false
-      }
+      if (found && !found.has(m.id)) return false
       return true
     }).map((m) => {
       const units = inventory.filter((u) => u.modelId === m.id && unitOk(u))
       const prices = units.map(finalPrice)
       return { model: m, units, minPrice: prices.length ? Math.min(...prices) : null, hasNew: units.some((u) => u.condition === 'novo'), hasUsed: units.some((u) => u.condition === 'seminovo'), maxPromo: Math.max(0, ...units.map((u) => u.promo)) }
     })
-    if (onlyStock) list = list.filter((s) => s.units.length)
+    if (onlyStock && !found) list = list.filter((s) => s.units.length)
     const by = {
       relevancia: (a: ModelSummary, b: ModelSummary) => b.model.family - a.model.family || a.model.basePrice - b.model.basePrice,
       menor: (a: ModelSummary, b: ModelSummary) => (a.minPrice ?? 1e9) - (b.minPrice ?? 1e9),

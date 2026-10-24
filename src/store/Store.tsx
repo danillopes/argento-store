@@ -1,3 +1,4 @@
+import { MODELS } from '../data/models'
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { DEFAULT_RULES, finalPrice, seedInventory, type PricingRules, type Unit } from '../data/inventory'
 
@@ -63,8 +64,19 @@ function save(key: string, v: unknown) {
   try { localStorage.setItem(K + key, JSON.stringify(v)) } catch { /* ignore */ }
 }
 
+// Modelos lançados depois que o estoque foi salvo neste aparelho (ex.: iPhone Duo) entram com as unidades
+// de demonstração deles, uma única vez; o estoque já salvo e as edições do painel não são alterados.
+function withNewModels(inv: Unit[]): Unit[] {
+  const seeded = load<string[] | null>('seededModels', () => null) ?? Array.from(new Set(inv.map((u) => u.modelId)))
+  const known = new Set(seeded)
+  const ids = new Set(inv.map((u) => u.id))
+  const extra = seedInventory().filter((u) => !known.has(u.modelId)).map((u) => (ids.has(u.id) ? { ...u, id: `${u.id}-${u.modelId}` } : u))
+  save('seededModels', MODELS.map((m) => m.id))
+  return extra.length ? [...inv, ...extra] : inv
+}
+
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [inventory, setInv] = useState<Unit[]>(() => load('inventory', seedInventory))
+  const [inventory, setInv] = useState<Unit[]>(() => withNewModels(load('inventory', seedInventory)))
   const [rules, setRulesState] = useState<PricingRules>(() => load('rules', () => DEFAULT_RULES))
   const [cart, setCart] = useState<string[]>(() => load('cart', () => []))
   const [favorites, setFavs] = useState<string[]>(() => load('favs', () => []))
