@@ -12,10 +12,9 @@ PRESETS = {
         'Plastic antena': ('#2f2e30', 0.5, 0.0), 'Glass tint': ('#3a383b', 0.08, 0.3),
         # lentes: revestimento azul-arroxeado e anel interno azulado, como os reflexos do vídeo; o vidro escuro das
         # lentes (textura original) é mantido. Anel do flash em aço escuro.
-        'GCTfChbRIgBmWbe': ('#26243a', 0.06, 0.1), 'GoEESZWjCZpqeOD': ('#1d2c4a', 0.22, 0.85),
-        'hgmDQvqtKSacBdB': ('#2a292b', 0.25, 1.0),
-        # vidro que cobre o topo do módulo: escuro e brilhante, como no vídeo (no original era cinza-claro metálico)
-        'erHrUfZxAtkfXqO': ('#2c2b2f', 0.1, 0.0),
+        # interior das lentes: preto profundo e brilhante; elemento central azul-violeta (fotos oficiais da Apple)
+        'GCTfChbRIgBmWbe': ('#1b2140', 0.04, 0.35), 'GoEESZWjCZpqeOD': ('#050608', 0.05, 0.0),
+        'VlnkJNnmZmryUEK': ('#030304', 0.35, 0.0), 'XioMmaZGUXvxXPb': ('#030304', 0.2, 0.0),
     },
 }
 args = sys.argv[sys.argv.index('--') + 1:]

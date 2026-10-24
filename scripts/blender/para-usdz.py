@@ -47,6 +47,13 @@ for m in bpy.data.materials:
     outn = nt.nodes.new('ShaderNodeOutputMaterial'); p = nt.nodes.new('ShaderNodeBsdfPrincipled')
     nt.links.new(p.outputs['BSDF'], outn.inputs['Surface'])
     p.inputs['Metallic'].default_value = met; p.inputs['Roughness'].default_value = rug; p.inputs['Alpha'].default_value = alfa
+    if m.name == 'Glass':
+        # vidro de safira/cobertura: transparente e liso (deixa ver flash, LiDAR e o interior das lentes)
+        p.inputs['Base Color'].default_value = (0.02, 0.02, 0.025, 1); p.inputs['Roughness'].default_value = 0.02
+        p.inputs['Metallic'].default_value = 0.0; p.inputs['Alpha'].default_value = 0.12
+        try: m.surface_render_method = 'BLENDED'
+        except Exception: pass
+        continue
     if m.name == 'OLED':
         # tela acesa: papel de parede como emissão (o iPhone mostra a tela "ligada")
         p.inputs['Base Color'].default_value = (0, 0, 0, 1); p.inputs['Roughness'].default_value = 0.08
@@ -69,7 +76,22 @@ for o in [o for o in bpy.context.scene.objects if o.type == 'MESH']:
         if poly.material_index in idx:
             for li in poly.loop_indices:
                 uv[li].uv.x = 1 - uv[li].uv.x
-bpy.ops.wm.usd_export(filepath=out, export_materials=True, generate_preview_surface=True, export_textures_mode='NEW', overwrite_textures=True,
+# exporta .usdc + texturas, ajusta a opacidade dos vidros com a biblioteca USD e empacota o .usdz para o iPhone (ARKit)
+import shutil, tempfile
+pasta = tempfile.mkdtemp(prefix='usdz_')
+usdc = os.path.join(pasta, os.path.splitext(os.path.basename(out))[0] + '.usdc')
+bpy.ops.wm.usd_export(filepath=usdc, export_materials=True, generate_preview_surface=True, export_textures_mode='NEW', overwrite_textures=True,
                       export_animation=False, selected_objects_only=False, convert_orientation=True,
                       export_global_forward_selection='NEGATIVE_Z', export_global_up_selection='Y', convert_scene_units='METERS')
-print('ok', out, os.path.getsize(out))
+from pxr import Usd, UsdShade, Sdf, UsdUtils
+st = Usd.Stage.Open(usdc)
+for prim in st.Traverse():
+    if prim.GetTypeName() == 'Shader' and UsdShade.Shader(prim).GetIdAttr().Get() == 'UsdPreviewSurface' and prim.GetParent().GetName() == 'Glass':
+        sh = UsdShade.Shader(prim)
+        (sh.GetInput('opacity') or sh.CreateInput('opacity', Sdf.ValueTypeNames.Float)).Set(0.12)
+        (sh.GetInput('roughness') or sh.CreateInput('roughness', Sdf.ValueTypeNames.Float)).Set(0.02)
+st.GetRootLayer().Save()
+if os.path.exists(out): os.remove(out)
+ok = UsdUtils.CreateNewARKitUsdzPackage(Sdf.AssetPath(usdc), out)
+shutil.rmtree(pasta, ignore_errors=True)
+print('ok', out, os.path.getsize(out), ok)

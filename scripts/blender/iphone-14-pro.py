@@ -25,7 +25,14 @@ MOLDURA = {'uApvtlLvHnjNKSG', 'yuFXHUhPQDoVApU', 'WeYJTXtSqeWejVb', 'nLgTjJkjjIw
 MAPA = {
     'TrnkWAfGduLgqLM': 'Frosted glass',   # vidro traseiro fosco
     'IfqLTOjymCZMuVu': 'Frosted bump',    # ressalto das câmeras
-    'qzKHApwituZTUxC': 'Frosted bump',    # topo do platô das câmeras (era bege-dourado fixo do modelo dourado)
+    # vidros transparentes do módulo: a tampa do platô (deixa ver flash e LiDAR) e as tampas de safira das lentes
+    'qzKHApwituZTUxC': 'Glass',
+    'erHrUfZxAtkfXqO': 'Glass',
+    'MeiGPKHwBMVqGNQ': 'Glass',           # tampa frontal das lentes (aparecia como disco cinza)
+    # tampas do flash (eram opacas e bege): transparentes para aparecer o anel Fresnel do flash
+    'EnwhLiFdMDwiUyz': 'Glass',
+    'ZyKhfPnbNOCYIny': 'Glass',
+    'hgmDQvqtKSacBdB': 'Glass',           # disco sobre o flash (no original, anel com centro transparente)
     'bliqaGpTvCuZHuk': 'Frosted bump',    # base do ressalto (vidro na cor do aparelho, como no real)
     'loFcbeOTkLALGur': 'Glass tint',      # logotipo
     'qTzpZGPXrrlpDsm': 'Plastic antena',  # faixas de antena
@@ -113,6 +120,28 @@ for o in objs:
                 me.vertices[vi].co.y += dy
                 feito.add(vi)
     me.update()
+# uma peça do material do ressalto fica por cima do flash e o escurecia: vira vidro (o anel Fresnel aparece)
+def centro_material(nome):
+    pts = [o.matrix_world @ o.data.vertices[vi].co for o in objs for p in o.data.polygons
+           if p.material_index < len(o.data.materials) and o.data.materials[p.material_index] and o.data.materials[p.material_index].name == nome for vi in p.vertices]
+    return sum(pts, mathutils.Vector()) / len(pts) if pts else None
+flash = centro_material('EcHAJKlkagvhESV')
+vidro = bpy.data.materials.get('Glass')
+if flash is not None and vidro is not None:
+    trocadas = 0
+    for o in objs:
+        me = o.data
+        if 'Glass' not in [m.name for m in me.materials if m]:
+            me.materials.append(vidro)
+        gi = [i for i, m in enumerate(me.materials) if m and m.name == 'Glass'][0]
+        for poly in me.polygons:
+            m = me.materials[poly.material_index] if poly.material_index < len(me.materials) else None
+            if m and m.name == 'Frosted bump':
+                c = o.matrix_world @ poly.center
+                if ((c - flash).xz.length < 0.0034) and c.y < flash.y + 0.0002:
+                    poly.material_index = gi; trocadas += 1
+    print('faces sobre o flash viraram vidro:', trocadas)
+comum.vidro_transparente('Glass')
 comum.uv_tela('OLED')
 comum.exportar(saida)
 print('ok', variante, saida)

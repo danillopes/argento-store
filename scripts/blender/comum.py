@@ -121,3 +121,27 @@ def exportar(caminho, animacoes=False, objetos=None):
         export_animations=animacoes, export_yup=True, export_texcoords=True, export_normals=True,
         export_extras=False, export_cameras=False, export_lights=False,
     )
+
+
+def vidro_transparente(nome='Glass', alfa=0.12):
+    """Vidros de cobertura (tampa do módulo, safira das lentes, vidro da tela) exportados como transparentes (BLEND)."""
+    for m in bpy.data.materials:
+        if m.name != nome or not m.node_tree:
+            continue
+        b = next((n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
+        if not b:
+            continue
+        for k in ('Base Color', 'Alpha'):
+            for l in list(b.inputs[k].links):
+                m.node_tree.links.remove(l)
+        b.inputs['Base Color'].default_value = (0.02, 0.02, 0.025, 1)
+        b.inputs['Alpha'].default_value = alfa
+        b.inputs['Roughness'].default_value = 0.02
+        b.inputs['Metallic'].default_value = 0.0
+        for k in ('Transmission Weight', 'Transmission'):
+            if k in b.inputs:
+                b.inputs[k].default_value = 0.0  # sem transmissão (no navegador renderiza a cena duas vezes)
+        try:
+            m.surface_render_method = 'BLENDED'
+        except Exception:
+            m.blend_method = 'BLEND'

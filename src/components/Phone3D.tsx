@@ -620,6 +620,8 @@ function GLBPhone({
             mat.normalScale.multiplyScalar(0.15)
             antennas.push(mat)
           } else if (mat.name === 'Glass') {
+            // vidro de cobertura: sempre transparente (alguns arquivos de origem marcam o vidro como opaco)
+            mat.transparent = true
             mat.opacity = 0.14
             mat.depthWrite = false
           } else if (mat.name === 'OLED') {
