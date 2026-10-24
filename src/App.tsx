@@ -9,6 +9,7 @@ import Home from './pages/Home'
 const Catalog = lazy(() => import('./pages/Catalog'))
 const Product = lazy(() => import('./pages/Product'))
 const Admin = lazy(() => import('./pages/Admin'))
+const Lancamento18Pro = lazy(() => import('./pages/Lancamento18Pro'))
 const shop = () => import('./pages/Shop')
 const About = lazy(() => shop().then((m) => ({ default: m.About })))
 const Account = lazy(() => shop().then((m) => ({ default: m.Account })))
@@ -58,6 +59,7 @@ export default function App() {
           <Route path="/carrinho" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/conta" element={<Account />} />
+          <Route path="/lancamento" element={<Lancamento18Pro />} />
           <Route path="/sobre" element={<About />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<Home />} />

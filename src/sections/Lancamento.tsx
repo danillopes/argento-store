@@ -1,6 +1,7 @@
 // Faixa de lançamento do iPhone 18 Pro: o par de fotos e o close do módulo das câmeras vão surgindo conforme a
 // pessoa rola, presos ao progresso da rolagem (scrub) como o resto da página.
 import { useLayoutEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { gsap, useExpandNav } from '../lib/motion'
 import { MODELS } from '../data/models'
 
@@ -30,11 +31,7 @@ export default function Lancamento() {
         // entram de baixo e de longe enquanto a seção sobe pela tela; voltam igual ao rolar para cima
         const comum = { trigger: root.current, start: 'top bottom', end: 'top 25%', scrub: true as const }
         gsap.fromTo('.lanc-par', { yPercent: 16, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, ease: 'none', scrollTrigger: comum })
-        gsap.fromTo('.lanc-modulo', { yPercent: 46, xPercent: -8, scale: 0.86, autoAlpha: 0 },
-          { yPercent: 0, xPercent: 0, scale: 1, autoAlpha: 1, ease: 'none', scrollTrigger: { ...comum, end: 'top 10%' } })
         gsap.fromTo('.lanc-copy > *', { y: 36, autoAlpha: 0 }, { y: 0, autoAlpha: 1, stagger: 0.12, ease: 'none', scrollTrigger: comum })
-        // depois de montada, as duas peças seguem em velocidades diferentes: dá profundidade ao conjunto
-        gsap.fromTo('.lanc-modulo', { yPercent: 0 }, { yPercent: -14, ease: 'none', scrollTrigger: { trigger: root.current, start: 'top 25%', end: 'bottom top', scrub: true } })
       })
     }, root)
     return () => ctx.revert()
@@ -50,11 +47,13 @@ export default function Lancamento() {
             Chip {MODELO.chip}, câmera {MODELO.cameras.toLowerCase()} e tela de {String(MODELO.screen).replace('.', ',')}". Novo, lacrado e com nota fiscal
             emitida pela loja.
           </p>
-          <button className="btn btn-primary" onClick={(e) => expand(e, `/produto/${MODELO.id}`, COR.hex)}>Configurar</button>
+          <div className="row gap">
+            <button className="btn btn-primary" onClick={(e) => expand(e, `/produto/${MODELO.id}`, COR.hex)}>Configurar</button>
+            <Link className="btn btn-ghost" to="/lancamento">Saiba mais</Link>
+          </div>
         </div>
         <div className="lanc-art">
           <Arte nome="18-pro-par" larguras={[600, 876]} sizes="(max-width: 860px) 70vw, 34vw" className="lanc-par" alt={`${MODELO.name} ${COR.name}, frente e traseira`} />
-          <Arte nome="18-pro-modulo" larguras={[420, 530]} sizes="(max-width: 860px) 42vw, 19vw" className="lanc-modulo" alt={`Módulo de câmeras do ${MODELO.name}`} />
         </div>
       </div>
     </section>
