@@ -32,6 +32,10 @@ def value(sock, fallback, depth=0):
 def salvar(img, nome):
     path = os.path.join(tmp, nome + '.jpg')
     img.filepath_raw = path; img.file_format = 'JPEG'; img.save()
+    if nome.startswith('Lensinterior'):
+        # o Quick Look ilumina mais que o site: escurece os anéis ópticos para a lente ficar preta como no site
+        from PIL import Image
+        Image.eval(Image.open(path).convert('RGB'), lambda v: int(v * 0.3)).save(path, quality=92)
     return bpy.data.images.load(path, check_existing=False)
 
 wp = bpy.data.images.load(wallpaper)
