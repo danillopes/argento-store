@@ -22,9 +22,12 @@ _LENTES = {k: v for k, v in PRESETS['14pro-preto-espacial'].items() if k in ('GC
 def _cor14(moldura, traseira, modulo, antena, logo):
     return {'Anodized aluminum': (moldura, 0.12, 0.95), 'Frosted glass': (traseira, 0.36, 0.05), 'Frosted bump': (modulo, 0.12, 0.05),
             'finish-chamfer': (moldura, 0.12, 0.95), 'Plastic antena': (antena, 0.5, 0.0), 'Glass tint': (logo, 0.08, 0.3), **_LENTES}
-PRESETS['14pro-prateado'] = _cor14('#d9dadc', '#e8e8e5', '#e4e4e1', '#c4c5c7', '#f4f4f2')
-PRESETS['14pro-dourado'] = _cor14('#e2c896', '#f0e2c4', '#ebdcbb', '#d6c39e', '#f6ead0')
-PRESETS['14pro-roxo-profundo'] = _cor14('#4f4757', '#5a5064', '#5d5367', '#463f4d', '#6a6073')
+# cores calibradas pelas fotos oficiais da Apple (o Preto-espacial foi conferido no aparelho do Daniel):
+# Prateado = moldura de aço cromado claro e traseira branca; Dourado = moldura amarelo-ouro e traseira champanhe;
+# Roxo-profundo = moldura e traseira roxo-acinzentado (mais claro e menos saturado que a amostra do site)
+PRESETS['14pro-prateado'] = _cor14('#e3e4e6', '#f1f1ee', '#ecece9', '#cfd0d2', '#f7f7f5')
+PRESETS['14pro-dourado'] = _cor14('#e5c88f', '#f3e1bd', '#efdcb6', '#d9c29a', '#f8ebcf')
+PRESETS['14pro-roxo-profundo'] = _cor14('#625868', '#6b6075', '#625870', '#5a5161', '#7a7083')
 args = sys.argv[sys.argv.index('--') + 1:]
 entrada, saida, preset = args[:3]
 fundo = args[3] if len(args) > 3 else None  # imagem da tela (papel de parede da unidade)
