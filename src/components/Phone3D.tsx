@@ -33,18 +33,16 @@ function roundedRectShape(w: number, h: number, r: number) {
   return s
 }
 
+// Cantos em arco de círculo: a curva quadrática que havia aqui passava mais perto do canto e deixava o canto
+// com cara de quadrado.
 function roundRect2D(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
   const rad = Math.min(r, w / 2, h / 2)
   g.beginPath()
   g.moveTo(x + rad, y)
-  g.lineTo(x + w - rad, y)
-  g.quadraticCurveTo(x + w, y, x + w, y + rad)
-  g.lineTo(x + w, y + h - rad)
-  g.quadraticCurveTo(x + w, y + h, x + w - rad, y + h)
-  g.lineTo(x + rad, y + h)
-  g.quadraticCurveTo(x, y + h, x, y + h - rad)
-  g.lineTo(x, y + rad)
-  g.quadraticCurveTo(x, y, x + rad, y)
+  g.arcTo(x + w, y, x + w, y + h, rad)
+  g.arcTo(x + w, y + h, x, y + h, rad)
+  g.arcTo(x, y + h, x, y, rad)
+  g.arcTo(x, y, x + w, y, rad)
   g.closePath()
 }
 
@@ -237,8 +235,10 @@ function drawIosScreen(
     const ih = ih0 + prog * (268 - ih0)
     const ix = (CW - iw) / 2
     const iy = ILHA_TOPO
+    // canto da ilha medido nas gravações: raio de 45 px numa tela de 384 px, ou seja 60 px nesta tela de 512.
+    // Enquanto é mais baixa que isso ela continua uma pílula, com o canto na metade da altura, como no aparelho.
     g.save()
-    roundRect2D(g, ix, iy, iw, ih, 44)
+    roundRect2D(g, ix, iy, iw, ih, Math.min(60, ih / 2))
     g.fillStyle = 'rgba(6, 7, 10, 0.96)'
     g.fill()
     g.strokeStyle = 'rgba(255, 255, 255, 0.16)'
