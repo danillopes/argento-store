@@ -276,36 +276,79 @@ def girar_180_z(objs):
         me.update()
 
 
-def ilha_dinamica(x_centro_mm, z_centro_mm, y_superficie_mm, largura_mm=20.6, altura_mm=6.1, espessura_mm=0.06,
-                  material='Island black', camera_x_mm=None, camera_raio_mm=0.85, camera_material='Lens glass'):
-    """Cria a Dynamic Island: uma pílula preta rente à superfície da tela (por baixo do vidro), com a lente frontal
-    opcional num dos lados. Medidas em mm no espaço do aparelho (tela em +Y, topo em +Z)."""
+def ilha_dinamica(x_centro_mm, z_centro_mm, y_superficie_mm, profundidade_mm=1.6, largura_mm=19.6, altura_mm=6.0,
+                  material='Island black', camera_x_mm=None, camera_raio_mm=0.85, camera_material='Lens glass',
+                  material_tela='OLED', segmentos=16):
+    """Dynamic Island com profundidade, como no modelo do iPhone 17 Pro: um recorte em pílula na tela (OLED) com um
+    poço preto por baixo do vidro (paredes + fundo) e, opcionalmente, a lente frontal no fundo, num dos lados.
+    Medidas em mm no espaço do aparelho (tela em +Y, topo em +Z). A tela precisa ter o material `material_tela`."""
     import bmesh, math
-    def cria(nome, pontos, y0, y1, mat):
-        bm = bmesh.new()
-        base = [bm.verts.new((px / 1000, y0 / 1000, pz / 1000)) for px, pz in pontos]
-        face = bm.faces.new(base)
-        r = bmesh.ops.extrude_face_region(bm, geom=[face])
-        vs = [e for e in r['geom'] if isinstance(e, bmesh.types.BMVert)]
-        for v in vs:
-            v.co.y = y1 / 1000
-        bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
-        me = bpy.data.meshes.new(nome); bm.to_mesh(me); bm.free()
-        ob = bpy.data.objects.new(nome, me); bpy.context.scene.collection.objects.link(ob)
-        me.materials.append(bpy.data.materials[mat])
-        for p in me.polygons:
-            p.use_smooth = True
-        return ob
     r = altura_mm / 2
+    cx = largura_mm / 2 - r
     pts = []
-    n = 24
-    for k in range(n + 1):          # tampa direita (arco de -90° a +90°)
-        a = -math.pi / 2 + math.pi * k / n
-        pts.append((x_centro_mm + (largura_mm / 2 - r) + r * math.cos(a), z_centro_mm + r * math.sin(a)))
-    for k in range(n + 1):          # tampa esquerda (arco de 90° a 270°)
-        a = math.pi / 2 + math.pi * k / n
-        pts.append((x_centro_mm - (largura_mm / 2 - r) + r * math.cos(a), z_centro_mm + r * math.sin(a)))
-    cria('Dynamic Island', pts, y_superficie_mm, y_superficie_mm + espessura_mm, material)
+    for k in range(segmentos + 1):          # tampa direita, de -90° a +90°
+        a = -math.pi / 2 + math.pi * k / segmentos
+        pts.append((x_centro_mm + cx + r * math.cos(a), z_centro_mm + r * math.sin(a)))
+    for k in range(segmentos + 1):          # tampa esquerda, de 90° a 270°
+        a = math.pi / 2 + math.pi * k / segmentos
+        pts.append((x_centro_mm - cx + r * math.cos(a), z_centro_mm + r * math.sin(a)))
+    n = len(pts)
+
+    def dentro(x, z):                       # polígono convexo anti-horário (em X,Z)
+        for k in range(n):
+            x0, z0 = pts[k]; x1, z1 = pts[(k + 1) % n]
+            if (x1 - x0) * (z - z0) - (z1 - z0) * (x - x0) < -1e-9:
+                return False
+        return True
+
+    # 1) recorta o furo na tela: divide as faces da tela pelos planos de cada aresta da pílula e apaga o miolo
+    for o in malhas():
+        idx = [i for i, m in enumerate(o.data.materials) if m and m.name == material_tela]
+        if not idx:
+            continue
+        bm = bmesh.new(); bm.from_mesh(o.data)
+        for k in range(n):
+            x0, z0 = pts[k]; x1, z1 = pts[(k + 1) % n]
+            tela = [f for f in bm.faces if f.material_index in idx]
+            geom = list(tela) + list({e for f in tela for e in f.edges}) + list({v for f in tela for v in f.verts})
+            # plano vertical (contém Y) pela aresta; normal no plano X,Z
+            nx, nz = (z1 - z0), -(x1 - x0)
+            bmesh.ops.bisect_plane(bm, geom=geom, dist=1e-7, plane_co=(x0 / 1000, 0, z0 / 1000),
+                                   plane_no=(nx, 0, nz), clear_inner=False, clear_outer=False)
+        apagar = [f for f in bm.faces if f.material_index in idx and dentro(f.calc_center_median().x * 1000, f.calc_center_median().z * 1000)]
+        bmesh.ops.delete(bm, geom=apagar, context='FACES')
+        bm.to_mesh(o.data); bm.free(); o.data.update()
+
+    # 2) poço: paredes (viradas para dentro) e fundo
+    y0 = y_superficie_mm / 1000; y1 = (y_superficie_mm - profundidade_mm) / 1000
+    bm = bmesh.new()
+    topo = [bm.verts.new((px / 1000, y0, pz / 1000)) for px, pz in pts]
+    fundo = [bm.verts.new((px / 1000, y1, pz / 1000)) for px, pz in pts]
+    for k in range(n):
+        bm.faces.new((topo[k], fundo[k], fundo[(k + 1) % n], topo[(k + 1) % n]))
+    bm.faces.new(fundo)
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    # normais do fundo para +Y (voltado para quem olha a tela) e das paredes para o centro
+    for f in bm.faces:
+        c = f.calc_center_median()
+        if len(f.verts) == n:
+            if f.normal.y < 0: f.normal_flip()
+        else:
+            para_centro = (x_centro_mm / 1000 - c.x) * f.normal.x + (z_centro_mm / 1000 - c.z) * f.normal.z
+            if para_centro < 0: f.normal_flip()
+    me = bpy.data.meshes.new('Dynamic Island'); bm.to_mesh(me); bm.free()
+    me.materials.append(bpy.data.materials[material])
+    for p in me.polygons:
+        p.use_smooth = True
+    ob = bpy.data.objects.new('Dynamic Island', me); bpy.context.scene.collection.objects.link(ob)
+
+    # 3) lente frontal opcional, assentada no fundo do poço
     if camera_x_mm is not None:
-        disco = [(camera_x_mm + camera_raio_mm * math.cos(2 * math.pi * k / 32), z_centro_mm + camera_raio_mm * math.sin(2 * math.pi * k / 32)) for k in range(32)]
-        cria('Camera frontal', disco, y_superficie_mm + espessura_mm, y_superficie_mm + espessura_mm + 0.03, camera_material)
+        bm = bmesh.new()
+        base = [bm.verts.new(((camera_x_mm + camera_raio_mm * math.cos(2 * math.pi * k / 32)) / 1000, (y1 + 0.00003),
+                              (z_centro_mm + camera_raio_mm * math.sin(2 * math.pi * k / 32)) / 1000)) for k in range(32)]
+        f = bm.faces.new(base)
+        if f.normal.y < 0: f.normal_flip()
+        me2 = bpy.data.meshes.new('Camera frontal'); bm.to_mesh(me2); bm.free()
+        me2.materials.append(bpy.data.materials[camera_material])
+        ob2 = bpy.data.objects.new('Camera frontal', me2); bpy.context.scene.collection.objects.link(ob2)
