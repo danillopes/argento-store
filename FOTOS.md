@@ -58,6 +58,13 @@ O script gera, para cada foto, versões **AVIF** e **WebP** em 3 tamanhos (o nav
 corrige a rotação do celular e cria uma miniatura borrada que aparece na hora enquanto a foto carrega.
 Uma foto de 4 MB vira ~40–120 KB.
 
+## Imagens de campanha
+
+As artes da faixa de lançamento (`src/sections/Lancamento.tsx`) ficam prontas em
+`public/lancamento/`, fora de `public/fotos/`, porque `npm run fotos` apaga e refaz
+essa pasta a partir de `fotos-originais/`. São PNGs com fundo transparente já
+convertidos para AVIF e WebP em dois tamanhos.
+
 ## 3. Envie
 
 ```bash

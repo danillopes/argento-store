@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ShieldCheck, BatteryFull, Camera, Truck, Receipt, BadgeCheck, ArrowRight } from 'lucide-react'
 import Scrolly from '../sections/Scrolly'
+import Lancamento from '../sections/Lancamento'
 import InsideTech from '../sections/InsideTech'
 import { HorizontalGallery, InfiniteGallery, LayeredGallery } from '../sections/Gallery'
 import ProductCard from '../components/ProductCard'
@@ -46,6 +47,7 @@ export default function Home() {
   return (
     <>
       <Scrolly />
+      <Lancamento />
       <InsideTech />
       <HorizontalGallery />
 

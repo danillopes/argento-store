@@ -9,6 +9,10 @@ export async function converter(entrada, pasta, base, larguras) {
   const meta = await img.metadata()
   const ratio = (meta.height ?? 1) / (meta.width ?? 1)
   const ws = larguras.filter((w) => w <= (meta.width ?? w))
+  // a foto original quase sempre fica entre dois tamanhos da lista; serve ela inteira também, senão a tela grande
+  // recebe uma imagem bem menor do que cabe (era o caso das fotos de catálogo, todas em 360 px)
+  const nativa = Math.min(meta.width ?? 0, larguras[larguras.length - 1])
+  if (nativa > (ws[ws.length - 1] ?? 0)) ws.push(nativa)
   if (!ws.length) ws.push(meta.width ?? larguras[0])
   for (const w of ws) {
     const r = img.clone().resize({ width: w, withoutEnlargement: true })

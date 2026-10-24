@@ -974,10 +974,11 @@
    "borgonha": {
     "path": "fotos/modelos/iphone-18-pro/borgonha",
     "w": [
-     360
+     360,
+     620
     ],
-    "ratio": 1.242,
-    "blur": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAADQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JYwDE2CHpUzoxc8hNoSAA/uuO1dixrFrRuVQvV9UzMBTXobHfZQNs+CQC8zi4B/8xlsXsdCFjNS1Sm4TDvF44qyJb4dQ5EPFjBZee9dw+pGlUzFfGIAAA"
+    "ratio": 1,
+    "blur": "data:image/webp;base64,UklGRswAAABXRUJQVlA4WAoAAAAQAAAADwAADwAAQUxQSFoAAAAJcBXbDhPdhE+wggIk4AEfGEAFRhCABHSU7S3J9i4gIiagqUPAVHDty1kqbhMB9SJHkzt3AwV55u4LCtlzKcRzAavn1vzbAL8T9wC7IzeCQbv1k/l4cLPoBhxWUDggTAAAANABAJ0BKhAAEAADgFolmALsAMkszWagAP7mQe74oGDxJxcWDXBLho+qSLpYgv170Sd4ZfuRdVkG2BFIEfBkaXyGTs2a/OoprygAAAA="
    },
    "prateado": {
     "path": "fotos/modelos/iphone-18-pro/prateado",
