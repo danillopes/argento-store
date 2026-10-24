@@ -54,15 +54,7 @@ comum.pintar('Lens glass', '#0b0d1c', 0.05, 0.3)
 comum.pintar('Island black', '#030304', 0.3, 0.0)
 comum.pintar('Port dark', '#17171a', 0.5, 0.6)
 comum.pintar('Flash', '#f6f2e4', 0.2, 0.0)
-# Dynamic Island com profundidade (como no iPhone 17 Pro): recorte em pílula na tela com poço preto; o furo de câmera do
-# doador desce para o fundo do poço, do lado direito (visto de frente)
-zc = ALT / 2 - 8.17
-for o in comum.malhas():
-    if o.name == 'Screen.002':
-        for v in o.data.vertices:
-            v.co.y -= 1.55 / 1000
-        o.data.update()
-comum.ilha_dinamica(0.0, zc, 3.76, profundidade_mm=1.6)
+# Sem Dynamic Island: mantém a frente original do doador (a função comum.ilha_dinamica existe se um dia for preciso)
 comum.vidro_transparente('Glass')
 comum.uv_tela('OLED')
 comum.reduzir_imagens(1024)
