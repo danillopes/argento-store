@@ -1,9 +1,15 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { advanceColor, batteryPercent } from '../src/lib/scene-motion.ts'
+import { colorAt, batteryPercent } from '../src/lib/scene-motion.ts'
 
-test('cores mantem duracao minima e bateria responde nos dois sentidos', () => {
-  assert.ok(advanceColor(0, 1, 1 / 60) <= 1 / (60 * 3.4))
+test('cor acompanha a posicao na hora e bateria responde nos dois sentidos', () => {
+  const paleta = ['#000000', '#ff0000', '#ffffff']
+  assert.equal(colorAt(paleta, 0), '#000000')
+  assert.equal(colorAt(paleta, 1), '#ff0000')
+  assert.equal(colorAt(paleta, 2), '#ffffff')
+  assert.equal(colorAt(paleta, 0.5), '#800000')
+  assert.equal(colorAt(paleta, 9), '#ffffff')
+  assert.equal(colorAt(['#123456'], 2), '#123456')
   assert.equal(batteryPercent(5), 0)
   assert.equal(batteryPercent(5.9), 97)
   assert.ok(batteryPercent(5.4) < batteryPercent(5.7))

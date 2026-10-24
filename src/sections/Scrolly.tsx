@@ -2,17 +2,11 @@ import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { defaultDrive, type Drive } from '../components/drive'
-import { advanceColor, batteryPercent } from '../lib/scene-motion'
+import { colorAt, batteryPercent } from '../lib/scene-motion'
 
 const Phone3D = lazy(() => import('../components/Phone3D'))
 import { gsap, ScrollTrigger } from '../lib/motion'
 import { MODELS } from '../data/models'
-
-const mixHex = (a: string, b: string, t: number) => {
-  const pa = parseInt(a.slice(1), 16), pb = parseInt(b.slice(1), 16)
-  const ch = (sh: number) => Math.round(((pa >> sh) & 255) + (((pb >> sh) & 255) - ((pa >> sh) & 255)) * t)
-  return '#' + ((ch(16) << 16) | (ch(8) << 8) | ch(0)).toString(16).padStart(6, '0')
-}
 
 // Destaque da abertura: iPhone 18 Pro, nas cores cadastradas (Borgonha, Azul-claro, Prateado, Preto)
 const HERO_ID = 'iphone-18-pro'
@@ -55,12 +49,8 @@ export default function Scrolly() {
           // entrada
           gsap.from('.ch-0 > *', { y: 30, autoAlpha: 0, stagger: 0.08, duration: 1, ease: 'power3.out', delay: 0.2 })
 
+          // Posição na paleta (0 = Borgonha … 3 = Preto); a linha do tempo move isto e o scroll move a linha do tempo.
           const col = { t: 0 }
-          let colorPosition = 0
-          const updateColor = () => {
-            const i = Math.min(PALETTE.length - 2, Math.floor(colorPosition))
-            d.color = mixHex(PALETTE[i], PALETTE[i + 1], colorPosition - i)
-          }
           const tl = gsap.timeline({
             paused: true,
             defaults: { ease: 'power2.inOut' },
@@ -84,17 +74,18 @@ export default function Scrolly() {
             // 4 — giro completo e troca de cores
             .to('.ch-3', { autoAlpha: 0, y: -40, duration: 0.5 }, 6.1)
             .to(d, { rotY: Math.PI * 3, x: desk ? 1.45 : 0, y: 0, scale: desk ? 0.95 : 0.9, duration: 1.6, ease: 'none' }, 6.1)
-            // Mantém cada acabamento à vista e faz cada troca em ~3,4 segundos.
-            .to(col, { t: 1, duration: 2.2, ease: 'power1.inOut' }, 8)
-            .to(col, { t: 2, duration: 2.2, ease: 'power1.inOut' }, 11.2)
-            .to(col, { t: 3, duration: 2.2, ease: 'power1.inOut' }, 14.4)
+            // Cada acabamento fica à vista e a troca acompanha o scroll, sem atraso (ease 'none' = anda com o dedo).
+            .to(col, { t: 1, duration: 1, ease: 'none' }, 8)
+            .to(col, { t: 2, duration: 1, ease: 'none' }, 11.2)
+            .to(col, { t: 3, duration: 1, ease: 'none' }, 14.4)
             .fromTo('.ch-4', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 6.9)
             .to({}, { duration: 0.8 })
           tl.to('.scrolly-progress i', { scaleY: 1, ease: 'none', duration: tl.duration() }, 0)
 
-          // Posição e bateria seguem o scroll no mesmo update; só a cor tem atraso.
+          // Posição, cor e bateria seguem o scroll no mesmo update, sem atraso nenhum.
           const syncScroll = (progress: number) => {
             tl.progress(progress)
+            d.color = colorAt(PALETTE, col.t)
             const value = String(batteryPercent(tl.time()))
             if (battery.current && battery.current.textContent !== value) battery.current.textContent = value
           }
@@ -105,13 +96,7 @@ export default function Scrolly() {
             onRefresh: self => syncScroll(self.progress),
           })
           syncScroll(trigger.progress)
-          const tick = (_time: number, deltaMs: number) => {
-            if (document.hidden) return
-            colorPosition = advanceColor(colorPosition, col.t, deltaMs / 1000)
-            updateColor()
-          }
-          gsap.ticker.add(tick)
-          return () => { gsap.ticker.remove(tick); trigger.kill(); tl.kill() }
+          return () => { trigger.kill(); tl.kill() }
         },
       )
     }, root)
