@@ -43,6 +43,13 @@ O código de cor local `azul-claro` do 18 Pro corresponde a `Glacier` na fonte.
 Essas imagens são referências de catálogo e não demonstram o estado de uma
 unidade física. `unidades/ARG-1069/` fica aguardando fotos próprias.
 
+Cada foto oficial traz o par do mesmo aparelho: a traseira à esquerda e a frente
+à direita, com a frente por cima. Para a galeria em camadas da página inicial,
+`npm run fotos` separa os dois e tira o fundo (`public/fotos/recortes/`), nas
+cores listadas em `RECORTES`, dentro de `scripts/fotos.mjs`. A traseira sai
+cortada onde a frente a cobria, por isso ela só entra no aparelho da esquerda,
+cuja borda direita fica escondida atrás do aparelho do meio.
+
 ```bash
 npm run fotos
 ```

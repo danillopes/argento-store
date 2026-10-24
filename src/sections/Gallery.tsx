@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useLayoutEffect, useMemo, useRef } from 'react'
 import { motion, useAnimationFrame, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import PhoneArt from '../components/PhoneArt'
-import Photo, { modelPhoto } from '../components/Photo'
+import Photo, { modelPhoto, recortePhoto, type Vista } from '../components/Photo'
 import { FAMILIES, MODELS, type PhoneModel } from '../data/models'
 import { gsap } from '../lib/motion'
 import { useExpandNav } from '../lib/motion'
@@ -207,10 +207,13 @@ export function InfiniteGallery({ reverse = false, speed = 40 }: { reverse?: boo
 }
 
 // ---------- 3. Galeria em camadas ----------
-const LAYERS = [
-  { title: 'Titânio, alumínio e vidro.', text: 'Do aço inoxidável dos 12 Pro ao alumínio unibody dos 17 Pro — materiais que você sente na mão.', model: 'iphone-16-pro', colors: ['#bfa48f', '#c2bcb2', '#3c3c3d'], dark: false },
-  { title: 'Cada cor, uma unidade real.', text: 'Selecione uma cor e veja somente os aparelhos daquela cor que estão no nosso estoque agora.', model: 'iphone-17', colors: ['#9fb6cf', '#b5c4a5', '#d8c9e6'], dark: false },
-  { title: 'Borgonha, Azul-claro.', text: 'Os acabamentos da nova linha Pro, novos e lacrados, com nota fiscal emitida pela loja.', model: 'iphone-18-pro-max', colors: ['#6b1f2e', '#b9d0e4', '#e4e4e2'], dark: true },
+// Três aparelhos por faixa, na ordem em que aparecem (o do meio fica na frente e maior). A foto oficial de catálogo
+// traz a traseira e a frente juntas; `scripts/fotos.mjs` separa as duas. A traseira sai cortada onde a frente a
+// cobria, então ela só entra na peça da esquerda, cuja borda direita fica escondida atrás da peça do meio.
+const LAYERS: { title: string; text: string; model: string; pecas: [string, Vista][]; dark: boolean }[] = [
+  { title: 'Titânio, alumínio e vidro.', text: 'Do aço inoxidável dos 12 Pro ao alumínio unibody dos 17 Pro — materiais que você sente na mão.', model: 'iphone-16-pro', pecas: [['titanio-deserto', 'traseira'], ['titanio-natural', 'frente'], ['titanio-preto', 'frente']], dark: false },
+  { title: 'Cada cor, uma unidade real.', text: 'Selecione uma cor e veja somente os aparelhos daquela cor que estão no nosso estoque agora.', model: 'iphone-17', pecas: [['azul-nevoa', 'traseira'], ['salvia', 'frente'], ['lavanda', 'frente']], dark: false },
+  { title: 'Borgonha, Azul-claro.', text: 'Os acabamentos da nova linha Pro, novos e lacrados, com nota fiscal emitida pela loja.', model: 'iphone-18-pro-max', pecas: [['borgonha', 'traseira'], ['azul-claro', 'frente'], ['prateado', 'frente']], dark: true },
 ]
 
 export function LayeredGallery() {
@@ -228,7 +231,7 @@ export function LayeredGallery() {
           gsap.to(card.querySelector('.layer-dim'), { opacity: 0.35, ease: 'none', scrollTrigger: st })
         })
         cards.forEach((card) => {
-          const arts = card.querySelectorAll('.layer-art svg')
+          const arts = card.querySelectorAll('.layer-art > *')
           gsap.fromTo(arts, { y: (j) => 80 + j * 40, rotate: (j) => (j - 1) * 8 }, { y: 0, rotate: (j) => (j - 1) * 4, ease: 'none', scrollTrigger: { trigger: card, start: 'top bottom', end: 'top 30%', scrub: true } })
         })
       })
@@ -239,6 +242,7 @@ export function LayeredGallery() {
     <section className="layers" ref={root} aria-label="Galeria em camadas">
       {LAYERS.map((l, i) => {
         const m = MODELS.find((x) => x.id === l.model)!
+        const cores = l.pecas.map(([id]) => m.colors.find((c) => c.id === id)!)
         return (
           <article key={i} className={`layer ${l.dark ? 'is-dark' : ''}`} style={{ top: `${84 + i * 14}px`, zIndex: i + 1 }}>
             <span className="layer-dim" aria-hidden />
@@ -246,12 +250,17 @@ export function LayeredGallery() {
               <p className="eyebrow">{m.name}</p>
               <h3 className="display-3">{l.title}</h3>
               <p className="lead">{l.text}</p>
-              <button className="btn btn-primary" onClick={(e) => expand(e, `/produto/${m.id}`, l.colors[0])}>Configurar</button>
+              <button className="btn btn-primary" onClick={(e) => expand(e, `/produto/${m.id}`, cores[0].hex)}>Configurar</button>
             </div>
             <div className="layer-art">
-              {l.colors.map((c, j) => (
-                <PhoneArt key={c} model={m} hex={c} view={j === 1 ? 'front' : 'back'} />
-              ))}
+              {l.pecas.map(([corId, vista], j) => {
+                const foto = recortePhoto(m.id, corId, vista)
+                return foto ? (
+                  <Photo key={corId} p={foto} alt={`${m.name} — ${cores[j].name}, ${vista}`} sizes="(max-width: 860px) 36vw, 260px" priority={i === 0} />
+                ) : (
+                  <PhoneArt key={corId} model={m} hex={cores[j].hex} view={vista === 'frente' ? 'front' : 'back'} />
+                )
+              })}
             </div>
           </article>
         )

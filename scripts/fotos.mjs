@@ -7,7 +7,8 @@
 import { readdir, readFile, mkdir, writeFile, stat, rm } from 'node:fs/promises'
 import { join, parse } from 'node:path'
 import { createHash } from 'node:crypto'
-import sharp from 'sharp'
+import { converter } from './lib/converter-foto.mjs'
+import { recortarPar } from './lib/recorte-par.mjs'
 
 const SRC = 'fotos-originais'
 const OUT = 'public/fotos'
@@ -22,43 +23,41 @@ const files = async (p) => (await readdir(p)).filter((f) => EXT.test(f)).sort()
 const label = (name) =>
   name.replace(/^\d+[-_ ]*/, '').replace(/[-_]+/g, ' ').replace(/^\w/, (c) => c.toUpperCase()) || 'Foto'
 
-async function convert(input, outDir, base, widths) {
-  await mkdir(outDir, { recursive: true })
-  const img = sharp(input, { failOn: 'none' }).rotate() // respeita a orientação EXIF
-  const meta = await img.metadata()
-  const ratio = (meta.height ?? 1) / (meta.width ?? 1)
-  const ws = widths.filter((w) => w <= (meta.width ?? w))
-  if (!ws.length) ws.push(meta.width ?? widths[0])
-  for (const w of ws) {
-    const r = img.clone().resize({ width: w, withoutEnlargement: true })
-    await r.clone().avif({ quality: 52, effort: 4 }).toFile(join(outDir, `${base}-${w}.avif`))
-    await r.clone().webp({ quality: 78 }).toFile(join(outDir, `${base}-${w}.webp`))
-  }
-  // miniatura borrada embutida no manifesto (aparece instantaneamente enquanto a foto carrega)
-  const tiny = await img.clone().resize(16).webp({ quality: 40 }).toBuffer()
-  return { w: ws, ratio: Math.round(ratio * 1000) / 1000, blur: `data:image/webp;base64,${tiny.toString('base64')}` }
+// Galeria em camadas (src/sections/Gallery.tsx): a foto oficial traz a traseira e a frente juntas e lá cada aparelho
+// aparece sozinho, então estas cores também saem recortadas.
+const RECORTES = {
+  'iphone-16-pro': ['titanio-deserto', 'titanio-natural', 'titanio-preto'],
+  'iphone-17': ['azul-nevoa', 'salvia', 'lavanda'],
+  'iphone-18-pro-max': ['borgonha', 'azul-claro', 'prateado'],
 }
 
 // Sem a pasta de originais (ex.: no build do GitHub), mantém as fotos já convertidas
 // e só atualiza a lista de modelos 3D.
 const hasOriginals = await exists(SRC)
 const previous = (await exists(MANIFEST)) ? JSON.parse(await readFile(MANIFEST, 'utf8')) : {}
-const manifest = { modelos: hasOriginals ? {} : previous.modelos ?? {}, unidades: hasOriginals ? {} : previous.unidades ?? {}, modelos3d: [], modelos3dVersoes: {} }
+const manifest = { modelos: hasOriginals ? {} : previous.modelos ?? {}, recortes: hasOriginals ? {} : previous.recortes ?? {}, unidades: hasOriginals ? {} : previous.unidades ?? {}, modelos3d: [], modelos3dVersoes: {} }
 if (hasOriginals) await rm(OUT, { recursive: true, force: true })
 let count = 0
 
 for (const model of await dirs(join(SRC, 'modelos'))) {
   for (const f of await files(join(SRC, 'modelos', model))) {
     const color = parse(f).name
-    const info = await convert(join(SRC, 'modelos', model, f), join(OUT, 'modelos', model), color, SIZES.modelos)
+    const info = await converter(join(SRC, 'modelos', model, f), join(OUT, 'modelos', model), color, SIZES.modelos)
     ;(manifest.modelos[model] ??= {})[color] = { path: `fotos/modelos/${model}/${color}`, ...info }
     count++
+    if (!RECORTES[model]?.includes(color)) continue
+    const partes = await recortarPar(join(SRC, 'modelos', model, f))
+    for (const vista of ['frente', 'traseira']) {
+      const corte = await converter(partes[vista], join(OUT, 'recortes', model), `${color}-${vista}`, SIZES.modelos)
+      ;((manifest.recortes[model] ??= {})[color] ??= {})[vista] = { path: `fotos/recortes/${model}/${color}-${vista}`, ...corte }
+      count++
+    }
   }
 }
 for (const unit of await dirs(join(SRC, 'unidades'))) {
   for (const f of await files(join(SRC, 'unidades', unit))) {
     const name = parse(f).name.toLowerCase().replace(/\s+/g, '-')
-    const info = await convert(join(SRC, 'unidades', unit, f), join(OUT, 'unidades', unit), name, SIZES.unidades)
+    const info = await converter(join(SRC, 'unidades', unit, f), join(OUT, 'unidades', unit), name, SIZES.unidades)
     ;(manifest.unidades[unit] ??= []).push({ path: `fotos/unidades/${unit}/${name}`, label: label(parse(f).name), ...info })
     count++
   }

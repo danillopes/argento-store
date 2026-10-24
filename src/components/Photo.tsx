@@ -9,11 +9,19 @@ export interface PhotoInfo {
   label?: string
 }
 
-type Manifest = { modelos: Record<string, Record<string, PhotoInfo>>; unidades: Record<string, PhotoInfo[]> }
+export type Vista = 'frente' | 'traseira'
+type Manifest = {
+  modelos: Record<string, Record<string, PhotoInfo>>
+  recortes: Record<string, Record<string, Partial<Record<Vista, PhotoInfo>>>>
+  unidades: Record<string, PhotoInfo[]>
+}
 const M = photos as Manifest
 const BASE = import.meta.env.BASE_URL
 
 export const modelPhoto = (modelId: string, colorId: string): PhotoInfo | undefined => M.modelos[modelId]?.[colorId]
+// Aparelho recortado da foto de catálogo (a oficial traz a traseira e a frente juntas), com fundo transparente
+export const recortePhoto = (modelId: string, colorId: string, vista: Vista): PhotoInfo | undefined =>
+  M.recortes?.[modelId]?.[colorId]?.[vista]
 export const anyModelPhoto = (modelId: string): PhotoInfo | undefined => Object.values(M.modelos[modelId] ?? {})[0]
 export const unitPhotos = (unitId: string): PhotoInfo[] => M.unidades[unitId] ?? []
 export const hasUnitPhotos = (unitId: string) => !!M.unidades[unitId]?.length
