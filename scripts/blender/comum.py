@@ -274,3 +274,38 @@ def girar_180_z(objs):
         for v in me.vertices:
             v.co.x, v.co.y = -v.co.x, -v.co.y
         me.update()
+
+
+def ilha_dinamica(x_centro_mm, z_centro_mm, y_superficie_mm, largura_mm=20.6, altura_mm=6.1, espessura_mm=0.06,
+                  material='Island black', camera_x_mm=None, camera_raio_mm=0.85, camera_material='Lens glass'):
+    """Cria a Dynamic Island: uma pílula preta rente à superfície da tela (por baixo do vidro), com a lente frontal
+    opcional num dos lados. Medidas em mm no espaço do aparelho (tela em +Y, topo em +Z)."""
+    import bmesh, math
+    def cria(nome, pontos, y0, y1, mat):
+        bm = bmesh.new()
+        base = [bm.verts.new((px / 1000, y0 / 1000, pz / 1000)) for px, pz in pontos]
+        face = bm.faces.new(base)
+        r = bmesh.ops.extrude_face_region(bm, geom=[face])
+        vs = [e for e in r['geom'] if isinstance(e, bmesh.types.BMVert)]
+        for v in vs:
+            v.co.y = y1 / 1000
+        bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+        me = bpy.data.meshes.new(nome); bm.to_mesh(me); bm.free()
+        ob = bpy.data.objects.new(nome, me); bpy.context.scene.collection.objects.link(ob)
+        me.materials.append(bpy.data.materials[mat])
+        for p in me.polygons:
+            p.use_smooth = True
+        return ob
+    r = altura_mm / 2
+    pts = []
+    n = 24
+    for k in range(n + 1):          # tampa direita (arco de -90° a +90°)
+        a = -math.pi / 2 + math.pi * k / n
+        pts.append((x_centro_mm + (largura_mm / 2 - r) + r * math.cos(a), z_centro_mm + r * math.sin(a)))
+    for k in range(n + 1):          # tampa esquerda (arco de 90° a 270°)
+        a = math.pi / 2 + math.pi * k / n
+        pts.append((x_centro_mm - (largura_mm / 2 - r) + r * math.cos(a), z_centro_mm + r * math.sin(a)))
+    cria('Dynamic Island', pts, y_superficie_mm, y_superficie_mm + espessura_mm, material)
+    if camera_x_mm is not None:
+        disco = [(camera_x_mm + camera_raio_mm * math.cos(2 * math.pi * k / 32), z_centro_mm + camera_raio_mm * math.sin(2 * math.pi * k / 32)) for k in range(32)]
+        cria('Camera frontal', disco, y_superficie_mm + espessura_mm, y_superficie_mm + espessura_mm + 0.03, camera_material)

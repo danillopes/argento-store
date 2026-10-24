@@ -5,7 +5,11 @@ import sys, os, bpy
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import comum
 
-entrada, saida = sys.argv[sys.argv.index('--') + 1:][:2]
+_a = sys.argv[sys.argv.index('--') + 1:]
+entrada, saida = _a[:2]
+# medidas oficiais (largura, espessura, altura em mm); o iPhone 16 usa este mesmo modelo com as medidas dele:
+#   python3 scripts/blender/iphone-17.py -- <glb> public/models/iphone-16.glb 71.6 7.8 147.6
+LARG, ESP, ALT = (float(v) for v in _a[2:5]) if len(_a) >= 5 else (71.5, 7.95, 149.6)
 comum.limpar()
 bpy.ops.import_scene.gltf(filepath=entrada)
 comum.manter_copia('Apple iPhone 17 6.3".001')
@@ -17,7 +21,7 @@ for o in [o for o in objs if o.name == 'png.001']:
 objs = comum.malhas()
 # medidas oficiais da Apple: 71,5 × 149,6 × 7,95 mm (moldura, sem o ressalto das câmeras)
 moldura = [o for o in objs if o.name == 'Cube.008']
-comum.normalizar(objs, (71.5, 7.95, 149.6), moldura)
+comum.normalizar(objs, (LARG, ESP, ALT), moldura)
 comum.reatribuir({
     ('Cube.008', 'Frame (Green)'): 'Anodized aluminum',
     ('Cube.008', 'Frame (Green).002'): 'Plastic antena',        # faixas de antena da moldura
@@ -50,6 +54,15 @@ comum.pintar('Lens glass', '#0b0d1c', 0.05, 0.3)
 comum.pintar('Island black', '#030304', 0.3, 0.0)
 comum.pintar('Port dark', '#17171a', 0.5, 0.6)
 comum.pintar('Flash', '#f6f2e4', 0.2, 0.0)
+# Dynamic Island: o doador só traz um furo de câmera; a pílula (20,6 x 6,1 mm) fica rente à tela e a lente vai para dentro dela
+topo_tela = ALT / 2 - 1.51
+zc = topo_tela - 2.0 - 3.05
+for o in comum.malhas():
+    if o.name == 'Screen.002':
+        for v in o.data.vertices:
+            v.co.z += (zc - (ALT / 2 - 8.17)) / 1000; v.co.y += 0.2 / 1000
+        o.data.update()
+comum.ilha_dinamica(0.0, zc, 3.77)
 comum.vidro_transparente('Glass')
 comum.uv_tela('OLED')
 comum.reduzir_imagens(1024)
