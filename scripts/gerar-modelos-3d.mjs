@@ -819,7 +819,7 @@ async function buildModelGlb(spec) {
 let totalKb = 0
 // iPhone 12 e 12 mini têm modelo próprio (scripts/modelar-iphone-12.mjs): não sobrescrever
 // modelos próprios (não gerados aqui): 12/12 mini (modelar-iphone-12.mjs); 12 Pro/Pro Max, 13 Pro e 14 Pro/Pro Max (scripts/blender/)
-const MODELADOS_A_PARTE = new Set(['iphone-12', 'iphone-12-mini', 'iphone-12-pro', 'iphone-12-pro-max', 'iphone-13-pro', 'iphone-14-pro', 'iphone-14-pro-max', 'iphone-air'])
+const MODELADOS_A_PARTE = new Set(['iphone-12', 'iphone-12-mini', 'iphone-12-pro', 'iphone-12-pro-max', 'iphone-13-pro', 'iphone-14-pro', 'iphone-14-pro-max', 'iphone-air', 'iphone-17'])
 // --only=iphone-18-pro,iphone-18-pro-max gera apenas esses modelos (os demais arquivos ficam intactos)
 const ONLY = new Set((process.argv.find((a) => a.startsWith('--only='))?.slice(7) ?? '').split(',').filter(Boolean))
 for (const spec of SPECS) {
