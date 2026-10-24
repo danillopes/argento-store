@@ -17,3 +17,24 @@ export function colorAt(palette: string[], pos: number) {
 export function batteryPercent(time: number) {
   return Math.round(Math.max(0, Math.min(1, (time - 5) / 0.9)) * 97)
 }
+
+// Mola da Dynamic Island, ajustada quadro a quadro em gravações de tela do iPhone (vídeos do Daniel, 120 fps):
+// abrir leva ~0,18 s até o tamanho final, passa menos de 1% e volta; fechar é mais rápido, ~0,13 s, e não passa do
+// ponto. Guardamos a velocidade entre os quadros, então o movimento tem impulso de verdade, não só uma aproximação.
+const ABRIR = { freq: 27.5, amort: 0.86 }
+const FECHAR = { freq: 50, amort: 1 }
+
+export function avancarIlha(valor: number, velocidade: number, alvo: number, dt: number): [number, number] {
+  // o alvo é cheio (abrindo) ou vazio (fechando); a mola é a mesma do começo ao fim, inclusive na passadinha
+  const { freq, amort } = alvo > 0.5 ? ABRIR : FECHAR
+  let resta = Math.min(Math.max(dt, 0), 0.1)
+  while (resta > 0) {
+    const passo = Math.min(resta, 1 / 240) // sub-passo fixo: a mola fica igual em qualquer taxa de quadros
+    velocidade += (-2 * amort * freq * velocidade - freq * freq * (valor - alvo)) * passo
+    valor += velocidade * passo
+    resta -= passo
+  }
+  // encosta no alvo quando a sobra é imperceptível, senão o canvas da tela fica redesenhando à toa
+  if (Math.abs(valor - alvo) < 0.0015 && Math.abs(velocidade) < 0.02) return [alvo, 0]
+  return [valor, velocidade]
+}

@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
 import { Environment, Lightformer, RoundedBox, ContactShadows, PerformanceMonitor } from '@react-three/drei'
 import { useRenderQuality, qualityDecline, qualityIncline, qualityFallback } from '../lib/render-quality'
 import { makeScreenEmissive } from '../lib/screen-material'
+import { avancarIlha } from '../lib/scene-motion'
 import * as THREE from 'three'
 import type { CamLayout, PhoneModel } from '../data/models'
 import { CachedModelLoader } from '../lib/model-loader'
@@ -54,6 +55,11 @@ function shiftHex(hex: string, lDelta: number, sDelta = 0) {
 }
 
 // Desenha a tela de bloqueio iOS com o wallpaper da geração sincronizado à cor escolhida e Dynamic Island interativa
+// Onde a Dynamic Island fica na tela: centro a 5,46 mm do alto (3,7% da altura da tela), igual ao furo do modelo 3D.
+const ILHA_TOPO = 18
+const ILHA_ALTURA = 45
+const ILHA_CENTRO = ILHA_TOPO + ILHA_ALTURA / 2
+
 function drawIosScreen(
   g: CanvasRenderingContext2D,
   opts: { hex: string; family: number; hasIsland: boolean; island: number; time: number; mirrorX: boolean },
@@ -196,38 +202,41 @@ function drawIosScreen(
   g.fillStyle = vig
   g.fillRect(0, 0, CW, CH)
 
-  // Barra de status superior (5G, sinal e bateria)
+  // Barra de status superior (5G, sinal e bateria), na mesma altura da ilha, como no aparelho
   g.fillStyle = 'rgba(255,255,255,0.88)'
   g.font = '600 18px Inter, system-ui, -apple-system, sans-serif'
   g.textAlign = 'left'
-  g.fillText('Argento', 48, 62)
+  g.fillText('Argento', 48, ILHA_CENTRO + 7)
   g.textAlign = 'right'
   g.font = '600 16px Inter, system-ui, -apple-system, sans-serif'
-  g.fillText('5G', 420, 61)
+  g.fillText('5G', 420, ILHA_CENTRO + 6)
   // Ícone de bateria no canto superior direito
-  roundRect2D(g, 430, 46, 36, 17, 4.5)
+  roundRect2D(g, 430, ILHA_CENTRO - 9, 36, 17, 4.5)
   g.strokeStyle = 'rgba(255,255,255,0.85)'
   g.lineWidth = 1.8
   g.stroke()
-  roundRect2D(g, 433, 49, 28, 11, 2.5)
+  roundRect2D(g, 433, ILHA_CENTRO - 6, 28, 11, 2.5)
   g.fillStyle = 'rgba(255,255,255,0.92)'
   g.fill()
-  g.fillRect(468, 51, 2.5, 7)
+  g.fillRect(468, ILHA_CENTRO - 4, 2.5, 7)
 
   // Deslocamento suave do relógio quando a Dynamic Island expande
-  const clockShift = hasIsland ? island * 92 : 0
+  const clockShift = hasIsland ? island * 150 : 0
 
   // Dynamic Island interativa (Live Activity expandida)
   if (hasIsland && island > 0.01) {
-    const prog = THREE.MathUtils.smoothstep(island, 0, 1)
-    // repouso igual à ilha física: 21 × 6 mm (≈152 × 46 px) até o 17; compacta no 18 Pro, 15,3 × 5,7 mm (≈112 × 42 px)
+    // valor cru da mola: passa um pouco de 1 na abertura, como no aparelho. O conteúdo usa a versão limitada.
+    const prog = island
+    const progCheio = Math.min(1, island)
+    // repouso igual à ilha física: 21 × 6 mm (≈157 × 45 px) até o 17; compacta no 18 Pro, 15,3 × 5,7 mm (≈114 × 43 px)
     const compact = family >= 18
-    const iw0 = compact ? 112 : 152
-    const ih0 = compact ? 42 : 46
-    const iw = iw0 + prog * (440 - iw0) // expande até 440px
-    const ih = ih0 + prog * (180 - ih0) // expande até 180px
+    const iw0 = compact ? 114 : 157
+    const ih0 = compact ? 43 : ILHA_ALTURA
+    // aberta: 66,7 × 38 mm, medido nas gravações de tela (a borda de cima fica parada e ela cresce para baixo)
+    const iw = iw0 + prog * (496 - iw0)
+    const ih = ih0 + prog * (268 - ih0)
     const ix = (CW - iw) / 2
-    const iy = 34
+    const iy = ILHA_TOPO
     g.save()
     roundRect2D(g, ix, iy, iw, ih, 44)
     g.fillStyle = 'rgba(6, 7, 10, 0.96)'
@@ -236,44 +245,44 @@ function drawIosScreen(
     g.lineWidth = 1.5
     g.stroke()
 
-    if (prog > 0.35) {
-      const contentAlpha = Math.min(1, (prog - 0.35) / 0.55)
+    if (progCheio > 0.35) {
+      const contentAlpha = Math.min(1, (progCheio - 0.35) / 0.55)
       g.globalAlpha = contentAlpha
 
       // Capa do álbum / ícone à esquerda
-      const artGrad = g.createLinearGradient(ix + 22, iy + 84, ix + 82, iy + 144)
+      const artGrad = g.createLinearGradient(ix + 32, iy + 122, ix + 118, iy + 208)
       artGrad.addColorStop(0, glow)
       artGrad.addColorStop(1, primary)
-      roundRect2D(g, ix + 22, iy + 82, 58, 58, 14)
+      roundRect2D(g, ix + 32, iy + 122, 86, 86, 20)
       g.fillStyle = artGrad
       g.fill()
 
       // Textos da atividade ao vivo
       g.fillStyle = '#ffffff'
       g.textAlign = 'left'
-      g.font = '600 20px Inter, system-ui, sans-serif'
-      g.fillText('Showroom Argento', ix + 94, iy + 106)
+      g.font = '600 24px Inter, system-ui, sans-serif'
+      g.fillText('Showroom Argento', ix + 136, iy + 158)
       g.fillStyle = 'rgba(255,255,255,0.64)'
-      g.font = '500 15px Inter, system-ui, sans-serif'
-      g.fillText('Áudio Espacial · AirPods Pro', ix + 94, iy + 129)
+      g.font = '500 18px Inter, system-ui, sans-serif'
+      g.fillText('Áudio Espacial · AirPods Pro', ix + 136, iy + 188)
 
       // Equalizador animado à direita
       const bars = 6
       for (let b = 0; b < bars; b++) {
         const wave = 0.35 + 0.65 * Math.abs(Math.sin(time * 4.2 + b * 0.85))
-        const bh = 12 + wave * 28
-        const bx = ix + iw - 78 + b * 9
-        const by = iy + 111 - bh / 2
-        roundRect2D(g, bx, by, 5, bh, 2.5)
+        const bh = 16 + wave * 38
+        const bx = ix + iw - 92 + b * 11
+        const by = iy + 165 - bh / 2
+        roundRect2D(g, bx, by, 6, bh, 3)
         g.fillStyle = glow
         g.fill()
       }
 
       // Barra de progresso inferior
-      roundRect2D(g, ix + 24, iy + 154, iw - 48, 5, 2.5)
+      roundRect2D(g, ix + 32, iy + 230, iw - 64, 6, 3)
       g.fillStyle = 'rgba(255,255,255,0.18)'
       g.fill()
-      roundRect2D(g, ix + 24, iy + 154, (iw - 48) * 0.42, 5, 2.5)
+      roundRect2D(g, ix + 32, iy + 230, (iw - 64) * 0.42, 6, 3)
       g.fillStyle = '#ffffff'
       g.fill()
     }
@@ -379,6 +388,7 @@ function PhoneMesh({ drive, cam = 'tri', model }: { drive: React.MutableRefObjec
   const target = useMemo(() => new THREE.Color(), [])
   const lenses = lensPositions(cam)
   const islandVal = useRef(0)
+  const islandVel = useRef(0)
   const lastHex = useRef('')
 
   const screenGeo = useMemo(() => {
@@ -403,9 +413,8 @@ function PhoneMesh({ drive, cam = 'tri', model }: { drive: React.MutableRefObjec
     frameMat.current.color.lerp(fr, k)
     screenMat.current.opacity += (d.screen - screenMat.current.opacity) * k
 
-    const targetIsland = d.island ?? 0
     const prevIsland = islandVal.current
-    islandVal.current += (targetIsland - prevIsland) * Math.min(1, dt * 10)
+    ;[islandVal.current, islandVel.current] = avancarIlha(prevIsland, islandVel.current, d.island ?? 0, dt)
     if (d.color !== lastHex.current || Math.abs(islandVal.current - prevIsland) > 0.004 || islandVal.current > 0.05) {
       lastHex.current = d.color
       const ctx = canvas.getContext('2d')
@@ -680,6 +689,7 @@ function GLBPhone({
   const antTarget = useMemo(() => new THREE.Color(), [])
   const screenLevel = useRef(drive.current.screen)
   const islandLevel = useRef(drive.current.island ?? 0)
+  const islandVelo = useRef(0)
   const lastDrawnColor = useRef('')
   // canvas novo (troca de nível de qualidade muda a resolução da tela): força redesenhar, senão a tela fica preta
   useEffect(() => { lastDrawnColor.current = '' }, [screenSurface])
@@ -724,9 +734,8 @@ function GLBPhone({
 
     // Atualiza o canvas da tela iOS quando a cor ou a Dynamic Island mudam
     if (interactive || model) {
-      const targetIsland = d.island ?? 0
       const prevIsland = islandLevel.current
-      islandLevel.current += (targetIsland - prevIsland) * Math.min(1, dt * 10)
+      ;[islandLevel.current, islandVelo.current] = avancarIlha(prevIsland, islandVelo.current, d.island ?? 0, dt)
       const needsRedraw =
         d.color !== lastDrawnColor.current ||
         Math.abs(islandLevel.current - prevIsland) > 0.003 ||
