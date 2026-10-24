@@ -25,7 +25,14 @@ MOLDURA = {'uApvtlLvHnjNKSG', 'yuFXHUhPQDoVApU', 'WeYJTXtSqeWejVb', 'nLgTjJkjjIw
 MAPA = {
     'TrnkWAfGduLgqLM': 'Frosted glass',   # vidro traseiro fosco
     'IfqLTOjymCZMuVu': 'Frosted bump',    # ressalto das câmeras
-    'erHrUfZxAtkfXqO': 'Frosted bump',    # vidro do topo do ressalto (sem a textura dourada, segue a cor escolhida)
+    # vidros transparentes do módulo: a tampa do platô (deixa ver flash e LiDAR) e as tampas de safira das lentes
+    'qzKHApwituZTUxC': 'Glass',
+    'erHrUfZxAtkfXqO': 'Glass',
+    'MeiGPKHwBMVqGNQ': 'Glass',           # tampa frontal das lentes (aparecia como disco cinza)
+    # tampas do flash (eram opacas e bege): transparentes para aparecer o anel Fresnel do flash
+    'EnwhLiFdMDwiUyz': 'Glass',
+    'ZyKhfPnbNOCYIny': 'Glass',
+    'hgmDQvqtKSacBdB': 'Glass',           # disco sobre o flash (no original, anel com centro transparente)
     'bliqaGpTvCuZHuk': 'Frosted bump',    # base do ressalto (vidro na cor do aparelho, como no real)
     'loFcbeOTkLALGur': 'Glass tint',      # logotipo
     'qTzpZGPXrrlpDsm': 'Plastic antena',  # faixas de antena
@@ -69,7 +76,72 @@ for m in bpy.data.materials:
             n.inputs['Emission Strength'].default_value = 0.0
 
 print('moldura original (mm):', [round(v * 1000, 2) for v in (ref_mx - ref_mn)])
-comum.normalizar(objs, MEDIDAS[variante], ref_caixa=(ref_mn, ref_mx))
+esc = comum.normalizar(objs, MEDIDAS[variante], ref_caixa=(ref_mn, ref_mx))
+if variante == 'pro':
+    # o módulo de câmeras do 14 Pro tem praticamente o tamanho do Pro Max: desfaz a redução que veio junto com o corpo
+    esc_pm = mathutils.Vector((MEDIDAS['promax'][0] / 1000 / (ref_mx - ref_mn).x, 1, MEDIDAS['promax'][2] / 1000 / (ref_mx - ref_mn).z))
+    fx, fz = esc_pm.x / esc.x, esc_pm.z / esc.z
+    mods = {'Frosted bump', 'finish-chamfer'}
+    pts = [o.matrix_world @ v.co for o in objs for p in o.data.polygons if o.data.materials[p.material_index] and o.data.materials[p.material_index].name == 'Frosted bump' for v in [o.data.vertices[i] for i in p.vertices]]
+    mn = mathutils.Vector((min(p.x for p in pts), 0, min(p.z for p in pts))); mx = mathutils.Vector((max(p.x for p in pts), 0, max(p.z for p in pts)))
+    c = (mn + mx) / 2; hx, hz = (mx.x - mn.x) / 2 + 0.0005, (mx.z - mn.z) / 2 + 0.0005
+    for o in objs:
+        me = o.data
+        nomes = {i: (m.name if m else '') for i, m in enumerate(me.materials)}
+        alvo = set()
+        for p in me.polygons:
+            if nomes.get(p.material_index) in ('Anodized aluminum', 'Plastic antena', 'Frosted glass'):
+                continue
+            for vi in p.vertices:
+                w = me.vertices[vi].co
+                if w.y < -0.0035 and abs(w.x - c.x) <= hx and abs(w.z - c.z) <= hz:
+                    alvo.add(vi)
+        for vi in alvo:
+            w = me.vertices[vi].co
+            w.x = c.x + (w.x - c.x) * fx
+            w.z = c.z + (w.z - c.z) * fz
+        me.update()
+    print('módulo de câmeras ampliado', round(fx, 3), round(fz, 3), 'em torno de', [round(c.x * 1000, 1), round(c.z * 1000, 1)], 'mm')
+# a tela e o painel preto de baixo estavam no mesmo plano (y = 3,9 mm): a GPU alternava entre os dois e a tela
+# "apagava" conforme o ângulo. A tela sobe 0,04 mm; Dynamic Island, câmera frontal e grade do alto-falante, 0,08 mm.
+FRENTE = {'OLED': 0.00004, 'FjQZkOEFcAMgVKb': 0.00008, 'pAavhFVnCAgSnSH': 0.00008, 'fexrCBexEqONlzJ': 0.00008, 'XvdlxyjrKESiFay': 0.00008}
+for o in objs:
+    me = o.data
+    desloc = {i: FRENTE[m.name] for i, m in enumerate(me.materials) if m and m.name in FRENTE}
+    if not desloc:
+        continue
+    feito = set()
+    for poly in me.polygons:
+        dy = desloc.get(poly.material_index)
+        if dy is None:
+            continue
+        for vi in poly.vertices:
+            if vi not in feito:
+                me.vertices[vi].co.y += dy
+                feito.add(vi)
+    me.update()
+# uma peça do material do ressalto fica por cima do flash e o escurecia: vira vidro (o anel Fresnel aparece)
+def centro_material(nome):
+    pts = [o.matrix_world @ o.data.vertices[vi].co for o in objs for p in o.data.polygons
+           if p.material_index < len(o.data.materials) and o.data.materials[p.material_index] and o.data.materials[p.material_index].name == nome for vi in p.vertices]
+    return sum(pts, mathutils.Vector()) / len(pts) if pts else None
+flash = centro_material('EcHAJKlkagvhESV')
+vidro = bpy.data.materials.get('Glass')
+if flash is not None and vidro is not None:
+    trocadas = 0
+    for o in objs:
+        me = o.data
+        if 'Glass' not in [m.name for m in me.materials if m]:
+            me.materials.append(vidro)
+        gi = [i for i, m in enumerate(me.materials) if m and m.name == 'Glass'][0]
+        for poly in me.polygons:
+            m = me.materials[poly.material_index] if poly.material_index < len(me.materials) else None
+            if m and m.name == 'Frosted bump':
+                c = o.matrix_world @ poly.center
+                if ((c - flash).xz.length < 0.0034) and c.y < flash.y + 0.0002:
+                    poly.material_index = gi; trocadas += 1
+    print('faces sobre o flash viraram vidro:', trocadas)
+comum.vidro_transparente('Glass')
 comum.uv_tela('OLED')
 comum.exportar(saida)
 print('ok', variante, saida)
