@@ -182,6 +182,48 @@ for ob in objs:
             c = ob.matrix_world @ p.center
             k = min(range(3), key=lambda j: (c - centros[j]).xz.length)
             borda[k] = min(borda.get(k, 1), (c - centros[k]).xz.length)
+import numpy as _np
+def _fit(pts):
+    # círculo por mínimos quadrados (Kasa) no plano XZ
+    P = _np.array(pts); A = _np.c_[2 * P[:, 0], 2 * P[:, 1], _np.ones(len(P))]; b = (P ** 2).sum(1)
+    cx, cz, c0 = _np.linalg.lstsq(A, b, rcond=None)[0]; return cx, cz, (c0 + cx * cx + cz * cz) ** 0.5
+def _barril(k, centro):
+    """faces do barril de metal do aro k e a borda externa (raio máximo por ângulo) para o ajuste do círculo"""
+    import math
+    faces, borda_ext = [], {}
+    for ob in objs:
+        me = ob.data
+        for p in me.polygons:
+            m = me.materials[p.material_index] if p.material_index < len(me.materials) else None
+            if not m or m.name != 'Anodized aluminum':
+                continue
+            ws = [ob.matrix_world @ me.vertices[v].co for v in p.vertices]
+            if max((w - centro).xz.length for w in ws) < 0.0095 and min(w.y for w in ws) < -0.0059:
+                faces.append((ob, p))
+                for w in ws:
+                    if w.y < -0.0065:
+                        q = w - centro; a = int((math.degrees(math.atan2(q.z, q.x)) + 180) // 5); r = q.xz.length
+                        if r > borda_ext.get(a, (0,))[0]:
+                            borda_ext[a] = (r, w.x, w.z)
+    return faces, [(x, z) for _, x, z in borda_ext.values()]
+# o barril de metal de cada aro não acompanhou o ajuste de escala do módulo: recentraliza na lente
+for k in range(3):
+    faces, pts = _barril(k, centros[k])
+    cx, cz, r = _fit(pts)
+    dx, dz = centros[k].x - cx, centros[k].z - cz
+    print(f'aro {k}: {len(pts)} pontos, raio externo {r*1000:.2f} mm, desvio {dx*1000:.2f},{dz*1000:.2f} mm')
+    # na variante Pro o barril também volta ao tamanho do Pro Max, como o resto do módulo (fx, fz)
+    sx, sz = (fx, fz) if variante == 'pro' else (1.0, 1.0)
+    if (dx * dx + dz * dz) ** 0.5 < 0.00008 and sx == 1.0:
+        continue
+    for ob in {ob for ob, _ in faces}:
+        mw, inv = ob.matrix_world, ob.matrix_world.inverted_safe()
+        for v in {v for o2, p in faces if o2 is ob for v in p.vertices}:
+            w = mw @ ob.data.vertices[v].co
+            w.x = centros[k].x + (w.x - cx) * sx; w.z = centros[k].z + (w.z - cz) * sz
+            ob.data.vertices[v].co = inv @ w
+    cx2, cz2, r2 = _fit(_barril(k, centros[k])[1])
+    print(f'   depois: desvio {(centros[k].x-cx2)*1000:.2f},{(centros[k].z-cz2)*1000:.2f} mm, raio {r2*1000:.2f} mm')
 print('raio interno do aro (mm):', {k: round(v * 1000, 2) for k, v in borda.items()})
 cont = {'aro': 0, 'preto': 0}
 for ob in objs:
@@ -202,9 +244,12 @@ for ob in objs:
         n = (ob.matrix_world.to_3x3() @ p.normal).normalized()
         if m.name == 'XioMmaZGUXvxXPb':
             p.material_index = slot(aco); cont['aro'] += 1
-        elif m.name == 'pUfGAKnCgtMMbbm' or (m.name == 'Anodized aluminum' and r < borda.get(k, 0) - 0.00005) \
-                or (m.name.startswith('Lens interior') and abs(n.y) < 0.7):
-            p.material_index = slot(preto); cont['preto'] += 1
+        else:
+            cat = ('pUfGA' if m.name == 'pUfGAKnCgtMMbbm' else
+                   'degrau' if (m.name == 'Anodized aluminum' and all(((ob.matrix_world @ me.vertices[v].co) - centros[k]).xz.length < borda.get(k, 0) - 0.00005 for v in p.vertices)) else
+                   'parede' if (m.name.startswith('Lens interior') and abs(n.y) < 0.7) else None)
+            if cat:
+                p.material_index = slot(preto); cont['preto'] += 1
 print('aros:', cont)
 comum.uv_tela('OLED')
 comum.exportar(saida)
