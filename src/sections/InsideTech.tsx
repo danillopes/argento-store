@@ -63,8 +63,10 @@ export default function InsideTech() {
             // Native sticky keeps entry/exit continuous in both directions, including Safari.
             trigger: root.current, start: 'top top', end: 'bottom bottom',
             scrub: true, invalidateOnRefresh: true,
+            onEnter: () => setMount3D(true),
+            onEnterBack: () => setMount3D(true),
             onUpdate: (self) => apply(self.progress),
-            onRefresh: (self) => apply(self.progress),
+            onRefresh: (self) => { apply(self.progress); if (self.isActive) setMount3D(true) },
           },
         })
         return () => { st.scrollTrigger?.kill(); st.kill() }
