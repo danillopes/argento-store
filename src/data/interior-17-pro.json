@@ -1,0 +1,891 @@
+{
+  "version": "28f63e21fcf7",
+  "variant": "pSIM · estudo visual",
+  "internalTriangles": 281328,
+  "parts": [
+    {
+      "node": "InnerFrame",
+      "label": "Estrutura interna",
+      "desc": "Moldura aberta e apoios modelados do zero. Usinagem interna e espessuras estimadas. Apoios escalonados e canais laterais de assentamento; recortes e localização dos detalhes estimados.",
+      "offset": 0,
+      "start": 0,
+      "end": 1,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/InnerFrame.glb"
+    },
+    {
+      "node": "RearSupport",
+      "label": "Suporte da carcaça",
+      "desc": "Suporte com três aberturas ópticas e recorte central. Topologia autoral; detalhes dimensionais estimados.",
+      "offset": 0.003,
+      "start": 0.05,
+      "end": 0.55,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/RearSupport.glb"
+    },
+    {
+      "node": "DisplaySeal",
+      "label": "Vedação do display",
+      "desc": "Junta perimetral de apresentação. Não valida IP68 nem reproduz todos os adesivos de fábrica.",
+      "offset": -0.057,
+      "start": 0.08,
+      "end": 0.42,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/DisplaySeal.glb"
+    },
+    {
+      "node": "BackSeal",
+      "label": "Vedação traseira",
+      "desc": "Junta da janela traseira; largura e perfil estimados.",
+      "offset": 0.025,
+      "start": 0.02,
+      "end": 0.4,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/BackSeal.glb"
+    },
+    {
+      "node": "Digitizer",
+      "label": "Camada de toque",
+      "desc": "Leitura esquemática de uma camada integrada ao display; não é uma película removível no reparo.",
+      "offset": -0.051,
+      "start": 0.14,
+      "end": 0.5,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-us/125090"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/Digitizer.glb"
+    },
+    {
+      "node": "DisplayShield",
+      "label": "Blindagem do display",
+      "desc": "Chapa traseira, janela superior e abas. Contorno visual aproximado do conjunto OLED.",
+      "offset": -0.046,
+      "start": 0.14,
+      "end": 0.5,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/DisplayShield.glb"
+    },
+    {
+      "node": "DisplayFlex",
+      "label": "Flex do display",
+      "desc": "Fita com terminação e curva angular. Trajeto e contatos são aproximações visuais. Flexível contínuo com curvas suaves e isolamento de borda; trajeto estimado.",
+      "offset": -0.039,
+      "start": 0.21,
+      "end": 0.59,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/DisplayFlex.glb"
+    },
+    {
+      "node": "DisplayController",
+      "label": "Controlador do display",
+      "desc": "Envelope didático no flex; chip específico e posição exata não identificados.",
+      "offset": -0.04,
+      "start": 0.55,
+      "end": 0.94,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/DisplayController.glb"
+    },
+    {
+      "node": "Battery",
+      "label": "Bateria",
+      "desc": "Invólucro com recorte inferior e superfície acetinada. Revisão visual How-FixIT 5:14; medidas e variante dimensional ainda estimadas. Flexível contínuo com curvas suaves e isolamento de borda; trajeto estimado.",
+      "offset": -0.028,
+      "start": 0.27,
+      "end": 0.75,
+      "status": "reference-layout",
+      "sources": [
+        "https://www.youtube.com/watch?v=lfaJaK6aDE0",
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/Battery.glb"
+    },
+    {
+      "node": "BatteryTray",
+      "label": "Bandeja da bateria",
+      "desc": "Suporte estendido, recortes, abas e proteção superior escura. Referências visuais How-FixIT 5:14 e JerryRigEverything 4:37; fixações e espessuras estimadas.",
+      "offset": -0.02,
+      "start": 0.29,
+      "end": 0.77,
+      "status": "reference-layout",
+      "sources": [
+        "https://www.youtube.com/watch?v=lfaJaK6aDE0",
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/BatteryTray.glb"
+    },
+    {
+      "node": "VaporChamber",
+      "label": "Câmara de vapor",
+      "desc": "Envelope externo e áreas térmicas aproximados; canais capilares internos não são exibidos. Detalhamento de superfície autoral; malhas, juntas e contatos com dimensões estimadas.",
+      "offset": -0.01,
+      "start": 0.35,
+      "end": 0.84,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/VaporChamber.glb"
+    },
+    {
+      "node": "MainBoard",
+      "label": "Placa lógica · camada CPU",
+      "desc": "Placa CPU com silhueta, furos e pequenos componentes reconstruídos nas regiões visíveis da etapa 2 do guia Chip ID. Dimensões estimadas; funções dos detalhes menores não identificadas. Sem trilhas elétricas fictícias. Detalhamento de superfície autoral; malhas, juntas e contatos com dimensões estimadas.",
+      "offset": -0.035,
+      "start": 0.4,
+      "end": 0.87,
+      "status": "reference-layout",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117",
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/MainBoard.glb"
+    },
+    {
+      "node": "RFBoard",
+      "label": "Placa lógica · camada RF",
+      "desc": "Contorno RF próprio reconstruído da etapa 5, com recortes, furos e componentes visíveis. Alinhamento das faces e espaçamento entre placas estimados; matriz de contatos ilustrativa. Detalhamento de superfície autoral; malhas, juntas e contatos com dimensões estimadas.",
+      "offset": -0.031,
+      "start": 0.42,
+      "end": 0.88,
+      "status": "reference-layout",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117",
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/RFBoard.glb"
+    },
+    {
+      "node": "BoardShields",
+      "label": "Blindagens da placa",
+      "desc": "Tampas metálicas contornadas e abas. Servem à leitura visual do conjunto, sem alegação de cópia dimensional.",
+      "offset": -0.042,
+      "start": 0.3,
+      "end": 0.72,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/BoardShields.glb"
+    },
+    {
+      "node": "A19Pro",
+      "label": "Apple A19 Pro",
+      "desc": "Presença funcional documentada; envelope, marcação e posição neste estudo são esquemáticos. Não é o die nem o pinout real.",
+      "offset": -0.048,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/A19Pro.glb"
+    },
+    {
+      "node": "RAM",
+      "label": "RAM LPDDR5X · PoP",
+      "desc": "Presença funcional documentada; envelope, marcação e posição neste estudo são esquemáticos. Não é o die nem o pinout real.",
+      "offset": -0.054,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/RAM.glb"
+    },
+    {
+      "node": "NAND",
+      "label": "Armazenamento NAND",
+      "desc": "Presença funcional documentada; envelope, marcação e posição neste estudo são esquemáticos. Não é o die nem o pinout real.",
+      "offset": -0.046,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/NAND.glb"
+    },
+    {
+      "node": "PMIC",
+      "label": "Gerenciamento de energia",
+      "desc": "Presença funcional documentada; envelope, marcação e posição neste estudo são esquemáticos. Não é o die nem o pinout real.",
+      "offset": -0.044,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/PMIC.glb"
+    },
+    {
+      "node": "IMU",
+      "label": "Giroscópio e acelerômetro",
+      "desc": "Presença funcional documentada; envelope, marcação e posição neste estudo são esquemáticos. Não é o die nem o pinout real.",
+      "offset": -0.043,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/IMU.glb"
+    },
+    {
+      "node": "Compass",
+      "label": "Bússola",
+      "desc": "Presença funcional documentada; envelope, marcação e posição neste estudo são esquemáticos. Não é o die nem o pinout real.",
+      "offset": -0.043,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-us/125090"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/Compass.glb"
+    },
+    {
+      "node": "Barometer",
+      "label": "Barômetro",
+      "desc": "Presença funcional documentada; envelope, marcação e posição neste estudo são esquemáticos. Não é o die nem o pinout real.",
+      "offset": -0.043,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-us/125090"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/Barometer.glb"
+    },
+    {
+      "node": "UWB",
+      "label": "Ultra Wideband · identificação provável",
+      "desc": "Módulo de região identificada como provável USI/Apple U2 pela iFixit. A identificação continua provável; dimensões e alinhamento entre faces estimados.",
+      "offset": -0.026,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/UWB.glb"
+    },
+    {
+      "node": "Wireless",
+      "label": "Apple N1 · Wi-Fi / Bluetooth",
+      "desc": "Presença funcional documentada; envelope, marcação e posição neste estudo são esquemáticos. Não é o die nem o pinout real.",
+      "offset": -0.024,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/Wireless.glb"
+    },
+    {
+      "node": "Modem",
+      "label": "Modem 5G",
+      "desc": "Presença funcional documentada; envelope, marcação e posição neste estudo são esquemáticos. Não é o die nem o pinout real.",
+      "offset": -0.024,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/Modem.glb"
+    },
+    {
+      "node": "ESIM",
+      "label": "eSIM e elemento seguro",
+      "desc": "Presença funcional documentada; envelope, marcação e posição neste estudo são esquemáticos. Não é o die nem o pinout real.",
+      "offset": -0.025,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/ESIM.glb"
+    },
+    {
+      "node": "BatteryCharger",
+      "label": "Controlador de carga · TI",
+      "desc": "Presença funcional documentada; envelope, marcação e posição neste estudo são esquemáticos. Não é o die nem o pinout real.",
+      "offset": -0.044,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/BatteryCharger.glb"
+    },
+    {
+      "node": "USBController",
+      "label": "Controlador USB-C · NXP",
+      "desc": "Presença funcional documentada; envelope, marcação e posição neste estudo são esquemáticos. Não é o die nem o pinout real.",
+      "offset": -0.044,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/USBController.glb"
+    },
+    {
+      "node": "AudioCodec",
+      "label": "Codec de áudio",
+      "desc": "Presença funcional documentada; envelope, marcação e posição neste estudo são esquemáticos. Não é o die nem o pinout real.",
+      "offset": -0.044,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/AudioCodec.glb"
+    },
+    {
+      "node": "AudioAmplifiers",
+      "label": "Amplificadores de áudio",
+      "desc": "Três encapsulamentos visíveis nas regiões azul/violeta do guia Chip ID. Formas e medidas aproximadas; sem pinout ou marcação fictícia.",
+      "offset": -0.044,
+      "start": 0.68,
+      "end": 0.87,
+      "status": "reference-layout",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/AudioAmplifiers.glb"
+    },
+    {
+      "node": "RFTransceiver",
+      "label": "Transceptor RF · Qualcomm",
+      "desc": "Presença funcional documentada; envelope, marcação e posição neste estudo são esquemáticos. Não é o die nem o pinout real.",
+      "offset": -0.024,
+      "start": 0.62,
+      "end": 1,
+      "status": "schematic",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/RFTransceiver.glb"
+    },
+    {
+      "node": "RFFrontEnd",
+      "label": "Módulos de front-end RF",
+      "desc": "Regiões Skyworks, Broadcom e Qorvo identificadas pelo guia. Três invólucros externos; dimensões e orientação de montagem estimadas.",
+      "offset": -0.024,
+      "start": 0.68,
+      "end": 0.87,
+      "status": "reference-layout",
+      "sources": [
+        "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/RFFrontEnd.glb"
+    },
+    {
+      "node": "SIM",
+      "label": "Gaveta e leitor nano-SIM",
+      "desc": "Variante com SIM físico. Bandeja e contatos simplificados; eSIM não aparece como uma segunda bandeja.",
+      "offset": -0.017,
+      "start": 0.38,
+      "end": 0.8,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/SIM.glb"
+    },
+    {
+      "node": "CameraCarrier",
+      "label": "Suporte das câmeras",
+      "desc": "Berço triplo com aberturas e abas; dimensões aproximadas, sem separar uma pilha óptica não documentada.",
+      "offset": -0.024,
+      "start": 0.3,
+      "end": 0.8,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/CameraCarrier.glb"
+    },
+    {
+      "node": "MainCamera",
+      "label": "Óptica superior",
+      "desc": "Invólucro revisado a partir de How-FixIT 6:11, alinhado à cobertura óptica do exterior. Medidas estimadas; função específica desta posição não validada. Módulo selado, sem pilha óptica fictícia. Flexível contínuo com curvas suaves e isolamento de borda; trajeto estimado.",
+      "offset": -0.03,
+      "start": 0.42,
+      "end": 0.91,
+      "status": "reference-layout",
+      "sources": [
+        "https://www.youtube.com/watch?v=lfaJaK6aDE0",
+        "https://support.apple.com/en-sg/124248",
+        "https://support.apple.com/en-us/125090"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/MainCamera.glb"
+    },
+    {
+      "node": "UltraWide",
+      "label": "Óptica inferior",
+      "desc": "Invólucro revisado a partir de How-FixIT 6:11, alinhado à cobertura óptica do exterior. Medidas estimadas; função específica desta posição não validada. Módulo selado, sem pilha óptica fictícia. Flexível contínuo com curvas suaves e isolamento de borda; trajeto estimado.",
+      "offset": -0.03,
+      "start": 0.42,
+      "end": 0.91,
+      "status": "reference-layout",
+      "sources": [
+        "https://www.youtube.com/watch?v=lfaJaK6aDE0",
+        "https://support.apple.com/en-sg/124248",
+        "https://support.apple.com/en-us/125090"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/UltraWide.glb"
+    },
+    {
+      "node": "Telephoto",
+      "label": "Óptica central",
+      "desc": "Invólucro revisado a partir de How-FixIT 6:11, alinhado à cobertura óptica do exterior. Medidas estimadas; função específica desta posição não validada. Módulo selado, sem pilha óptica fictícia. Flexível contínuo com curvas suaves e isolamento de borda; trajeto estimado.",
+      "offset": -0.03,
+      "start": 0.42,
+      "end": 0.91,
+      "status": "reference-layout",
+      "sources": [
+        "https://www.youtube.com/watch?v=lfaJaK6aDE0",
+        "https://support.apple.com/en-sg/124248",
+        "https://support.apple.com/en-us/125090"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/Telephoto.glb"
+    },
+    {
+      "node": "LiDAR",
+      "label": "Scanner LiDAR",
+      "desc": "Envelope de sensor e abertura IR. Emissor, óptica e conexões internas não medidos.",
+      "offset": -0.022,
+      "start": 0.4,
+      "end": 0.9,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/LiDAR.glb"
+    },
+    {
+      "node": "Flash",
+      "label": "Flash True Tone",
+      "desc": "Janela difusora e encapsulamento LED simplificados; não reproduz o arranjo óptico interno.",
+      "offset": -0.022,
+      "start": 0.4,
+      "end": 0.9,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/Flash.glb"
+    },
+    {
+      "node": "RearMic",
+      "label": "Microfone traseiro",
+      "desc": "Envelope e porta acústica esquemáticos na região das câmeras.",
+      "offset": -0.023,
+      "start": 0.42,
+      "end": 0.92,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/RearMic.glb"
+    },
+    {
+      "node": "TrueDepth",
+      "label": "Suporte TrueDepth",
+      "desc": "Suporte frontal e flex; layout interno do sensor é estimado. Flexível contínuo com curvas suaves e isolamento de borda; trajeto estimado.",
+      "offset": -0.033,
+      "start": 0.3,
+      "end": 0.8,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/TrueDepth.glb"
+    },
+    {
+      "node": "Selfie",
+      "label": "Frontal · 18 MP",
+      "desc": "Submódulo TrueDepth: abertura e invólucro de apresentação; dimensões e posição relativa esquemáticas.",
+      "offset": -0.038,
+      "start": 0.5,
+      "end": 0.94,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-us/125090",
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/Selfie.glb"
+    },
+    {
+      "node": "IRCamera",
+      "label": "Câmera infravermelha",
+      "desc": "Submódulo TrueDepth: abertura e invólucro de apresentação; dimensões e posição relativa esquemáticas.",
+      "offset": -0.038,
+      "start": 0.5,
+      "end": 0.94,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-us/125090",
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/IRCamera.glb"
+    },
+    {
+      "node": "DotProjector",
+      "label": "Projetor de pontos",
+      "desc": "Submódulo TrueDepth: abertura e invólucro de apresentação; dimensões e posição relativa esquemáticas.",
+      "offset": -0.038,
+      "start": 0.5,
+      "end": 0.94,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-us/125090",
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/DotProjector.glb"
+    },
+    {
+      "node": "Flood",
+      "label": "Iluminador infravermelho",
+      "desc": "Submódulo TrueDepth: abertura e invólucro de apresentação; dimensões e posição relativa esquemáticas.",
+      "offset": -0.038,
+      "start": 0.5,
+      "end": 0.94,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-us/125090",
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/Flood.glb"
+    },
+    {
+      "node": "MagSafe",
+      "label": "MagSafe · bobina e ímãs",
+      "desc": "Bobina contínua, ferrite e ímãs. Número de voltas e segmentação visual são estimados; não é especificação elétrica. Flexível contínuo com curvas suaves e isolamento de borda; trajeto estimado.",
+      "offset": 0.018,
+      "start": 0.15,
+      "end": 0.7,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/MagSafe.glb"
+    },
+    {
+      "node": "Antennas",
+      "label": "Antenas laterais",
+      "desc": "Portadores e fitas laterais autorais. Sem alegar comprimentos RF, ressonância ou roteamento de fábrica.",
+      "offset": -0.006,
+      "start": 0.35,
+      "end": 0.85,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/Antennas.glb"
+    },
+    {
+      "node": "BottomSpeaker",
+      "label": "Alto-falante inferior",
+      "desc": "Caixa acústica inferior com saída, flange e flex. Câmaras internas não foram medidas. Detalhamento de superfície autoral; malhas, juntas e contatos com dimensões estimadas.",
+      "offset": -0.015,
+      "start": 0.28,
+      "end": 0.8,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/BottomSpeaker.glb"
+    },
+    {
+      "node": "TopSpeaker",
+      "label": "Alto-falante superior",
+      "desc": "Caixa do auricular e malha acústica geométrica. Pormenores estimados. Detalhamento de superfície autoral; malhas, juntas e contatos com dimensões estimadas.",
+      "offset": -0.027,
+      "start": 0.26,
+      "end": 0.79,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/TopSpeaker.glb"
+    },
+    {
+      "node": "Taptic",
+      "label": "Taptic Engine",
+      "desc": "Invólucro fechado, abas e conexão. Não exibe bobina ou massa vibratória sem referência. Flexível contínuo com curvas suaves e isolamento de borda; trajeto estimado. Detalhamento de superfície autoral; malhas, juntas e contatos com dimensões estimadas.",
+      "offset": -0.019,
+      "start": 0.32,
+      "end": 0.8,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/Taptic.glb"
+    },
+    {
+      "node": "USBC",
+      "label": "USB-C e dock flex",
+      "desc": "Boca oca, língua e dock flex. Contatos ilustrativos; não é um desenho elétrico ou mecânico de fabricação. Flexível contínuo com curvas suaves e isolamento de borda; trajeto estimado. Detalhamento de superfície autoral; malhas, juntas e contatos com dimensões estimadas.",
+      "offset": -0.009,
+      "start": 0.32,
+      "end": 0.83,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/USBC.glb"
+    },
+    {
+      "node": "MainMic",
+      "label": "Microfone inferior",
+      "desc": "Cápsula e vedação acústica aproximadas.",
+      "offset": -0.014,
+      "start": 0.4,
+      "end": 0.86,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/MainMic.glb"
+    },
+    {
+      "node": "VolumeFlex",
+      "label": "Volume e botão de Ação",
+      "desc": "Flexível lateral e microchaves fechadas; perfis e trajetória aproximados. Flexível contínuo com curvas suaves e isolamento de borda; trajeto estimado.",
+      "offset": -0.005,
+      "start": 0.37,
+      "end": 0.84,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/VolumeFlex.glb"
+    },
+    {
+      "node": "PowerFlex",
+      "label": "Botão lateral",
+      "desc": "Flexível lateral e microchaves fechadas; perfis e trajetória aproximados. Flexível contínuo com curvas suaves e isolamento de borda; trajeto estimado.",
+      "offset": -0.005,
+      "start": 0.37,
+      "end": 0.84,
+      "status": "reference-layout",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Posição geral documentada; contornos, espessuras e fixações estimados, sem metrologia.",
+      "asset": "models/pecas-17-pro/PowerFlex.glb"
+    },
+    {
+      "node": "Fasteners",
+      "label": "Fixação e aterramento",
+      "desc": "Amostra visual de parafusos e apoios. Quantidade, comprimentos e posições de fábrica não são certificados.",
+      "offset": -0.012,
+      "start": 0.5,
+      "end": 0.93,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/Fasteners.glb"
+    },
+    {
+      "node": "DisplayCowling",
+      "label": "Proteção do conector do display",
+      "desc": "Chapinha de proteção documentada pela Apple. Contorno, espessura e encaixe adaptados ao estudo existente; dimensões e posição estimadas.",
+      "offset": -0.026,
+      "start": 0.1,
+      "end": 0.3,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/DisplayCowling.glb"
+    },
+    {
+      "node": "BatteryCowling",
+      "label": "Proteção do conector da bateria",
+      "desc": "Chapinha de proteção documentada pela Apple. Contorno, espessura e encaixe adaptados ao estudo existente; dimensões e posição estimadas.",
+      "offset": -0.026,
+      "start": 0.1,
+      "end": 0.3,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/BatteryCowling.glb"
+    },
+    {
+      "node": "CameraCowling",
+      "label": "Proteção dos conectores das câmeras",
+      "desc": "Chapinha de proteção documentada pela Apple. Contorno, espessura e encaixe adaptados ao estudo existente; dimensões e posição estimadas.",
+      "offset": -0.026,
+      "start": 0.1,
+      "end": 0.3,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-sg/123368",
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/CameraCowling.glb"
+    },
+    {
+      "node": "LogicCowling",
+      "label": "Proteção dos conectores da placa",
+      "desc": "Chapinha de proteção documentada pela Apple. Contorno, espessura e encaixe adaptados ao estudo existente; dimensões e posição estimadas.",
+      "offset": -0.026,
+      "start": 0.1,
+      "end": 0.3,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/LogicCowling.glb"
+    },
+    {
+      "node": "FrontCameraCowling",
+      "label": "Proteção do conector TrueDepth",
+      "desc": "Chapinha de proteção documentada pela Apple. Contorno, espessura e encaixe adaptados ao estudo existente; dimensões e posição estimadas.",
+      "offset": -0.026,
+      "start": 0.1,
+      "end": 0.3,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/FrontCameraCowling.glb"
+    },
+    {
+      "node": "BackGlassCowling",
+      "label": "Proteção do conector traseiro",
+      "desc": "Chapinha de proteção documentada pela Apple. Contorno, espessura e encaixe adaptados ao estudo existente; dimensões e posição estimadas.",
+      "offset": -0.026,
+      "start": 0.1,
+      "end": 0.3,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/BackGlassCowling.glb"
+    },
+    {
+      "node": "BoardConnectors",
+      "label": "Conectores da placa",
+      "desc": "Soquetes do display, bateria, câmeras, TrueDepth e dois conectores USB-C. Funções documentadas; encaixes, posições e contatos ilustrativos, sem pinout real.",
+      "offset": -0.026,
+      "start": 0.68,
+      "end": 0.87,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-sg/124248",
+        "https://support.apple.com/en-sg/123368"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/BoardConnectors.glb"
+    },
+    {
+      "node": "AmbientLightFlex",
+      "label": "Flex do sensor de luz ambiente",
+      "desc": "Ligação do sensor de luz ambiente citada na vista interna Apple. Fita, trajeto e encapsulamento são esquemáticos; não representam o desenho de fabricação. Flexível contínuo com curvas suaves e isolamento de borda; trajeto estimado.",
+      "offset": -0.108,
+      "start": 0.08,
+      "end": 0.31,
+      "status": "schematic",
+      "sources": [
+        "https://support.apple.com/en-sg/124248"
+      ],
+      "limitation": "Envelope e posição do detalhe esquemáticos; não é uma medição ou encapsulamento identificado.",
+      "asset": "models/pecas-17-pro/AmbientLightFlex.glb"
+    }
+  ]
+}

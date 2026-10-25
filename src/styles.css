@@ -785,7 +785,7 @@ html, body { overflow-x: clip; }
 /* ============ A tecnologia por dentro (home) ============ */
 .it { position: relative; background: #000; color: #f5f5f7; }
 .it-stage { position: relative; height: 100vh; height: 100svh; overflow: hidden; background: radial-gradient(60% 55% at 62% 50%, #17181c, #000 72%); }
-.it-canvas { position: absolute; top: 0; bottom: 0; right: 0; width: 64%; }
+.it-canvas { position: absolute; top: 0; bottom: 0; right: 0; width: 64%; pointer-events: none; }
 .it-loading { position: absolute; inset: 0; display: grid; place-items: center; color: #8e8e93; font-size: 0.85rem; }
 .it-copy { position: absolute; left: max(24px, 6vw); top: 50%; margin-top: -9rem; max-width: min(460px, 34vw); will-change: transform, opacity; }
 .it-copy .eyebrow { color: #8e8e93; }
@@ -798,14 +798,14 @@ html, body { overflow-x: clip; }
 .it-final { margin-top: -3rem; }
 .it-note { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); margin: 0; font-size: 0.72rem; color: #6e6e73; white-space: nowrap; }
 @media (max-width: 860px) {
-  .it-canvas { width: 100%; top: 26%; bottom: 6%; }
+  .it-canvas { width: 100%; top: 30%; bottom: 7%; }
   .it-copy { left: 20px; right: 20px; top: max(76px, 9svh); margin-top: 0; max-width: none; }
   .it-copy .display-2 { font-size: clamp(2rem, 8.5vw, 2.6rem); }
   .it-copy .lead { font-size: 0.95rem; margin-top: 8px; }
   .it-cams ul { grid-template-columns: 1fr 1fr; gap: 10px 14px; }
   .it-cams strong { font-size: 0.9rem; }
   .it-cams span { font-size: 0.8rem; }
-  .it-final { margin-top: 0; top: auto; bottom: 12svh; }
+  .it-final { margin-top: 0; top: max(76px, 9svh); bottom: auto; }
   .it-note { white-space: normal; text-align: center; width: calc(100% - 40px); }
 }
 @media (prefers-reduced-motion: reduce) {

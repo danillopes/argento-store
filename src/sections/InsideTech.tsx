@@ -1,10 +1,11 @@
 // "A tecnologia por dentro." — desmontagem controlada pela rolagem (Exploded View + ScrollTrigger).
-// Etapas: apresentação → desmontagem → foco nas câmeras (lentes se separam) → remontagem → mensagem final.
+// Etapas: apresentação → desmontagem progressiva → conjunto aberto.
 // Tudo deriva do progresso da rolagem, então rolar para cima remonta pelo mesmo caminho.
 import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { gsap } from '../lib/motion'
 import { explodeFor } from '../data/explode-config'
 import { newExplodeState } from '../components/exploded/state'
+import { insideScrollPose } from '../lib/inside-scroll'
 
 const ExplodedCanvas = lazy(() => import('../components/exploded/ExplodedPhone'))
 
@@ -42,17 +43,11 @@ export default function InsideTech() {
         el.style.visibility = v < 0.01 ? 'hidden' : 'visible'
       }
       const apply = (p: number) => {
-        const s = state.current
-        const explode = ramp(p, 0.12, 0.42) * (1 - ramp(p, 0.76, 0.93))
-        const cam = band(p, 0.45, 0.58, 0.7, 0.8)
-        s.progress = explode
-        s.lens = cam
-        s.focus = cam
-        s.spin = -0.35 + p * 0.7
+        Object.assign(state.current,insideScrollPose(p))
         show('intro', 1 - ramp(p, 0.13, 0.2))
-        show('explode', band(p, 0.2, 0.26, 0.4, 0.46))
-        show('cams', band(p, 0.5, 0.56, 0.7, 0.76))
-        show('final', ramp(p, 0.9, 0.97))
+        show('explode', band(p, 0.24, 0.3, 0.52, 0.58))
+        show('cams', band(p, 0.61, 0.67, 0.78, 0.84))
+        show('final', ramp(p, 0.88, 0.95))
       }
       mm.add({ reduce: '(prefers-reduced-motion: reduce)', desk: '(min-width: 861px)', mob: '(max-width: 860px)' }, (c) => {
         const { reduce, desk } = c.conditions as { reduce: boolean; desk: boolean }
@@ -97,21 +92,19 @@ export default function InsideTech() {
         <div className="it-copy it-step" ref={(el) => { txt.current.explode = el }}>
           <p className="eyebrow">Desmontagem</p>
           <h3 className="display-3">Camada por camada.</h3>
-          <p className="lead">O vidro e a tela se afastam e revelam a placa com o A19 Pro, a bateria, as câmeras e a câmara de vapor. Atrás, o MagSafe e o vidro traseiro.</p>
+          <p className="lead">Continue rolando e descubra uma nova perspectiva.</p>
         </div>
 
         <div className="it-copy it-step it-cams" ref={(el) => { txt.current.cams = el }}>
-          <p className="eyebrow">Câmeras</p>
-          <ul>
-            {config.cameras.map((c) => <li key={c.title}><strong>{c.title}</strong><span>{c.text}</span></li>)}
-          </ul>
+          <p className="eyebrow">De dentro para fora</p>
+          <h3 className="display-3">Tudo em perspectiva.</h3>
         </div>
 
         <div className="it-copy it-final" ref={(el) => { txt.current.final = el }}>
-          <h3 className="display-3">Por fora, extraordinário.<br />Por dentro, engenharia.</h3>
+          <h3 className="display-3">Um novo olhar.<br />Por dentro.</h3>
         </div>
 
-        {config.illustrative && <p className="it-note">Ilustração: componentes internos com forma e posição aproximadas.</p>}
+        {config.illustrative && <p className="it-note">Reconstrução visual · medidas internas estimadas.</p>}
       </div>
     </section>
   )

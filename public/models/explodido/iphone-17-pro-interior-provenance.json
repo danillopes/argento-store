@@ -1,0 +1,18 @@
+{
+  "sha256": "28f63e21fcf73185cc0fd0ea3e938d84d8ab52c0899bfc176c5b2d93310e7c53",
+  "bytes": 10162920,
+  "parts": 62,
+  "internalTriangles": 281328,
+  "creation": "Original code-authored internal geometry; procedural surfaces plus adapted ambientCG Metal012 CC0 normal/roughness. No teardown photographs or third-party internal meshes embedded.",
+  "fidelity": "Interpretation of documented assemblies. Internal dimensions estimated. Silicon packages, fine surface detail and hidden structures schematic. Not a production CAD or verified complete replica.",
+  "textureManifest": "src/data/interior-surfaces.json",
+  "sources": [
+    "https://support.apple.com/en-sg/124248",
+    "https://support.apple.com/en-us/125090",
+    "https://www.ifixit.com/Teardown/iPhone+17+Pro+Chip+ID/196117",
+    "https://www.youtube.com/watch?v=lfaJaK6aDE0",
+    "https://www.youtube.com/watch?v=O2hSlsvB8nA",
+    "https://www.youtube.com/watch?v=sUn0_GdGDk4",
+    "https://ambientcg.com/view?id=Metal012"
+  ]
+}
