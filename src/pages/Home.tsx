@@ -5,7 +5,8 @@ import { ShieldCheck, BatteryFull, Camera, Truck, Receipt, BadgeCheck, ArrowRigh
 import Scrolly from '../sections/Scrolly'
 import Lancamento from '../sections/Lancamento'
 import InsideTech from '../sections/InsideTech'
-import { HorizontalGallery, InfiniteGallery, LayeredGallery } from '../sections/Gallery'
+// InfiniteGallery continua exportado em sections/Gallery: a seção que o usava está guardada mais abaixo
+import { HorizontalGallery, LayeredGallery } from '../sections/Gallery'
 import ProductCard from '../components/ProductCard'
 import { useStore } from '../store/Store'
 import { summarize } from '../lib/utils'
@@ -51,6 +52,8 @@ export default function Home() {
       <InsideTech />
       <HorizontalGallery />
 
+      {/* Seção "Todas as cores, em movimento." guardada a pedido do Daniel: o componente InfiniteGallery continua
+          pronto em src/sections/Gallery.tsx, é só descomentar este bloco para ela voltar.
       <section className="ig-wrap" aria-label="Galeria infinita">
         <div className="container center">
           <p className="eyebrow">Arraste para explorar</p>
@@ -59,6 +62,7 @@ export default function Home() {
         <InfiniteGallery />
         <InfiniteGallery reverse speed={30} />
       </section>
+      */}
 
       <LayeredGallery />
 

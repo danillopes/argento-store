@@ -9,13 +9,15 @@ const MODELO = MODELS.find((m) => m.id === 'iphone-18-pro')!
 const COR = MODELO.colors.find((c) => c.id === 'borgonha')!
 const BASE = import.meta.env.BASE_URL
 
-function Arte({ nome, larguras, alt, sizes, className }: { nome: string; larguras: number[]; alt: string; sizes: string; className: string }) {
+// `tamanho` é a medida original da arte: sem ela o navegador não reserva a altura da imagem, a página cresce quando
+// a foto chega e o ScrollTrigger recalcula tudo no meio da rolagem — é o tranco que aparecia no celular.
+function Arte({ nome, larguras, alt, sizes, className, tamanho }: { nome: string; larguras: number[]; alt: string; sizes: string; className: string; tamanho: [number, number] }) {
   const conjunto = (ext: string) => larguras.map((w) => `${BASE}lancamento/${nome}-${w}.${ext} ${w}w`).join(', ')
   return (
-    <picture className={className}>
+    <picture className={className} style={{ aspectRatio: `${tamanho[0]} / ${tamanho[1]}` }}>
       <source type="image/avif" srcSet={conjunto('avif')} sizes={sizes} />
       <source type="image/webp" srcSet={conjunto('webp')} sizes={sizes} />
-      <img src={`${BASE}lancamento/${nome}-${larguras[0]}.webp`} alt={alt} loading="lazy" decoding="async" draggable={false} />
+      <img src={`${BASE}lancamento/${nome}-${larguras[0]}.webp`} alt={alt} width={tamanho[0]} height={tamanho[1]} loading="lazy" decoding="async" draggable={false} />
     </picture>
   )
 }
@@ -53,7 +55,7 @@ export default function Lancamento() {
           </div>
         </div>
         <div className="lanc-art">
-          <Arte nome="18-pro-par" larguras={[600, 876]} sizes="(max-width: 860px) 70vw, 34vw" className="lanc-par" alt={`${MODELO.name} ${COR.name}, frente e traseira`} />
+          <Arte nome="18-pro-par" larguras={[600, 876]} sizes="(max-width: 860px) 70vw, 34vw" className="lanc-par" tamanho={[876, 1608]} alt={`${MODELO.name} ${COR.name}, frente e traseira`} />
         </div>
       </div>
     </section>

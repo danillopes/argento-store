@@ -12,13 +12,15 @@ const ANTERIOR = MODELS.find((m) => m.id === 'iphone-17-pro')!
 const RETRASADO = MODELS.find((m) => m.id === 'iphone-16-pro')!
 const COR = NOVO.colors.find((c) => c.id === 'borgonha') ?? NOVO.colors[0]
 
-function Arte({ nome, larguras, alt, sizes, className, priority = false }: { nome: string; larguras: number[]; alt: string; sizes: string; className: string; priority?: boolean }) {
+// `tamanho` é a medida original da arte: reserva a altura antes de a imagem chegar, senão a página cresce no meio da
+// rolagem e as animações presas ao scroll dão um tranco.
+function Arte({ nome, larguras, alt, sizes, className, tamanho, priority = false }: { nome: string; larguras: number[]; alt: string; sizes: string; className: string; tamanho: [number, number]; priority?: boolean }) {
   const conjunto = (ext: string) => larguras.map((w) => `${BASE}lancamento/${nome}-${w}.${ext} ${w}w`).join(', ')
   return (
-    <picture className={className}>
+    <picture className={className} style={{ aspectRatio: `${tamanho[0]} / ${tamanho[1]}` }}>
       <source type="image/avif" srcSet={conjunto('avif')} sizes={sizes} />
       <source type="image/webp" srcSet={conjunto('webp')} sizes={sizes} />
-      <img src={`${BASE}lancamento/${nome}-${larguras[0]}.webp`} alt={alt} loading={priority ? 'eager' : 'lazy'} decoding="async" fetchPriority={priority ? 'high' : 'auto'} draggable={false} />
+      <img src={`${BASE}lancamento/${nome}-${larguras[0]}.webp`} alt={alt} width={tamanho[0]} height={tamanho[1]} loading={priority ? 'eager' : 'lazy'} decoding="async" fetchPriority={priority ? 'high' : 'auto'} draggable={false} />
     </picture>
   )
 }
@@ -79,7 +81,7 @@ export default function Lancamento18Pro() {
   return (
     <div className="lp" ref={root}>
       <header className="lp-hero">
-        <Arte nome="18-pro-faixa" larguras={[520, 800]} sizes="(max-width: 860px) 94vw, 820px" className="lp-faixa" priority alt={`${NOVO.name}`} />
+        <Arte nome="18-pro-faixa" larguras={[520, 800]} sizes="(max-width: 860px) 94vw, 820px" className="lp-faixa" tamanho={[800, 206]} priority alt={`${NOVO.name}`} />
         <div className="lp-hero-copy">
           <p className="eyebrow">Lançamento · {NOVO.year}</p>
           <h1 className="display">{NOVO.name}</h1>
@@ -101,11 +103,11 @@ export default function Lancamento18Pro() {
             {mudancas.map(([t, d]) => (<div key={t}><dt>{t}</dt><dd>{d}</dd></div>))}
           </dl>
         </div>
-        <Arte nome="18-pro-ios" larguras={[420, 697]} sizes="(max-width: 860px) 88vw, 44vw" className="lp-img" alt={`Telas do ${NOVO.name} com iOS 27`} />
+        <Arte nome="18-pro-ios" larguras={[420, 697]} sizes="(max-width: 860px) 88vw, 44vw" className="lp-img" tamanho={[697, 411]} alt={`Telas do ${NOVO.name} com iOS 27`} />
       </section>
 
       <section className="lp-bloco container is-inv lp-rev" aria-label="Cores">
-        <Arte nome="18-pro-cores" larguras={[460, 787]} sizes="(max-width: 860px) 88vw, 48vw" className="lp-img" alt={`${NOVO.name} nas ${NOVO.colors.length} cores`} />
+        <Arte nome="18-pro-cores" larguras={[460, 787]} sizes="(max-width: 860px) 88vw, 48vw" className="lp-img" tamanho={[787, 378]} alt={`${NOVO.name} nas ${NOVO.colors.length} cores`} />
         <div className="lp-texto">
           <p className="eyebrow">Acabamentos</p>
           <h2 className="h2">{NOVO.colors.length} cores.</h2>

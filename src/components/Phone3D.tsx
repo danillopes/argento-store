@@ -848,7 +848,9 @@ export default function Phone3D({
     if (!el) return
     let onScreen = true
     const update = () => setVisible(onScreen && document.visibilityState === 'visible')
-    const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; update() }, { rootMargin: '120px' })
+    // margem larga: a cena volta a desenhar antes de entrar na tela, senão ela reaparece em branco por um instante
+    // ao rolar de volta e parece que a página deu um salto
+    const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; update() }, { rootMargin: '600px' })
     io.observe(el)
     document.addEventListener('visibilitychange', update)
     return () => { io.disconnect(); document.removeEventListener('visibilitychange', update) }
