@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useCallback, useLayoutEffect, useRef, useState } from 'react'
+import { modelScrollReveal } from '../lib/scroll-reveal'
 import { Link } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import { defaultDrive, type Drive } from '../components/drive'
@@ -14,6 +15,8 @@ const HERO = MODELS.find((m) => m.id === HERO_ID)!
 const PALETTE = HERO.colors.map((c) => c.hex)
 
 export default function Scrolly() {
+  const [modelReady, setModelReady] = useState(false)
+  const onModelReady = useCallback(() => setModelReady(true), [])
   const root = useRef<HTMLElement>(null)
   const stage = useRef<HTMLDivElement>(null)
   const battery = useRef<HTMLSpanElement>(null)
@@ -39,10 +42,7 @@ export default function Scrolly() {
           if (battery.current) battery.current.textContent = reduce ? '97' : '0'
           if (reduce) {
             gsap.set('.ch', { autoAlpha: 1, position: 'relative', y: 0, yPercent: 0 })
-            if (!desk) {
-              const reveal = ScrollTrigger.create({ trigger: root.current, start: 'top -40px', onEnter: () => gsap.set(canvas, { autoAlpha: 1 }), onLeaveBack: () => gsap.set(canvas, { autoAlpha: 0 }) })
-              return () => reveal.kill()
-            }
+
             return
           }
 
@@ -96,7 +96,17 @@ export default function Scrolly() {
             onRefresh: self => syncScroll(self.progress),
           })
           syncScroll(trigger.progress)
-          return () => { trigger.kill(); tl.kill() }
+          const syncReveal = () => {
+            const pose = modelScrollReveal(trigger.scroll(), trigger.start, trigger.end, stage.current!.clientHeight, window.innerHeight)
+            gsap.set(canvas, { autoAlpha: pose.opacity, y: pose.y })
+          }
+          const reveal = ScrollTrigger.create({
+            trigger: root.current, start: 'top bottom', end: 'bottom top',
+            onUpdate: syncReveal, onRefresh: syncReveal,
+            onLeave: syncReveal, onLeaveBack: syncReveal,
+          })
+          syncReveal()
+          return () => { reveal.kill(); trigger.kill(); tl.kill() }
         },
       )
     }, root)
@@ -115,9 +125,11 @@ export default function Scrolly() {
       <div className="scrolly-stage" ref={stage}>
         <div className="scrolly-dark" aria-hidden />
         <div className="scrolly-canvas">
-          <Suspense fallback={null}>
-            <Phone3D drive={drive} cam="plateau" glb={[HERO_ID]} />
-          </Suspense>
+          <div className={`scrolly-model-ready${modelReady ? ' is-ready' : ''}`}>
+            <Suspense fallback={null}>
+              <Phone3D drive={drive} cam="plateau" glb={[HERO_ID]} onReady={onModelReady} />
+            </Suspense>
+          </div>
         </div>
 
         <div className="ch ch-0">

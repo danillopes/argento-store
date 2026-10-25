@@ -822,6 +822,7 @@ export default function Phone3D({
   className,
   fov = 30,
   glb,
+  onReady,
 }: {
   drive: React.MutableRefObject<Drive>
   cam?: CamLayout
@@ -831,11 +832,13 @@ export default function Phone3D({
   className?: string
   fov?: number
   glb?: string[]
+  onReady?: () => void
 }) {
   const { theme } = useStore()
   const drag = useRef<DragState>({ active: false, x: 0, y: 0, ry: 0, rx: 0, v: 0, t: 0 })
   const url = useGlb(glb ?? (model ? glbCandidates(model) : []))
   const [loadedUrl, setLoadedUrl] = useState<string | null>(() => url && preparedModels.has(url) ? url : null)
+  useEffect(() => { if (url && loadedUrl === url) onReady?.() }, [url, loadedUrl, onReady])
   const [failedUrl, setFailedUrl] = useState<string | null>(null)
   const wrap = useRef<HTMLDivElement>(null)
   // Só renderiza quando a cena está na tela e a aba está visível (economiza bateria/GPU)
