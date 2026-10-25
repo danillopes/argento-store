@@ -50,7 +50,7 @@ export default function InsideTech() {
         show('final', ramp(p, 0.88, 0.95))
       }
       mm.add({ reduce: '(prefers-reduced-motion: reduce)', desk: '(min-width: 861px)', mob: '(max-width: 860px)' }, (c) => {
-        const { reduce, desk } = c.conditions as { reduce: boolean; desk: boolean }
+        const { reduce } = c.conditions as { reduce: boolean }
         if (reduce) {
           // alternativa estática: aparelho desmontado, todos os textos visíveis, sem prender a rolagem
           Object.assign(state.current, { progress: 0.75, lens: 0, focus: 0, spin: 0 })
@@ -60,8 +60,9 @@ export default function InsideTech() {
         apply(0)
         const st = gsap.timeline({
           scrollTrigger: {
-            trigger: root.current, start: 'top top', end: desk ? '+=420%' : '+=340%',
-            pin: stage.current, scrub: true, anticipatePin: 1, invalidateOnRefresh: true,
+            // Native sticky keeps entry/exit continuous in both directions, including Safari.
+            trigger: root.current, start: 'top top', end: 'bottom bottom',
+            scrub: true, invalidateOnRefresh: true,
             onUpdate: (self) => apply(self.progress),
             onRefresh: (self) => apply(self.progress),
           },

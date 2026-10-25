@@ -133,13 +133,20 @@ function Model({ config, state, onSelect, tint, reduced }: { config: ExplodeConf
 }
 
 // Apresentação: gira o aparelho para que as camadas apareçam de lado (não de frente para o eixo da explosão)
-function Presentation({ state, base, children, reduced }: { state: MutableRefObject<ExplodeState>; base: [number, number, number]; children: ReactNode; reduced: boolean }) {
+function Presentation({ state, base, children, reduced, centered }: { state: MutableRefObject<ExplodeState>; base: [number, number, number]; children: ReactNode; reduced: boolean; centered: boolean }) {
   const g = useRef<THREE.Group>(null!)
+  const bounds = useMemo(() => new THREE.Box3(), [])
   useFrame((_, dt) => {
     const k = reduced ? 1 : 1 - Math.exp(-Math.min(dt, 0.1) / 0.18)
     g.current.rotation.x += (base[0] - g.current.rotation.x) * k
     g.current.rotation.y += (base[1] + state.current.spin - g.current.rotation.y) * k
     g.current.rotation.z += (base[2] - g.current.rotation.z) * k
+    if (centered) {
+      // Cached geometry bounds: no vertex scan. Recenter the visible assembly as it opens.
+      g.current.updateWorldMatrix(true, true)
+      bounds.setFromObject(g.current)
+      if (!bounds.isEmpty()) g.current.position.x -= (bounds.min.x + bounds.max.x) * .5
+    }
   })
   return <group ref={g}>{children}</group>
 }
@@ -246,7 +253,7 @@ export function ExplodedCanvas({
         <StudioFinish enabled={quality.tier !== 'otimizada'} drive={state} />
         <ResetInspectionCamera id={isolated} far={far}/>
         <Suspense fallback={null}>
-          {isolated ? <PartStudy config={config} node={isolated}/> : <Presentation state={state} base={presentation} reduced={reduced}>
+          {isolated ? <PartStudy config={config} node={isolated}/> : <Presentation state={state} base={presentation} reduced={reduced} centered={mode === 'scroll'}>
             <Model config={config} state={state} onSelect={onSelect} tint={tint} reduced={reduced} />
           </Presentation>}
         </Suspense>

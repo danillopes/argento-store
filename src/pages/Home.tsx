@@ -46,8 +46,8 @@ export default function Home() {
 
   return (
     <>
-      <Scrolly />
       <Lancamento />
+      <Scrolly />
       <InsideTech />
       <HorizontalGallery />
 
