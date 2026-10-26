@@ -1,6 +1,6 @@
 {
-  "sha256": "28f63e21fcf73185cc0fd0ea3e938d84d8ab52c0899bfc176c5b2d93310e7c53",
-  "bytes": 10162920,
+  "sha256": "f076d787fd51d9865aadbd96f929d898af3dac817a557d4d5793efb45ea6a608",
+  "bytes": 7992524,
   "parts": 62,
   "internalTriangles": 281328,
   "creation": "Original code-authored internal geometry; procedural surfaces plus adapted ambientCG Metal012 CC0 normal/roughness. No teardown photographs or third-party internal meshes embedded.",
@@ -14,5 +14,6 @@
     "https://www.youtube.com/watch?v=O2hSlsvB8nA",
     "https://www.youtube.com/watch?v=sUn0_GdGDk4",
     "https://ambientcg.com/view?id=Metal012"
-  ]
+  ],
+  "textureNote": "Texturas recomprimidas para WebP qualidade 95 (scripts/recomprimir-texturas-glb.mjs); geometria intacta."
 }
