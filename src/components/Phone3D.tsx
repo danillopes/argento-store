@@ -10,6 +10,7 @@ import { CachedModelLoader } from '../lib/model-loader'
 import { clone as cloneSkinned } from 'three/addons/utils/SkeletonUtils.js'
 import { modelAssetUrl } from '../lib/model-assets'
 import { useStore } from '../store/Store'
+import { telaDoModelo } from './Photo'
 
 import type { Drive } from './drive'
 export { defaultDrive, type Drive } from './drive'
@@ -17,6 +18,27 @@ export { defaultDrive, type Drive } from './drive'
 const W = 1.42, H = 2.9, D = 0.16, R = 0.2
 const BASE_METERS = 0.15
 const preparedModels = new Set<string>()
+
+// Papéis de parede recortados das fotos oficiais. Carregam sob demanda e ficam guardados: o mesmo modelo e cor
+// aparecem no card, na página e na comparação. Enquanto a imagem não chega, o aparelho mostra o desenho de
+// reserva — nunca uma tela preta.
+const telasCarregadas = new Map<string, HTMLImageElement | null>()
+function telaDoAparelho(model: PhoneModel | undefined, hex: string, aoCarregar: () => void) {
+  if (!model) return null
+  const cor = model.colors.find((c) => c.hex.toLowerCase() === hex.toLowerCase())
+  if (!cor) return null
+  const src = telaDoModelo(model.id, cor.id)
+  if (!src) return null
+  const pronta = telasCarregadas.get(src)
+  if (pronta !== undefined) return pronta
+  telasCarregadas.set(src, null)
+  const img = new Image()
+  img.decoding = 'async'
+  img.onload = () => { telasCarregadas.set(src, img); aoCarregar() }
+  img.onerror = () => telasCarregadas.set(src, null)
+  img.src = src
+  return null
+}
 
 function roundedRectShape(w: number, h: number, r: number) {
   const s = new THREE.Shape()
@@ -60,10 +82,10 @@ const ILHA_CENTRO = ILHA_TOPO + ILHA_ALTURA / 2
 
 function drawIosScreen(
   g: CanvasRenderingContext2D,
-  opts: { hex: string; family: number; hasIsland: boolean; island: number; time: number; mirrorX: boolean },
+  opts: { hex: string; family: number; hasIsland: boolean; island: number; time: number; mirrorX: boolean; tela?: HTMLImageElement | null },
 ) {
   const CW = 512, CH = 1100
-  const { hex, family, hasIsland, island, time, mirrorX } = opts
+  const { hex, family, hasIsland, island, time, mirrorX, tela } = opts
   g.save()
   // desenho em coordenadas 512×1100; o canvas pode ter o dobro (Alta/Ultra) para textos nítidos
   g.setTransform(g.canvas.width / CW, 0, 0, g.canvas.height / CH, 0, 0)
@@ -90,8 +112,15 @@ function drawIosScreen(
   g.fillStyle = bg
   g.fillRect(0, 0, CW, CH)
 
-  // Estilo visual do wallpaper por geração do iPhone
-  if (family <= 12) {
+  // Papel de parede: quando existe a tela recortada da foto oficial daquela cor, é ela que vai para o aparelho —
+  // é o mesmo papel de parede que o modelo traz de fábrica. O desenho abaixo continua como reserva, para a
+  // abertura da home (onde a cor é inventada) e para qualquer cor sem foto.
+  if (tela) {
+    // 'cover': a tela da foto é um pouco mais estreita que a do 3D; esticar deformaria o desenho
+    const escala = Math.max(CW / tela.width, CH / tela.height)
+    const l = tela.width * escala, a = tela.height * escala
+    g.drawImage(tela, (CW - l) / 2, (CH - a) / 2, l, a)
+  } else if (family <= 12) {
     // iOS 14 oficial (referência iPhone 12 / 12 mini): esferas concêntricas translúcidas
     const bg14 = g.createLinearGradient(0, 0, CW, CH)
     bg14.addColorStop(0, '#ebd7c4')
@@ -415,6 +444,7 @@ function PhoneMesh({ drive, cam = 'tri', model }: { drive: React.MutableRefObjec
 
     const prevIsland = islandVal.current
     ;[islandVal.current, islandVel.current] = avancarIlha(prevIsland, islandVel.current, d.island ?? 0, dt)
+    const tela = telaDoAparelho(model, d.color, () => { lastHex.current = '' })
     if (d.color !== lastHex.current || Math.abs(islandVal.current - prevIsland) > 0.004 || islandVal.current > 0.05) {
       lastHex.current = d.color
       const ctx = canvas.getContext('2d')
@@ -426,6 +456,7 @@ function PhoneMesh({ drive, cam = 'tri', model }: { drive: React.MutableRefObjec
           island: islandVal.current,
           time: state.clock.elapsedTime,
           mirrorX: false,
+          tela,
         })
         tex.needsUpdate = true
       }
@@ -736,6 +767,8 @@ function GLBPhone({
     if (interactive || model) {
       const prevIsland = islandLevel.current
       ;[islandLevel.current, islandVelo.current] = avancarIlha(prevIsland, islandVelo.current, d.island ?? 0, dt)
+      // aoCarregar zera a cor desenhada: a próxima volta do laço redesenha a tela já com a foto
+      const tela = telaDoAparelho(model, d.color, () => { lastDrawnColor.current = '' })
       const needsRedraw =
         d.color !== lastDrawnColor.current ||
         Math.abs(islandLevel.current - prevIsland) > 0.003 ||
@@ -752,6 +785,7 @@ function GLBPhone({
             island: islandLevel.current,
             time: state.clock.elapsedTime,
             mirrorX: true,
+            tela,
           })
           screenSurface.tex.needsUpdate = true
         }

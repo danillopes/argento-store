@@ -1384,6 +1384,694 @@
   }
  },
  "unidades": {},
+ "telas": {
+  "iphone-12": {
+   "azul": {
+    "path": "fotos/telas/iphone-12/azul.webp",
+    "w": 314,
+    "h": 642
+   },
+   "branco": {
+    "path": "fotos/telas/iphone-12/branco.webp",
+    "w": 314,
+    "h": 642
+   },
+   "preto": {
+    "path": "fotos/telas/iphone-12/preto.webp",
+    "w": 317,
+    "h": 642
+   },
+   "roxo": {
+    "path": "fotos/telas/iphone-12/roxo.webp",
+    "w": 314,
+    "h": 642
+   },
+   "verde": {
+    "path": "fotos/telas/iphone-12/verde.webp",
+    "w": 314,
+    "h": 642
+   },
+   "vermelho": {
+    "path": "fotos/telas/iphone-12/vermelho.webp",
+    "w": 314,
+    "h": 642
+   }
+  },
+  "iphone-12-mini": {
+   "azul": {
+    "path": "fotos/telas/iphone-12-mini/azul.webp",
+    "w": 283,
+    "h": 577
+   },
+   "branco": {
+    "path": "fotos/telas/iphone-12-mini/branco.webp",
+    "w": 283,
+    "h": 577
+   },
+   "preto": {
+    "path": "fotos/telas/iphone-12-mini/preto.webp",
+    "w": 283,
+    "h": 577
+   },
+   "roxo": {
+    "path": "fotos/telas/iphone-12-mini/roxo.webp",
+    "w": 283,
+    "h": 577
+   },
+   "verde": {
+    "path": "fotos/telas/iphone-12-mini/verde.webp",
+    "w": 283,
+    "h": 577
+   },
+   "vermelho": {
+    "path": "fotos/telas/iphone-12-mini/vermelho.webp",
+    "w": 283,
+    "h": 577
+   }
+  },
+  "iphone-12-pro": {
+   "azul-pacifico": {
+    "path": "fotos/telas/iphone-12-pro/azul-pacifico.webp",
+    "w": 315,
+    "h": 642
+   },
+   "dourado": {
+    "path": "fotos/telas/iphone-12-pro/dourado.webp",
+    "w": 315,
+    "h": 642
+   },
+   "grafite": {
+    "path": "fotos/telas/iphone-12-pro/grafite.webp",
+    "w": 315,
+    "h": 642
+   },
+   "prateado": {
+    "path": "fotos/telas/iphone-12-pro/prateado.webp",
+    "w": 314,
+    "h": 642
+   }
+  },
+  "iphone-12-pro-max": {
+   "azul-pacifico": {
+    "path": "fotos/telas/iphone-12-pro-max/azul-pacifico.webp",
+    "w": 343,
+    "h": 705
+   },
+   "dourado": {
+    "path": "fotos/telas/iphone-12-pro-max/dourado.webp",
+    "w": 346,
+    "h": 704
+   },
+   "grafite": {
+    "path": "fotos/telas/iphone-12-pro-max/grafite.webp",
+    "w": 343,
+    "h": 705
+   },
+   "prateado": {
+    "path": "fotos/telas/iphone-12-pro-max/prateado.webp",
+    "w": 346,
+    "h": 705
+   }
+  },
+  "iphone-13": {
+   "azul": {
+    "path": "fotos/telas/iphone-13/azul.webp",
+    "w": 315,
+    "h": 642
+   },
+   "estelar": {
+    "path": "fotos/telas/iphone-13/estelar.webp",
+    "w": 314,
+    "h": 642
+   },
+   "meia-noite": {
+    "path": "fotos/telas/iphone-13/meia-noite.webp",
+    "w": 315,
+    "h": 642
+   },
+   "rosa": {
+    "path": "fotos/telas/iphone-13/rosa.webp",
+    "w": 314,
+    "h": 642
+   },
+   "verde": {
+    "path": "fotos/telas/iphone-13/verde.webp",
+    "w": 315,
+    "h": 642
+   },
+   "vermelho": {
+    "path": "fotos/telas/iphone-13/vermelho.webp",
+    "w": 315,
+    "h": 642
+   }
+  },
+  "iphone-13-mini": {
+   "azul": {
+    "path": "fotos/telas/iphone-13-mini/azul.webp",
+    "w": 285,
+    "h": 576
+   },
+   "estelar": {
+    "path": "fotos/telas/iphone-13-mini/estelar.webp",
+    "w": 283,
+    "h": 576
+   },
+   "meia-noite": {
+    "path": "fotos/telas/iphone-13-mini/meia-noite.webp",
+    "w": 284,
+    "h": 576
+   },
+   "rosa": {
+    "path": "fotos/telas/iphone-13-mini/rosa.webp",
+    "w": 283,
+    "h": 576
+   },
+   "verde": {
+    "path": "fotos/telas/iphone-13-mini/verde.webp",
+    "w": 284,
+    "h": 576
+   },
+   "vermelho": {
+    "path": "fotos/telas/iphone-13-mini/vermelho.webp",
+    "w": 284,
+    "h": 576
+   }
+  },
+  "iphone-13-pro": {
+   "azul-sierra": {
+    "path": "fotos/telas/iphone-13-pro/azul-sierra.webp",
+    "w": 315,
+    "h": 645
+   },
+   "dourado": {
+    "path": "fotos/telas/iphone-13-pro/dourado.webp",
+    "w": 315,
+    "h": 644
+   },
+   "grafite": {
+    "path": "fotos/telas/iphone-13-pro/grafite.webp",
+    "w": 317,
+    "h": 644
+   },
+   "prateado": {
+    "path": "fotos/telas/iphone-13-pro/prateado.webp",
+    "w": 315,
+    "h": 645
+   },
+   "verde-alpino": {
+    "path": "fotos/telas/iphone-13-pro/verde-alpino.webp",
+    "w": 316,
+    "h": 644
+   }
+  },
+  "iphone-13-pro-max": {
+   "azul-sierra": {
+    "path": "fotos/telas/iphone-13-pro-max/azul-sierra.webp",
+    "w": 342,
+    "h": 703
+   },
+   "dourado": {
+    "path": "fotos/telas/iphone-13-pro-max/dourado.webp",
+    "w": 343,
+    "h": 703
+   },
+   "grafite": {
+    "path": "fotos/telas/iphone-13-pro-max/grafite.webp",
+    "w": 343,
+    "h": 703
+   },
+   "prateado": {
+    "path": "fotos/telas/iphone-13-pro-max/prateado.webp",
+    "w": 342,
+    "h": 703
+   },
+   "verde-alpino": {
+    "path": "fotos/telas/iphone-13-pro-max/verde-alpino.webp",
+    "w": 343,
+    "h": 703
+   }
+  },
+  "iphone-14": {
+   "amarelo": {
+    "path": "fotos/telas/iphone-14/amarelo.webp",
+    "w": 316,
+    "h": 644
+   },
+   "azul": {
+    "path": "fotos/telas/iphone-14/azul.webp",
+    "w": 315,
+    "h": 644
+   },
+   "estelar": {
+    "path": "fotos/telas/iphone-14/estelar.webp",
+    "w": 316,
+    "h": 646
+   },
+   "meia-noite": {
+    "path": "fotos/telas/iphone-14/meia-noite.webp",
+    "w": 315,
+    "h": 644
+   },
+   "roxo": {
+    "path": "fotos/telas/iphone-14/roxo.webp",
+    "w": 315,
+    "h": 644
+   },
+   "vermelho": {
+    "path": "fotos/telas/iphone-14/vermelho.webp",
+    "w": 315,
+    "h": 644
+   }
+  },
+  "iphone-14-plus": {
+   "amarelo": {
+    "path": "fotos/telas/iphone-14-plus/amarelo.webp",
+    "w": 344,
+    "h": 707
+   },
+   "azul": {
+    "path": "fotos/telas/iphone-14-plus/azul.webp",
+    "w": 343,
+    "h": 707
+   },
+   "estelar": {
+    "path": "fotos/telas/iphone-14-plus/estelar.webp",
+    "w": 343,
+    "h": 707
+   },
+   "meia-noite": {
+    "path": "fotos/telas/iphone-14-plus/meia-noite.webp",
+    "w": 344,
+    "h": 707
+   },
+   "roxo": {
+    "path": "fotos/telas/iphone-14-plus/roxo.webp",
+    "w": 343,
+    "h": 707
+   },
+   "vermelho": {
+    "path": "fotos/telas/iphone-14-plus/vermelho.webp",
+    "w": 344,
+    "h": 707
+   }
+  },
+  "iphone-14-pro": {
+   "dourado": {
+    "path": "fotos/telas/iphone-14-pro/dourado.webp",
+    "w": 315,
+    "h": 647
+   },
+   "prateado": {
+    "path": "fotos/telas/iphone-14-pro/prateado.webp",
+    "w": 314,
+    "h": 647
+   },
+   "preto-espacial": {
+    "path": "fotos/telas/iphone-14-pro/preto-espacial.webp",
+    "w": 315,
+    "h": 647
+   },
+   "roxo-profundo": {
+    "path": "fotos/telas/iphone-14-pro/roxo-profundo.webp",
+    "w": 315,
+    "h": 647
+   }
+  },
+  "iphone-14-pro-max": {
+   "dourado": {
+    "path": "fotos/telas/iphone-14-pro-max/dourado.webp",
+    "w": 341,
+    "h": 707
+   },
+   "prateado": {
+    "path": "fotos/telas/iphone-14-pro-max/prateado.webp",
+    "w": 341,
+    "h": 707
+   },
+   "preto-espacial": {
+    "path": "fotos/telas/iphone-14-pro-max/preto-espacial.webp",
+    "w": 342,
+    "h": 707
+   },
+   "roxo-profundo": {
+    "path": "fotos/telas/iphone-14-pro-max/roxo-profundo.webp",
+    "w": 343,
+    "h": 707
+   }
+  },
+  "iphone-15": {
+   "amarelo": {
+    "path": "fotos/telas/iphone-15/amarelo.webp",
+    "w": 317,
+    "h": 652
+   },
+   "azul": {
+    "path": "fotos/telas/iphone-15/azul.webp",
+    "w": 317,
+    "h": 651
+   },
+   "preto": {
+    "path": "fotos/telas/iphone-15/preto.webp",
+    "w": 317,
+    "h": 651
+   },
+   "rosa": {
+    "path": "fotos/telas/iphone-15/rosa.webp",
+    "w": 317,
+    "h": 652
+   },
+   "verde": {
+    "path": "fotos/telas/iphone-15/verde.webp",
+    "w": 317,
+    "h": 652
+   }
+  },
+  "iphone-15-plus": {
+   "amarelo": {
+    "path": "fotos/telas/iphone-15-plus/amarelo.webp",
+    "w": 343,
+    "h": 708
+   },
+   "azul": {
+    "path": "fotos/telas/iphone-15-plus/azul.webp",
+    "w": 343,
+    "h": 708
+   },
+   "preto": {
+    "path": "fotos/telas/iphone-15-plus/preto.webp",
+    "w": 343,
+    "h": 707
+   },
+   "rosa": {
+    "path": "fotos/telas/iphone-15-plus/rosa.webp",
+    "w": 343,
+    "h": 708
+   },
+   "verde": {
+    "path": "fotos/telas/iphone-15-plus/verde.webp",
+    "w": 343,
+    "h": 708
+   }
+  },
+  "iphone-15-pro": {
+   "titanio-azul": {
+    "path": "fotos/telas/iphone-15-pro/titanio-azul.webp",
+    "w": 311,
+    "h": 645
+   },
+   "titanio-branco": {
+    "path": "fotos/telas/iphone-15-pro/titanio-branco.webp",
+    "w": 312,
+    "h": 645
+   },
+   "titanio-natural": {
+    "path": "fotos/telas/iphone-15-pro/titanio-natural.webp",
+    "w": 311,
+    "h": 645
+   },
+   "titanio-preto": {
+    "path": "fotos/telas/iphone-15-pro/titanio-preto.webp",
+    "w": 311,
+    "h": 645
+   }
+  },
+  "iphone-15-pro-max": {
+   "titanio-azul": {
+    "path": "fotos/telas/iphone-15-pro-max/titanio-azul.webp",
+    "w": 340,
+    "h": 707
+   },
+   "titanio-branco": {
+    "path": "fotos/telas/iphone-15-pro-max/titanio-branco.webp",
+    "w": 341,
+    "h": 707
+   },
+   "titanio-natural": {
+    "path": "fotos/telas/iphone-15-pro-max/titanio-natural.webp",
+    "w": 341,
+    "h": 707
+   },
+   "titanio-preto": {
+    "path": "fotos/telas/iphone-15-pro-max/titanio-preto.webp",
+    "w": 340,
+    "h": 707
+   }
+  },
+  "iphone-16": {
+   "branco": {
+    "path": "fotos/telas/iphone-16/branco.webp",
+    "w": 314,
+    "h": 641
+   },
+   "preto": {
+    "path": "fotos/telas/iphone-16/preto.webp",
+    "w": 312,
+    "h": 641
+   },
+   "rosa": {
+    "path": "fotos/telas/iphone-16/rosa.webp",
+    "w": 314,
+    "h": 641
+   },
+   "ultramarino": {
+    "path": "fotos/telas/iphone-16/ultramarino.webp",
+    "w": 312,
+    "h": 641
+   },
+   "verde-acinzentado": {
+    "path": "fotos/telas/iphone-16/verde-acinzentado.webp",
+    "w": 314,
+    "h": 641
+   }
+  },
+  "iphone-16-plus": {
+   "branco": {
+    "path": "fotos/telas/iphone-16-plus/branco.webp",
+    "w": 338,
+    "h": 698
+   },
+   "preto": {
+    "path": "fotos/telas/iphone-16-plus/preto.webp",
+    "w": 338,
+    "h": 698
+   },
+   "rosa": {
+    "path": "fotos/telas/iphone-16-plus/rosa.webp",
+    "w": 338,
+    "h": 698
+   },
+   "ultramarino": {
+    "path": "fotos/telas/iphone-16-plus/ultramarino.webp",
+    "w": 338,
+    "h": 698
+   },
+   "verde-acinzentado": {
+    "path": "fotos/telas/iphone-16-plus/verde-acinzentado.webp",
+    "w": 340,
+    "h": 698
+   }
+  },
+  "iphone-16-pro": {
+   "titanio-branco": {
+    "path": "fotos/telas/iphone-16-pro/titanio-branco.webp",
+    "w": 310,
+    "h": 648
+   },
+   "titanio-deserto": {
+    "path": "fotos/telas/iphone-16-pro/titanio-deserto.webp",
+    "w": 310,
+    "h": 648
+   },
+   "titanio-natural": {
+    "path": "fotos/telas/iphone-16-pro/titanio-natural.webp",
+    "w": 310,
+    "h": 648
+   },
+   "titanio-preto": {
+    "path": "fotos/telas/iphone-16-pro/titanio-preto.webp",
+    "w": 310,
+    "h": 648
+   }
+  },
+  "iphone-16-pro-max": {
+   "titanio-branco": {
+    "path": "fotos/telas/iphone-16-pro-max/titanio-branco.webp",
+    "w": 338,
+    "h": 707
+   },
+   "titanio-deserto": {
+    "path": "fotos/telas/iphone-16-pro-max/titanio-deserto.webp",
+    "w": 338,
+    "h": 707
+   },
+   "titanio-natural": {
+    "path": "fotos/telas/iphone-16-pro-max/titanio-natural.webp",
+    "w": 338,
+    "h": 707
+   },
+   "titanio-preto": {
+    "path": "fotos/telas/iphone-16-pro-max/titanio-preto.webp",
+    "w": 338,
+    "h": 707
+   }
+  },
+  "iphone-16e": {
+   "branco": {
+    "path": "fotos/telas/iphone-16e/branco.webp",
+    "w": 315,
+    "h": 637
+   },
+   "preto": {
+    "path": "fotos/telas/iphone-16e/preto.webp",
+    "w": 312,
+    "h": 637
+   }
+  },
+  "iphone-17": {
+   "azul-nevoa": {
+    "path": "fotos/telas/iphone-17/azul-nevoa.webp",
+    "w": 310,
+    "h": 648
+   },
+   "branco": {
+    "path": "fotos/telas/iphone-17/branco.webp",
+    "w": 310,
+    "h": 648
+   },
+   "lavanda": {
+    "path": "fotos/telas/iphone-17/lavanda.webp",
+    "w": 310,
+    "h": 648
+   },
+   "preto": {
+    "path": "fotos/telas/iphone-17/preto.webp",
+    "w": 310,
+    "h": 648
+   },
+   "salvia": {
+    "path": "fotos/telas/iphone-17/salvia.webp",
+    "w": 310,
+    "h": 648
+   }
+  },
+  "iphone-17-pro": {
+   "azul-profundo": {
+    "path": "fotos/telas/iphone-17-pro/azul-profundo.webp",
+    "w": 313,
+    "h": 650
+   },
+   "laranja-cosmico": {
+    "path": "fotos/telas/iphone-17-pro/laranja-cosmico.webp",
+    "w": 313,
+    "h": 650
+   },
+   "prateado": {
+    "path": "fotos/telas/iphone-17-pro/prateado.webp",
+    "w": 312,
+    "h": 650
+   }
+  },
+  "iphone-17-pro-max": {
+   "azul-profundo": {
+    "path": "fotos/telas/iphone-17-pro-max/azul-profundo.webp",
+    "w": 339,
+    "h": 708
+   },
+   "laranja-cosmico": {
+    "path": "fotos/telas/iphone-17-pro-max/laranja-cosmico.webp",
+    "w": 339,
+    "h": 708
+   },
+   "prateado": {
+    "path": "fotos/telas/iphone-17-pro-max/prateado.webp",
+    "w": 339,
+    "h": 708
+   }
+  },
+  "iphone-17e": {
+   "branco": {
+    "path": "fotos/telas/iphone-17e/branco.webp",
+    "w": 314,
+    "h": 637
+   },
+   "preto": {
+    "path": "fotos/telas/iphone-17e/preto.webp",
+    "w": 312,
+    "h": 637
+   },
+   "rosa-suave": {
+    "path": "fotos/telas/iphone-17e/rosa-suave.webp",
+    "w": 312,
+    "h": 637
+   }
+  },
+  "iphone-18-pro": {
+   "azul-claro": {
+    "path": "fotos/telas/iphone-18-pro/azul-claro.webp",
+    "w": 311,
+    "h": 649
+   },
+   "borgonha": {
+    "path": "fotos/telas/iphone-18-pro/borgonha.webp",
+    "w": 320,
+    "h": 620
+   },
+   "prateado": {
+    "path": "fotos/telas/iphone-18-pro/prateado.webp",
+    "w": 311,
+    "h": 649
+   },
+   "preto": {
+    "path": "fotos/telas/iphone-18-pro/preto.webp",
+    "w": 330,
+    "h": 649
+   }
+  },
+  "iphone-18-pro-max": {
+   "azul-claro": {
+    "path": "fotos/telas/iphone-18-pro-max/azul-claro.webp",
+    "w": 339,
+    "h": 708
+   },
+   "borgonha": {
+    "path": "fotos/telas/iphone-18-pro-max/borgonha.webp",
+    "w": 340,
+    "h": 708
+   },
+   "prateado": {
+    "path": "fotos/telas/iphone-18-pro-max/prateado.webp",
+    "w": 339,
+    "h": 708
+   },
+   "preto": {
+    "path": "fotos/telas/iphone-18-pro-max/preto.webp",
+    "w": 358,
+    "h": 708
+   }
+  },
+  "iphone-air": {
+   "azul-ceu": {
+    "path": "fotos/telas/iphone-air/azul-ceu.webp",
+    "w": 324,
+    "h": 676
+   },
+   "branco-nuvem": {
+    "path": "fotos/telas/iphone-air/branco-nuvem.webp",
+    "w": 324,
+    "h": 676
+   },
+   "dourado-claro": {
+    "path": "fotos/telas/iphone-air/dourado-claro.webp",
+    "w": 324,
+    "h": 676
+   },
+   "preto-espacial": {
+    "path": "fotos/telas/iphone-air/preto-espacial.webp",
+    "w": 328,
+    "h": 676
+   }
+  }
+ },
  "modelos3d": [
   "iphone-12",
   "iphone-12-mini",

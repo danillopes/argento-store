@@ -14,6 +14,7 @@ type Manifest = {
   modelos: Record<string, Record<string, PhotoInfo>>
   recortes: Record<string, Record<string, Partial<Record<Vista, PhotoInfo>>>>
   unidades: Record<string, PhotoInfo[]>
+  telas?: Record<string, Record<string, { path: string; w: number; h: number }>>
 }
 const M = photos as Manifest
 const BASE = import.meta.env.BASE_URL
@@ -23,6 +24,12 @@ export const modelPhoto = (modelId: string, colorId: string): PhotoInfo | undefi
 export const recortePhoto = (modelId: string, colorId: string, vista: Vista): PhotoInfo | undefined =>
   M.recortes?.[modelId]?.[colorId]?.[vista]
 export const anyModelPhoto = (modelId: string): PhotoInfo | undefined => Object.values(M.modelos[modelId] ?? {})[0]
+// Papel de parede do modelo 3D: é a tela recortada da foto oficial daquela cor, para o 3D mostrar o mesmo
+// papel de parede que o aparelho traz de fábrica
+export const telaDoModelo = (modelId: string, colorId: string): string | undefined => {
+  const t = M.telas?.[modelId]?.[colorId]
+  return t ? `${BASE}${t.path}` : undefined
+}
 export const unitPhotos = (unitId: string): PhotoInfo[] => M.unidades[unitId] ?? []
 export const hasUnitPhotos = (unitId: string) => !!M.unidades[unitId]?.length
 
