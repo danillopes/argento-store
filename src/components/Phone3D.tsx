@@ -1,4 +1,5 @@
 import { Component, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { WALLPAPERS } from '../lib/wallpapers'
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
 import { Environment, Lightformer, RoundedBox, ContactShadows, PerformanceMonitor } from '@react-three/drei'
 import { useRenderQuality, qualityDecline, qualityIncline, qualityFallback } from '../lib/render-quality'
@@ -90,106 +91,12 @@ function drawIosScreen(
   g.fillStyle = bg
   g.fillRect(0, 0, CW, CH)
 
-  // Estilo visual do wallpaper por geração do iPhone
-  if (family <= 12) {
-    // iOS 14 oficial (referência iPhone 12 / 12 mini): esferas concêntricas translúcidas
-    const bg14 = g.createLinearGradient(0, 0, CW, CH)
-    bg14.addColorStop(0, '#ebd7c4')
-    bg14.addColorStop(0.45, secondary)
-    bg14.addColorStop(1, primary)
-    g.fillStyle = bg14
-    g.fillRect(0, 0, CW, CH)
-
-    for (const [cx, cy, r, c0, c1, c2, strokeAlpha] of [
-      [256, 545, 385, 'rgba(255,235,215,0.28)', glow, 'rgba(255,255,255,0.85)', 0.55],
-      [224, 575, 305, primary, glow, 'rgba(255,225,185,0.92)', 0.45],
-      [208, 560, 212, deep, primary, glow, 0.5],
-      [268, 585, 138, primary, glow, '#ffe3b8', 0.6],
-    ] as const) {
-      g.save()
-      g.beginPath()
-      g.arc(cx, cy, r, 0, Math.PI * 2)
-      const rg = g.createRadialGradient(cx - r * 0.24, cy - r * 0.18, r * 0.05, cx, cy, r)
-      rg.addColorStop(0, c0)
-      rg.addColorStop(0.64, c1)
-      rg.addColorStop(1, c2)
-      g.fillStyle = rg
-      g.fill()
-      g.strokeStyle = `rgba(255,255,255,${strokeAlpha})`
-      g.lineWidth = 2
-      g.stroke()
-      g.restore()
-    }
-  } else if (family === 13 || family === 14) {
-    // iOS 15 / 16: feixes e ondas diagonais luminosas
-    const rg = g.createRadialGradient(380, 240, 20, 320, 380, 480)
-    rg.addColorStop(0, glow)
-    rg.addColorStop(0.5, primary)
-    rg.addColorStop(1, 'rgba(0,0,0,0)')
-    g.fillStyle = rg
-    g.fillRect(0, 0, CW, CH)
-
-    g.save()
-    g.beginPath()
-    g.moveTo(-40, 340)
-    g.bezierCurveTo(150, 220, 360, 520, 560, 340)
-    g.lineTo(560, 780)
-    g.bezierCurveTo(360, 620, 140, 880, -40, 720)
-    g.closePath()
-    const wg = g.createLinearGradient(0, 260, CW, 780)
-    wg.addColorStop(0, 'rgba(255,255,255,0.34)')
-    wg.addColorStop(0.5, glow)
-    wg.addColorStop(1, 'rgba(5,6,12,0.1)')
-    g.fillStyle = wg
-    g.fill()
-    g.restore()
-  } else if (family === 15 || family === 16) {
-    // iOS 17 / 18: pétalas e camadas minerais radiantes
-    for (const [cx, cy, rx, ry, rot, alpha] of [
-      [256, 460, 220, 145, -0.35, 0.55],
-      [256, 610, 240, 155, 0.32, 0.42],
-      [256, 740, 190, 120, -0.2, 0.3],
-    ] as const) {
-      g.save()
-      g.translate(cx, cy)
-      g.rotate(rot)
-      g.beginPath()
-      g.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2)
-      const pg = g.createRadialGradient(-rx * 0.2, -ry * 0.2, 10, 0, 0, rx)
-      pg.addColorStop(0, `rgba(255,255,255,${alpha})`)
-      pg.addColorStop(0.45, glow)
-      pg.addColorStop(1, 'rgba(0,0,0,0)')
-      g.fillStyle = pg
-      g.fill()
-      g.restore()
-    }
-  } else {
-    // iOS 19 / 26 (iPhone 17, Air, 18): Liquid Glass escultural
-    const rg1 = g.createRadialGradient(390, 250, 10, 360, 280, 440)
-    rg1.addColorStop(0, 'rgba(255,255,255,0.52)')
-    rg1.addColorStop(0.4, glow)
-    rg1.addColorStop(1, 'rgba(0,0,0,0)')
-    g.fillStyle = rg1
-    g.fillRect(0, 0, CW, CH)
-
-    for (let i = 0; i < 3; i++) {
-      g.save()
-      g.beginPath()
-      const y0 = 370 + i * 135
-      g.moveTo(-30, y0)
-      g.bezierCurveTo(160, y0 - 130, 350, y0 + 130, 542, y0 - 30)
-      g.lineTo(542, y0 + 150)
-      g.bezierCurveTo(350, y0 + 270, 160, y0 + 20, -30, y0 + 140)
-      g.closePath()
-      const lg = g.createLinearGradient(0, y0 - 80, CW, y0 + 180)
-      lg.addColorStop(0, `rgba(255,255,255,${0.32 - i * 0.07})`)
-      lg.addColorStop(0.55, i % 2 === 0 ? glow : primary)
-      lg.addColorStop(1, 'rgba(0,0,0,0.05)')
-      g.fillStyle = lg
-      g.fill()
-      g.restore()
-    }
-  }
+  // Wallpaper de cada geração, no tom da cor escolhida. Os desenhos seguem o papel de parede que a Apple põe de
+  // fábrica em cada linha — foi de onde saíram as formas: o círculo concêntrico do 12, a diagonal do 13, os
+  // blocos orgânicos do 14, as pedras foscas do 15, o funil simétrico do 16, a flor de vidro do 17 e as fitas
+  // dobradas do 18.
+  const tinta = { primary, secondary, glow, deep, isLight }
+  ;(WALLPAPERS[family] ?? WALLPAPERS[18])(g, CW, CH, tinta)
 
   // Vinheta suave nas bordas para destacar a tipografia iOS
   const vig = g.createLinearGradient(0, 0, 0, CH)
