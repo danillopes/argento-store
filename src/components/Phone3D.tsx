@@ -3,7 +3,7 @@ import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
 import { Environment, Lightformer, RoundedBox, ContactShadows, PerformanceMonitor } from '@react-three/drei'
 import { useRenderQuality, qualityDecline, qualityIncline, qualityFallback } from '../lib/render-quality'
 import { makeScreenEmissive } from '../lib/screen-material'
-import { avancarIlha } from '../lib/scene-motion'
+import { avancarIlha, avancarDobra } from '../lib/scene-motion'
 import * as THREE from 'three'
 import type { CamLayout, PhoneModel } from '../data/models'
 import { CachedModelLoader } from '../lib/model-loader'
@@ -712,6 +712,7 @@ function GLBPhone({
 
   // progresso da dobra (0 fechado … 1 aberto) com velocidade constante e curva suave (~1,1 s)
   const foldQ = useRef(-1)
+  const foldVel = useRef(0)
   const foldTmp = useMemo(() => new THREE.Vector3(), [])
 
   const target = useMemo(() => new THREE.Color(), [])
@@ -731,12 +732,14 @@ function GLBPhone({
     const fr = obj.fold
     if (fr) {
       const goal = THREE.MathUtils.clamp(d.fold ?? 0, 0, 1)
-      const q0 = foldQ.current < 0 ? goal : foldQ.current
-      const step = Math.min(dt, 0.25) / 1.1 // mantém ~1,1 s mesmo com FPS baixo
-      const q = q0 < goal ? Math.min(goal, q0 + step) : Math.max(goal, q0 - step)
-      if (q !== foldQ.current) {
+      if (foldQ.current < 0) foldQ.current = goal
+      const q0 = foldQ.current
+      // mola, não rampa: a dobradiça desacelera até o fim e assenta, e fecha mais firme
+      const [q, v] = avancarDobra(q0, foldVel.current, goal, dt)
+      foldVel.current = v
+      if (q !== q0) {
         foldQ.current = q
-        const p = q * q * (3 - 2 * q)
+        const p = THREE.MathUtils.clamp(q, 0, 1)
         fr.action.time = (1 - p) * fr.closedAt
         fr.mixer.update(0)
         // gira junto ao abrir quando o modelo abre "para trás", para a tela interna ficar de frente

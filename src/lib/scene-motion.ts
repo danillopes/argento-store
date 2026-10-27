@@ -38,3 +38,22 @@ export function avancarIlha(valor: number, velocidade: number, alvo: number, dt:
   if (Math.abs(valor - alvo) < 0.0015 && Math.abs(velocidade) < 0.02) return [alvo, 0]
   return [valor, velocidade]
 }
+
+// Mola da dobradiça do iPhone Duo. A página da Apple abre o aparelho num movimento que desacelera até o fim e
+// assenta sem bater, e fecha mais rápido e firme — é esse o gesto que a mola reproduz. Dobradiça é peça pesada:
+// a frequência é bem mais baixa que a da Dynamic Island, e abrir leva cerca de 1 s.
+const DOBRA_ABRIR = { freq: 7.2, amort: 0.82 }
+const DOBRA_FECHAR = { freq: 9.5, amort: 1 }
+
+export function avancarDobra(valor: number, velocidade: number, alvo: number, dt: number): [number, number] {
+  const { freq, amort } = alvo > 0.5 ? DOBRA_ABRIR : DOBRA_FECHAR
+  let resta = Math.min(Math.max(dt, 0), 0.1)
+  while (resta > 0) {
+    const passo = Math.min(resta, 1 / 240) // sub-passo fixo: a mola fica igual em qualquer taxa de quadros
+    velocidade += (-2 * amort * freq * velocidade - freq * freq * (valor - alvo)) * passo
+    valor += velocidade * passo
+    resta -= passo
+  }
+  if (Math.abs(valor - alvo) < 0.0008 && Math.abs(velocidade) < 0.01) return [alvo, 0]
+  return [valor, velocidade]
+}
