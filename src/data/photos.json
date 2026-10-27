@@ -5,55 +5,55 @@
     "path": "fotos/modelos/iphone-12/azul",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCGAAAAMAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWgAnTKAA0sDLyb6zGMkaiUQAP7ifS01I3KdMgp50ybSTLgd3LOTZ9NKE3Sa1qALeoBOwgBEm2JbMkll82275Pwil9mwpthz3KAp1/wrCucfP3Hn8H9r0qMT52VGtbl/LCLVyiTAMEn+v/KYoAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtIAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJYAAABQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoRwACnUB0TlKQp77IjgAP7KnkJ9xxGyMdI/uZ8U34Dr/jUJv0hQAYpkAy1TzqXQ6Goqpv77LbDg/YafPiO6AP4XVjwIYl3KMP0Dt2MtqSn+/mbSfBwpmmd4q+XWue1hDH5Eh7l7VdJjQZQHODV4OaH9fhOCtcBmwAA="
    },
    "branco": {
     "path": "fotos/modelos/iphone-12/branco",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRu4AAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCEAAAAMAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWoAnTKDGABLdyq0kjk0MOBQAP7wh0+f70cCeSHZa3T43Fx7jFhl4toWTIUIPhUmkthnscXiT7tO2BKq2D70D2m5EijPdUmxurh0C1G3/Gj93D48MTDub5RIr296oQ5y80FlWhl+agDBAAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJIAAADQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoLUB6mf8AAdWRNECe8m1eFkAAD+7joV9kmc3+KtXjnYpUvVnd8PcIxU430bfTU/UDNX0B8mnD6NWLBXRqMyd8+ihptYJR0P85NjqF7frPTFsvUiegdFQ3c+q7yQrhfrqfEGbPqThHYxZ4lerm5nhvg3RoAAAA=="
    },
    "preto": {
     "path": "fotos/modelos/iphone-12/preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBmAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWMAAFuGz7M0bgnhZSwA/uJ9LTyhRRmH2cnb2GD1xw4rCpVPHNDJhlNoRV1+Gr3OFoM3gsHauyXhAU7dFKS/o1d6TccHH1MedUVkAAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRroAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IH4AAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JYwAAW4cWx1CdDM5IBpAAAP64MwXdhMzuijaOMSDPWCav+scgInl6S73d1kwXNhQl6s7MhQDaytBhssnhZpHDpvYdfEUwU6W6ewcu6PY49NN56w/K3QXGdoStgZmqWFEcwyxIEAA="
    },
    "roxo": {
     "path": "fotos/modelos/iphone-12/roxo",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuYAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB8AAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAtOghvSitWkARAwKIAAD+7joWVyXSGl/SwYMvM4cVhVrSr55mhNcUPnD8MRhCgapFzXBRvdpNDIGB7gYgrPzPLI9Jn+h3nB4TNZbg6V0X4a5XlgcKSNsvv3zTqTSLKVHwAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtAAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJQAAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JaAC7LwABz7JKnpKuV6wAAP7ok3/e2o+vxjiMQft/RpffpxMb/1nIEoiO7ohEmutY7fjCfYOO1/z/rUOqqe76pN5s1HaBW6VTmmyf5jB0dnTyIrtKKkta+1FYjfPtTtKOu19zMT77uri0sM9MTda+UPqiemJxbIbtSAAA"
    },
    "verde": {
     "path": "fotos/modelos/iphone-12/verde",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB2AAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiUAXYAO/1fCyKB55PN7gAP7wh1fg1PE9RPRl23DWDu18NkxWVBHj6ZaGSNJ3M5K7Czc/gno0HH7sEX8Dh3tTswWf9XtY2Y6TSGZzScSDLXOcqEVgeaZlQQOHBAjwAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsoAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4II4AAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZgC7MoAC5RCdOOnbZjMQAP7uOhX2STkRnVLVHi8uGuPZU5E5HW0JbX9Sw1oUhj9iKIXO22mfIeKJFHqFaAfKsyDn7ydTEO7h9nT46QPjHE6O7nUi/hE/v9vdIaAVPjkcgwtTh/ABDQIyEVawPTYQYdoGaQAA"
    },
    "vermelho": {
     "path": "fotos/modelos/iphone-12/vermelho",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCGAAAAUAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKC1AATUnDkh5Kao7PlQAD+6JN/651N4EB2n/VL82DN+jYffKDcwDFR+p+r8pCAMnMdXN9EOvlkq+ZlmS3d+k6aQh+cKY/BwGaxrWrzwLfTTPHL721kce4knSl6JRKafy5nEhgUaCwAAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJoAAAAQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoADSvLS04niRvlmAAD+2FKyaQ9l/qY+MwWK7NoD3TYPZKuAJ9dWdewWjPNNjTRazHRIJK/eXDYZ/KPVtMXl7U+fLy5AwIQqy9knp+4gtJ5UcL2UI7VcY2OpnsEOVld+keMiB5AWzHtpcI52NCuiTBP0tIhXgx408eA/EPAA"
    }
   },
   "iphone-12-mini": {
@@ -61,55 +61,55 @@
     "path": "fotos/modelos/iphone-12-mini/azul",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCAAAAAsAQAnQEqEAARAD7tYqlNqaWkIjAIATAdiWQAnTKDGB2AAFI0ECH57diTMr1VgAD+8jVYaLIDHWdEO5wYYXgcQxiAZsevkr9JMYbTFVfJZiw6806pqf+IBNlpTy8Og01ZQjtJicWhXSmq//+w0VmAI/y91cguYS0Vj/YKP5I92AA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJIAAAAwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JaACdMoMYBsADX+iIWFC84IAA/vI1IpHgXLpyvpBMYO7SOtzXdrO+N4WdlbprHjLJRQxtFYm5LNkvHVc7iXKk/UWedSb3yTRqF9lIkDlcShH4X4QxSxtQD9in1WAKUxJAkjGLeZ0xwqjsRxzg/iIvHJAvOS7ubAAAAA=="
    },
    "branco": {
     "path": "fotos/modelos/iphone-12-mini/branco",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuIAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB4AAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWgAux/AAwB42wZS3lDU1AD+8duAUMIBXddOwV1uWgERO9+Q0xNp+Bq4nT3JJsWvtRqvKHIrzzvQps+DtJmz6CRr5E0k+YcTkfv4IYjTlcXaATQP/ZMpWUNa2gjMIAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsgAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIwAAAAwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JagC7DiYAKRyaVZx3PGbOEAAA/vN/EX+XM1jGfB7yrJl1OOeq8+nF+PMqctzVFb8wcS6va5My2mS+XoDQlXv1Zuur5qaxY8xQh9cCsX6a5384/F0SxV00gGKzCFlyjhib6/EMdtneczYmTndGg38nA+QAAA=="
    },
    "preto": {
     "path": "fotos/modelos/iphone-12-mini/preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBmAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWMACBAD1MvEPCrMunRrwAD+8jUscrfYyDTD8vHxv2kDLrSFFMXPzGM37T8DFiwUrTGMkTS10k3cdLTLnV8V0Lqg3YLds7AyMi21yAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHAAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JYwAAWwtdTOdicnpXgAD+8jVYZdQ+aAO9uPLg0m5dbmu7WenZN68OYbbPILjwN5DzTPNQJWmqIg7TLmAmCkNIzstlxa3f8b8fZkbVPgsj0YMKPK4XIUAA"
    },
    "roxo": {
     "path": "fotos/modelos/iphone-12-mini/roxo",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBwAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWYAAFGDQKQni7WVJcAA/vHgw7UpnWxOHO8umwgk+hJq0tioEJP0fMlLmMLIn8x8KqpbZqhcl/v4CjHqMZya8ff3jyT93P+sobUNcUzOt4rZ6XsHlqAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIgAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZgC/OywBr5noRigiwPAA/vHcRi7TZpVLUzJTIdXkfRD7pZ7WC1QDCd6WRCZMUtB49iGUekVvJnUcNB0JQDZ5Vv2o8INUXxHOEdKBV7lEUavHBEaw2w2ESKTVTgWnCsIDIJnm98rGi3h/H2xI0AAA"
    },
    "verde": {
     "path": "fotos/modelos/iphone-12-mini/verde",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBsAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiUAXYAQ3TWk5h7nSpNSyaAD+8dxGNl/8PlmHBYLlORUSWZvnhhhSq3GQQuspNxQmi8p2x1ZoZOQ7ym43Bo2g7CnI/UvXPtfQxMAjQO0glsBnHLQA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIQAAAAQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JYgC7ACKQ1TaY1EwfOpDWQAD+83ajUPpSrB+4w2juJeJz3HB3yMH6zdcxqBKQOw45AUV37Bi+KYkdkHk5DPf6dGxelzzmC3+VFot2qhm2WI98/6CvqpzI+W6OFxdyGo5gTy2ostFqVoE0AAA="
    },
    "vermelho": {
     "path": "fotos/modelos/iphone-12-mini/vermelho",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCAAAAAkAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKC1AepKBSMrL8cCuoyiBAAAP7yNGEyBPzhKgtNHsQCEvERRrql0l+pD3e+TTllXcDln8cv7HGFv+q3ITk57e1+dEahO0mSDhAAGFZxqBAEnO8aJqgO0zg3SpdftM4N3/HugAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtIAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJYAAAAQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoLUABMboDIPVt8/uAD+8jRbR4gLBpPqska6+r85ALmRxZL1e1bvSx0JKyJydGnkLfVhI1tCCIkkEUj2wONkhOmK8b26TGvtYCQuZqAXgNnioU/h6Iu4dZbL3A4/YnwxQUWfQqmLPoR0qZ/BtyGIPMzIYN/g3S2wAAA="
    }
   },
   "iphone-12-pro": {
@@ -117,37 +117,37 @@
     "path": "fotos/modelos/iphone-12-pro/azul-pacifico",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBwAAAA0AMAnQEqEAARAD7tYqlNqaWkIjAIATAdiWUAnQAh6lR+Yk826yZAAP7oojs4GkjEiA9Appm1LQfsQGC7LK19EFfqkss4boJaY1oEuY9MRAmSv8V+C+v/Wr0J4eB7HWK/4AiGIZxmqmcdbIb+KWTAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrgAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHwAAADQAwCdASoQABMAPu1kqU2ppaOiMAgBMB2JZQCdACHu1EeaA7akDSgA/thTKRzKu8V5Pp3K5pbW6/+/ooCf6bhXOwW4SQLRT5xNKyScKBpNSgFZJhHN6TMsrAnvZWTxLFODbKycBO8kdYXPdlB3BUpQxBPCWMBysKHlZjwA"
    },
    "dourado": {
     "path": "fotos/modelos/iphone-12-pro/dourado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB2AAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWcAAF6LMNBAMAlOLJaIAAD+7joWZYrE8EbATNvt0cUTK6uJ6KlVnGGqTZCP8UjE57veUA3CV5GJt8gkvc9eDK0RU7JcLddo/5+io8tKxf66NKxQcNq325B9KLgAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHoAAAAQBACdASoQABMAPu1kqU2ppaOiMAgBMB2JZQC7G1/AWN4p3GswatevoAD+67CA5shJ8r/WYCjSlRliMiD5C77QUSExnI77rbY7rCWy1z1Yq6OTqpOyLlavVNAYTJcqzpsi5gyNIgavkT+CdTTX5i7hRQRHk0MckFNAAA=="
    },
    "grafite": {
     "path": "fotos/modelos/iphone-12-pro/grafite",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRsoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBgAAAA0AMAnQEqEAARAD7tYqlNqaWkIjAIATAdiWkAAFwV4fHJQTQ3a4gAAP7oojs4GkjEh8/kaBP5O39ksjjMFQy9Go6mowXgRGvA1L8qPIV8Io7WH307OjQD54b872QAAAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHAAAACQAwCdASoQABMAPu1kqU2ppaQiMAgBMB2JaQAAW+woFudvqOYgAP7YUykcyrvFeT6dyuaXTgM1BNemoHJ1d3P4LDHBCBgGn2u9lrM60OWPxDYvSXFu52sMq+sLPxsks5xpif8RKx/8Cywi5qQeSEAA"
    },
    "prateado": {
     "path": "fotos/modelos/iphone-12-pro/prateado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtIAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBoAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWkAAF6LWqSEpEg8m1AA/u46FgV1dKNxGNyw2w6R3T9/vAc9ArcniT4zPr5GIvHs/Sc70OEzbel/44MYrD9+3CDZyOiTrSSW7+OG5yqcgAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHIAAACQAwCdASoQABMAPu1iqU2ppaQiMAgBMB2JaQAAXBVSCUfRL8IAAP7rsIDmx+Yf6Wdy3iMlNWIyIPkLvtB1la5Gcjo+zktO8en3++QAXmrISF9ZK/FlZlfLrELNioph8T9OrVJxrfOvkHbuXvB0cqnIAAA="
    }
   },
   "iphone-12-pro-max": {
@@ -155,37 +155,37 @@
     "path": "fotos/modelos/iphone-12-pro-max/azul-pacifico",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCByAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWUAnTKAAv30SnC9sIzzAAD+bR/yG/dBKxT5i9U+POsj2vSmXcCx2/Xu/V3WmHpRi/ntL39siZPNgQ1ffzd/BKbaQHVdikDQKH0NCk4He+SNi0QEMXFYAAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHgAAAAwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JZQCdMoM1cT+AsKWWqI8g+gAAzj7oXyDS96XBjNNQUJRNZ1H3ea2ZHwV4qH5/+db4KbX8PRupUZUQ+WM+va2Jc70pTeQzyZtTx2XNMpPmnVWw3PeWQ2U2QSlrbbnWJAA="
    },
    "dourado": {
     "path": "fotos/modelos/iphone-12-pro-max/dourado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBwAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWUAnQAenBoudUDKX0AA/thmjS20LeNfp9hLm06Sy4cgj4HxXa5pv/hO4nIw/YcgqcbYElZwWMG+X0mt+OBRAnKl9eptXyrLedynrwyUKm5En76gx7E4AA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIQAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZQCsAB2JGJUN+qZ6AAD+uAe90ow4fQR7zh3kZ9Te+vh3XlxEa+a2ZBmvwXhJ2Md/4PtesCmc5DWIcvQLK/zJoEG6A3w4Lj/bJmsbcThg173e73TQt3dMvqjXFecTyc2wdUVGX6w0UfIAAAA="
    },
    "grafite": {
     "path": "fotos/modelos/iphone-12-pro-max/grafite",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRsYAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBcAAAAkAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWkAAFLa3vwMOHf6gAD+bR/yG/dBKxRoFY8hQLKc4trwLLWAUDk8fsjzx+5JcLOYtVGoeZd2UQsJHkRu43LN+GCwHAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHAAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JaQAML+DvNSwae/Ke7ADOPuhfINL3m8WSfBKxJK3+TtLtDwn0mSSfZXApJLcndtM+6qNLX2IEzUh3/tZIBSvXbmLiZV9glLXUx+FtvErhm8Z/GR9SXQ4A"
    },
    "prateado": {
     "path": "fotos/modelos/iphone-12-pro-max/prateado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtIAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBoAAAAsAMAnQEqEAARAD7tYqlNqaWkIjAIATAdiWkAAFLYTwbEyboCiAAA/thmjS20LeNfp9oG42KewJIP1rrdS+V49uGngmgD+TX5XCt36PeQ97LCWd94OAQZk46PU+PuAkEzvhgwyrAgAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHoAAABQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZwAAMJgRZN+30AD+uAe90ow4fQR7zh3w6+VuEYkeaU0De/87Q8J9XhbmvUPlOTyyswo/fgIko0ziybFw+tLcUUJYtgFzfkzYFt1aq7OQfIxdgb8U/VR68S/SmJT8B5MAAA=="
    }
   },
   "iphone-13": {
@@ -193,55 +193,55 @@
     "path": "fotos/modelos/iphone-13/azul",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvIAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCIAAAAcAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKEcCcyg8V7uIIaa6wERqAA/uiiOzgaSUUNpG+i4D72YNv+HkS0X0xwPCrKeEO8UYJpzEsKObQBnipJeW7NA/1hbpDYqUximkEWciFvkZLX567p/fxej+Y57xw59zfAk9ef+G5P0T/cgwpEAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRuIAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IKYAAACwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoRwIsAKK8Vyygwk0XLFKYWAAP7YZ+1udgiaslwZ/6FHVfv0rxTP19XzxAkoN214CBlsxHM2btjSjLVAO89pg6OSOcCwImMRYH8TiBYfnJHROEVaZUpBrnEET4BTAS2oaudVPaG2YmGzxFVL9LfmvyG4w/tzibftCJATrpLMZuJv75iSzP3YAAAA"
    },
    "estelar": {
     "path": "fotos/modelos/iphone-13/estelar",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuYAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB8AAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAtOgewyvUG7Xc9+4AAP7uNSHQD/6rg6HyuZU/Idw2Cn62xNn+h2CvK+TjYpFSsfU4R7zF0o5wediOCDhoXTOkxMgE88i5nXXdifttPIWZzzesU/aWrRG3OsBbNJi20qgAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsoAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4II4AAAAQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACsH8ACu8g37kJ1fIxjYAD+67CA5shKAvgYZq635m0kMvlTrPDh8/fus6aopANmvPExKX8IiVuZ+QJ8LcbhfuPjb9BRNRk22VTft1QwQFNPgIX871WGfoXrEjYeoOOLe1+0EuEeBQzLJ3eepMc/Jyp+0AAA"
    },
    "meia-noite": {
     "path": "fotos/modelos/iphone-13/meia-noite",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBwAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiUAWnQQ9SfrOhHyrBNaToAD+4n0tPKFFKHiHabzG2zWU29xHaSUt/LkZLcyAW/Zp1DC4xj9d4GnWSHdKHParQxY9qmp3+BXUW1pL6pUrw7a6w4OCdgAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRroAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IH4AAAAwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JQBahERhgldUZMRg+IVMHKRAA/rgzBd2EzO5Q1hikEyDLtWBCUkrAMrZpMuRUGdNyqz2si8SMV0u94SBUJUrpa5ItjpiHChQVaByg54vX4iHjmD4uGL5b0WZR+82GcrJx3QPMIAA="
    },
    "rosa": {
     "path": "fotos/modelos/iphone-13/rosa",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB2AAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWQAuwAdNmxaLMLgZwAA/u46FmWKxQ4iaQHqZ8AZqRMS/tOpjfubRTKRFDbhyCehGkioijzyBTzD1a6jjQycSAqFS+fESCZuhYjfi0Itcyr83cSFIPyVHbII8AAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIoAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JagC7ABb14Rwzq9P+7KAA/uuwgObISgLt3Rf/CRcyaO3yKmj+26EcnKxzH5jgqDv+GsFZqNJ81PaPPINiW8YmOCJF65/UcRkIfmuSdfKPH/AZHhlJVocfVK2hTfSUq1GTbyeHrjhYlozQaLWpxdlXAAA="
    },
    "verde": {
     "path": "fotos/modelos/iphone-13/verde",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRugAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB+AAAAEAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAxNgilc8vaQ62lxk5LAAA/uiiOzgaSUVRZl0wEr6SmLa8fzedarJbdM60ZTt63SUx9JKQ9hPSo6sFW2sXC1NTAXE7SI3xyyw2DvvrOfFm9c5SUrPYy+pggydC7lU+eohFYEAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJ4AAAAQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACo9CHu0suUo4+UOK4McAD+yp5CfcSzrCMY6xBgXjY1HEtcEw8r17P7xgnKXUq8EZg55kJe2nWdVuKGcUiI/39VI42OhFx6nu3mM8UV70AYBslCRE6wP8kaFq2EDV+kyQpYdlj2wtIMook9tu1Igww2ObfYT9m6oE62ea5PrkMVr4AAAA=="
    },
    "vermelho": {
     "path": "fotos/modelos/iphone-13/vermelho",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRgABAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCWAAAAkAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKEcCLArv4Cdiuf9uSqg8TAAP7oojs4GklFbv9V8+X9s/2au5EVJCtP4bVmpiYWyVQ0wt5psrYm30ZQ0Y6w6nnHNZ24IoIKyHoL4FPiyBdVsjqfrlq/mK1Yf7vK/UI2p3T0KfgbqEEEUwLoXEYDAt5D1DU7NSx0AAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRuYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IKoAAACQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoMYOT+AsK260kk0jKuIqAAA/sqeQn3Es6wY91F+yfaR0DMeN3NgseXn1U03LV1cmQbNKWTDVezmH/vyW98u6Vua8lJKm4JQKQ2y7+qjfR8o3DIT9iLuq7hi06PHk2baCw/Cui+HFnanX9kkvvs3yHG2PociZNT1/PjBu/P+aad7MMq4PAoD6OydkAAAAA=="
    }
   },
   "iphone-13-mini": {
@@ -249,55 +249,55 @@
     "path": "fotos/modelos/iphone-13-mini/azul",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvIAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCIAAAAkAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWYAnTKDI3Pv/aK5RA0PmDeoLA/AAP7yNGEyBPzhKgtMXfBNSd6MnHOd4Qt7buTu+HrK6zh7agK3LzICA9DacUR2+N98RBysor4tvjNSELGjiZqge79SrTvgUhrE/P5JJYH/NcwvYBLXqcJ/0AAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJ4AAACQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoJYAAwN06NH/lNEGE+OkgAA/vI1V3aAzaPJyLxi6+//3HBVNb+3hUIE68pTcd/eyfteJ7RijbE6dzVCwssDk7o42z0d0OIbsrLniKBhPHxsv+Y+ffuveEno733dSOR4Y4hWalHnIvfazJftys4SvSB2XA2XCanx78BXJypfjsQAAA=="
    },
    "estelar": {
     "path": "fotos/modelos/iphone-13-mini/estelar",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB6AAAAEAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWgAwq8AAc/hmoyuwFqhyAAA/vHQ0+6dF7E7JhjsRkvyqo2fDKkxaiuYhxi051a8g+jYv2/NNNTSC2Z5+ZDfhvhexzZhEc8zoCTN43Ed3SV66SArz5oOiVc/dnJytmEAAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtAAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJQAAABQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACxC8AC/5fB5uhkO2JcsncAAP7zfxF/lh1G9248ppZFrQwTQLbKtd6Pvn+J/VyCKO6yxiLhxXJ/T5ObHw9o4i7AHr4+WX2tFlQK8GQCsVpZDad1y+wEBxLVZ7lCFpIk2atowfvPo0BxmaEGhhqkaPw/5VXQGSO5QAAA"
    },
    "meia-noite": {
     "path": "fotos/modelos/iphone-13-mini/meia-noite",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBwAAAAEAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWMAvmglwwAiqmHE0PjEagAA/vI1XJBIpUmp+FaQX8KDoJiy84Q9o3H3eaZRODd3eFfY6bkM0NaUHbpQVPl79dnxT2pQFKYH6s1xgTAFnGduasiydsAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHgAAADQAwCdASoQABMAPu1iqU2ppaQiMAgBMB2JQBYheABgLc02N7vZEWAA/vI1WGngup+Rnva7XsfYf9Uq0+DuFTdj0OSmIZA+Q4yIaxWP8JYNPnayP2wtmSlxxG2jJhnO30qj/Os4aLSyHUtuZn2I3e9T1ske1cvAAAA="
    },
    "rosa": {
     "path": "fotos/modelos/iphone-13-mini/rosa",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCByAAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWQAAFuQN3dNtK672BsAAP7x0NPunRexOyYY7ByhSGuZh6F94NmwLIqWN7NfM0IxZntNh7O3aAnbXZgwIydQ+QjGU8Vvr90XqP9JFd+xE7a8EoMUzaccAAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsgAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIwAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JaAAAWxambbYIh+u7gAD+838Rf5YdRvduPKaWRa0ME0C5kwejADYb+ZoVLbk9h9FcWuXKAmER8WH6mhSD+IOGTZzSvePf8vn5a6neZdQzFNMGpfpIodg3fW9nIw571Vmx/4CNrx9xQ1Ug9NQtp1OUWgAAAA=="
    },
    "verde": {
     "path": "fotos/modelos/iphone-13-mini/verde",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuYAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB8AAAAkAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAtsghuc3RhIC7sAD+8jVckEZIxHdQVpBfwoOQYveWYnpXGoaDyHZwdpxE6GlB/2OXmgKiAhzZyHWqaLprC9L0C+KBQra4CDKWCmTP27GW4OjKpzwtD3gOzqPnTc2QYAAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJoAAADQAwCdASoQABMAPu1iqU2ppaQiMAgBMB2JbACzgCHPgfUt5RLWNSAA/vI1WGKAN4DcoWScY1wf7Ye6dT+04RJ1iCyEDNoaNoZDrsdZC5n+Re4IWD2+Visece9tTd9aITvmIshrmHFNW/3YE/BGzG2cLMxq241Ge8uyZMBrxfjd9tS4NoMsEHZPkXhznvD1cGxsaz/l4n3cXiAA"
    },
    "vermelho": {
     "path": "fotos/modelos/iphone-13-mini/vermelho",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCKAAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAuzKAA0sgWRQ5oCSwAP7yNVyQRjA/aHDnUzwWai55e8TjlSf2ymRXTtq9crNvy55EAj0h2N+UKpjAVN26uk04g0GkX2tRxWVmjSvVhyKGi626klYWrGnnc+MGktleIdl3yGrqlnW307fIauqWSAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IKAAAABQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbAC7MoJYAAwGuY4iEujdlrcAAP7yNVd3AvVCjc/AhRV235933uRezICgJ2AMeHYTrPepc27f+fdGKON6AHumTL2LqZRcC9K3bzncYuBsQaCcev0tZj1xCdtJt1kdIw3/J/M+S9WC/IfTyq+2pcGn7JE8DbUkF4+fRF35/tgjf1fvIzrxGhAA"
    }
   },
   "iphone-13-pro": {
@@ -305,46 +305,46 @@
     "path": "fotos/modelos/iphone-13-pro/azul-sierra",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRugAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB+AAAAUAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKAA2XPHoN01JUWaLssoAD+6KI7NoBDPX2hBt2cwHxY6SlWZktgOqT6wlq0oceVyr0pGZyrBAECq0zSH9HoPKJiuyOMKLOaKartrPdqZyooabRHAb2vlEhZAC7IZMxm9ggA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtAAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJQAAAAQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoADTr2LeR33f3jKQAD+2CGh5F6Ou+ytAtTxdYPofV8mR9dSNXBKUdrDSzbfyOkNF8kETcDxwrKzv0u5tOyuW/U75pHfaRRZzRThAKd5aXBQbyojCOIfThO+sD7wEvfCvPAa8aS3OLm3YU6ZlbOxtPdoTdVyFm4A"
    },
    "dourado": {
     "path": "fotos/modelos/iphone-13-pro/dourado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCKAAAAsAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKEdyc1uAAYJXyx+yPku9sTQAD+67CA7bcyJcQZd4RSD0AVQwe2ASvIVDgtFxAlHF+xRA7ymugvHYJQUaek9PogxLwBLGl2ZdgohfRkKHXGqYvy0LTO0U95vvlffeBFxu/Xwzqx3UH1gWRbTgAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRuQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IKgAAABQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoRwAdCg7SWckkoxghHAAP7olDDOh03ohZ4cPwoULIo4tsnkQ9OE9kac0iGJLMt+TpPCxjzdUKSChRJgdr+z8z4nHlgsRxdE1mbOJlUZOj6mra0r7fz7GT1HacH2TxQa8UZXKj+WZ+ZB81Z8ex+16Nn4hsCmtqzqhcg7Q25vfgVjA8Pdll4hLYTgAAA="
    },
    "grafite": {
     "path": "fotos/modelos/iphone-13-pro/grafite",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRt4AAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB0AAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWYAxvQhu7d37JKnEfHvgAD+4o1l/i0Jy+BZprmD523uU4ZMAkCYQJpRT/Nd+w686rFS+zBhGD21nKV7MPP/xF/iOHIZlGXkSU5kKR0XXHgpP18IIkSyJ6AAAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRswAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJAAAAAQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JagC+SCHu1PuHoBt+6LiwAAD+uA3ht+0iMbkMIaJMxg/lT/xUq1x+H71++A94YcIDKeDys3ymDqsnI3SS3J9dFn+t6R5OOPSDpFC+Fo7CmfzqR72wQD/isWI/PErFjw86gy0RJ0aw2qQl7cYJtrzIYqDm+PhfeAA="
    },
    "prateado": {
     "path": "fotos/modelos/iphone-13-pro/prateado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCKAAAAEAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWoAtQjYgwBciPlyBlQPxIAA/uuwgO23MiXEHBQbj4V+2VzdM6mX5FWyivcUnGk1IDbgP37od8YUqrow8P9Dge9xVSxhC/T6kFY7fXAsuP6dwqELABhtdlLXqyI7mtP+n5pubGj80FkaRGrBMOhXQAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRt4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IKIAAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JbAC06CLJkzDgdwu1O57wAP7olDDV36A8+WOThi6dw4nq36tBCm0ieF3Tak2kP45m11LnXGkFTnqlrH/6rtBJAWfyMEgzPspHRCfi7tV0TuuToLAf9aksSLbNwIAv+B86ce6eQkwewJVeWHsuRG2+Vc4EvKjmvGnfk5Opft9mb0NB8N84RpTGFgA="
    },
    "verde-alpino": {
     "path": "fotos/modelos/iphone-13-pro/verde-alpino",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRugAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB+AAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWgAAFuEJT7Kiffx26gA/uKNZf4tCcvgWaa5g+dt7lDt3usI1neqxLHwK4kjZyX8/o7UfkI+gmN2T9gxzqOSfCVZ91UkVJewJIkuWfRoEEMZ4R/ceSMYkiHInnHfqFIHGZdgAAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsgAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIwAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JaAAAXAXaP0jLwknX1oAA/rgN4bftIjGjvko2vkHazVa04xMB0qiujkglx//XdaITSL7uW2Vzth6pEdEsxVmumfjvv5gTgEUTKrG8oAzzp043ASy8lECa8qQoVnsdFoGbC8XqisUuURj8f9EUgNNxqAAAAA=="
    }
   },
   "iphone-13-pro-max": {
@@ -352,46 +352,46 @@
     "path": "fotos/modelos/iphone-13-pro-max/azul-sierra",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCAAAAAMAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKEdwAlsxOTlcxr2DbYAP64RDnn7GjHp0tOy3KU2hQGk69Rc82yX3rSzX1MjU+7Xm5u4M7qYvLjQ6jA239vYKYkgDw3lZPObLMeRzRqroLR/pl0kjfJDXd+w+phH+d44bwfgAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJIAAABwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoR3ACWhB9CAR/X9A/LVgAD8/deeVYwMRYdMvah2CPzR94DmebtcIwRfZU4tuiAlOhDe4zyJhQ0ipl0h3Eck/foX8Nka/KrnRFu1JHHoSZNj/ybSCr+z8HTD1cKVfXv1WSzZm4CD3NRcw8M29K2LFqHnHhAAAA=="
    },
    "dourado": {
     "path": "fotos/modelos/iphone-13-pro-max/dourado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCKAAAAMAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKEdyLAAMNcA+Qv7WpgAP7KqxiwalbRWr8vmcprTkF3zkdFmoDNAcasU6xR1Jbz8MmZIpKGqIx4h73+jDAPfMOep3Fdd3Sx3gk4tDj0OdqnItBfgOMOEX7pcWIl4PnzdwI95+uwpSPO2icTQAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IKAAAABwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoRwIszLsAJMzCvrzOrJAAD+bE09j+vsLhspx4cGBjsY2XbTHwwkX9QYYMkQ1JxuXYE74h39FKtDOxEWj7v54wSwH0KsUjyqvQwYlltR/Ge9FjJG2CvgnkrvRFDt4P087EEtlthYNr7YcwhzxmefeWyWcvb2H9CVu5sY+XP2VCZogygA"
    },
    "grafite": {
     "path": "fotos/modelos/iphone-13-pro-max/grafite",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB2AAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWgAxNgeo0aHTu5Jl+JVIAD+C7Z+QtHpTr51BHMo2X7mkHg98kOv86B68fIqBRx8nFSq8RjK9r2/EJilVgfLS13bXYXxhfBVULJO3C8SXZKdF7fOp5j1uSGMI3ogAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRswAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJAAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JbAC06B61i4GNdjPHT7AA9r5cyTZsn15qwPh5i56D7Z/CBMa+OvAtJuy1krgG+6CnHnqZMZ6ybGqp1/nmNkzh/LPkk39WEJBe6tlkSyqXDFnc462Hehm5lOzphrvdEZ3pcjmAeTWF6+iaabe+Vue7qv6oe6AAAAA="
    },
    "prateado": {
     "path": "fotos/modelos/iphone-13-pro-max/prateado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvIAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCIAAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAtOgexwIkLU2HSNZAAP7Kqxiwalz6/0zZB+z0vRgezl5+NYj15b12N1/hpJd51UX4Zrk5rdq/4H/W+BdTfjogiivtVPkP/gfkSPrI7TMI/Xc0jO4KrDcmC9zchL7Rmw1+9tZC2K8aFh7JzKqQAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtgAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJwAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JbAC06B61NloH0Fg1iIAA/puoQBuH/YcJ2vo/4QZogf/9i+51G1DN2lluuHyMIO9XWQ8sKJA8BwA3tgf1ue/avv/sTT5Nf35dCvATavb3vFoLdI3HA2nRq60XPfjYVUNGcuorQGNUfskaryYUTY8ZlC2X5M6BnQOEvMVGTQaoRpoAAAA="
    },
    "verde-alpino": {
     "path": "fotos/modelos/iphone-13-pro-max/verde-alpino",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRugAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB+AAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWoAwoAh5Ziqe3VO6aaAAP4Ltn5C0elNkHaiVLywY9R60vkOv86Bb32Ou9+TwNnqtWUbj8N14Y0tJZ0Np2qgotpoSOtPWySKkvZ4vaIYDsDTcsXNOXrvxgHRqw8RZ1dYplfdgAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIoAAAAQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JaAC7MoADgg8onoL5xGuqQAD2vw5pumzt0LTPEvg4BRalmhZh6JsYCU9R5cB8dCfkX/NQVrr6kTkSRFMRya+MLeQUqpx4gXvJL0XC77rsinITcfWrDlVHKWvoiLj0xPWnkJTxCmSSgj34/6Ia55GtwAA="
    }
   },
   "iphone-14": {
@@ -399,55 +399,55 @@
     "path": "fotos/modelos/iphone-14/amarelo",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvwAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCSAAAAUAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKAAsFytcCj17OeQsI5AAD+669a2WNUdGE5DTKajl7d0RfK8L5iDCX4dUtcLwBd1AYUDlkt/65KU2uLERY8a77BLso0TJ46cCZTMsKXThTLI7aWRZdd+Dt6RaowluPGnjfSvmgCFsrNGHDAg3rzyR2aE4UwAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IKQAAAAwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoJYAIHMPgNV3/DBLrAA/uiUIO9VqO6TWaQ/tmhZND+vw+1dRbdLr9hl5HvtaYckHp96fs35HDtYV8NSp7sFUcpLQY7s/TOWHcYAenkKW8tgg8p9Cafr2TiJGBxIj6o4OIuETL8sRqDuXO6SM4hR/KYAjB2PzRLmehg6spal3QsWPz89EcAAAA=="
    },
    "azul": {
     "path": "fotos/modelos/iphone-14/azul",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvYAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCMAAAAMAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWIAnTKDMLQ2v1LnpGRUl40AAP7rsIDwnTzMdS/16LenXvZ47ZU2HFYWo+mef6Al5+IihbNOsgByhtVjGx5NZ44kTFXrDf5gU8XHY6KtRJPImQVNaCHkbu0zb98EQQu5MXTX7sZe1Me9I/oOMzziWAAgAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IKAAAABwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JZACdMoAlsxZX6MEo+xvZiaK8aAD+4n0tMN1vhZbdz7JizPq9Y1L1PK+B5w234Pz4secb9MySamoVRRFArqhueSevaqIDa+UOFa1D8BX45vti55eDqUmTPq1290gVQMk9wauaDAffFr2MI5SxxPQYhUagit7I0ejXu5C+IhU9BBaLkKFRCKAA"
    },
    "estelar": {
     "path": "fotos/modelos/iphone-14/estelar",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRgYBAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEoAAAANYBPZtpPzfiR4wAAe0IUHbOEAemTknCvqiJgAPsySQS5W35Qia55qdTFTFRoWtXCtVgCFukFW/uii5hu9nBT6BrUAddeuFxJ7VlZQOCCWAAAAMAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWIAtsgj4KI6/d62r8fNv/IAAP5r+IeYVmXMlHoS6zTv52SmHIoEia4Z+SaXjjA3RNOkjEEpPOAuHM3vxMHG2obj33ElVf/ASERX2KWP6rlf5OsK+49t2A/Gi7L5aT4f7KdwHBcU6PYrs+B//CP3/vlMwvFhQ2T4GVGI5QAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRv4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSEQAAAAFYBoAQBqczCG0neX+g9tdSztk0SUhaTkiFCZtwNhxDDDHkRtSfHyZweTeRHGTMQCjd2jwPjLfL7s06BBaXJ2sGqIsAFZQOCCUAAAAEAQAnQEqEAATAD7tYqlNqaWjojAIATAdiWoAvzmL6s/gOXd8l4hZTiAA/sdrXZcaihlhxQ+H7lJyUBHwQUfTXtp7f6Fl8BNxUvT7bTDIn/LuLXmh3wlbORickX3rmtxSKb0gJu1mcYJEB2q4AlqGpdCDuA6oENvwa6kab0Selwds7Xs5SzXZD8GP56U5oyLAg3lAAA=="
    },
    "meia-noite": {
     "path": "fotos/modelos/iphone-14/meia-noite",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCAAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiUAXyTGInNSMW51A+46zAAD+2Ge6HkWrlI0dBc+ac9neTlgnKVNH4njObE9EwzNdJSPF1uZ8g3TyX2ijOFJCecHt/LpeRKf5O6zsxLwqFvqgUtDukCy1WZwReKuNEQIW+NgmizIAAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsoAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4II4AAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JQBdgMXmUiBOhpD4emLrAAP6b80LdQxmvlq+GD1z5/vQdLWXOXZTyhpDKZaZSk6k/5jobR6FMJywwaQWRpiU7/0RTIRpLG2JvogyTtuqwUWE5frMw0Y1oiQPriazCmdbRR+sW9f4Z7HJmWmGmpnnSKB7d5SAA"
    },
    "roxo": {
     "path": "fotos/modelos/iphone-14/roxo",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCAAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiUAXyTF9U1DND3fLtKxqgAD+669aWyz05tU7sH1xfDZBTZpkOiWeql4dzNNzkv2yUK7X+7D4AfL92+esp0PuZ1m9cLeCASgkDWFu1omGADhKb+CXSeQ3ujb2tqzbaq/FwFedhoU9AAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtAAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJQAAABwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JZgCw7YxOz9ThN8jVy1HeD6uqAAD+6JQg71fgFqFXDhZ0X9bsB1/1jC68/uiM/6NTozCzmCxOf8TBx4+7JmG9IGaaPOuFg6pBjRr6jeZPT9srUVswdTz7DzfkVEgIk82ZTkFlSC+Crv5JXlHl1ABScECcRgySjSnUYAAA"
    },
    "vermelho": {
     "path": "fotos/modelos/iphone-14/vermelho",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRgYBAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCcAAAAUAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKDGAA2hq2GJROZ1IdnAAD+4n0tNQLFVwYhfVCQwac8kvLXvKt1FKx4DacS4XtVBo7lBDOaV2NAAsvSjAR5r4ZnfRx6G0Kb/c7o9X+NyBNEeXlyu+b8nN+z7knbbzPv+1qyGnO8NU+KQ+nTPWx3ChrzmOrtyWeoIEMEGkBlgQAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRvIAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4ILYAAAAQBQCdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoMYJhV/YDLKx6Lj0XX7J1yQS3QwAP7KnkJ9/igDbF85m6lI4nj1s0Z82Y8e6frDbjgPAq9Zer0L8SaKOyiWzXEI8ClZX/gIFb0AFjoFDUKgNnQL95zfwmfPrdIvdIMII9e3DG9f5A/O7Efw3m4FQMw4sSIFJgKuKctZYgcHUMfBT9AckB4ORzLhvvoX3IIhwBnwx4kLF+AAAA=="
    }
   },
   "iphone-14-plus": {
@@ -455,55 +455,55 @@
     "path": "fotos/modelos/iphone-14-plus/amarelo",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRv4AAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCUAAAAUAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKC1AAN6LTBE2Bevn+AAAD+6KF1Qugh24BTBDCtmh1eoC5WE2Ai13vuPdxpdeRZsRsgdrVQAKArJ0MBMBPJUFXtH/R4yLsb6Fo9eYT6EfsTOepd9QLIq09tvIITYYPrpEzLHMwHIkS+OoOizSd+OoOickhdsAQwAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRt4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IKIAAABwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoFW5ATBfl8N4r8cIQI3QAD+ynTATknd0fX9usO3hwbHaQXgWqQHDiQnR6mhkhcGc7CXMIikY32/3DVOvQfb1N5TAMRTyxyvL0aa3AHuk8MxcUTezTa2hqoyrv25ELkHUuT38OK39YLjlmuG1ShM5W1CJP5VgVMauC6cD+ELRSIM/AWIAAA="
    },
    "azul": {
     "path": "fotos/modelos/iphone-14-plus/azul",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCKAAAAEAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWIAnTKAAm78YAlnTpiqhMAA/thkHGGEg4uayEUrhiabVw9uZcAXCLYznaBpg+Cdga+gIFKz2YFmg10FrFV4H7nMg3EVLIPFgcWnMm/AT0/9Gy1uJTlXW7fGtVac1uMQKy8yIkB4W9SMbipBupA2NAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtgAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJwAAAAwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JYgCdMoADf6U5x612lrhGa5gA/pvmwMed3dH0xNZDln9aOCBe8bVXhePDeKpxWa6suw8rF1egbfCZmspUATRfdDoUo7kQ68CWwXvU/1InhjQ8xk+OeIfvdgcA+i4hZpdxISojh7GQV3c0Q0lLXbl4GZ20WkcZxqAi7qiSUAQKuiBRQAA="
    },
    "estelar": {
     "path": "fotos/modelos/iphone-14-plus/estelar",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCAAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWYAxNgYYV+wi+EcvWAA/uuvAoXSYnrwCXupaNPCHkRsPc/vxOry7JH4o6UcW3zaCvqghxL3Qz2wdcOYSydeNJna2mrQSEPoLLCF9DeN6OFbQVR/KAO3kYOK0B/kW16gtMSVtydo0AA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRswAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJAAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JagC/OBBTnl7R/XPvfAAA/thKWfh5giqDwB1ZP0i+9olRnldPn+Vh+jeMz1bT4K1DJHlxg9WGyZLH/jUNmfbMuRfEOoQVPrGdEYlxgP4COCTj0XDkmAlQHddO8BrimrsNbCtyxnigVOb64RfxL6IYhhKbyBceAAA="
    },
    "meia-noite": {
     "path": "fotos/modelos/iphone-14-plus/meia-noite",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuIAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB4AAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiUAW2QMV1VLFIqu+GEcAAP0DdN1HpcX8kyrnbZLXX2ct7jtOdwKjXI2+ZU65YlkCUtpcspMD1VzS+hrEL3vBTyl2H2+epEQK5cYXlHd0iR65xHc8Jlbx1RrQTenjW/AA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsgAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIwAAADwAwCdASoQABMAPu1iqU2ppaQiMAgBMB2JQBYdg8NGs849jYTpZO6AAPw7VO2tQHaNKAxerODJcMzZTse/ivHih8wqBropbc/KQU3VXZpqUiBKvwDNebYCgvWe87sVUC8kHNDLBOzBUf91OxkHf0Br0GwQT8dqOj6AUKiuSv0hgb6OMRv7AYgd+5LAAA=="
    },
    "roxo": {
     "path": "fotos/modelos/iphone-14-plus/roxo",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCAAAAAUAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWQAsO3cALNbbqQuzBwfyjfcAAD+6KF1Pv16OnjgTtXMtFFezVgWDptRxk9HrEHLIrOWIkvfIkzkJfF9C2jxEtGZio+v4bZLfjgKd/nKb2i+3W1EZpmSRQQ5gSVpUCo60pgiOA+AAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJIAAABwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JZgCuHYvW7M6HnG0I8z4spPsOAAD+ynTAThy8vViSt93Mz7RxRgR29h1oT0zn4VruM/t0Sxb8Q/AsTPy56VU/PXqwBII2m27VhJ44GsJRpVJvJrr7PyIJLJxinRVqe690gDChpqb3ZvxJlV1JU7S4MkleLaSvjuAAAA=="
    },
    "vermelho": {
     "path": "fotos/modelos/iphone-14-plus/vermelho",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRgABAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCWAAAAEAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKDGAA035hdnNlFWlgA/pwhBM+JhvtbCkeJc+tub0cPYE1PWoWHbqz2Dpx3BCCOld9lYDMgRR8AS01U4WgeqJjRgANdzfcOMEMJkfuwkD59Zw8e6JGGh9eE2fv+6uR/8Iz2h4sqFm8u5/ZtrUUCIDdTq6WqfFvCLYAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRuwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4ILAAAABQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoMYAD26jExSaeQqtfvoAOJ+9jQTLERmR2OVFQBVhOLCBUeh+46ekBfdP8+ZCJJi/vUBgSYWdxfJ1urqDsoPS41fxo22BtDx5i0qGXJ71ggR/fxbYdE+JT2h2J6IDHFc09h983fDCsX9vJugQuVH3oi6952nrAqtT8V1QT5Ayg4IHATNbx67Q+UaY8t3xW85FLAAAA=="
    }
   },
   "iphone-14-pro": {
@@ -511,37 +511,37 @@
     "path": "fotos/modelos/iphone-14-pro/dourado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRu4AAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCEAAAAcAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWQAnTKAA2XM+a75bwUEKarA4AAA/uiTf+e1PTccKraSxS4Ck88xbwXro9jlDih73WTp+bJybVNA5Z0FNuQc2ah6be3HKTkalTmpCRB/8tilumtiyAdGF/ua22hnrpffnAW8ki7/FRP2PQAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJIAAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZACdMoACdFUql2mMGoPwAP7iWIR0ZnG174QpAT4YqlCTpbJxiDlIbDQRom8HLdmim9D7uYWyxv8Y//SThAKXeXkY6B2KchGp53A8+U2OE21VyRV4ilV+Kbn1UEo9Kx4WQfbgQWLvNHp0mHiNW2xEzLRtRV/Zfe+AAA=="
    },
    "prateado": {
     "path": "fotos/modelos/iphone-14-pro/prateado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuIAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB4AAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiUAYmzGCWNYRUV4vzoxllgD+6JN/56Of32T5u/lds07+bqmfo+PIE68+tnK/5Hvnq5YFn7bFaGU8okLtdvwFG9PtVCWntvZi1/stWXNbFj+iQlcfoOuLs4Qr4AJee0AA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsIAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIYAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JQBgbg8OeKr3T3jomgAD+4lfC8YGkC9udL8NJw1yYvlVEwbRDQZim0TeDlu60xv5tRdB2hBvdWB6gKjwl3ocQyPVinMyvQ3y9MyYzqRk8Urp9WeX9nIM72yvL9GnAfa7Q91Mj05UvaMWF2lK6AA=="
    },
    "preto-espacial": {
     "path": "fotos/modelos/iphone-14-pro/preto-espacial",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRt4AAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB0AAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWUAAF3zhhU/PHb2oAkgAP7KnkJ+NKL04m6jAZLHhV7Scut7Xl7hpkDlaXyRQaYtEf7BfRklW6sBwYuUg583VJKuUKmn6YY1hnfrTqSW6aV52s7q+v4APdOagAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIAAAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JYwDG9B6u1vycsC8+I0VgAP5sVfG02ODy/yVrPC3dxtCfeWLgsHJ0mOy4XtbTTQ6jdUbbTo35YnnjMwIzmBdhZ1oyz4Ym3DGzrBCwT6ie7YGpBlfr7TYDrovytyi4iAotfI7JdIFMAA=="
    },
    "roxo-profundo": {
     "path": "fotos/modelos/iphone-14-pro/roxo-profundo",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRugAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB+AAAAEAQAnQEqEAARAD7tYqlNqaWjojAIATAdiUAYmwPY7ckSoB4b/1Fc7AAA/thn7W7JAd/wo7Jx5SzFwFmE2QZSCsbqj1/oelvjGjOyr9zPo8i7kEDxRoV/czEpIwgqCc5XmoerVlYkBFM4TZLJO5hWJKCU8DgepKNvGAoqgAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIgAAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JYgC/OCG6SmbYchxxCskAAP6bsuzwi50i6OfgepBdL3ab6AzvE2sGVjotFxsQDrRHv3r3m2DfCfuGup1buOB7pTGTUw1BTPA1NhpF8MlXoZ9UOjQu7UU+mNKmLAieCk/Pi8wdZ0iWH/xgfySqwAAA"
    }
   },
   "iphone-14-pro-max": {
@@ -549,37 +549,37 @@
     "path": "fotos/modelos/iphone-14-pro-max/dourado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRugAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB+AAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWgAVdAGlpv0g8Tnb9cgAP7Kqxiwal0XjQuMNLRgMeEVCKDhiksGMwIkzLW5Mh4tvW69QSIlGIFCoNERkofT6DepwK5KIvX9si9JaQFzlFNUzpxkZb54WVTYIwzJfwgdLC/i9nAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIoAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdABmS9+jDe4m1DKAA/mxEuq/KCah82gHXIWpTjtR+aOpMGj/0AfO5M5C/OuWs4P1gq3IAwkJwcAc3q3LSw6knuwc0sP4L17/dIRrMpqDuo1ynigynUgImsuWXx4sthQ7X1pAh0upd3u0mjrzsgAA="
    },
    "prateado": {
     "path": "fotos/modelos/iphone-14-pro-max/prateado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB2AAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiUAXYAJGcboA3qGs5gAA/sqrGLBqXTIGS6obq8OMl1OzOEgkDToaNNxnDo3/pnIvp7boNU+NRgoG2g2bOBLB42dYMV5C8vkBznWFFVW9Mbt6oBz5BbEv4QHuQEAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIoAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZACzgCDjmlXkbLGDp8gA/puoOeq5WIOBlJHLvnFgFiduhqgT3EKdmM6e4uVZeaJAWNm7e4ccjjtPV2p+jnd+rGr/M+DDMGRJbdpI/saKDFzxZL0fv+0eXFLw2cswk0U+TfTTNQFk9mIFe285fquwAAA="
    },
    "preto-espacial": {
     "path": "fotos/modelos/iphone-14-pro-max/preto-espacial",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBsAAAAEAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWUAxnwiyH9EA6Es7pPXi7AA+X4S77zvDWKp32YJtioRQdOpDXf8p/xUve51PPDcQSvkbr0ctXql8AbSSv073L+3z+BLjQcXZwPXm3LtAQ7pAAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRroAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IH4AAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JYwDA3CLGNVxREGrML5/YAP5PSd/yf++5pFlAb+9GA5r7Uw28YU0MnP5Cm3Gd3ONf4Kd/2tCrvqej1wzAC8b3+jT56yHlbfwrNOM42TS/hCa8xFrdcSRPqLjHrZiHGAv5CbTpYAA="
    },
    "roxo-profundo": {
     "path": "fotos/modelos/iphone-14-pro-max/roxo-profundo",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRt4AAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB0AAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWIAvzgixl1oyIB3h9jvOAD9AzC6Xe92I6oxvm+YNKPXdnbybWGpjl50NfTanCBoRQxba6Dv6//s03UxUJuM7bGGNIDxKJlixl4dnJeLulRM3ct3nbpL4QM2PgA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIAAAAAwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JaAC06CPP1fuA2FlzfeCYmAAA/DiYcYgFHoNefGDZrcfphWG1SZU96A+hnlCSAnfaBwsdfArFwGD7otGiq5cMPYIdP2c+WIpsZ28Jqu6C8u4nFLl6A/FK4uVmZBAPs8MPjxCBnnrgAA=="
    }
   },
   "iphone-15": {
@@ -587,46 +587,46 @@
     "path": "fotos/modelos/iphone-15/amarelo",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB2AAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiUAXYAPVxf2HCgOHkxe1OAD+7lopbxwobQXsEPL5Gcciyn57Onrb/424bJN2RmBIKaCugA1yngjJc2GT9l1KSCMyEAdr1x/6X2yT4wUrOht2bNCwzjrBQtQtXgAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIQAAAAQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JZgCdMoAlsQ6qbeS9OxbSoAD+6JN/3qqDAyldc29BYoircMutZ2Vh14db9PF+Urbj4DOw1k5QNRxFkE4snjhw9M9QM6bPkM43Io5k+GkPy5UkRpaTXnkvRdYTORUiA5rsgqLBgEKO8QH8wAA="
    },
    "azul": {
     "path": "fotos/modelos/iphone-15/azul",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBwAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWMAuwAiyfXLfB0Ha7YiUAD+669aVnhQA71ZwlvfQcIDxlOLfCvcxofoWSbsi/JSKLcqjkCipoehNStHpsBNqM6/Lsn7wn0tS/UcNsk8o1ix3AEEr9ZQAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRr4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIIAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JQBAADJ9URWM6LHAgr2AA/uiTf96qgwLbx8JKI6ma+Ab2pqUKpbuxqOfLyyw+V6iMBMH47D/aOc+3nTC7+03NRC//VG4io00icWKXt8qfOnu7WXfbeWAb0U6WQzjZovMptaZKHZ6moAAA"
    },
    "preto": {
     "path": "fotos/modelos/iphone-15/preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBsAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWkAAFL7Wp3rZtZ8guBfQAD+2Ge/DtuVdiHZUgWdiULsz587XpMxGYe7bSV3LKMhurYdJNlbMaNmLBIxomKrrC6diWqyUZXEe1Hh6RnPaBRAQAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRroAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IH4AAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JaQAAQvUYCaXOJl5rwAD+bMA3fO8jWD0qi9EazmKKtldkYUPUblQ+6pDp2dyiULy/2eW7rqzTeH1cqltQkKruXnTjucdvoojHYw2wO4D5YHcec8/2l2Db7hT+hrRhT3H624oAAAA="
    },
    "rosa": {
     "path": "fotos/modelos/iphone-15/rosa",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRt4AAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB0AAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiUAX5wRZNzLBZwPDiKNAAP7rr1pWeFABkrOEtuYDUyzxFL6D9MtaYnIpJCotwup2tLN+51NMSZvm0Buw0FnM2gE6bflOLAb4g0pHkNK9KwUS3AOpnrtmeu1OAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIAAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JQBfnMX6TdBbmhzuTaaAA/uiTf96qhwLRjIz19+pQMqrBJDn9ShvR6VAclBu47ibC58IWSd3awlY4dYrWojlN4ZK8WZkuaT+9+GcTkWpRlR5q8QfMlUdcNH4q2ECD9Cl0iSC9Jw4AAA=="
    },
    "verde": {
     "path": "fotos/modelos/iphone-15/verde",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBwAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWMAtsgiyfXINo2E5TAvoAD+669aVnhQAZKzhLbmA1Ms8RS+g/TLW/IkYSTdkZzNsINcq0CKM7k6qtW5UWLeQyCFa4Hci5uRVW72GJv3nt8NueRCgyOAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRroAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IH4AAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JQBYdsXwQVbMpJm/JOQAA/uiUIO9UvcVoxkJ4RLLVmVMCJtk6eGVgtcF9cU1sqyznLboB76YOfbp4qQCH/q4bQ2fIZxQZ7+O6WygJoev3EhlleHL6LbCZyKkQHLYyhfyrz8Y0gAA="
    }
   },
   "iphone-15-plus": {
@@ -634,46 +634,46 @@
     "path": "fotos/modelos/iphone-15-plus/amarelo",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtgAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBuAAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWIAnTKAAmAUCIa8RCywAP7ojly0K9MQtY94c81/V/rMgWcG+fx/8IqHhDJHKp0bulQJkAFLGtlX5iybkQkuuXzKqhbwvisBo01OypiA8MIxSTpV4AA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsIAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIYAAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZACdMoABkCoYcY8bwUsAAP7KdMBOSd7Bj+OYi3cNTByPeYN7dVoZxoaiLEx4mZjP47PvHpy6ZUhnarzs6UAIesa3dpq/xNj1+nXtNdFvRC9nNjc1221uin8PQUVBhSj88XucwAIjvA3L9BPgAA=="
    },
    "azul": {
     "path": "fotos/modelos/iphone-15-plus/azul",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtgAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBuAAAAkAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWMAvzgSNSz+vni/AAD+6KAMBj4gFVM9xgg1zmLqX5lzgfH7Wn/wicTyzRlJW/OFJ9l+k+8NNwOBXZuggH9yWWUwxIm8r3nsB+syhzdGIC6bsycAAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRroAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IH4AAABwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JQBUeggGpro5d+gAA/sp0wE5J3sGP41rrXUuUw9k1W06XuvWarK9pWMz1RuTx/aazBbWDMa7bqUET2PsfkYZHASfQo9zlztkbsoBZ89g8rENKeBmS/GK6LaKhxvfKtdlaxl344AA="
    },
    "preto": {
     "path": "fotos/modelos/iphone-15-plus/preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBqAAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWkAAFMM91K7QMECrXuwAP0De/VXO8o7TIeaBNT0rMgXZT9wldQ/pN7phl3SW2zgT6kIxIyn+8Tm4etQVkLd0Gfz78v893rof+0i3YBi24oAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHgAAACQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JaQAAUVwFoX4cG7ewAP3GzAJlpVfZ+02gusznp1VfDzDA7qZpqF/QdB6iKPv28Qjzz+45WFhkTvJmknUQOgI3zfBx12/i8xDH9sM4Xrfq5LNgEU7vSdJEKsHtKc24oAA="
    },
    "rosa": {
     "path": "fotos/modelos/iphone-15-plus/rosa",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBwAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiUAXYAJGw97n1C2xuQAA/uigDAY97qqZ7jBBsKcjg3t1Yfhv6sJy9nfSMUnvBRsUAh0+WU2VoLl6DeGPbt3qkNZKhkzIqtCn+l+fek4AHncvWly9ZYAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIAAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JQBfnBAoMNYDwjHs/uYgA/sp0wE5J3sGP41GLWnXmlfzPaxZXL5sW71qJvGxgPlhaYqziTK540VZhnF6w4Woxexi9bPdLGPKFgACBlBfppWsmK/DeoG25ZqLDoHplg6SGgMjNQLQAAA=="
    },
    "verde": {
     "path": "fotos/modelos/iphone-15-plus/verde",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBqAAAAkAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWMAvzgSLl7UN87RAAD+4na7DuU4hax74cwdxbfBm8ysv7T3Ij9GwCH0IXyNXIXq3vfg3wv55N9uHd7mCo4sgxbGtmk+dSMPHx6bssBkDAAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIAAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JQBdgAg2D5cupZdopYAD+uAIQ2iWlIMfxqMY91NeeJJQ7Ol7r1mq2X9lTzxU8EnF753NcFL33TYBYlx8AcVBa35rvu8sFaSyPhVEoL9NKszsbZ+AuZ/StGWvrvfXtxSoHkm0cMAAAAA=="
    }
   },
   "iphone-15-pro": {
@@ -681,37 +681,37 @@
     "path": "fotos/modelos/iphone-15-pro/titanio-azul",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBsAAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWcAAFuFZ2xUv0bHjkEAAP7YZ7oeGcsDriiPhSO4IPWOMNiFYMXwQVIxUaijyqnnOETY9WMGqau6SK7N4nz60iCEoEw5NKtXS/JzF/4q+VwFIBAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRr4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIIAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZwAAXAYvdcp9rzlRxNAA/rgN4b0XHvgPodcmdqhcsyyRXb8AQoQNl/U7rDNWAO59ekLwVANbk9BKP89uA/8XWf+EpotOSJm03KHpyZDN0qY7/7BJDmY2OH79hs+v5vo1joxPqKSrgQAA"
    },
    "titanio-branco": {
     "path": "fotos/modelos/iphone-15-pro/titanio-branco",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRt4AAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB0AAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWkAAF6JKHAii8u6/mS7AAD+67CA7bc03/2H1Qm4A5fguRXL1+wVydX4DFqdBuQ8jYKr6U7h8G5ugRTfIGuS6EBgr/bCnQGvHn2rZGMGM7eOeiAMcYbdoFuf4AA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIAAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JaQAAWyEX0ySInwtrAAD+6JQw1dylE9AeoVrEV+W9hWhbBSPqhQ1fdc0VC5qDyLhFATpk3TrcPiTbKRzE/tUADvCWfOMjqOeTMEMlmiicoBPAprC63jz9447zm+8v7ZMKIzHbpP8AAA=="
    },
    "titanio-natural": {
     "path": "fotos/modelos/iphone-15-pro/titanio-natural",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCByAAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWkAxvQikRFdCwfxI3ewAP7oojs2gEPNWRyBfdewBk64rUefnGTHwI8zAY/fpIrSJVG/ZvJi/h6AZJABLxp0pRzS17GPRwsXGXDdZda/q3YAVuSUTiBwXoAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIAAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZwAAUvu9rp5yEcwdCDYA/uJYhHFzQzW5xTxe9bT100VTlZoZq04VwvjJSHrt5qg7pka3XNCkRNjxgLXMh9fhhdttYmsFaFtqeO3HtT7IkoWUGtsXg5mNgN+nNf1ukludpEzrWgAAAA=="
    },
    "titanio-preto": {
     "path": "fotos/modelos/iphone-15-pro/titanio-preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBkAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWkAAFuHUE6AtZsLrAAA/thnuh4ZywOuKJCtx/BrQsXh4pgBrTyxueoIhBqHlQ8NOeAgXCaK6UkPIrjzAa4rmDGnLNv0fc+lAAAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHgAAAAwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JaQAOcAPCGs5V1lp/QVOFLoAA/rgN4b0XHsVP08gskiP9BL7GW09ldfWCfGtVzkCX2WuZKCF9jlhvsBswglbLoFZKVuN14tX9h1mm6YvYM9E3Pc4++CrIUBXkxYSAAAA="
    }
   },
   "iphone-15-pro-max": {
@@ -719,37 +719,37 @@
     "path": "fotos/modelos/iphone-15-pro-max/titanio-azul",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBwAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWcAvzgZP3AMnTkMvxyCAADif6VGndRTBCX44HlEgxz3sm2/uzUG5oJ7sKbjsGJ4UXCj8W2/zxelIjiLHE81uIqFu7UoY/22ksDUQGos5ypzViMrry4oAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIAAAAAQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JZwC/OB9qoSMEZIL7CTiJdAD+iY3DIDUxcWW1ppueiCaxXHpOuMRWpXbvO8vVcxpNdFiv7lIxiPXzCdF27H4dcAXmmnvfvOgz3pQBEGjFQ8/009SkUJCYF5ceBeYb8aqCLyvy9zwAAA=="
    },
    "titanio-branco": {
     "path": "fotos/modelos/iphone-15-pro-max/titanio-branco",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCByAAAAUAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWkAACuZgJ3HVxAA/sqcTOjLWP1/ukf4eE4PmJPfllcnToyLOZ7hHHo6YXg/rYS+1I39+2wVuUQvJ3hh2kazTemGV0nIOBeId0o0VQrfq5KSxy/rxAloCAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrgAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHwAAAAQBACdASoQABMAPu1iqU2ppaOiMAgBMB2JaQAAVQLfT3ZXBpxHo1u+sAD+azlUzn9hfJywyBJnr3iRYov5KwmO0ZmUAb4plaDr6IVojG8Rax3Saw6Yf5UkqBfzlScXqINxME6cJFkOqdG+8wxWvcDpMOo54BDrtaK2wAAA"
    },
    "titanio-natural": {
     "path": "fotos/modelos/iphone-15-pro-max/titanio-natural",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCByAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWcAAFT36I6VzsIcRqAA/pwQQz+622bHyk9jlnHjux8hMtGriumdCb8ZZcPf/zP7w5VR25BIt3X0AVEHJ2I2sm/J6KZoe4pOMEsFvpmdjyjcHu+/wDH9ujwA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIAAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZwC3uBKf+0iea7SlQxAA+VE8jdu1GNYUI2AqeFO0cEsWYI8jl3jUUCgoj9dcYftAKxHLcFV0LAZ5HN0tPDlQwQMtQ0nTMU2zv2y9qiYR0297H8sDv6lJ+HRziU6B4zxtfTxZDpkAAA=="
    },
    "titanio-preto": {
     "path": "fotos/modelos/iphone-15-pro-max/titanio-preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBmAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWkAAFUHxF3AC+/xE0AA4n+lRp3UUwQl+OlSK6if6BBrPHzEgFuDI/UxLhyqAth+z4kWftcXh21wjqyIoBMf03d3mKisSoPSohdkAAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHQAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JaQAAQ0QyxTE9bWC0rwAA/omNwyA1MXFltaabovqIWLYXKqV3yjjAWASSwPb85TXneu6xDRoMwpJHhamow7HMv71EFbf9h6SysmFk22e8b/I12k5HIVwia46AAA=="
    }
   },
   "iphone-16": {
@@ -757,46 +757,46 @@
     "path": "fotos/modelos/iphone-16/branco",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuIAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB4AAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWcAAFL4ua8aNKA0RIGkAAD+67CasXriWlVA4mVSEkOSqLIMbZ8dbURqGQSmPAsaCs9aoHMXqCGrCiZfirPAaQhfX/7r6XAzlXRV9jUwbjW+Opc/HrzAZ6pSmASJgAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIQAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZwAATBOuznlX5YfKgAD+6GySKX3ilDlFrxxROpfv8q5Voojub91ABow4glLNN7yvpSrPq4by7ZIbLR9jy/sTvyowMxDSVRjjGpMQPo0wYAwaRufCZm1HciucuCtZq/2H1SO7fnFACBIAAAA="
    },
    "preto": {
     "path": "fotos/modelos/iphone-16/preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBqAAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWcAAFwV1zXAnwxvs1UAAP7YZ+1uyQIMVdabO7wu/EgMlXC4Jd0VQBIq6x0dzs2f9ZhcadB7am/W+vGY/bOdCWlRuu8y3bGi8MR36jSDb2AAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRroAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IH4AAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZwAAXBXANvy7prxhAAD+m7NgugqW5UVa3UowCCrftNFzMdLf5hS7LEO105moVgMV7ib6KquPyIZGD+hXzoAum498n4otTEJpf7bt67fYhOnpnQq35e7C7icww70/583UlwaeAAA="
    },
    "rosa": {
     "path": "fotos/modelos/iphone-16/rosa",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvgAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCOAAAAEAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWgAnTKAAwDTee7iPVUE84AA/uiigB6zybkcTUWN0/7w+OIAjoTzO5e47iRKeECoVK6Lvphl52LBj7nsaf112zqA4bkSSBELRIee5qkWYuTWlLx/e+9wJjzbmwtvYrcBk7o63rgBqFcqvLIL8KYeI4ohiUAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRt4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IKIAAAAwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JaACdMoADS0E6QnD4/wdMagAA/tgip7BB0r5DgbPN1ofuNmCpCcdYTPquMxHxRixepH/cxpI5w0eVZigzHCp+Y6MhngnfCNqs3lvjUDIcbNIq4geLtrvPwIkpCuuWS4CVOh33aLYA7Flfje9yXXoGYiZORFnDZANhPZcwXOp9Mvw98o90cFiigAA="
    },
    "ultramarino": {
     "path": "fotos/modelos/iphone-16/ultramarino",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRv4AAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCUAAAAUAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKCWAAK73lhKBy1Pq93YAD+4n0+/U1raMCgHcTcnmDCuJnWFG8eCtG41siHhAqFTdMYR9QPCYOoe0EFwX0/iNcll2mMV9chao/a5tX9yHb4ULN0OubglSdRKZdTpHRvy1wSPcwH0BKa8FtaBjw1WZd2BpdEqgAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRuQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IKgAAAAwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoR3ACnWejSqfXYKdIAA/sqBjTp7CcwOYZ/FQIWSjKiiQrRbYECAFUohezXv20ScdsbGPNcN5pdEg6HPdB6m5IelB/EU2wo6dFNee6GdKE/Yl7t8x6X7R89zpSQSY1V6NZpR+GNhIb7e3nq/oUt72+yW4Uvz2FrEZmVHno+8W13WZ7MiJvDlJX5gAAA="
    },
    "verde-acinzentado": {
     "path": "fotos/modelos/iphone-16/verde-acinzentado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvYAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCMAAAAEAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnQAewQFQPxgExM8P7gAA/uiihs77v1s/2L90ppNB8Rz6vot4E7c+HoGAJ7WKoDseaSj+ie3DH5pq+fHRXI0BmDCUAeNaoda7RFItC31XtAZIKtpG4h7+/tGJVMQfz2+5SwkYgbvUN746olHhWgkhPAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRt4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IKIAAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdACHpXoMTo3ejAQwgAP7YIqewQeNbQGJILZIyFt1127ICgHI1vYLBqQIhmrWYjSma0n0QyeCqNdTH6kJOaWJbczr2O/44GjtG+MtM+nZM3jN88xK3x73DVcDv6MytCuJiTy+9tFvQ/ujFuRe5CFGLUAtImfbZ+auTf91f6ypfOHCRiycAAAA="
    }
   },
   "iphone-16-plus": {
@@ -804,46 +804,46 @@
     "path": "fotos/modelos/iphone-16-plus/branco",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB2AAAAEAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWcAxvQj/5DObFPe8nRpKiAA/thmjQ93QStn5rc1J02JE3R52OzP5ATyQvbdn7Nqal5Q0lWpg0ivkUwjj0t9qu2UVDvrJ7HTeOW5i7ZV4HlzXnqCH0c1lgpgyzNwAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIQAAABwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JZwDG9d0Y6c9Cp6HLuvwBMtQ/AAD+tA857SHbYW6tAT2eGJxwb8FGgSiUClielAbx8x2+w2OJH6zULaUGe+zCEJHsHGO6IcBmHOqBsH6kNyhy79n0EbkPQUiisjvSeejr/1j4MRUKB4usAAA="
    },
    "preto": {
     "path": "fotos/modelos/iphone-16-plus/preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBqAAAAkAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWcAAFvpA/nbzYc3cADif6gioabqOAHxHsJ0ZbOLJh64LpDE57ecV1t2hrvT9vwoalOxKCaJ5renzI/qg61CNlSnYnzfjmRUf0zlL4Bw0aeAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHYAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZwAAXKdXLpOFI1t3EAAA/k3S6mzUGDG9bMm3BlCplax8thIecFa6quQnG3PkaH1dH1kbFqGWkFzDf8Ql4jaFoMWPMwADMCSXoiUBHTfBnfl+cWaQ5UWBWUlD+BAA"
    },
    "rosa": {
     "path": "fotos/modelos/iphone-16-plus/rosa",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRgABAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCWAAAAUAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWgAnTKAA3/bNUjfhxN8lYTgAAD+nBH/UPdBJpwiadtk4On8MkdmGLdQHKLowLvc6n0vVmC5P7DvOZJl5oha9qMmTJP5Mlk5m913ufSrAAZiCtWQesQPBXt/el+18bdthpQYI/ne22V9iZgN4pecjnV5v17HNfb3B8SYqwAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtIAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJYAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JaACdACDQ/i3fjzNhEgAA/OTFd4739UFf71BpBtYrOxBL0fFuo5UMh+Q4x5u1x85OP9XSEjj+F5RCHLHLx+Pf3m7I0jUVeWB2YWy26+D9I6t1+eH0u285W7y/Sf3FiSPsIgjuKzXO8f+AcBJq3g1vYKe8wq+aknboOzNeAAA="
    },
    "ultramarino": {
     "path": "fotos/modelos/iphone-16-plus/ultramarino",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRgABAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCWAAAAMAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWoAnTKEeBgb4rgWPD8en0ygAP4LlUfqeY5iQqUgXMbVqLCfifiQDW+WpeafVBcaar9W8g9weddbfRmfqJW7TqJ+Uyh8fUGrB2XQJAEgNiDsA35mO574nedmGh5bpPHe5SfHUX7MM1qDWbTtQGIcZnXy1vRvH0ZRg7clYAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJ4AAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JaACdMoABaNnCC5PhEKAA4nDCz6tQgA3t2fQpobKxtwCUijRzecgiRDo+hFz/hJL418kF6p/1uIoY/IsOaNWHSHCAZ05J6EHv3RIf+2W6VL6I16EsV6Ac8VB9lCIa2AiXaq2jTrlOuSp8/oAWFZbVrjw6l4YOS96a2/Qjy9YglLEWsAAAAA=="
    },
    "verde-acinzentado": {
     "path": "fotos/modelos/iphone-16-plus/verde-acinzentado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRvwAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCSAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKAAg/hvL7wdpOSwAD+bPODpbKvXYnzwYmA8/Gxiibqds/MsJzGOuQMO2bIMkX0dRlSoqHfYe06WaobX7AakxnSt7BmRFukvn243/olUEIapT+G3l+4HZZsRod1+RfsxuFZa+Es8AH5RXFDhIvEnocs0xEgAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IJoAAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdMoADM96DY1D0yzagAPkOrJ4739P34Afe/txsPW+swLMQBmley0WS4GR8Wgn/llwP3INGSD+IKe/jQvIA8orGpUMOgeKYHWiMwteFMxuSJby925WfS0cOFHtNvr2PO1eeM3v28734dOeMbzwzMERCrwwvLdvdX9J29zTck0AA"
    }
   },
   "iphone-16-pro": {
@@ -851,37 +851,37 @@
     "path": "fotos/modelos/iphone-16-pro/titanio-branco",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCByAAAAEAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWcAygAiqPFqvrIdTXwW84AA/uuvWtKu4inhWi2lWv82e7wo0pRRhtOqlrDkGqzCjKiv7fPwtznpwkETBso3IoXDnDDfAAStQ9B76qGWO+/80Ugy02+bAAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIgAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZQAAXAZV5QvdIklfnQAA/uhskg26skt+PvPrC0097bcfUPP0PsWEM58Swv5yPfWITVnznLQNvcr3Rv08dhies75wDrbq0bE96PdF7/RhVAYBlbmarlZdjDhryEzftw6v1AgbftUY9uZBvsXtJAAA"
    },
    "titanio-deserto": {
     "path": "fotos/modelos/iphone-16-pro/titanio-deserto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB6AAAAEAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWUAnQAiqaLZ9mQcU5AiiAAA/uuwgO23NJOuU/NMqrRij3i9ce7tXzlaVaXINoypGI1fF+VJRyX6imUdeP54ix4gIH2YZjMQgSEoLh6SulEZkL6pRiCBBYJUk/lFU8GAAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsIAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIYAAADQAwCdASoQABMAPu1iqU2ppaQiMAgBMB2JZQCdAB6Sdnp5xc/UFmAA/uJXwyUG5jMS/+dnjKZOK4SS6FFXntBxaDqcTLsgQSxIYkze/aOEzUooKDxYqxlGhW7AcDm+qH+hDdhHIudUCbeZ2SQo7Kbm5Ha+fYV4E2ruTgeI/A4PTDYpAjAAAA=="
    },
    "titanio-natural": {
     "path": "fotos/modelos/iphone-16-pro/titanio-natural",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCByAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWkAE8AByJmSooc6KNQhHAD+67CA7bcy5ZB6JYkty3WUAxxcdCYucc8U+M63+ygL6RmqjUWgRtM1LTI+YHqzSKP5oIMqMCMKMf+sMg/7h827X3dYgcL2OAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRr4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIIAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZwAD5aINdlb3PJmjgUAA/uJXwxQlxYF+RktjC9e9j86E+YGYMVraVvUZT7biZbuSX+TFQCKHnDGIQRE5RGXHDWwCYQB/7EwiFbZCR1PWpcWWNee84UtrD2N4OrVtc7LqCeWb8B7yaAAA"
    },
    "titanio-preto": {
     "path": "fotos/modelos/iphone-16-pro/titanio-preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBqAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWUAAF3nT7cM2GGrb6z9gAD+yp5CfjSjM/wfsFHu7Aqmci5S2gWeLIb4z1B/QPpCwMrDawtdNhaRKz/YUhj0Ed8X4clocFZeqaHNj6pRh6ykAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIAAAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZQAAXfL7JaftBfUAo7vAAP5swIW7qAuM6Ys6MyZCGuEIx2xpw+i9kv4u/QlE866FIKWi5McogcsL/Tmletv1zP85lVpEZfdktK3eR7ylJqKak9AMpdMEPe44I9oUq1qmH2D8kwAAAA=="
    }
   },
   "iphone-16-pro-max": {
@@ -889,37 +889,37 @@
     "path": "fotos/modelos/iphone-16-pro-max/titanio-branco",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBwAAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWcAyJgfLaM7f3EPUdIAAP7YZove3W/zW7OsQeRzrQ0cplf8ca0+TMDXhbmHgfud4p1y6a6ieOL4jCq9AusYCIip5pR2cnwR0kfTtkq6tpDA95XKQ9rMAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHoAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZQAAWeUm9qLl81xwsAD+mTwHRHER8vs1OGZTZ/8ZlVkTr9Pqq2PnyI4WcZIa+TSHryBAk7HkBEJ14zV4vyVbVbX7LkZYOVjlMjcSCI3SCe+R6W1baIhXZ80GX+yD1WAAAA=="
    },
    "titanio-deserto": {
     "path": "fotos/modelos/iphone-16-pro-max/titanio-deserto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRt4AAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB0AAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWUAnQAimzZxrGTR3joggAD+ypxM6MtY+dEQ4jxzwUtaLvocWyuFCzN/mV6hSthIGsUIyClKIenfEXFhN6GsTABEEfxhOlAQXU+OSP/ewgZAJtA2gPS4ckeAAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHgAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZQC7ABuEn/4jBS/PpUQA/ms2J5NFGdj6/4OmBkLBhSjV47oBvFBfIchKbk9g7kYUr+NHuydkSV5jjiXQbZZtY1zwdn9v2/NHAySukIJfMe1pAaKvFvNaXf2LmC3HAAA="
    },
    "titanio-natural": {
     "path": "fotos/modelos/iphone-16-pro-max/titanio-natural",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtgAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBuAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWcAygAeDyzKGaCY7U2AAAD+uDBuq/FxMhFxobp4w+0J1TZt8s+HixyuoGkce6zj87o3b6hyI3VStwtDDdeRhooi3XXpz6B+QW+BDDazX51MF9gAAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRroAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IH4AAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZwDKABuEKc5baK1NgAAA/gdPFxi26Lec/25UtJJBh4JKVmW61VD1fNK9tm8IbaCLKkcBLGkRmERo4ZQbLJp+xW+LahLi5n6BaIAuKyLOMTd2P1njUaNvWOMl5wLzK66VP8lAAAA="
    },
    "titanio-preto": {
     "path": "fotos/modelos/iphone-16-pro-max/titanio-preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBqAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWUAAFFCsR0Z2C63PwAAzj+4GRYwRBWz2CkkuvSeo7Veq9F0vcl8/HSPJAlKUNSpm1kafIwSsS/SIauSp6s0qE333OwvG2wskFfwMYFxfrOQAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHAAAACwAwCdASoQABMAPu1iqU2ppaQiMAgBMB2JYwAAP9cED0p+W1J7gAD+ra7POtPgONFmJG7YSTYQ/jhnvGTxXHVxToLWWk3hHzLxjTbORGkk+Muyu6rwXUDymw80qnXOKY+MFl18rD5lj6YcmCISkAAA"
    }
   },
   "iphone-16e": {
@@ -927,19 +927,19 @@
     "path": "fotos/modelos/iphone-16e/branco",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBsAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWkAyyweq04EWnqwtcgA/uuOvdaEvOz5cRZHeXoeNsqUSnFbZjzdxu3HfyfpJlL8P1V96zHMy2K0W2cZSlXrui/IxOZRRHaG8PD5kI92wMW8nAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHgAAACwAwCdASoQABMAPu1iqU2ppaQiMAgBMB2JZwAAXfLca9Fl6iybIAD+6469bscgn4tZad3I+1zpdPCLnDYsUvOBY0FdefjgAhw/j/enZUJscDJXzGI+YQEktVbCFgF7cZYTzQYRCtNVKwn/Qy1T342G56o86rj5EAA="
    },
    "preto": {
     "path": "fotos/modelos/iphone-16e/preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBwAAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWkAygAhvDqyPfmSnkEAAP7YZ+1ud6piUpzL99pBbr/zXZGkEBMxZdxV+WoV2NqrrjlL7+Z8VwfJt/EbT+PaJ+xp4Ot0+cUbiA7rf0WBZDfnUwaA2RgAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHgAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZwAAXAZTMIf6v1zrWxAA/puzYLoKl04lIZsrtMK48HvtGxcF+bzGxYSU75VabhBT8vZPbpQIHjtgQaq+FZ01Pxe1SEIVWgqjXEB/jt3GiPsqj+YGyp+AuFosKveqEAA="
    }
   },
   "iphone-17": {
@@ -947,46 +947,46 @@
     "path": "fotos/modelos/iphone-17/azul-nevoa",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB2AAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiUAToAPY9nihQ8liNhlLAAD+4n0tPDQTrPxZjgRCUvwut3VLbr0zbCIz2r9gumgmmcFzOXAZach32uVmTjmVREjsSZC3c16FVrt9FM/mvNk6myDbJMGe0M/VwWwAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsgAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIwAAAAwBACdASoQABMAPu1iqU2ppaOiMAgBMB2JYgCw7Yx2ykA4riioYtLaIwAA/sqBOVIuccfyp6AykEnQHtFziKO6xx78w3GuidWRRFuh3mJDw7XbLutDotcbskDrWsEx4yJO69CSSGB8XDmfDiA0NBsY41LLqLcdeu837bo/L1LeXUhpuFbYUa0Qj0LAAA=="
    },
    "branco": {
     "path": "fotos/modelos/iphone-17/branco",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRsoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBgAAAAkAMAnQEqEAARAD7tYqlNqaWkIjAIATAdiWcAAFM+gZoRMb/McAD+67CA7bc1MS9PbkrW2lOKJlI7aoE+wJiHilqNri5ki6udeo1o2gUJ1Hr0DADd0xvJkna9jYBmDYAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IG4AAADQAwCdASoQABMAPu1iqk2ppaQiMAgBMB2JZwAAUvvQRf5FCWV2Y8AA/uiUMMGAuJkRe7s5NvtErAv+tpszhQBJGf76q+SxUbM4/6fSdmIuwJgr1VOcrQQH4v3GIyKfclBxleFy09wPRVHUSl7AAA=="
    },
    "lavanda": {
     "path": "fotos/modelos/iphone-17/lavanda",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtgAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBuAAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWUAvkgexz52s6vSVlaXAAD+6KI7NoBD+gfCRjVYQk2Myc3dgywwDLusBWBBOVaFG3J6nPPNcV948kBL+Hj9F1k2cYyppqKJBsn9wFV+UhxanFKAAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHoAAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JYwC/OB4hIw+49ux1MKQAAP7iWIR0Vs0FCk2G/E0q0YoOwvbgxPVivFt2+vz7aS7dS5J7KJhp2o3zNzyTdQVvKh21mVaUxT+giA/J6Vo2hb38pKvsoYoGhT2oGQE4lWyAAA=="
    },
    "preto": {
     "path": "fotos/modelos/iphone-17/preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtgAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBuAAAAsAMAnQEqEAARAD7tYqlNqaWkIjAIATAdiWcAAFM+gWfp7D5Bo9gA/sqeQn40ozQXB9QZh5kSyZzZVBMgo1r/ZmgXcj0DZgemR1jb4NR8zX0bvyJo/Syj57zUYia1aByQxBXBCq886P04HW9jgAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIAAAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZwDLLCKVUNdSsjFvFJqwAP5swC60FdLDesPi6psDCln4pn5pmOBusUdG2F4jh3Yn/tiyeHGKMGBXVQky2bPepynqrwmTwObaiem0Whmk6f/jVS25JxZkqkVARH6+nVZWJg5EoYkAAA=="
    },
    "salvia": {
     "path": "fotos/modelos/iphone-17/salvia",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCB2AAAA8AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWMAtOgex7QReRfPx1q6UAD+4n0tPDQTrPxZjgRCSAFNyNcAyPKYYijcXWJfHYghqJsrBp1uGxzRre7MonkoA/tfKvctI+B9gDfB0Bq654tIYxxIK8WkLodoCZAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIgAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JQBdgA9TmMPmq0MKVgAD+yoEoNHtRrhfyR6R2oOwL/49DhbH36tuztSNlIFhd1s7fkiZnXJhHcftY0AeJs5LF8IK6pjBTjIk9Ta5MifrBoZIyL90Huvyx6eArn847cWPK65CFhF0vX4DgK3D3jAAA"
    }
   },
   "iphone-17-pro": {
@@ -994,28 +994,28 @@
     "path": "fotos/modelos/iphone-17-pro/azul-profundo",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBkAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWUAAFwVxKmOaDBW5FgA/thnuh4ZIkzypP8DJK1x7u1fJcQvVhr7lM4tc9odzm5BhMCU8c/FrKZ4cnQY3l9EyhC9cqLCBUWNLMAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHIAAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZwAOcAPA8CTfPHaD9tGAAP6bsuzwjG/zOhiS6FEpGMd9BQ0199AOykak6WjhKRt9hnEIRMuc3sQ+iyARgz6IVkELnjTVh/qaS2QBLYJuHuas+ba3yaJAAAA="
    },
    "laranja-cosmico": {
     "path": "fotos/modelos/iphone-17-pro/laranja-cosmico",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRu4AAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCEAAAAMAQAnQEqEAARAD7tYqlNqaWjojAIATAdiWoAnTKCWAAMDbMbesIa00EAAP7oojs2gENL9u0vDMCYVh9ygiprSUxrvxGZB0EFFs8P7ouVI90s9dx309FxlAWuDdlHDIhL5aQLAH8TVK3QXYYErbQoDvFyYk4qVet4BID9GIpxFZR1qdgA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsgAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIwAAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JbACdAB7A/5CIgsfIccLAAP7YIqesUQ9JBGfu0IMF86mvVi1T/Rbj5cvayNAHnV4dAAnoR1pdO+67nhX7nLgPhUIrzXOb8jZ6XO+6DSzxpWOl+Mno0F8YI3sL7TSUdUJPQtXEgOcGv0WjH7idaU7hYSAAAA=="
    },
    "prateado": {
     "path": "fotos/modelos/iphone-17-pro/prateado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBwAAAAsAMAnQEqEAARAD7tYqlNqaWkIjAIATAdiWcAAF3w619R4gqUqIAA/uuwgO23NJ52LXlyMzmGL1NMdizPjUp+aXCxSKlZf5CY2N72UuxibAUmcmnepSvUbGSP9ZeWCxZBXB9ob0Pbhgp9T+t5kwgAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRroAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IH4AAADQAwCdASoQABMAPu1iqU2ppaQiMAgBMB2JZwDImCHgoLAdwRcJ0oAA/uiUMNXfnORJrF6XLRsA2DV3SZ34mhnpzl4xxRsNb+6fGfPJtju2asJaHzGC9rWRIk8vA8CoMhHyMNa7EQDymlWmKszFJT6DN7EAlsE3G03GxKNGAAA="
    }
   },
   "iphone-17-pro-max": {
@@ -1023,28 +1023,28 @@
     "path": "fotos/modelos/iphone-17-pro-max/azul-profundo",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRsoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBgAAAAkAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWUAAFSkSmMAuVM72AD9AzC8wwF8QUZg3S+RG51NeT1heI2KsV/oguPIpBjL/u26lxbnE36jE2wX3Xzfji5ZPOcKLwedLMAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHAAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZQAAXAXPhCYsoBj1oAD8M1NYV2nrB91SyV3kxfjWPLzfM9RkXxHxoXpaCKn5Op0XslkW1iH1a17jPt2BcGB5y2Qrek2CvwKzM4mRt81owaYXKTNQIAAA"
    },
    "laranja-cosmico": {
     "path": "fotos/modelos/iphone-17-pro-max/laranja-cosmico",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCCAAAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWwAnTKAAvFAFEZAsqbYAP64RDgt0i8i6/O6zmF6l7eGGuBVN9gVhw6xZ09DaXSiD9LdGa/W7bnfpiRHWTAjgsS4OjJO53q9PXLfu6cozpxj1NsjmOefP2l0BUk36MFOWE5vsJUrAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRsgAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIwAAADwAwCdASoQABMAPu1iqU2ppaQiMAgBMB2JagCdACPw0VQOomO3OW8AAP4JvhkOlBPjjiHgpVtDjhUA7vUQvpJ3SyFT7MtCYenZuSScG8PPzrC1zsQtE9bha8G4p9ftsF7Y7Rmbak7laXbi3PAajiQrejvzxW2E92JN0amdhCF+lVLg+VbBzXR9wpMAAA=="
    },
    "prateado": {
     "path": "fotos/modelos/iphone-17-pro-max/prateado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtgAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBuAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWcAyJgd2P8JWrBuMAAA/thmjSJ3W/zJ/yw++uz0o7aA9eyPYFc/3Z+zacvzxhUUWXSxvbsXTksgQ9eUqYuZ3MnqzO/KydygGWgEcQUo2vMUonlkAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRr4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IIIAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZQAAUrHl1ZWQfejfAAD+mwQUTl7TfAbjyP1rLhElqt9axAgE3trqt73dhVCLrxcbJDQwUdeF3GbP6VDZrPrgPKc5ZkTXI+rv9wZQtol6L9ImBfi5q/DOCHxMkC4mRuFwmzGRzezCoAAA"
    }
   },
   "iphone-17e": {
@@ -1052,28 +1052,28 @@
     "path": "fotos/modelos/iphone-17e/branco",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRsQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBaAAAAkAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWcAAFM9QdSGF68foAD+64691oS7yosE32Pjn/vAjYLGN0xF/rAYctuHsh58UZ/naod6lUFLPBe7p98Ql8EyyKAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IGwAAACwAwCdASoQABMAPu1iqk2ppaQiMAgBMB2JZwAAYfa2f1ED9d+dAAD+6469bscgn6yaMJopKeMaxGqQoM3aKbrzlGoOIhHggKCeCKfJDcZXSYeJbSFf23ztk/Wvvmgac4jSsZeCX4gqIUB+AAA="
    },
    "preto": {
     "path": "fotos/modelos/iphone-17e/preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRswAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBiAAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWUAyywh6VEBZBPp4Q0AAP7YZ+1ud6pevadCIszdWF4kQIptZp99Qt8TTWLWp2nI8KFOT4R0Mb+kT5zzbw3Gjun+rubcJtd1ogA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHYAAADwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JYwDImCHpXLBrDKQLSMbAAP6bs2C6CpcNWKc0TsyBAS0UoSchhRWe/b38OQz5xJG5sOeaYZboJV9fbuctBILFdK9kU5Cb+tdY/7naUQyslXAPkPlng8EC7YyQOJAA"
    },
    "rosa-suave": {
     "path": "fotos/modelos/iphone-17e/rosa-suave",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBqAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWQAuwAexUPWNye3/4AA/uuwmrF5Nvd0YmxqdWQL42d2BpsvFs4dFwIJf/jKtrpTmiyedlR8mE+WC5m9O6NiBLMOzY3o2uGA0m2HhhQ8CQAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHgAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JYgC06CPrh+vvIAv0AAD+6469bscgn6yaMJpiIw0+g29bNRMqka4cqPAyAYvtMJM1pM9fyJ5z11iN1VqOWfrZMgqWusOAe61T/auhfPUywoAmTJoIGLOART3vb95jAAA="
    }
   },
   "iphone-18-pro": {
@@ -1081,37 +1081,37 @@
     "path": "fotos/modelos/iphone-18-pro/azul-claro",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRtIAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBoAAAA0AMAnQEqEAARAD7tYqlNqaWjojAIATAdiWUArAAilVIqfIufVdaAAP7ok3/ntT0xFYQyRXjodNOd/MmoIcVwgeA5RF1viUEEBhcIio5l4Apial5bxMvy1SnCsnABuhREhfqm6YicAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IHQAAADQAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JZQCw7CG9UppTZnpOJggA/uJYhFTTldnVde4w9EAAM3I1sk2j1MfVE8jrssmfC1USeb8iZOlt7eRzYJBRkr4o4T4XN2S7tac29BOqSQbKmBT1apySR4O+B8uIAA=="
    },
    "borgonha": {
     "path": "fotos/modelos/iphone-18-pro/borgonha",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRuQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSGoAAAANcFTb1rKcz3CZ08AhAokoQit35oRg+Lvg3/f/DSJiAihwPk0EuZA8zW0lGC3RIPnuL+70SOUTniCybuPBUygAQeE1u3qAttMpfsPKg1xa5biKp0v5TxBkFgrwG/qfIILTdhYLngjy+tEAVlA4IFQAAABwAwCdASoQABEAPu1iqU2ppaOiMAgBMB2JYwAAYb8XUm/7faAA/nM27ck/p16qoOwqTumx59/aQQSQSFo3QP6gYZ97ZQCfVJYHeSS0Y97hPaJQ+gA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRu4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSHEAAAAFcBvbtqrs83HIvQv3CCKqoDPKILOQcTJaoAC3i3sBETEBwnjeklVAe3kMaA/Ds6iJ+6ZFKjG0p6ysgfPUscRQT51KGvJcOdTjSUM1XloOMT3SqWxDPVfi//RdAKYb51DZzlwm7pv2uXmzvhMYAvO1GgBWUDggVgAAAJADAJ0BKhAAEwA+7WKpTamlo6IwCAEwHYljAMKAG6cG6UU//wAA/qL/mVytQUqltEPRyI6Ee0U2iycDmuL3Y1V+YIWoKIzMBaLcdXCKPwUWhF2X7QAA"
    },
    "prateado": {
     "path": "fotos/modelos/iphone-18-pro/prateado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRsQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBaAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWkAAE74144D3lTC7QAA/uuwgO23NSszrXK9su0WnC6J8QVpBKGqj54mMrdbg5JAcFsgoPKjF2jyZNZ6/xZDAAAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IGoAAACQAwCdASoQABMAPu1iqU2ppaQiMAgBMB2JaQAAXAT3tRfA/65AAP7obJIpfhqZPoS+z3vyEKhzKiFfE+VyDrS0lUDbaHVmlR5wpmjeLw2LRzh6R1m5m+EoHVq9WzBOdh7BVIhLP7NocAAA"
    },
    "preto": {
     "path": "fotos/modelos/iphone-18-pro/preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBWAAAAkAMAnQEqEAARAD7tYqlNqaWkIjAIATAdiWkAAFwVy/PxjK3aAAD+yp5CfcU+/qLkpXN9eYp0s6iFVjiL2rZBwlpSTCh3GyALB2dgkHXZvYeMe8dAAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IGoAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JaQAAW+l0/MW0QsKnsAD+CeWRaCuhTpkHQteK3MfvqbQpaO9GhKE43QbMv7ODGLDc1dFeTwlHdJGLfg/BxAV2VsFUcn+l4Mwad9mK5h/gKAAA"
    }
   },
   "iphone-18-pro-max": {
@@ -1119,37 +1119,37 @@
     "path": "fotos/modelos/iphone-18-pro-max/azul-claro",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRswAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBiAAAAcAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWUAsOwQPeDF6AvAAP64MG0sqCOPN5A6iBtF2sa+/l5scNsaOJulpeYmS2Sc3MGvpS4CxeEYq0e42XauiCwItYonaq9n19sHTAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IGoAAADQAwCdASoQABMAPu1iqk2ppaQiMAgBMB2JZQC06CK1yKkU6Ha1ZYAA/gCfqtrv4SWYZ7h2P07piYODPRdGfjgtltgkri4+z6MUeaxCRc5Kh/jFtw9cYiYEQuLrBum/DE3RFEBJ6k86sAAA"
    },
    "borgonha": {
     "path": "fotos/modelos/iphone-18-pro-max/borgonha",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBkAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWMAwoAj6R4JBtrPRYAA4n9t+PkU93K4vdW7lAMZp39rC8nGmNPIyTdBOTWH1b0xguwQjdj3B92JvdYoUwWLKL8MOUlf9k6Xype8AA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IGYAAACwAwCdASoQABMAPu1iqU2ppaQiMAgBMB2JYwC7ACFrnPadb1K//gD+iHkJWfV1H/0SWmJieMZ3VwZ4iShka2NxtsAvLkwFfg2WAE3YdG3z/UjMe98Gi4wIHClB61QPgSvhnxzVNAA="
    },
    "prateado": {
     "path": "fotos/modelos/iphone-18-pro-max/prateado",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBWAAAAkAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWkAAFysVIdU9hgPwAD+ynyhh+wEbp9uEymhy8GIH9+GYpbHJW1ycefn3qEnVSupBK+stZGwT/c6uAAAAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IGIAAACwAwCdASoQABMAPu1iqU2ppaOiMAgBMB2JaQAAXkBLApxMo1DOYAD+mUGTtBjI+tuaEjrruaKJ5uZW21OCuRLNsxVuQc9KyMXnpcWipHrZqmPFdHxbtilESuSDKY+KeAAAAA=="
    },
    "preto": {
     "path": "fotos/modelos/iphone-18-pro-max/preto",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRsIAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBYAAAA0AMAnQEqEAARAD7tYqpNqaWkIjAIATAdiWkAAFwI/qJxvFfwe+EAAM4/iYFuL5PFbbXioPHgoh+Aqq/DAy2yGT0wLElfXTR1l9yn/e98lPRZACkcwAAAAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IF4AAADQAwCdASoQABMAPu1kqU2ppaOiMAgBMB2JaQAAXfBm5kNQg9fr5BAA/sIJQ4ZvXBX1BItLS5WusR5o+i6M4vmiYgeQTu5ER1u7E/720R20yi4UQNdIF7FWyY8DFAAA"
    }
   },
   "iphone-air": {
@@ -1157,37 +1157,37 @@
     "path": "fotos/modelos/iphone-air/azul-ceu",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRsgAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBeAAAAsAMAnQEqEAARAD7tYqlNqaWjojAIATAdiWcAvzgeUxjMwGN3uYgA/uuvd0F1NujJP4yzUm1YRremCXPGBxidgQGtcAIA6IEICFpTP58G9cJtqHzEOMiQEtEGRX7QAA=="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IGgAAACwAwCdASoQABMAPu1iqk4ppaQiMAgBMB2JZwCuHB3FjdZsPIn+gAD+4lYisfft5mtbZA0P8JGj3vfB4yhnSzob9QuFeB+L+L7+AuqENDrB4XTnRdMHgP4MqW8iaVeUx732jQPTJgAAAA=="
    },
    "branco-nuvem": {
     "path": "fotos/modelos/iphone-air/branco-nuvem",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBWAAAAcAMAnQEqEAARAD7tYqpOKaWkIjAIATAdiWkAAFMyqjpYT1LAAP7rr3dBdkirQqYQksppC6hKgyBp57ZXzYpLWr9ASwG3cLbUF3n2kyNtHb0GmJIAAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IGIAAABwAwCdASoQABMAPu1iqk4ppaQiMAgBMB2JaQAAT+hj0HX4NQAA/uHsIrHpkQqh88Kw040S73s6HXyKizKvAiFDsMGLFpW7AmYrgQ7zE5iUcCGyAuIjMOd2Rb2UZBOyxYQAAA=="
    },
    "dourado-claro": {
     "path": "fotos/modelos/iphone-air/dourado-claro",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRsQAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBaAAAAkAMAnQEqEAARAD7tYqlNqaWkIjAIATAdiWcAAFLmoxhWLXhgAAD+6693QXU26R4ps4fcuAKPK0O3jZsMbO9RhwFElmdQwzseT8pStloD78H9/em/qAqDcgAA"
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IGIAAABwAwCdASoQABMAPu1iqk4ppaQiMAgBMB2JZwDE2B2SghOK1ZYA/uHsIrHpkQqh88KlmAGQMzZ0OvkVFmVeBEKHYYMfEa/qsa1WI7giWbpnUxVBArJddKMzfN99th22CogAAA=="
    },
    "preto-espacial": {
     "path": "fotos/modelos/iphone-air/preto-espacial",
     "w": [
      360,
-     687
+     597
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRroAAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSEMAAAABd6CgbRum3WEyzIP7SURE9leYO7O7oCYAkAYaEIIGfJy0IAQhQOPZwAD2WKd/RP8JJmmq7Rgl2GL+g5tsub+35jgGAFZQOCBQAAAAkAMAnQEqEAARAD7tZKlNqaWjojAIATAdiWkAAFt/SaCIUIaMQAD+bRJLJ4nJ6neiLnvcG2Z4PjxoEMhEWH3jMJyN0vVAevc8GOpPr4AAAAA="
+    "ratio": 1.216,
+    "blur": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4WAoAAAAQAAAADwAAEgAAQUxQSBYAAAABF3D6/4iIQSBAmDRp1UBE/5NdFaAKVlA4IFgAAACwAwCdASoQABMAPu1iqk4ppaQiMAgBMB2JaQAAW39KjjkqJobaCAD2vmivdLdbG6AzA/zHiZayn5NQkO9RyzXfKgMu60zMPNL7neYbQ5LsUJ7zAoIPIgAA"
    }
   },
   "iphone-duo": {
@@ -1195,19 +1195,21 @@
     "path": "fotos/modelos/iphone-duo/branco-estrela",
     "w": [
      360,
-     687
+     720,
+     892
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRgIBAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSHYAAAAFcFzbkqL86hpcd5MD7poCuWgALFkSC6TgkAw7p7vwSiEiJgB6/qBfluTj33DdD5hH2j89CHC3+bRvGb8tL9qNhwFE6EtwL01n8NuZfbioOAQymltJc+popKuJljXQ7E/dG/8T2B179h/Ly8k4RhIIBeBuAGgGVlA4IGYAAAAQBACdASoQABEAPu1iqU2ppaOiMAgBMB2JZQDDNYtUyUoPYVjheYNhUAD86jRyQjB/Rd1Saxi7eeM4NGF5HaVMMq4CL2nV7THYySeyiiovLeIkGhSa6ssXutcx0/tUFK114Qy0AAA="
+    "ratio": 0.655,
+    "blur": "data:image/webp;base64,UklGRt4AAABXRUJQVlA4WAoAAAAQAAAADwAACQAAQUxQSGkAAAABcFvbtmm18PoPvm3Gtm0bOc85d0f31hARExDstcej135UzWYqo8PbtsNfQS+oj5Mb/JUIM7MQKk3LgS+0gt6uf8ffpNKHYtIxcm2IGJXmECIlwkQshOoWCoaCegSPyex7m5YT8dL4BA8AVlA4IE4AAADwAQCdASoQAAoAA4BaJYwCsAD0mMgD4iAA/uAKdBBQuEMp4LlDaxf/NYHVu6cYaypQO7unR2yGXOJYUeSv70PCxC1j5DvjeJRQOI+eIAA="
    },
    "ceu-noturno": {
     "path": "fotos/modelos/iphone-duo/ceu-noturno",
     "w": [
      360,
-     687
+     720,
+     892
     ],
-    "ratio": 1.057,
-    "blur": "data:image/webp;base64,UklGRgQBAABXRUJQVlA4WAoAAAAQAAAADwAAEAAAQUxQSIEAAAABuS5E9D/gNrZtVTn3GZa7tmBdEdIDoVMB/bnbfd//HTqImIAJQBBrACRAshhhIFQGWiqKPFLhQKDAUI52JlY8BbKZNjMGTAuQQCIAP0V9HigKZBsQKAGhVSTRniRfbxDI5xH4d0AEwH5IFgPYA82AbA2u5qaqDMdwLOuGKAHraQsAVlA4IFwAAACQAwCdASoQABEAPu1iqU2ppaOiMAgBMB2JZQAAOXC79srQnlsAAP7MWOZjFn9LgdVq2xlxAYDcPszT2/5FtBi2b0O+mVO+kV3DYJmnLNcchJ3h9XnRQHEo0/wAAA=="
+    "ratio": 0.655,
+    "blur": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4WAoAAAAQAAAADwAACQAAQUxQSGAAAAAFcBvbtqqc+/9P3RVrgiaIaNJ60Yge3EPuiZjbQkQQTNJU2zGL2evB6v3+3hgHfrGejin4V50NJwoIQQCi3tYZGXeExcFka6OTH0QIEiLqbWRs3W5+urjj+/12YRaH7QJWUDggNgAAAPABAJ0BKhAACgADgFollAKwAR9unWbUQAD+7JwqTlKeawuRmypg+UmYPz44qFAashqyR9loAA=="
    }
   }
  },

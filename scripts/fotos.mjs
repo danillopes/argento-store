@@ -43,8 +43,9 @@ let count = 0
 
 // As fotos de catálogo passam antes pelo enquadramento: um único recorte, igual para todas, que tira a margem
 // branca em volta dos aparelhos. É o que deixa a foto preencher o quadro do card sem precisar esticá-la.
-// Além das fotos oficiais, entram as artes que geramos a partir do modelo 3D (fotos-render/, versionada) para os
-// aparelhos sem foto de catálogo. Só rodam junto com os originais: o recorte comum precisa do conjunto inteiro.
+// Além das fotos oficiais da Apple, entram as artes de fotos-render/ (versionada) para os aparelhos que a Apple
+// não tem no catálogo — veja fotos-render/LEIA-ME.md. Só rodam junto com os originais: o recorte comum precisa do
+// conjunto inteiro.
 const catalogo = []
 if (hasOriginals) {
   for (const fonte of [SRC, RENDER]) {

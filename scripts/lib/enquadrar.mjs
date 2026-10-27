@@ -10,6 +10,7 @@ import sharp from 'sharp'
 
 const FUNDO = 244 // acima disto em R, G e B já é o branco do fundo da Apple
 const FOLGA = 0.012 // respiro em volta, em fração da largura da tela
+const LARGO_DEMAIS = 1.25 // acima disto em relação à largura típica, a foto ganha recorte próprio
 const SOBRA = 1024 // margem de trabalho para encaixar fotos que vieram maiores que a tela de referência
 
 // Área ocupada pelo aparelho (ignora fundo branco e pixels transparentes).
@@ -36,6 +37,14 @@ export async function medir(entrada) {
 }
 
 const media = (ns) => ns.reduce((s, n) => s + n, 0) / ns.length
+
+// recorte justo em volta de uma foto só, com a mesma folga do recorte comum
+const proprioCorte = (m, folga) => ({
+  left: m.caixa[0] - folga,
+  top: m.caixa[1] - folga,
+  width: m.caixa[2] + 1 + folga - (m.caixa[0] - folga),
+  height: m.caixa[3] + 1 + folga - (m.caixa[1] - folga),
+})
 
 // Recebe [{ chave, modelo, entrada }] e devolve um Map chave → Buffer já recortado, todos no mesmo enquadramento.
 export async function enquadrarCatalogo(itens) {
@@ -75,9 +84,17 @@ export async function enquadrarCatalogo(itens) {
     })
   }
 
+  // Um dobrável aberto é quase duas vezes mais largo que um iPhone. Se ele entrasse na união, o recorte comum
+  // ficaria largo demais e todos os outros apareceriam pequenos no meio de um quadro vazio — então quem passa
+  // muito da largura típica ganha o próprio recorte, e o card acompanha a proporção da foto.
+  const larguras = [...medidas.values()].map((m) => m.caixa[2] - m.caixa[0] + 1).sort((a, b) => a - b)
+  const limite = larguras[Math.floor(larguras.length / 2)] * LARGO_DEMAIS
+  const aParte = new Set([...medidas].filter(([, m]) => m.caixa[2] - m.caixa[0] + 1 > limite).map(([k]) => k))
+
   // união das áreas ocupadas, com uma folga igual em volta
   let X0 = TELA_L, Y0 = TELA_A, X1 = 0, Y1 = 0
-  for (const m of medidas.values()) {
+  for (const [chave, m] of medidas) {
+    if (aParte.has(chave)) continue
     X0 = Math.min(X0, m.caixa[0]); Y0 = Math.min(Y0, m.caixa[1])
     X1 = Math.max(X1, m.caixa[2]); Y1 = Math.max(Y1, m.caixa[3])
   }
@@ -104,7 +121,8 @@ export async function enquadrarCatalogo(itens) {
     const montada = await sharp({ create: { width: TELA_L + 2 * SOBRA, height: TELA_A + 2 * SOBRA, channels: 4, background: { r: 255, g: 255, b: 255, alpha: 0 } } })
       .composite([{ input: peca, left: esq + SOBRA, top: topo + SOBRA }])
       .png().toBuffer()
-    const recorte = { ...corte, left: corte.left + SOBRA, top: corte.top + SOBRA }
+    const base = aParte.has(it.chave) ? proprioCorte(medidas.get(it.chave), folga) : corte
+    const recorte = { ...base, left: base.left + SOBRA, top: base.top + SOBRA }
     saida.set(it.chave, await sharp(montada).extract(recorte).png().toBuffer())
   }
   return { fotos: saida, corte, tela: [TELA_L, TELA_A] }
