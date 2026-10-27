@@ -362,10 +362,12 @@ input, select, textarea { font: inherit; color: inherit; }
 .badge-soft { background: var(--surface-3); color: var(--ink-2); }
 .badge-hot { background: var(--hot); color: #fff; }
 .pcard-tools { display: flex; gap: 2px; }
-.pcard-art { position: relative; display: block; width: 100%; aspect-ratio: 1 / 0.92; margin: 4px 0 8px; border-radius: 16px; }
+.pcard-art { position: relative; display: block; width: 100%; aspect-ratio: 1 / 1.06; margin: 4px 0 8px; border-radius: 16px; overflow: hidden; }
 .pcard-art-in { position: absolute; inset: 0; }
 .pcard-art svg { position: absolute; height: 92%; width: auto; top: 4%; transition: transform 0.5s var(--ease); }
 .pcard-art::after { content: ''; position: absolute; left: 20%; right: 12%; bottom: 0; height: 6%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.16), transparent); }
+/* com foto o aparelho já chega na base do quadro: a sombra desenhada passaria por cima dele */
+.pcard-art:has(.pa-photo)::after { display: none; }
 .pcard-art .pa-front { left: 18%; transform: rotate(-6deg); height: 84%; top: 8%; }
 .pcard-art .pa-back { left: 42%; }
 .pcard:hover .pa-front { transform: rotate(-10deg) translateX(-6px); }
@@ -668,7 +670,7 @@ input[type='range'] { width: 100%; accent-color: var(--ink); }
 .photo-pic { display: block; width: 100%; background-size: cover; background-position: center; overflow: hidden; border-radius: inherit; }
 .photo-pic img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.45s var(--ease); }
 .photo-pic.is-loaded img { opacity: 1; }
-.pcard-art .pa-photo { position: absolute; inset: 0; height: 100%; aspect-ratio: auto !important; border-radius: 16px; }
+.pcard-art .pa-photo { position: absolute; inset: 0; height: 100%; aspect-ratio: auto !important; border-radius: 16px; background-size: contain; }
 .pcard-art .pa-photo img { object-fit: contain; }
 .pdp-photo { padding: 6%; }
 .pdp-photo .photo-pic { height: 100%; aspect-ratio: auto !important; border-radius: 24px; }

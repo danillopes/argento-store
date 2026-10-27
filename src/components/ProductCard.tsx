@@ -42,7 +42,8 @@ export default function ProductCard({ s, condition }: { s: ModelSummary; conditi
           </motion.button>
         </div>
       </div>
-      <button className="pcard-art" onClick={(e) => expand(e, to, color.hex)} aria-label={`Abrir ${m.name}`}>
+      {/* o quadro acompanha a proporção da foto (todas saem no mesmo recorte), então a imagem preenche tudo sem esticar */}
+      <button className="pcard-art" style={photo ? { aspectRatio: `1 / ${photo.ratio}` } : undefined} onClick={(e) => expand(e, to, color.hex)} aria-label={`Abrir ${m.name}`}>
         <motion.div className="pcard-art-in" whileHover={{ scale: 1.06, rotate: -2 }} transition={{ type: 'spring', stiffness: 260, damping: 20 }}>
           {photo ? (
             <Photo p={photo} alt={`${m.name} ${color.name}`} className="pa-photo" sizes="(max-width: 600px) 80vw, 280px" />

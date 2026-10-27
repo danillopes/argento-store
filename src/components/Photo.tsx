@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import photos from '../data/photos.json'
 
 export interface PhotoInfo {
@@ -31,8 +31,22 @@ const srcset = (p: PhotoInfo, ext: string) => p.w.map((w) => `${BASE}${p.path}-$
 // <picture> com AVIF → WebP, tamanhos responsivos, carregamento preguiçoso e miniatura borrada
 export default function Photo({ p, alt, sizes = '(max-width: 860px) 90vw, 40vw', className, priority = false }: { p: PhotoInfo; alt: string; sizes?: string; className?: string; priority?: boolean }) {
   const [loaded, setLoaded] = useState(false)
+  const img = useRef<HTMLImageElement>(null)
+  // O aviso de carregamento vem do próprio elemento: o evento load não sobe na árvore e nem sempre chega ao
+  // React, e a foto que já estava em cache termina antes de qualquer listener — aí ela ficava em opacidade zero
+  // e só a miniatura borrada aparecia.
+  useEffect(() => {
+    const el = img.current
+    if (!el) return
+    if (el.complete && el.naturalWidth > 0) return setLoaded(true)
+    setLoaded(false)
+    const pronto = () => setLoaded(true)
+    el.addEventListener('load', pronto)
+    return () => el.removeEventListener('load', pronto)
+  }, [p.path])
   return (
-    <picture className={`photo-pic ${loaded ? 'is-loaded' : ''} ${className ?? ''}`} style={{ aspectRatio: `1 / ${p.ratio}`, backgroundImage: `url(${p.blur})` }}>
+    // a miniatura borrada sai de cena quando a foto chega: em foto com fundo transparente ela apareceria por trás
+    <picture className={`photo-pic ${loaded ? 'is-loaded' : ''} ${className ?? ''}`} style={{ aspectRatio: `1 / ${p.ratio}`, backgroundImage: loaded ? undefined : `url(${p.blur})` }}>
       <source type="image/avif" srcSet={srcset(p, 'avif')} sizes={sizes} />
       <source type="image/webp" srcSet={srcset(p, 'webp')} sizes={sizes} />
       <img
@@ -43,7 +57,7 @@ export default function Photo({ p, alt, sizes = '(max-width: 860px) 90vw, 40vw',
         fetchPriority={priority ? 'high' : 'auto'}
         width={p.w[p.w.length - 1]}
         height={Math.round(p.w[p.w.length - 1] * p.ratio)}
-        onLoad={() => setLoaded(true)}
+        ref={img}
         draggable={false}
       />
     </picture>
