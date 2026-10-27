@@ -128,6 +128,7 @@ export default function Product() {
   const instValue = price ? (inst <= 10 ? price / inst : (price * (0.0199 * Math.pow(1.0199, inst))) / (Math.pow(1.0199, inst) - 1)) : 0
 
   return (
+    <>
     <div className="pdp">
       <div className="pdp-visual">
         {/* data-lenis-prevent: tocar/arrastar no 3D não rola a página (celular) */}
@@ -429,13 +430,17 @@ export default function Product() {
         </motion.section>
       </div>
 
+      </div>
+
+      {/* fora da grade: dentro dela esta seção caía na mesma linha do visual grudado e os dois se sobrepunham
+          no fim da página */}
       {similar.length > 0 && (
         <section className="rail container pdp-similar">
           <h2 className="h2">Na mesma faixa de preço</h2>
           <div className="grid-cards">{similar.map((s) => <ProductCard key={s.model.id} s={s} />)}</div>
         </section>
       )}
-    </div>
+    </>
   )
 }
 

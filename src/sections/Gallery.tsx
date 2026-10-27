@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useLayoutEffect, useMemo, useRef } from 'react'
 import { motion, useAnimationFrame, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import PhoneArt from '../components/PhoneArt'
@@ -24,13 +24,20 @@ function flagship(f: number): PhoneModel {
   return fam.find((m) => m.tier === 'pro') ?? fam[fam.length - 1]
 }
 
-// Cartão com inclinação 3D que acompanha o ponteiro
-function TiltCard({ children, className, onClick, label }: { children: React.ReactNode; className?: string; onClick?: (e: React.MouseEvent<HTMLElement>) => void; label: string }) {
+// Cartão com inclinação 3D que acompanha o ponteiro.
+// É um link de verdade, não um botão: o cartão abre no meio de uma rolagem presa (scrub) e, como link, continua
+// funcionando se o dedo escorregar um pouco, abre em nova aba e responde ao teclado.
+const TiltLink = motion.create(Link)
+
+function TiltCard({ children, className, to, label }: { children: React.ReactNode; className?: string; to: string; label: string }) {
   const mx = useMotionValue(0), my = useMotionValue(0)
-  const rx = useSpring(useTransform(my, [-0.5, 0.5], [8, -8]), { stiffness: 200, damping: 20 })
-  const ry = useSpring(useTransform(mx, [-0.5, 0.5], [-10, 10]), { stiffness: 200, damping: 20 })
+  // inclinação suave: com a foto do aparelho ocupando o cartão inteiro, um ângulo grande fazia o aparelho
+  // parecer esticado
+  const rx = useSpring(useTransform(my, [-0.5, 0.5], [4, -4]), { stiffness: 200, damping: 20 })
+  const ry = useSpring(useTransform(mx, [-0.5, 0.5], [-5, 5]), { stiffness: 200, damping: 20 })
   return (
-    <motion.button
+    <TiltLink
+      to={to}
       className={className}
       aria-label={label}
       style={{ rotateX: rx, rotateY: ry, transformPerspective: 1000 }}
@@ -42,16 +49,14 @@ function TiltCard({ children, className, onClick, label }: { children: React.Rea
       }}
       onPointerLeave={() => { mx.set(0); my.set(0) }}
       whileTap={{ scale: 0.98 }}
-      onClick={onClick}
     >
       {children}
-    </motion.button>
+    </TiltLink>
   )
 }
 
 // ---------- 1. Rolagem horizontal com parallax ----------
 export function HorizontalGallery() {
-  const navigate = useNavigate()
   const root = useRef<HTMLElement>(null)
   const track = useRef<HTMLDivElement>(null)
   const { inventory, available } = useStore()
@@ -98,7 +103,7 @@ export function HorizontalGallery() {
           const photo = modelPhoto(m.id, color.id)
           return (
             <div key={f} className="hg-card">
-            <TiltCard className={`hg-card-in${photo ? ' has-photo' : ''}`} label={`Abrir ${m.name}`} onClick={() => navigate(`/produto/${m.id}`)}>
+            <TiltCard className={`hg-card-in${photo ? ' has-photo' : ''}`} label={`Abrir ${m.name}`} to={`/produto/${m.id}`}>
               <span className="hg-num" aria-hidden>{f}</span>
               <div className="hg-art">
                 {photo ? <div className="hg-photo par-near"><Photo p={photo} alt={`${m.name} — ${color.name}`} sizes="(max-width: 860px) 65vw, 340px" /></div> : <>
