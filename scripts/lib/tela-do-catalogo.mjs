@@ -32,7 +32,44 @@ export async function telaDoCatalogo(entrada) {
   // esse par, e o recorte sai um retalho da lateral — a proporção denuncia e a gente desiste.
   const proporcao = corte.width / corte.height
   if (proporcao < 0.42 || proporcao > 0.52) return null
-  const img = sharp(frente).extract(corte).resize({ height: ALTURA })
-  const meta = await img.clone().metadata()
-  return { webp: await img.clone().webp({ quality: 72 }).toBuffer(), largura: meta.width, altura: meta.height }
+  const bruto = await sharp(frente).extract(corte).resize({ height: ALTURA }).raw().toBuffer({ resolveWithObject: true })
+  apagarIlha(bruto.data, bruto.info.width, bruto.info.height, bruto.info.channels)
+  const img = sharp(bruto.data, { raw: { width: bruto.info.width, height: bruto.info.height, channels: bruto.info.channels } })
+  return { webp: await img.webp({ quality: 72 }).toBuffer(), largura: bruto.info.width, altura: bruto.info.height }
+}
+
+// A foto mostra a tela com a Dynamic Island (ou o entalhe) desenhada nela. No modelo 3D a ilha é geometria de
+// verdade e se mexe, então a ilha da foto apareceria por baixo, como uma segunda ilha parada — foi o que deixou
+// a tela com cara de print. Aqui ela some: o papel de parede continua por cima dela, espelhado a partir da
+// primeira linha livre, que acompanha o degradê sem emenda visível.
+function apagarIlha(dados, L, A, canais) {
+  const preto = (x, y) => {
+    const i = (y * L + x) * canais
+    return dados[i] < 26 && dados[i + 1] < 26 && dados[i + 2] < 26
+  }
+  const copiar = (xd, yd, xo, yo) => {
+    const d = (yd * L + xd) * canais, o = (yo * L + xo) * canais
+    for (let c = 0; c < canais; c++) dados[d + c] = dados[o + c]
+  }
+  const limite = Math.round(A * 0.17) // a ilha fica no alto; abaixo disto é papel de parede
+  const x0 = Math.round(L * 0.08), x1 = Math.round(L * 0.92)
+  // última linha preta de cada coluna: a ilha não começa na borda, costuma ter um fio de vidro claro antes
+  const fins = new Int32Array(L).fill(-1)
+  for (let x = x0; x < x1; x++) for (let y = 0; y < limite; y++) if (preto(x, y)) fins[x] = y
+
+  // engorda a área em volta: sobra um halo claro na beirada da ilha que não é preto e entregaria o contorno
+  const FOLGA = 4
+  const cheio = Int32Array.from(fins)
+  for (let x = x0; x < x1; x++) {
+    for (let k = -FOLGA; k <= FOLGA; k++) {
+      const v = fins[x + k]
+      if (v !== undefined && v + FOLGA > cheio[x]) cheio[x] = v + FOLGA
+    }
+  }
+  for (let x = x0; x < x1; x++) {
+    const fim = cheio[x]
+    if (fim < 0) continue
+    // espelha o que vem logo abaixo: para cima a partir da primeira linha livre, acompanhando o degradê
+    for (let y = fim; y >= 0; y--) copiar(x, y, x, Math.min(A - 1, fim + 1 + (fim - y)))
+  }
 }
