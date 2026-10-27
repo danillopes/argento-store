@@ -12,7 +12,11 @@ const BRANCO = 243 // a partir deste valor nos três canais o pixel conta como f
 function marcarFundo(dados, L, A, canais) {
   const fundo = new Uint8Array(L * A)
   const pilha = []
-  const claro = (i) => dados[i * canais] >= BRANCO && dados[i * canais + 1] >= BRANCO && dados[i * canais + 2] >= BRANCO
+  // fundo = branco OU já transparente: a arte que montamos (o 18 Pro borgonha, por exemplo) chega em PNG com
+  // alfa, e ali o branco nunca aparece — sem isto a emenda era procurada no lugar errado
+  const claro = (i) =>
+    dados[i * canais + 3] < 16 ||
+    (dados[i * canais] >= BRANCO && dados[i * canais + 1] >= BRANCO && dados[i * canais + 2] >= BRANCO)
   const empilhar = (i) => { if (!fundo[i] && claro(i)) { fundo[i] = 1; pilha.push(i) } }
   for (let x = 0; x < L; x++) { empilhar(x); empilhar((A - 1) * L + x) }
   for (let y = 0; y < A; y++) { empilhar(y * L); empilhar(y * L + L - 1) }
@@ -100,7 +104,10 @@ export async function recortarPar(entrada) {
   const L = info.width, A = info.height, canais = info.channels
   const fundo = marcarFundo(data, L, A, canais)
   const cinza = new Uint8Array(L * A)
-  for (let i = 0; i < L * A; i++) cinza[i] = (data[i * canais] * 299 + data[i * canais + 1] * 587 + data[i * canais + 2] * 114) / 1000
+  // pixel transparente conta como branco: a busca pela emenda foi escrita para o fundo branco da Apple, e num
+  // PNG com alfa o RGB por baixo costuma ser preto, o que puxaria a média das colunas para o escuro
+  for (let i = 0; i < L * A; i++)
+    cinza[i] = data[i * canais + 3] < 16 ? 255 : (data[i * canais] * 299 + data[i * canais + 1] * 587 + data[i * canais + 2] * 114) / 1000
   let y0 = A, y1 = 0
   for (let y = 0; y < A; y++) for (let x = 0; x < L; x++) if (!fundo[y * L + x]) { if (y < y0) y0 = y; if (y > y1) y1 = y; break }
   const corte = colunaDoCorte(cinza, L, A, y0 + 40, y1 - 40)

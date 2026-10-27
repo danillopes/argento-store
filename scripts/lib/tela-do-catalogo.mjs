@@ -11,6 +11,7 @@ const MOLDURA = 0.058
 const ALTURA = 460 // pixels de altura da imagem final — a tela do 3D é pequena, não precisa de mais
 
 export async function telaDoCatalogo(entrada) {
+  if (!entrada) return null
   const { frente } = await recortarPar(entrada)
   const { data, info } = await sharp(frente).raw().toBuffer({ resolveWithObject: true })
   let x0 = info.width, x1 = -1, y0 = info.height, y1 = -1

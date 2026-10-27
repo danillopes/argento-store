@@ -58,6 +58,14 @@ if (hasOriginals) {
   }
 }
 const enquadradas = catalogo.length ? (await enquadrarCatalogo(catalogo)).fotos : new Map()
+
+// De onde sai a tela de cada cor: sempre a foto oficial em JPEG, que vem no par que o recorte sabe separar
+// (traseira à esquerda, frente à direita). Quando uma cor tem duas fontes — o 18 Pro borgonha tem o JPEG da
+// Apple e um PNG melhor que usamos no card — o card fica com o PNG e a tela com o JPEG.
+const fonteDaTela = new Map()
+for (const it of catalogo) {
+  if (it.oficial && /\.jpe?g$/i.test(it.entrada) && !fonteDaTela.has(it.chave)) fonteDaTela.set(it.chave, it.entrada)
+}
 for (const { chave, modelo: model, cor: color, entrada, oficial } of catalogo) {
   const foto = enquadradas.get(chave)
   const info = await converter(foto, join(OUT, 'modelos', model), color, SIZES.modelos)
@@ -67,7 +75,7 @@ for (const { chave, modelo: model, cor: color, entrada, oficial } of catalogo) {
   // A tela do aparelho da frente vira o papel de parede do modelo 3D daquela cor. Só sai da foto oficial: ela
   // vem sempre no mesmo par (traseira à esquerda, frente à direita), que é o que o recorte sabe separar. A arte
   // de fotos-render/ não segue esse par — o Duo, por exemplo, aparece aberto — e ali o 3D usa o desenho.
-  const tela = oficial ? await telaDoCatalogo(entrada) : null
+  const tela = manifest.telas[model]?.[color] ? null : await telaDoCatalogo(fonteDaTela.get(chave) ?? '').catch(() => null)
   if (tela) {
     await mkdir(join(OUT, 'telas', model), { recursive: true })
     await writeFile(join(OUT, 'telas', model, `${color}.webp`), tela.webp)
