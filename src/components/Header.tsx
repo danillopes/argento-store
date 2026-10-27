@@ -98,7 +98,7 @@ export default function Header() {
 
   return (
     <motion.header
-      className={`hdr ${scrolled ? 'is-scrolled' : ''}`}
+      className={`hdr ${scrolled ? 'is-scrolled' : ''} ${open || mSearch ? 'is-open' : ''}`}
       initial={false}
       animate={{ height: scrolled ? 60 : 70 }}
       transition={spring}

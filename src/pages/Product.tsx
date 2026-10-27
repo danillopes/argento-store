@@ -131,7 +131,9 @@ export default function Product() {
     <div className="pdp">
       <div className="pdp-visual">
         {/* data-lenis-prevent: tocar/arrastar no 3D não rola a página (celular) */}
-        <div className="pdp-stage" data-lenis-prevent style={{ ['--tint' as string]: colorObj?.hex }}>
+        {/* na aba Foto o palco perde a moldura: a foto real tem fundo transparente e, dentro da caixa do 3D,
+            parecia um adesivo solto no meio do quadro */}
+        <div className={`pdp-stage ${view === 'foto' && mPhoto ? 'is-foto' : ''}`} data-lenis-prevent style={{ ['--tint' as string]: colorObj?.hex }}>
           <AnimatePresence mode="wait">
             {view === 'foto' && mPhoto ? (
               <motion.div key={'foto' + colorObj?.id} className="pdp-flat pdp-photo" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
