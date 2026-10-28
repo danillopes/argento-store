@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Trash2, X, QrCode, CreditCard, Lock, Info, ShieldCheck, FileText, Package, Truck, CheckCircle2, Clock, Ban } from 'lucide-react'
+import { Trash2, X, QrCode, CreditCard, Lock, Info, ShieldCheck, FileText, Package, Truck, CheckCircle2, Clock, Ban, MessageCircle } from 'lucide-react'
 import PhoneArt from '../components/PhoneArt'
 import ProductCard from '../components/ProductCard'
+import Contato from '../components/Contato'
 import { Battery } from './Product'
 import { MODELS, modelById, storageLabel } from '../data/models'
 import { finalPrice, gradeName } from '../data/inventory'
@@ -358,6 +359,7 @@ export function Account() {
 
 // ---------------- Sobre ----------------
 export function About() {
+  const { features } = useStore()
   const facts = useMemo(() => [
     ['Independente', 'A Argento é uma revenda independente. Não somos loja oficial nem revenda autorizada da Apple. iPhone é marca registrada da Apple Inc.'],
     ['Garantia', 'Novos: 12 meses pela loja. Seminovos: 6 meses pela loja, cobrindo defeitos de funcionamento.'],
@@ -376,6 +378,15 @@ export function About() {
           </motion.div>
         ))}
       </div>
+      {features.whatsappContact && (
+        <div className="about-contato">
+          <div>
+            <strong>Ficou alguma dúvida?</strong>
+            <p className="muted small">Garantia, troca, formas de pagamento ou a procura de um modelo específico: fale com a nossa equipe.</p>
+          </div>
+          <Contato tipo="loja" classe="btn btn-primary"><MessageCircle size={18} /> Falar com a loja</Contato>
+        </div>
+      )}
       <p className="muted small" style={{ marginTop: 32 }}>Projeto demonstrativo. <Link to="/admin">Acessar painel do vendedor</Link></p>
     </div>
   )

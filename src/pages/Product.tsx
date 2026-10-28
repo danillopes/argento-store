@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Heart, GitCompareArrows, ShoppingBag, Zap, ShieldCheck, Truck, Info, Camera, Rotate3d, Check, Power, Sparkles, Layers, BookOpen, MessageCircle, Headset } from 'lucide-react'
+import { Heart, GitCompareArrows, ShoppingBag, Zap, ShieldCheck, Truck, Info, Camera, Rotate3d, Check, Power, Sparkles, Layers, BookOpen, MessageCircle } from 'lucide-react'
 import Phone3D, { defaultDrive, glbCandidates, type Drive } from '../components/Phone3D'
 import PhoneArt from '../components/PhoneArt'
 import Photo, { modelPhoto, unitPhotos } from '../components/Photo'
@@ -410,8 +410,9 @@ export default function Product() {
                       <motion.button whileTap={{ scale: 0.97 }} className="btn btn-primary btn-lg" disabled={inCart} onClick={() => addToCart(unit.id)}><ShoppingBag size={18} /> {inCart ? 'No carrinho' : 'Adicionar ao carrinho'}</motion.button>
                       <motion.button whileTap={{ scale: 0.97 }} className="btn btn-dark btn-lg" onClick={() => { if (!inCart) addToCart(unit.id); nav('/checkout') }}><Zap size={18} /> Comprar agora</motion.button>
                     </>) : (<>
+                      {/* um botão só: dois que abriam o mesmo WhatsApp dividiam a atenção sem dar escolha real.
+                          O contato geral da loja ficou no rodapé e no Sobre nós, onde não disputa com esta ação. */}
                       <Contato tipo="interesse" classe="btn btn-primary btn-lg" escolha={escolhaAtual ?? undefined}><MessageCircle size={18} /> Tenho interesse neste modelo</Contato>
-                      <Contato tipo="especialista" classe="btn btn-dark btn-lg" escolha={escolhaAtual ?? undefined}><Headset size={18} /> Falar com um especialista</Contato>
                       <p className="muted small cta-nota">Gostou deste iPhone? Converse diretamente com nossa equipe para consultar disponibilidade, condições de pagamento e tirar suas dúvidas.</p>
                     </>)}
                     <div className="row gap-s">

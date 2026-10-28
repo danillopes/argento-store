@@ -27,7 +27,7 @@ interface Toast { id: number; text: string }
  *  pessoa chegou a mandar a mensagem do outro lado. */
 export interface Interesse {
   at: number
-  tipo: 'interesse' | 'especialista' | 'comparacao'
+  tipo: 'interesse' | 'especialista' | 'comparacao' | 'loja'
   modelId: string
   unitId?: string
 }

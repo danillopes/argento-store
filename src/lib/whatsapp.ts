@@ -71,3 +71,9 @@ export function mensagemComparacao(escolhas: Escolha[]) {
     `Link da comparação: ${location.origin}${location.pathname}#/comparar`,
   ].join('\n')
 }
+
+/** Contato geral da loja: garantia, troca, pagamento — sem aparelho escolhido. Fica no rodapé e no Sobre nós,
+ *  longe da página do produto, para não disputar com a ação principal de lá. */
+export function mensagemLoja() {
+  return 'Olá! Vim pelo site e gostaria de falar com a loja — tenho dúvidas sobre atendimento, garantia e formas de pagamento.'
+}
