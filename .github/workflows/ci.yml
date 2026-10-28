@@ -1,0 +1,21 @@
+# A publicação passou a ser da Vercel, que escuta o push na main por conta própria.
+# Este fluxo não publica nada: só avisa se o projeto parou de compilar.
+name: Verificação de build
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx tsc -b
+      - run: node --test
+      - run: npm run build
