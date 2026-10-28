@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -41,6 +41,7 @@ function Toasts() {
 
 export default function App() {
   const loc = useLocation()
+  const { features } = useStore()
   const isAdmin = loc.pathname.startsWith('/admin')
   return (
     <ExpandProvider>
@@ -56,9 +57,11 @@ export default function App() {
           <Route path="/produto/:id" element={<Product />} />
           <Route path="/comparar" element={<Compare />} />
           <Route path="/favoritos" element={<Favorites />} />
-          <Route path="/carrinho" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/conta" element={<Account />} />
+          {/* No modo showroom as rotas de compra nem existem: quem chegar por link antigo cai no catálogo, em
+              vez de ver uma tela de pagamento que não vai a lugar nenhum. */}
+          <Route path="/carrinho" element={features.cart ? <Cart /> : <Navigate to="/iphones" replace />} />
+          <Route path="/checkout" element={features.checkout ? <Checkout /> : <Navigate to="/iphones" replace />} />
+          <Route path="/conta" element={features.checkout ? <Account /> : <Navigate to="/iphones" replace />} />
           <Route path="/lancamento" element={<Lancamento18Pro />} />
           <Route path="/sobre" element={<About />} />
           <Route path="/admin" element={<Admin />} />

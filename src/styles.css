@@ -851,3 +851,29 @@ html, body { overflow-x: clip; }
 .scrolly-model-ready { width: 100%; height: 100%; opacity: 0; transition: opacity 500ms var(--ease); }
 .scrolly-model-ready.is-ready { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .scrolly-model-ready { transition: none; } }
+
+/* ============ Showroom: contato e barra fixa do celular ============ */
+.cta-nota { margin: 2px 0 0; line-height: 1.5; }
+.cta a.btn { text-decoration: none; }
+.pdp-bar { display: none; }
+@media (max-width: 860px) {
+  /* a barra só existe no celular; no computador não há onde ela ajude e ela roubaria espaço do 3D */
+  .pdp-bar { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; background: var(--bg);
+    border-top: 1px solid var(--line); padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); }
+  .pdp-bar-in { display: flex; align-items: center; gap: 12px; }
+  .pdp-bar-preco { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+  .pdp-bar-preco small { color: var(--muted); font-size: 0.72rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pdp-bar-preco strong { font-size: 1.05rem; letter-spacing: -0.02em; }
+  .pdp-bar .btn { margin-left: auto; white-space: nowrap; }
+  /* espaço para a página não terminar embaixo da barra */
+  .pdp-similar { padding-bottom: 96px; }
+}
+
+/* modo de operação, no painel */
+.adm-modos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0 10px; }
+.adm-modo { display: flex; flex-direction: column; gap: 4px; text-align: left; padding: 16px 18px; border-radius: 16px;
+  border: 1px solid var(--line); background: var(--surface); transition: border-color 0.2s, background 0.2s; }
+.adm-modo:hover { border-color: var(--line-2); }
+.adm-modo.is-on { border-color: var(--ink); background: var(--surface-2); }
+.adm-modo strong { font-size: 1rem; }
+@media (max-width: 760px) { .adm-modos { grid-template-columns: 1fr; } }

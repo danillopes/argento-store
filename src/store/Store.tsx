@@ -1,6 +1,7 @@
 import { MODELS } from '../data/models'
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { DEFAULT_RULES, finalPrice, seedInventory, type PricingRules, type Unit } from '../data/inventory'
+import { DEFAULT_CONFIG, FEATURES, type StoreConfig, type StoreFeatures } from '../data/store-config'
 
 export type PayMethod = 'pix' | 'cartao'
 export type OrderStatus = 'aguardando_pagamento' | 'pagamento_confirmado' | 'preparando' | 'enviado' | 'entregue' | 'cancelado' | 'expirado'
@@ -22,7 +23,23 @@ export interface Order {
 
 interface Toast { id: number; text: string }
 
+/** Um clique num botão de atendimento. É interesse, não conversa nem venda — o site não tem como saber se a
+ *  pessoa chegou a mandar a mensagem do outro lado. */
+export interface Interesse {
+  at: number
+  tipo: 'interesse' | 'especialista' | 'comparacao'
+  modelId: string
+  unitId?: string
+}
+
 interface StoreCtx {
+  /** Modo de operação e dados públicos da loja (editáveis no painel). */
+  config: StoreConfig
+  setConfig: (patch: Partial<StoreConfig>) => void
+  /** O que está ligado no modo atual. Ler daqui em vez de comparar o modo em cada tela. */
+  features: StoreFeatures
+  interesses: Interesse[]
+  registrarInteresse: (i: Omit<Interesse, 'at'>) => void
   inventory: Unit[]
   setInventory: (fn: (u: Unit[]) => Unit[]) => void
   rules: PricingRules
@@ -78,6 +95,8 @@ function withNewModels(inv: Unit[]): Unit[] {
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [inventory, setInv] = useState<Unit[]>(() => withNewModels(load('inventory', seedInventory)))
   const [rules, setRulesState] = useState<PricingRules>(() => load('rules', () => DEFAULT_RULES))
+  const [config, setConfigState] = useState<StoreConfig>(() => ({ ...DEFAULT_CONFIG, ...load('config', () => ({}) as Partial<StoreConfig>) }))
+  const [interesses, setInteresses] = useState<Interesse[]>(() => load('interesses', () => []))
   const [cart, setCart] = useState<string[]>(() => load('cart', () => []))
   const [favorites, setFavs] = useState<string[]>(() => load('favs', () => []))
   const [compare, setCompare] = useState<string[]>(() => load('compare', () => []))
@@ -89,6 +108,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => save('inventory', inventory), [inventory])
   useEffect(() => save('rules', rules), [rules])
+  useEffect(() => save('config', config), [config])
+  useEffect(() => save('interesses', interesses), [interesses])
   useEffect(() => save('cart', cart), [cart])
   useEffect(() => save('favs', favorites), [favorites])
   useEffect(() => save('compare', compare), [compare])
@@ -129,14 +150,25 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const available = useCallback((u: Unit) => u.published && u.status === 'disponivel', [])
 
+  const features = FEATURES[config.mode]
+
   const value = useMemo<StoreCtx>(
     () => ({
+      config,
+      setConfig: (patch) => setConfigState((c) => ({ ...c, ...patch })),
+      features,
+      interesses,
+      // guarda os últimos 300 cliques, o suficiente para o painel mostrar tendência sem inchar o navegador
+      registrarInteresse: (i) => setInteresses((xs) => [...xs, { ...i, at: Date.now() }].slice(-300)),
       inventory,
       setInventory: (fn) => setInv(fn),
       rules,
       setRules: setRulesState,
       cart,
+      // No modo showroom a compra está desligada. O bloqueio fica aqui, no estado, e não só nos botões: assim
+      // nenhuma tela, link antigo ou atalho consegue iniciar um pedido por engano.
       addToCart: (id) => {
+        if (!features.cart) return toast('A compra pelo site está desativada. Fale com a loja pelo WhatsApp.')
         setCart((c) => (c.includes(id) ? c : [...c, id]))
         toast('Unidade adicionada ao carrinho')
       },
@@ -156,6 +188,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         }),
       orders,
       placeOrder: (o) => {
+        if (!features.checkout || !features.payments) throw new Error('Checkout desativado no modo showroom.')
         const now = Date.now()
         // revalida disponibilidade e preço a partir do estoque (não confia no carrinho)
         const units = inventory.filter((u) => o.unitIds.includes(u.id))
@@ -199,7 +232,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       },
       available,
     }),
-    [inventory, rules, cart, favorites, compare, orders, theme, toasts, toast, available],
+    [config, features, interesses, inventory, rules, cart, favorites, compare, orders, theme, toasts, toast, available],
   )
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

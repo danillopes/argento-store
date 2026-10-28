@@ -1,12 +1,13 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Heart, GitCompareArrows, ShoppingBag, Zap, ShieldCheck, Truck, Info, Camera, Rotate3d, Check, Power, Sparkles, Layers, BookOpen } from 'lucide-react'
+import { Heart, GitCompareArrows, ShoppingBag, Zap, ShieldCheck, Truck, Info, Camera, Rotate3d, Check, Power, Sparkles, Layers, BookOpen, MessageCircle, Headset } from 'lucide-react'
 import Phone3D, { defaultDrive, glbCandidates, type Drive } from '../components/Phone3D'
 import PhoneArt from '../components/PhoneArt'
 import Photo, { modelPhoto, unitPhotos } from '../components/Photo'
 import Lightbox from '../components/Lightbox'
 import ProductCard from '../components/ProductCard'
+import Contato, { type Escolha } from '../components/Contato'
 import { modelById, storageLabel, frontLabel } from '../data/models'
 import { BATTERY_BANDS, GRADES, bandOf, breakdown, finalPrice, gradeName, type Unit } from '../data/inventory'
 import { useStore } from '../store/Store'
@@ -43,7 +44,7 @@ export default function Product() {
   const [params] = useSearchParams()
   const m = modelById(id)
   const nav = useNavigate()
-  const { inventory, available, rules, addToCart, cart, favorites, toggleFav, compare, toggleCompare } = useStore()
+  const { inventory, available, rules, addToCart, cart, favorites, toggleFav, compare, toggleCompare, features } = useStore()
   const units = useMemo(() => inventory.filter((u) => u.modelId === id && available(u)), [inventory, id, available])
 
   const conds = (['novo', 'seminovo'] as const).filter((c) => units.some((u) => u.condition === c))
@@ -103,6 +104,8 @@ export default function Product() {
   if (!m) return <div className="page container empty"><h1 className="h2">Modelo não encontrado.</h1><Link className="btn btn-primary" to="/iphones">Ver catálogo</Link></div>
 
   const price = unit ? finalPrice(unit) : null
+  // o que a mensagem do WhatsApp descreve: é o aparelho exatamente como está na tela agora
+  const escolhaAtual: Escolha | null = m ? { model: m, storage, colorName: colorObj?.name ?? null, unit: unit ?? null } : null
   const uPhotos = unit ? unitPhotos(unit.id) : []
   const inCart = unit ? cart.includes(unit.id) : false
   const fav = favorites.includes(m.id)
@@ -382,12 +385,15 @@ export default function Product() {
                     <dt>Garantia</dt><dd>{unit.warrantyMonths} meses pela loja</dd>
                   </dl>
 
+                  {features.payments && (
                   <div className="sim">
                     <label className="f-label" htmlFor="inst">Parcelamento: <strong>{inst}x de {brl2(instValue)}</strong> {inst <= 10 ? 'sem juros' : `· total ${brl2(instValue * inst)} (1,99% a.m.)`}</label>
                     <input id="inst" type="range" min={1} max={12} value={inst} onChange={(e) => setInst(Number(e.target.value))} />
                     <p className="muted small">Pix: {brl(Math.round(price! * 0.95))} (5% de desconto) · simulação demonstrativa</p>
                   </div>
+                  )}
 
+                  {features.shipping && (
                   <div className="ship">
                     <label className="f-label" htmlFor="cep">Frete estimado</label>
                     <div className="row gap-s">
@@ -397,10 +403,17 @@ export default function Product() {
                     {shipErr && <p className="err small">{shipErr}</p>}
                     {ship && <p className="small"><Check size={14} /> {ship.city}/{ship.uf}: {ship.price ? brl2(ship.price) : 'Frete grátis'} · {ship.days}</p>}
                   </div>
+                  )}
 
                   <div className="cta">
-                    <motion.button whileTap={{ scale: 0.97 }} className="btn btn-primary btn-lg" disabled={inCart} onClick={() => addToCart(unit.id)}><ShoppingBag size={18} /> {inCart ? 'No carrinho' : 'Adicionar ao carrinho'}</motion.button>
-                    <motion.button whileTap={{ scale: 0.97 }} className="btn btn-dark btn-lg" onClick={() => { if (!inCart) addToCart(unit.id); nav('/checkout') }}><Zap size={18} /> Comprar agora</motion.button>
+                    {features.cart ? (<>
+                      <motion.button whileTap={{ scale: 0.97 }} className="btn btn-primary btn-lg" disabled={inCart} onClick={() => addToCart(unit.id)}><ShoppingBag size={18} /> {inCart ? 'No carrinho' : 'Adicionar ao carrinho'}</motion.button>
+                      <motion.button whileTap={{ scale: 0.97 }} className="btn btn-dark btn-lg" onClick={() => { if (!inCart) addToCart(unit.id); nav('/checkout') }}><Zap size={18} /> Comprar agora</motion.button>
+                    </>) : (<>
+                      <Contato tipo="interesse" classe="btn btn-primary btn-lg" escolha={escolhaAtual ?? undefined}><MessageCircle size={18} /> Tenho interesse neste modelo</Contato>
+                      <Contato tipo="especialista" classe="btn btn-dark btn-lg" escolha={escolhaAtual ?? undefined}><Headset size={18} /> Falar com um especialista</Contato>
+                      <p className="muted small cta-nota">Gostou deste iPhone? Converse diretamente com nossa equipe para consultar disponibilidade, condições de pagamento e tirar suas dúvidas.</p>
+                    </>)}
                     <div className="row gap-s">
                       <button className={`btn btn-ghost ${fav ? 'is-on' : ''}`} onClick={() => toggleFav(m.id)}><Heart size={16} fill={fav ? 'currentColor' : 'none'} /> {fav ? 'Salvo' : 'Favoritar'}</button>
                       <button className={`btn btn-ghost ${cmp ? 'is-on' : ''}`} onClick={() => toggleCompare(m.id)}><GitCompareArrows size={16} /> {cmp ? 'Comparando' : 'Comparar'}</button>
@@ -431,6 +444,17 @@ export default function Product() {
       </div>
 
       </div>
+
+      {/* Celular: barra fixa com o contato. Fica fora do palco 3D e respeita a área segura do iOS, para não
+          cobrir o botão de início nem atrapalhar o arraste do modelo. */}
+      {!features.cart && escolhaAtual && price != null && (
+        <div className="pdp-bar only-mob">
+          <div className="pdp-bar-in">
+            <span className="pdp-bar-preco"><small>{m.name}</small><strong>{brl(price)}</strong></span>
+            <Contato tipo="interesse" classe="btn btn-primary" escolha={escolhaAtual}><MessageCircle size={16} /> Tenho interesse</Contato>
+          </div>
+        </div>
+      )}
 
       {/* fora da grade: dentro dela esta seção caía na mesma linha do visual grudado e os dois se sobrepunham
           no fim da página */}

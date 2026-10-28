@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { LayoutDashboard, Boxes, ReceiptText, Users, BadgePercent, FileText, Plus, Trash2, Eye, EyeOff, RotateCcw, Lock, Info, LogOut } from 'lucide-react'
+import { LayoutDashboard, Boxes, ReceiptText, Users, BadgePercent, FileText, Plus, Trash2, Eye, EyeOff, RotateCcw, Lock, Info, LogOut, Settings, MessageCircle } from 'lucide-react'
 import { Logo } from '../components/Logo'
 import { FAMILIES, MODELS, modelById, storageLabel } from '../data/models'
 import { BATTERY_BANDS, GRADES, finalPrice, suggestPrice, type Condition, type Grade, type Unit } from '../data/inventory'
@@ -9,7 +9,7 @@ import { useStore } from '../store/Store'
 import { brl, brl2 } from '../lib/utils'
 import { STATUS_LABEL } from './Shop'
 
-type Tab = 'dash' | 'estoque' | 'pedidos' | 'clientes' | 'precos' | 'fiscal'
+type Tab = 'dash' | 'estoque' | 'pedidos' | 'clientes' | 'precos' | 'fiscal' | 'config'
 const TABS: { id: Tab; label: string; icon: typeof Boxes }[] = [
   { id: 'dash', label: 'Visão geral', icon: LayoutDashboard },
   { id: 'estoque', label: 'Estoque', icon: Boxes },
@@ -17,6 +17,7 @@ const TABS: { id: Tab; label: string; icon: typeof Boxes }[] = [
   { id: 'clientes', label: 'Clientes', icon: Users },
   { id: 'precos', label: 'Preços', icon: BadgePercent },
   { id: 'fiscal', label: 'Notas fiscais', icon: FileText },
+  { id: 'config', label: 'Configurações', icon: Settings },
 ]
 
 export default function Admin() {
@@ -60,6 +61,7 @@ export default function Admin() {
             {tab === 'clientes' && <Customers />}
             {tab === 'precos' && <Pricing />}
             {tab === 'fiscal' && <Fiscal />}
+            {tab === 'config' && <Config />}
           </motion.div>
         </AnimatePresence>
       </main>
@@ -333,5 +335,105 @@ function Fiscal() {
         </table>
       </div>
     </>
+  )
+}
+
+
+// ============ Configurações: modo de operação e atendimento ============
+function Config() {
+  const { config, setConfig, interesses, toast } = useStore()
+  const [numero, setNumero] = useState(config.whatsapp)
+  const [nome, setNome] = useState(config.nomePublico)
+  const digitos = numero.replace(/\D/g, '')
+  const valido = digitos.length >= 10
+
+  return (
+    <section className="adm-sec">
+      <h2 className="h3">Modo de operação da loja</h2>
+      <p className="muted small">
+        No showroom o visitante explora, compara e fala com a loja pelo WhatsApp. Carrinho, checkout, frete e
+        pagamento continuam no sistema, desligados — e as rotas de compra ficam fechadas, não só escondidas.
+      </p>
+      <div className="adm-modos">
+        {([
+          ['showroom', 'Showroom digital', 'Contato pelo WhatsApp. Sem carrinho, checkout, frete nem pagamento.'],
+          ['ecommerce', 'E-commerce completo', 'Reativa a experiência de compra que já existe no código.'],
+        ] as const).map(([id, titulo, desc]) => (
+          <button
+            key={id}
+            type="button"
+            className={`adm-modo ${config.mode === id ? 'is-on' : ''}`}
+            aria-pressed={config.mode === id}
+            onClick={() => {
+              setConfig({ mode: id })
+              toast(id === 'showroom' ? 'Modo showroom ativado' : 'Modo e-commerce ativado')
+            }}
+          >
+            <strong>{titulo}</strong>
+            <span className="muted small">{desc}</span>
+          </button>
+        ))}
+      </div>
+      {config.mode === 'ecommerce' && (
+        <p className="note">
+          A compra pelo site volta a aparecer. O checkout é uma simulação de demonstração: não há pagamento real
+          nem emissão fiscal ligados a ele.
+        </p>
+      )}
+
+      <h2 className="h3" style={{ marginTop: 32 }}>Atendimento</h2>
+      <div className="form-grid">
+        <label className="field">
+          <span className="f-label">Nome público da loja</span>
+          <input className="input" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Argento" />
+        </label>
+        <label className="field">
+          <span className="f-label">WhatsApp com DDI e DDD</span>
+          <input
+            className="input"
+            inputMode="tel"
+            value={numero}
+            onChange={(e) => setNumero(e.target.value)}
+            placeholder="55 11 99999-8888"
+          />
+          <small className="muted">{valido ? `Link: wa.me/${digitos}` : 'Informe o número completo, com DDI (55) e DDD.'}</small>
+        </label>
+      </div>
+      <button
+        className="btn btn-primary"
+        disabled={!valido && numero.trim() !== ''}
+        onClick={() => {
+          setConfig({ whatsapp: digitos, nomePublico: nome.trim() || 'Argento' })
+          toast('Configurações salvas')
+        }}
+      >
+        Salvar
+      </button>
+
+      <h2 className="h3" style={{ marginTop: 32 }}>Interesses registrados</h2>
+      <p className="muted small">
+        Cliques nos botões de atendimento. É interesse, não conversa nem venda: o site não tem como saber se a
+        mensagem chegou a ser enviada do outro lado.
+      </p>
+      {interesses.length === 0 ? (
+        <p className="muted">Nenhum clique registrado neste navegador ainda.</p>
+      ) : (
+        <div className="table-wrap">
+          <table className="table">
+            <thead><tr><th scope="col">Quando</th><th scope="col">Botão</th><th scope="col">Modelo</th><th scope="col">Unidade</th></tr></thead>
+            <tbody>
+              {[...interesses].reverse().slice(0, 40).map((i) => (
+                <tr key={`${i.at}-${i.modelId}`}>
+                  <td>{new Date(i.at).toLocaleString('pt-BR')}</td>
+                  <td><MessageCircle size={13} /> {i.tipo === 'interesse' ? 'Tenho interesse' : i.tipo === 'especialista' ? 'Falar com especialista' : 'Comparação'}</td>
+                  <td>{modelById(i.modelId)?.name ?? i.modelId}</td>
+                  <td>{i.unitId ?? '—'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
   )
 }

@@ -82,7 +82,7 @@ function SearchBox({ onDone, autoFocus = false }: { onDone?: () => void; autoFoc
 }
 
 export default function Header() {
-  const { cart, favorites, theme, toggleTheme } = useStore()
+  const { cart, favorites, theme, toggleTheme, features } = useStore()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const [mSearch, setMSearch] = useState(false)
@@ -138,19 +138,23 @@ export default function Header() {
             <Heart size={19} strokeWidth={1.6} />
             {favorites.length > 0 && <span className="hdr-dot" />}
           </Link>
+          {features.checkout && (
           <Link to="/conta" className="hdr-icon only-desk" aria-label="Minha conta">
             <User size={19} strokeWidth={1.6} />
           </Link>
-          <Link to="/carrinho" className="hdr-icon" aria-label={`Carrinho com ${cart.length} itens`}>
-            <ShoppingBag size={19} strokeWidth={1.6} />
-            <AnimatePresence>
-              {cart.length > 0 && (
-                <motion.span key={cart.length} className="hdr-badge" initial={{ scale: 0.4, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.4, opacity: 0 }} transition={spring}>
-                  {cart.length}
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </Link>
+          )}
+          {features.cart && (
+            <Link to="/carrinho" className="hdr-icon" aria-label={`Carrinho com ${cart.length} itens`}>
+              <ShoppingBag size={19} strokeWidth={1.6} />
+              <AnimatePresence>
+                {cart.length > 0 && (
+                  <motion.span key={cart.length} className="hdr-badge" initial={{ scale: 0.4, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.4, opacity: 0 }} transition={spring}>
+                    {cart.length}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </Link>
+          )}
           <button className="hdr-icon only-mob" aria-label={open ? 'Fechar menu' : 'Abrir menu'} aria-expanded={open} onClick={() => setOpen((v) => !v)}>
             {open ? <X size={21} strokeWidth={1.6} /> : <Menu size={21} strokeWidth={1.6} />}
           </button>
@@ -181,7 +185,7 @@ export default function Header() {
             ))}
             <div className="panel-row">
               <Link to="/favoritos" className="panel-chip"><Heart size={16} strokeWidth={1.6} /> Favoritos</Link>
-              <Link to="/conta" className="panel-chip"><User size={16} strokeWidth={1.6} /> Conta</Link>
+              {features.checkout && <Link to="/conta" className="panel-chip"><User size={16} strokeWidth={1.6} /> Conta</Link>}
               <button className="panel-chip" onClick={toggleTheme}>
                 {theme === 'dark' ? <Sun size={16} strokeWidth={1.6} /> : <Moon size={16} strokeWidth={1.6} />} Tema
               </button>
