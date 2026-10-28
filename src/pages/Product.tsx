@@ -144,7 +144,7 @@ export default function Product() {
               <motion.div key="3d" className="pdp-canvas" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Phone3D drive={drive} model={m} cam={m.cam} interactive shadow fov={28} glb={glbCandidates(m, colorObj?.id)} />
                 <div className="pdp-tools">
-                  {m.fold ? (
+                  {m.fold && (
                     <button
                       type="button"
                       className={`pdp-tool ${foldOpen ? 'is-on' : ''}`}
@@ -156,7 +156,8 @@ export default function Product() {
                     >
                       <BookOpen size={13} /> {foldOpen ? 'Fechar' : 'Abrir'}
                     </button>
-                  ) : (<>
+                  )}
+                  {/* ligar e desligar a tela vale para todos, inclusive o dobrável */}
                   <button
                     type="button"
                     className={`pdp-tool ${screenOn ? 'is-on' : ''}`}
@@ -165,7 +166,7 @@ export default function Product() {
                   >
                     <Power size={13} /> {screenOn ? 'Tela ligada' : 'Tela apagada'}
                   </button>
-                  {m.front === 'island' && (
+                  {!m.fold && m.front === 'island' && (
                     <button
                       type="button"
                       className={`pdp-tool ${islandOn ? 'is-on' : ''}`}
@@ -182,7 +183,6 @@ export default function Product() {
                       <Sparkles size={13} /> Dynamic Island
                     </button>
                   )}
-                  </>)}
                 </div>
                 <span className="pdp-hint"><Rotate3d size={14} /> Arraste para girar em 360°</span>
               </motion.div>

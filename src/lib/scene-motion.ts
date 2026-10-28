@@ -47,8 +47,10 @@ export function avancarIlha(valor: number, velocidade: number, alvo: number, dt:
 //
 // Não é mola: uma mola partindo parada sai devagar, e abrir sai rápido. São duas curvas de tempo, uma para cada
 // sentido, que é como a mão realmente faz — e é por isso que abrir é o dobro mais rápido que fechar.
-const DOBRA_ABRIR_S = 0.48
-const DOBRA_FECHAR_S = 0.95
+// O medido foi 0,48 s para abrir, mas na tela do computador, com o aparelho grande e parado, isso passa rápido
+// demais para acompanhar — o Daniel pediu mais devagar. O formato das curvas continua o do vídeo.
+const DOBRA_ABRIR_S = 1.15
+const DOBRA_FECHAR_S = 1.3
 
 // abrir: desacelerando desde o começo
 const saida = (u: number) => 1 - Math.pow(1 - u, 2.2)

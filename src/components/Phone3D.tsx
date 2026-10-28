@@ -834,8 +834,10 @@ function GLBPhone({
       const passo = dt / FOCO_S
       focoExterno.current = aberto < 0.08 ? Math.min(1, focoExterno.current + passo) : 0
       focoInterno.current = aberto > 0.92 ? Math.min(1, focoInterno.current + passo) : 0
-      for (const t of obj.telasExternas) ajustarTela(t, apagando, focoExterno.current)
-      for (const t of obj.telasInternas) ajustarTela(t, acendendo, focoInterno.current)
+      // o nível guardado do quadro anterior já serve: o botão Tela ligada apaga as duas telas do dobrável,
+      // como faz com a tela dos outros modelos
+      for (const t of obj.telasExternas) ajustarTela(t, apagando * screenLevel.current, focoExterno.current)
+      for (const t of obj.telasInternas) ajustarTela(t, acendendo * screenLevel.current, focoInterno.current)
     }
     target.set(d.color)
     const hsl = { h: 0, s: 0, l: 0 }
