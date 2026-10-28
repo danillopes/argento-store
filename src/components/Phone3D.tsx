@@ -19,6 +19,67 @@ const W = 1.42, H = 2.9, D = 0.16, R = 0.2
 const BASE_METERS = 0.15
 const preparedModels = new Set<string>()
 
+// As duas telas de um dobrável. Ao acender, a tela entra desfocada e vai ganhando foco, como no aparelho: a
+// medição no vídeo dá cerca de meio segundo entre o conteúdo aparecer borrado e ficar nítido.
+const FOCO_S = 0.55
+const DESFOQUE_MAX = 0.03 // em fração da largura da textura
+const LADO_DESFOQUE = 512 // a cópia desfocada não precisa da resolução cheia; no fim voltamos para a original
+
+interface TelaDobravel {
+  mat: THREE.MeshStandardMaterial
+  brilho: number
+  mapa: THREE.Texture | null
+  canvas?: HTMLCanvasElement
+  tex?: THREE.CanvasTexture
+  focoAplicado: number
+}
+
+const novaTelaDobravel = (mat: THREE.MeshStandardMaterial): TelaDobravel => ({
+  mat,
+  brilho: mat.emissiveIntensity,
+  mapa: mat.emissiveMap,
+  focoAplicado: -1,
+})
+
+// Acende a tela em `nivel` (0..1) e aplica o desfoque de entrada: foco 0 é o conteúdo borrado, foco 1 é a
+// textura original de volta, sem perda nenhuma.
+function ajustarTela(t: TelaDobravel, nivel: number, foco: number) {
+  t.mat.emissiveIntensity = t.brilho * nivel
+  const fonte = t.mapa?.image as CanvasImageSource | undefined
+  if (!t.mapa || !fonte) return
+  const nitido = foco >= 1 || nivel < 0.02
+  if (nitido) {
+    if (t.mat.emissiveMap !== t.mapa) t.mat.emissiveMap = t.mapa
+    t.focoAplicado = 1
+    return
+  }
+  if (Math.abs(foco - t.focoAplicado) < 0.02) return
+  t.focoAplicado = foco
+  if (!t.canvas) {
+    const img = t.mapa.image as { width: number; height: number }
+    const escala = LADO_DESFOQUE / Math.max(img.width, img.height, 1)
+    t.canvas = document.createElement('canvas')
+    t.canvas.width = Math.max(2, Math.round(img.width * Math.min(1, escala)))
+    t.canvas.height = Math.max(2, Math.round(img.height * Math.min(1, escala)))
+    t.tex = new THREE.CanvasTexture(t.canvas)
+    t.tex.flipY = t.mapa.flipY
+    t.tex.colorSpace = t.mapa.colorSpace
+    t.tex.wrapS = t.mapa.wrapS
+    t.tex.wrapT = t.mapa.wrapT
+    t.tex.channel = t.mapa.channel
+  }
+  const g = t.canvas.getContext('2d')
+  if (!g || !t.tex) return
+  // bem borrado no começo e ganhando nitidez rápido, como o vídeo mostra
+  const raio = Math.pow(1 - foco, 1.6) * DESFOQUE_MAX * t.canvas.width
+  g.clearRect(0, 0, t.canvas.width, t.canvas.height)
+  g.filter = raio > 0.3 ? `blur(${raio.toFixed(2)}px)` : 'none'
+  g.drawImage(fonte, 0, 0, t.canvas.width, t.canvas.height)
+  g.filter = 'none'
+  t.tex.needsUpdate = true
+  if (t.mat.emissiveMap !== t.tex) t.mat.emissiveMap = t.tex
+}
+
 // Papéis de parede recortados das fotos oficiais. Carregam sob demanda e ficam guardados: o mesmo modelo e cor
 // aparecem no card, na página e na comparação. Enquanto a imagem não chega, o aparelho mostra o desenho de
 // reserva — nunca uma tela preta.
@@ -621,8 +682,8 @@ function GLBPhone({
     const antennas: THREE.MeshStandardMaterial[] = []
     const oleds: THREE.MeshStandardMaterial[] = []
     // dobráveis têm duas telas: a de fora, que se usa fechado, e a de dentro
-    const telasExternas: THREE.MeshStandardMaterial[] = []
-    const telasInternas: THREE.MeshStandardMaterial[] = []
+    const telasExternas: TelaDobravel[] = []
+    const telasInternas: TelaDobravel[] = []
 
     const isPro = model?.tier === 'pro' || model?.tier === 'promax'
     const isSteel = isPro && (model?.family ?? 17) <= 14
@@ -676,9 +737,9 @@ function GLBPhone({
             mat.depthWrite = false
           } else if (/screen[_ ]?outer|outer[_ ]?screen/i.test(mat.name)) {
             // tela externa do dobrável: apaga quando o aparelho abre
-            telasExternas.push(mat)
+            telasExternas.push(novaTelaDobravel(mat))
           } else if (/screen[_ ]?inner|inner[_ ]?screen/i.test(mat.name)) {
-            telasInternas.push(mat)
+            telasInternas.push(novaTelaDobravel(mat))
           } else if (mat.name === 'OLED') {
             // imagem só na emissão: tela desenhada (iOS interativo) ou a imagem do próprio GLB
             makeScreenEmissive(mat, interactive || model ? screenSurface.tex : null)
@@ -720,13 +781,13 @@ function GLBPhone({
     c.scale.setScalar(s)
     const wrap = new THREE.Group()
     wrap.add(c)
-    const brilhoExterno = telasExternas.map((m) => m.emissiveIntensity)
-    const brilhoInterno = telasInternas.map((m) => m.emissiveIntensity)
-    return { root: wrap, inner: c, scale: s, baseRotY, fold: foldRig, frames, glasses, logos, antennas, oleds, telasExternas, telasInternas, brilhoExterno, brilhoInterno }
+    return { root: wrap, inner: c, scale: s, baseRotY, fold: foldRig, frames, glasses, logos, antennas, oleds, telasExternas, telasInternas }
   }, [scene, model, interactive, screenSurface, fold, gltf.animations, url])
 
   // progresso da dobra (0 fechado … 1 aberto) com velocidade constante e curva suave (~1,1 s)
   const foldQ = useRef(-1)
+  const focoExterno = useRef(1)
+  const focoInterno = useRef(1)
   const foldTmp = useMemo(() => new THREE.Vector3(), [])
 
   const target = useMemo(() => new THREE.Color(), [])
@@ -767,8 +828,14 @@ function GLBPhone({
       const aberto = THREE.MathUtils.clamp(foldQ.current, 0, 1)
       const apagando = 1 - THREE.MathUtils.smoothstep(aberto, 0.02, 0.3)
       const acendendo = THREE.MathUtils.smoothstep(aberto, 0.2, 0.72)
-      obj.telasExternas.forEach((m, i) => { m.emissiveIntensity = obj.brilhoExterno[i] * apagando })
-      obj.telasInternas.forEach((m, i) => { m.emissiveIntensity = obj.brilhoInterno[i] * acendendo })
+      // No vídeo o conteúdo só começa a ganhar nitidez depois que a dobradiça termina o movimento: aparece
+      // borrado quando o aparelho assenta e leva meio segundo para ficar nítido. Por isso o contador de foco só
+      // anda com a dobra concluída, e zera assim que ela sai do lugar.
+      const passo = dt / FOCO_S
+      focoExterno.current = aberto < 0.08 ? Math.min(1, focoExterno.current + passo) : 0
+      focoInterno.current = aberto > 0.92 ? Math.min(1, focoInterno.current + passo) : 0
+      for (const t of obj.telasExternas) ajustarTela(t, apagando, focoExterno.current)
+      for (const t of obj.telasInternas) ajustarTela(t, acendendo, focoInterno.current)
     }
     target.set(d.color)
     const hsl = { h: 0, s: 0, l: 0 }
