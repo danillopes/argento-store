@@ -6,6 +6,7 @@ import { Logo } from './Logo'
 import { useStore } from '../store/Store'
 import { searchModels } from '../lib/search'
 import PhoneArt from './PhoneArt'
+import Photo, { modelPhoto } from './Photo'
 
 const NAV = [
   { to: '/', label: 'Início', icon: Home },
@@ -37,7 +38,7 @@ function SearchBox({ onDone, autoFocus = false }: { onDone?: () => void; autoFoc
     <motion.form
       className={`hdr-search ${focus ? 'is-focus' : ''}`}
       role="search"
-      animate={{ width: focus ? 280 : 210 }}
+      animate={{ width: focus ? 320 : 210 }}
       transition={spring}
       onSubmit={(e) => {
         e.preventDefault()
@@ -63,17 +64,20 @@ function SearchBox({ onDone, autoFocus = false }: { onDone?: () => void; autoFoc
             exit={{ opacity: 0, y: -6, scale: 0.98 }}
             transition={{ duration: 0.18 }}
           >
-            {results.map((m) => (
-              <li key={m.id}>
-                <button type="button" onMouseDown={() => go(`/produto/${m.id}`)}>
-                  <PhoneArt model={m} hex={m.colors[0].hex} className="sug-art" />
-                  <span>
+            {results.map((m) => {
+              // a foto real do aparelho; o desenho vetorial fica como reserva para modelo ainda sem foto
+              const foto = modelPhoto(m.id, m.colors[0].id)
+              return (
+                <li key={m.id}>
+                  <button type="button" onMouseDown={() => go(`/produto/${m.id}`)}>
+                    {foto
+                      ? <Photo p={foto} alt="" sizes="52px" className="sug-foto" />
+                      : <PhoneArt model={m} hex={m.colors[0].hex} className="sug-art" />}
                     <strong>{m.name}</strong>
-                    <small>{m.chip} · {m.screen}"</small>
-                  </span>
-                </button>
-              </li>
-            ))}
+                  </button>
+                </li>
+              )
+            })}
           </motion.ul>
         )}
       </AnimatePresence>
