@@ -39,21 +39,35 @@ export function avancarIlha(valor: number, velocidade: number, alvo: number, dt:
   return [valor, velocidade]
 }
 
-// Mola da dobradiça do iPhone Duo. A página da Apple abre o aparelho num movimento que desacelera até o fim e
-// assenta sem bater, e fecha mais rápido e firme — é esse o gesto que a mola reproduz. Dobradiça é peça pesada:
-// a frequência é bem mais baixa que a da Dynamic Island, e abrir leva cerca de 1 s.
-const DOBRA_ABRIR = { freq: 7.2, amort: 0.82 }
-const DOBRA_FECHAR = { freq: 9.5, amort: 1 }
+// Dobradiça do iPhone Duo, medida quadro a quadro no vídeo que o Daniel mandou (24 fps; por quadro, a área de
+// tela interna visível, que encolhe conforme o aparelho dobra):
+//
+//   abrir   ~0,48 s — o aparelho salta e vai freando: mais da metade do caminho nos primeiros 0,13 s;
+//   fechar  ~0,95 s — começa devagar, acelera no meio e encosta de leve no fim.
+//
+// Não é mola: uma mola partindo parada sai devagar, e abrir sai rápido. São duas curvas de tempo, uma para cada
+// sentido, que é como a mão realmente faz — e é por isso que abrir é o dobro mais rápido que fechar.
+const DOBRA_ABRIR_S = 0.48
+const DOBRA_FECHAR_S = 0.95
 
-export function avancarDobra(valor: number, velocidade: number, alvo: number, dt: number): [number, number] {
-  const { freq, amort } = alvo > 0.5 ? DOBRA_ABRIR : DOBRA_FECHAR
-  let resta = Math.min(Math.max(dt, 0), 0.1)
-  while (resta > 0) {
-    const passo = Math.min(resta, 1 / 240) // sub-passo fixo: a mola fica igual em qualquer taxa de quadros
-    velocidade += (-2 * amort * freq * velocidade - freq * freq * (valor - alvo)) * passo
-    valor += velocidade * passo
-    resta -= passo
-  }
-  if (Math.abs(valor - alvo) < 0.0008 && Math.abs(velocidade) < 0.01) return [alvo, 0]
-  return [valor, velocidade]
+// abrir: desacelerando desde o começo
+const saida = (u: number) => 1 - Math.pow(1 - u, 2.2)
+const saidaInv = (v: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, v)), 1 / 2.2)
+// fechar: devagar nas pontas, rápido no meio
+const meio = (u: number) => u * u * (3 - 2 * u)
+const meioInv = (v: number) => 0.5 - Math.sin(Math.asin(1 - 2 * Math.min(1, Math.max(0, v))) / 3)
+
+/** Avança a abertura do dobrável (0 fechado … 1 aberto) rumo ao alvo, no tempo medido para cada sentido. */
+export function avancarDobra(valor: number, alvo: number, dt: number): number {
+  if (valor === alvo) return alvo
+  const abrindo = alvo > valor
+  const dur = abrindo ? DOBRA_ABRIR_S : DOBRA_FECHAR_S
+  const curva = abrindo ? saida : meio
+  const inversa = abrindo ? saidaInv : meioInv
+  // quanto do caminho já andou NESTE sentido; se a pessoa inverter no meio, recomeça de onde está
+  const andado = abrindo ? valor : 1 - valor
+  const u = Math.min(1, inversa(andado) + Math.min(dt, 0.1) / dur)
+  const novo = curva(u)
+  const saidaV = abrindo ? novo : 1 - novo
+  return Math.abs(saidaV - alvo) < 0.001 ? alvo : saidaV
 }

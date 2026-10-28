@@ -727,7 +727,6 @@ function GLBPhone({
 
   // progresso da dobra (0 fechado … 1 aberto) com velocidade constante e curva suave (~1,1 s)
   const foldQ = useRef(-1)
-  const foldVel = useRef(0)
   const foldTmp = useMemo(() => new THREE.Vector3(), [])
 
   const target = useMemo(() => new THREE.Color(), [])
@@ -749,9 +748,8 @@ function GLBPhone({
       const goal = THREE.MathUtils.clamp(d.fold ?? 0, 0, 1)
       if (foldQ.current < 0) foldQ.current = goal
       const q0 = foldQ.current
-      // mola, não rampa: a dobradiça desacelera até o fim e assenta, e fecha mais firme
-      const [q, v] = avancarDobra(q0, foldVel.current, goal, dt)
-      foldVel.current = v
+      // curva de tempo medida no vídeo: abrir é rápido e vai freando, fechar é lento e encosta de leve
+      const q = avancarDobra(q0, goal, dt)
       if (q !== q0) {
         foldQ.current = q
         const p = THREE.MathUtils.clamp(q, 0, 1)
