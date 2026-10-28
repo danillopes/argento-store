@@ -534,6 +534,11 @@ function PhoneMesh({ drive, cam = 'tri', model }: { drive: React.MutableRefObjec
 
 interface DragState { active: boolean; x: number; y: number; ry: number; rx: number; v: number; t: number }
 
+// Quanto o aparelho gira por pixel arrastado, e quanto a inércia segura depois que o dedo sai. Mais baixo que
+// o 1:1 de antes: girar devagar deixa olhar o acabamento, que é o ponto de ter o 3D na loja.
+const GIRO_POR_PIXEL = 0.0055
+const FREIO_DA_INERCIA = 0.05 // fração da velocidade que sobra depois de 1 s
+
 // Aplica o "drive" (GSAP/estado) + arraste com inércia (velocidade herdada do gesto)
 function Rig({ drive, drag, interactive, children }: { drive: React.MutableRefObject<Drive>; drag: React.MutableRefObject<DragState>; interactive: boolean; children: ReactNode }) {
   const g = useRef<THREE.Group>(null!)
@@ -556,10 +561,10 @@ function Rig({ drive, drag, interactive, children }: { drive: React.MutableRefOb
     }
     if (!dr.active && Math.abs(dr.v) > 0.0001) {
       dr.ry += dr.v * dt
-      dr.v *= Math.pow(0.135, dt) // ≈ desaceleração 0.998/ms (projeção de momento)
+      dr.v *= Math.pow(FREIO_DA_INERCIA, dt)
     }
     const k = 1 - Math.pow(0.0009, dt)
-    const idle = interactive && !dr.active && Math.abs(dr.v) < 0.05 ? Math.sin(state.clock.elapsedTime * 0.6) * 0.12 : 0
+    const idle = interactive && !dr.active && Math.abs(dr.v) < 0.05 ? Math.sin(state.clock.elapsedTime * 0.38) * 0.1 : 0
     const ry = d.rotY + dr.ry + idle
     const rx = d.rotX + dr.rx
     const o = g.current
@@ -615,6 +620,9 @@ function GLBPhone({
     const logos: THREE.MeshStandardMaterial[] = []
     const antennas: THREE.MeshStandardMaterial[] = []
     const oleds: THREE.MeshStandardMaterial[] = []
+    // dobráveis têm duas telas: a de fora, que se usa fechado, e a de dentro
+    const telasExternas: THREE.MeshStandardMaterial[] = []
+    const telasInternas: THREE.MeshStandardMaterial[] = []
 
     const isPro = model?.tier === 'pro' || model?.tier === 'promax'
     const isSteel = isPro && (model?.family ?? 17) <= 14
@@ -666,6 +674,11 @@ function GLBPhone({
             mat.transparent = true
             mat.opacity = 0.14
             mat.depthWrite = false
+          } else if (/screen[_ ]?outer|outer[_ ]?screen/i.test(mat.name)) {
+            // tela externa do dobrável: apaga quando o aparelho abre
+            telasExternas.push(mat)
+          } else if (/screen[_ ]?inner|inner[_ ]?screen/i.test(mat.name)) {
+            telasInternas.push(mat)
           } else if (mat.name === 'OLED') {
             // imagem só na emissão: tela desenhada (iOS interativo) ou a imagem do próprio GLB
             makeScreenEmissive(mat, interactive || model ? screenSurface.tex : null)
@@ -707,7 +720,9 @@ function GLBPhone({
     c.scale.setScalar(s)
     const wrap = new THREE.Group()
     wrap.add(c)
-    return { root: wrap, inner: c, scale: s, baseRotY, fold: foldRig, frames, glasses, logos, antennas, oleds }
+    const brilhoExterno = telasExternas.map((m) => m.emissiveIntensity)
+    const brilhoInterno = telasInternas.map((m) => m.emissiveIntensity)
+    return { root: wrap, inner: c, scale: s, baseRotY, fold: foldRig, frames, glasses, logos, antennas, oleds, telasExternas, telasInternas, brilhoExterno, brilhoInterno }
   }, [scene, model, interactive, screenSurface, fold, gltf.animations, url])
 
   // progresso da dobra (0 fechado … 1 aberto) com velocidade constante e curva suave (~1,1 s)
@@ -748,6 +763,14 @@ function GLBPhone({
         foldTmp.copy(fr.closed).lerp(fr.open, p).applyAxisAngle(THREE.Object3D.DEFAULT_UP, ang).multiplyScalar(-obj.scale)
         obj.inner.position.copy(foldTmp)
       }
+      // Como no aparelho de verdade: a tela de fora apaga assim que a dobradiça sai do lugar, e a de dentro
+      // acende enquanto ele termina de abrir. Fechando, o caminho é o mesmo de trás para a frente. Fica fora do
+      // if acima porque também vale no primeiro quadro, antes de alguém tocar no botão.
+      const aberto = THREE.MathUtils.clamp(foldQ.current, 0, 1)
+      const apagando = 1 - THREE.MathUtils.smoothstep(aberto, 0.02, 0.3)
+      const acendendo = THREE.MathUtils.smoothstep(aberto, 0.2, 0.72)
+      obj.telasExternas.forEach((m, i) => { m.emissiveIntensity = obj.brilhoExterno[i] * apagando })
+      obj.telasInternas.forEach((m, i) => { m.emissiveIntensity = obj.brilhoInterno[i] * acendendo })
     }
     target.set(d.color)
     const hsl = { h: 0, s: 0, l: 0 }
@@ -907,10 +930,10 @@ export default function Phone3D({
           if (!dr.active) return
           const now = performance.now()
           const dx = e.clientX - dr.x, dy = e.clientY - dr.y
-          dr.ry += dx * 0.01 // 1:1 com o dedo
-          dr.rx = THREE.MathUtils.clamp(dr.rx + dy * 0.006, -0.6, 0.6)
+          dr.ry += dx * GIRO_POR_PIXEL
+          dr.rx = THREE.MathUtils.clamp(dr.rx + dy * (GIRO_POR_PIXEL * 0.6), -0.6, 0.6)
           const dtS = Math.max(0.008, (now - dr.t) / 1000)
-          dr.v = dr.v * 0.6 + ((dx * 0.01) / dtS) * 0.4 // histórico curto de velocidade
+          dr.v = dr.v * 0.6 + ((dx * GIRO_POR_PIXEL) / dtS) * 0.4 // histórico curto de velocidade
           Object.assign(dr, { x: e.clientX, y: e.clientY, t: now })
         },
         onPointerUp: () => { drag.current.active = false; if (performance.now() - drag.current.t > 80) drag.current.v = 0 },
