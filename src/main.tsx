@@ -4,7 +4,6 @@ import { HashRouter } from 'react-router-dom'
 import { StoreProvider } from './store/Store'
 import App from './App'
 import './styles.css'
-import { registerSW } from 'virtual:pwa-register'
 import { modelAssetUrl } from './lib/model-assets'
 import { readModelAsset } from './lib/model-cache'
 
@@ -25,14 +24,15 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 )
 
-// Service worker: quando sai uma versão nova, ela assume e a página recarrega sozinha.
-// Também procura atualização ao voltar para a aba e a cada 15 minutos.
-registerSW({
-  immediate: true,
-  onRegisteredSW(_url, reg) {
-    if (!reg) return
-    const check = () => { if (navigator.onLine) reg.update().catch(() => {}) }
-    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') check() })
-    setInterval(check, 15 * 60 * 1000)
-  },
-})
+// O site deixou de ser instalável: nada de app na tela inicial, só navegador. Quem visitou antes ainda tem
+// o service worker antigo guardado no aparelho, e ele continuaria servindo a versão velha para sempre — então
+// aqui ele é removido e os caches que ele criou são apagados, uma vez, na primeira visita depois desta mudança.
+if ('serviceWorker' in navigator) {
+  void navigator.serviceWorker.getRegistrations()
+    .then((regs) => Promise.all(regs.map((r) => r.unregister())))
+    .then((removidos) => {
+      if (!removidos.some(Boolean) || !('caches' in window)) return
+      return caches.keys().then((nomes) => Promise.all(nomes.map((n) => caches.delete(n))))
+    })
+    .catch(() => {})
+}
